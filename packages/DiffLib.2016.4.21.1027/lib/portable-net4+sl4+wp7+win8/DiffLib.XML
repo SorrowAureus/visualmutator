@@ -1,0 +1,652 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DiffLib</name>
+    </assembly>
+    <members>
+        <member name="T:DiffLib.BasicInsertDeleteDiffElementAligner`1">
+            <summary>
+            This class can be used as a parameter to <see cref="M:DiffLib.Diff.AlignElements``1(System.Collections.Generic.IList{``0},System.Collections.Generic.IList{``0},System.Collections.Generic.IEnumerable{DiffLib.DiffSection},DiffLib.IDiffElementAligner{``0})"/>. It will basically output anything present in the first collection
+            as a sequence of delete operations, and anything present in the second collection as a sequence of insert operations.
+            </summary>
+            <typeparam name="T">
+            The type of elements in the two collections.
+            </typeparam>
+        </member>
+        <member name="M:DiffLib.BasicInsertDeleteDiffElementAligner`1.Align(System.Collections.Generic.IList{`0},System.Int32,System.Int32,System.Collections.Generic.IList{`0},System.Int32,System.Int32)">
+            <summary>
+            Align the specified portions of the two collections and output element-by-element operations for the aligned elements.
+            </summary>
+            <param name="collection1">
+            The first collection.
+            </param>
+            <param name="start1">
+            The start of the portion to look at in the first collection, <paramref name="collection1"/>.
+            </param>
+            <param name="length1">
+            The length of the portion to look at in the first collection, <paramref name="collection1"/>.
+            </param>
+            <param name="collection2">
+            The second collection.
+            </param>
+            <param name="start2">
+            The start of the portion to look at in the second collection, <paramref name="collection2"/>.
+            </param>
+            <param name="length2">
+            The length of the portion to look at in the second collection, <paramref name="collection2"/>.
+            </param>
+            <returns>
+            A collection of <see cref="T:DiffLib.DiffElement`1"/> values, one for each aligned element.
+            </returns>
+            <exception cref="T:System.ArgumentNullException">
+            <para><paramref name="collection1"/> is <c>null</c>.</para>
+            <para>- or -</para>
+            <para><paramref name="collection2"/> is <c>null</c>.</para>
+            </exception>
+        </member>
+        <member name="T:DiffLib.BasicReplaceInsertDeleteDiffElementAligner`1">
+            <summary>
+            This class can be used as a parameter to <see cref="M:DiffLib.Diff.AlignElements``1(System.Collections.Generic.IList{``0},System.Collections.Generic.IList{``0},System.Collections.Generic.IEnumerable{DiffLib.DiffSection},DiffLib.IDiffElementAligner{``0})"/>.
+            It will output a number of replace operations, depending on overlap, and then anything leftover that is present in the first collection
+            as a sequence of delete operations, and in the second collection as a sequence of insert operations.
+            </summary>
+            <typeparam name="T">
+            The type of elements in the two collections.
+            </typeparam>
+        </member>
+        <member name="M:DiffLib.BasicReplaceInsertDeleteDiffElementAligner`1.Align(System.Collections.Generic.IList{`0},System.Int32,System.Int32,System.Collections.Generic.IList{`0},System.Int32,System.Int32)">
+            <summary>
+            Align the specified portions of the two collections and output element-by-element operations for the aligned elements.
+            </summary>
+            <param name="collection1">
+            The first collection.
+            </param>
+            <param name="start1">
+            The start of the portion to look at in the first collection, <paramref name="collection1"/>.
+            </param>
+            <param name="length1">
+            The length of the portion to look at in the first collection, <paramref name="collection1"/>.
+            </param>
+            <param name="collection2">
+            The second collection.
+            </param>
+            <param name="start2">
+            The start of the portion to look at in the second collection, <paramref name="collection2"/>.
+            </param>
+            <param name="length2">
+            The length of the portion to look at in the second collection, <paramref name="collection2"/>.
+            </param>
+            <returns>
+            A collection of <see cref="T:DiffLib.DiffElement`1"/> values, one for each aligned element.
+            </returns>
+            <exception cref="T:System.ArgumentNullException">
+            <para><paramref name="collection1"/> is <c>null</c>.</para>
+            <para>- or -</para>
+            <para><paramref name="collection2"/> is <c>null</c>.</para>
+            </exception>
+        </member>
+        <member name="T:DiffLib.Diff">
+            <summary>
+            Static API class for DiffLib.
+            </summary>
+        </member>
+        <member name="M:DiffLib.Diff.CalculateSections``1(System.Collections.Generic.IList{``0},System.Collections.Generic.IList{``0},System.Collections.Generic.IEqualityComparer{``0})">
+            <summary>
+            Calculate sections of differences from the two collections using the specified comparer.
+            </summary>
+            <typeparam name="T">
+            The type of elements in the two collections.
+            </typeparam>
+            <param name="collection1">
+            The first collection.
+            </param>
+            <param name="collection2">
+            The second collection.
+            </param>
+            <param name="comparer">
+            The <see cref="T:System.Collections.Generic.IEqualityComparer`1"/> to use when determining if there is a match between
+            <paramref name="collection1"/> and <paramref name="collection2"/>.
+            </param>
+            <returns>
+            A collection of <see cref="T:DiffLib.DiffSection"/> values, containing the sections found.
+            </returns>
+            <exception cref="T:System.ArgumentNullException">
+            <para><paramref name="collection1"/> is <c>null</c>.</para>
+            <para>- or -</para>
+            <para><paramref name="collection2"/> is <c>null</c>.</para>
+            </exception>
+        </member>
+        <member name="M:DiffLib.Diff.AlignElements``1(System.Collections.Generic.IList{``0},System.Collections.Generic.IList{``0},System.Collections.Generic.IEnumerable{DiffLib.DiffSection},DiffLib.IDiffElementAligner{``0})">
+            <summary>
+            Align the sections found by <see cref="M:DiffLib.Diff.CalculateSections``1(System.Collections.Generic.IList{``0},System.Collections.Generic.IList{``0},System.Collections.Generic.IEqualityComparer{``0})"/> by trying to find out, within each section, which elements from one collection line up the best with
+            elements from the other collection.
+            </summary>
+            <typeparam name="T">
+            The type of elements in the two collections.
+            </typeparam>
+            <param name="collection1">
+            The first collection.
+            </param>
+            <param name="collection2">
+            The second collection.
+            </param>
+            <param name="diffSections">
+            The section values found by <see cref="M:DiffLib.Diff.CalculateSections``1(System.Collections.Generic.IList{``0},System.Collections.Generic.IList{``0},System.Collections.Generic.IEqualityComparer{``0})"/>.
+            </param>
+            <param name="aligner">
+            An alignment strategy, provided through the <see cref="T:DiffLib.IDiffElementAligner`1"/> interface.
+            </param>
+            <returns>
+            A collection of <see cref="T:DiffLib.DiffElement`1"/> values, specifying aligned elements on an element-by-element basis.
+            </returns>
+            <exception cref="T:System.ArgumentNullException">
+            <para><paramref name="collection1"/> is <c>null</c>.</para>
+            <para>- or -</para>
+            <para><paramref name="collection2"/> is <c>null</c>.</para>
+            <para>- or -</para>
+            <para><paramref name="diffSections"/> is <c>null</c>.</para>
+            <para>- or -</para>
+            <para><paramref name="aligner"/> is <c>null</c>.</para>
+            </exception>
+        </member>
+        <member name="T:DiffLib.DiffElement`1">
+            <summary>
+            This struct holds a single aligned element from the two collections given to <see cref="M:DiffLib.Diff.AlignElements``1(System.Collections.Generic.IList{``0},System.Collections.Generic.IList{``0},System.Collections.Generic.IEnumerable{DiffLib.DiffSection},DiffLib.IDiffElementAligner{``0})"/>.
+            </summary>
+            <typeparam name="T">
+            The type of elements from the two collections compared.
+            </typeparam>
+        </member>
+        <member name="M:DiffLib.DiffElement`1.#ctor(DiffLib.Option{`0},DiffLib.Option{`0},DiffLib.DiffOperation)">
+            <summary>
+            Constructs a new instance of <see cref="T:DiffLib.DiffElement`1"/>.
+            </summary>
+            <param name="elementFromCollection1">
+            The aligned element from the first collection, or <see cref="P:DiffLib.Option`1.None"/> if an element from the second collection could
+            not be aligned with anything from the first.
+            </param>
+            <param name="elementFromCollection2">
+            The aligned element from the second collection, or <see cref="P:DiffLib.Option`1.None"/> if an element from the first collection could
+            not be aligned with anything from the second.
+            </param>
+            <param name="operation">
+            A <see cref="T:DiffLib.DiffOperation"/> specifying how <paramref name="elementFromCollection1"/> corresponds to <paramref name="elementFromCollection2"/>.
+            </param>
+        </member>
+        <member name="P:DiffLib.DiffElement`1.ElementFromCollection1">
+            <summary>
+            The aligned element from the first collection, or <see cref="P:DiffLib.Option`1.None"/> if an element from the second collection could
+            not be aligned with anything from the first.
+            </summary>
+        </member>
+        <member name="P:DiffLib.DiffElement`1.ElementFromCollection2">
+            <summary>
+            The aligned element from the second collection, or <see cref="P:DiffLib.Option`1.None"/> if an element from the first collection could
+            not be aligned with anything from the second.
+            </summary>
+        </member>
+        <member name="P:DiffLib.DiffElement`1.Operation">
+            <summary>
+            A <see cref="T:DiffLib.DiffOperation"/> specifying how <see cref="P:DiffLib.DiffElement`1.ElementFromCollection1"/> corresponds to <see cref="P:DiffLib.DiffElement`1.ElementFromCollection2"/>.
+            </summary>
+        </member>
+        <member name="M:DiffLib.DiffElement`1.Equals(DiffLib.DiffElement{`0})">
+            <summary>
+            Indicates whether the current object is equal to another object of the same type.
+            </summary>
+            <returns>
+            true if the current object is equal to the <paramref name="other"/> parameter; otherwise, false.
+            </returns>
+            <param name="other">An object to compare with this object.</param>
+        </member>
+        <member name="M:DiffLib.DiffElement`1.Equals(System.Object)">
+            <summary>
+            Indicates whether this instance and a specified object are equal.
+            </summary>
+            <returns>
+            true if <paramref name="obj"/> and this instance are the same type and represent the same value; otherwise, false.
+            </returns>
+            <param name="obj">Another object to compare to. </param><filterpriority>2</filterpriority>
+        </member>
+        <member name="M:DiffLib.DiffElement`1.op_Equality(DiffLib.DiffElement{`0},DiffLib.DiffElement{`0})">
+            <summary>
+            Implements the equality operator.
+            </summary>
+            <param name="element"></param>
+            <param name="other"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DiffLib.DiffElement`1.op_Inequality(DiffLib.DiffElement{`0},DiffLib.DiffElement{`0})">
+            <summary>
+            Implements the inequality operator.
+            </summary>
+            <param name="element"></param>
+            <param name="other"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DiffLib.DiffElement`1.GetHashCode">
+            <summary>
+            Returns the hash code for this instance.
+            </summary>
+            <returns>
+            A 32-bit signed integer that is the hash code for this instance.
+            </returns>
+            <filterpriority>2</filterpriority>
+        </member>
+        <member name="M:DiffLib.DiffElement`1.ToString">
+            <summary>
+            Returns the fully qualified type name of this instance.
+            </summary>
+            <returns>
+            A <see cref="T:System.String"/> containing a fully qualified type name.
+            </returns>
+            <filterpriority>2</filterpriority>
+        </member>
+        <member name="T:DiffLib.DiffOperation">
+            <summary>
+            This enum is returned as part of <see cref="T:DiffLib.DiffElement`1"/>, specifying how
+            elements from the two collections were aligned.
+            </summary>
+        </member>
+        <member name="F:DiffLib.DiffOperation.Match">
+            <summary>
+            The two elements, <see cref="P:DiffLib.DiffElement`1.ElementFromCollection1"/> and <see cref="P:DiffLib.DiffElement`1.ElementFromCollection2"/> was aligned because they match.
+            </summary>
+        </member>
+        <member name="F:DiffLib.DiffOperation.Insert">
+            <summary>
+            There was no matching element in the first collection. <see cref="P:DiffLib.DiffElement`1.ElementFromCollection2"/> contains the element to insert.
+            </summary>
+        </member>
+        <member name="F:DiffLib.DiffOperation.Delete">
+            <summary>
+            There was no matching element in the second collection. <see cref="P:DiffLib.DiffElement`1.ElementFromCollection1"/> contains the element to delete.
+            </summary>
+        </member>
+        <member name="F:DiffLib.DiffOperation.Replace">
+            <summary>
+            The two elements, <see cref="P:DiffLib.DiffElement`1.ElementFromCollection1"/> and <see cref="P:DiffLib.DiffElement`1.ElementFromCollection2"/> was aligned
+            but only in terms of the element from collection 2 should replace the element from collection 1. They were not deemed "similar enough" to
+            warrant a <see cref="F:DiffLib.DiffOperation.Modify"/> operation.
+            </summary>
+            <remarks>
+            Typical example would be two lines of text where most or all of the text has been changed.
+            </remarks>
+        </member>
+        <member name="F:DiffLib.DiffOperation.Modify">
+            <summary>
+            The two elements, <see cref="P:DiffLib.DiffElement`1.ElementFromCollection1"/> and <see cref="P:DiffLib.DiffElement`1.ElementFromCollection2"/> was aligned
+            but only in terms of the element from collection 2 should be used to modify the element from collection 1. The alignment strategy implementation
+            deemed the two elements unequal, but similar enough to warrant alignment.
+            </summary>
+            <remarks>
+            Typical example would be two lines of text where only bits and pieces have been altered.
+            </remarks>
+        </member>
+        <member name="T:DiffLib.DiffSection">
+            <summary>
+            This struct holds a section of matched or unmatch element portions from the two collectoins.
+            </summary>
+        </member>
+        <member name="M:DiffLib.DiffSection.#ctor(System.Boolean,System.Int32,System.Int32)">
+            <summary>
+            Construct a new instance of <see cref="T:DiffLib.DiffSection"/>.
+            </summary>
+            <param name="isMatch">
+            <c>true</c> if a match was found between the two collections;
+            otherwise, <c>false</c>.
+            </param>
+            <param name="lengthInCollection1">
+            How many elements from the first collection this section contains.
+            </param>
+            <param name="lengthInCollection2">
+            How many elements from the second collection this section contains.
+            </param>
+        </member>
+        <member name="P:DiffLib.DiffSection.IsMatch">
+            <summary>
+            Gets a value indicating whether there the section specifies a match between the two collections or
+            portions that could not be matched.
+            </summary>
+            <value>
+            <c>true</c> if a match was found between the two collections;
+            otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:DiffLib.DiffSection.LengthInCollection1">
+            <summary>
+            How many elements from the first collection this section contains.
+            </summary>
+        </member>
+        <member name="P:DiffLib.DiffSection.LengthInCollection2">
+            <summary>
+            How many elements from the second collection this section contains.
+            </summary>
+        </member>
+        <member name="M:DiffLib.DiffSection.Equals(DiffLib.DiffSection)">
+            <summary>
+            Indicates whether the current object is equal to another object of the same type.
+            </summary>
+            <returns>
+            true if the current object is equal to the <paramref name="other"/> parameter; otherwise, false.
+            </returns>
+            <param name="other">An object to compare with this object.</param>
+        </member>
+        <member name="M:DiffLib.DiffSection.Equals(System.Object)">
+            <summary>
+            Indicates whether this instance and a specified object are equal.
+            </summary>
+            <returns>
+            true if <paramref name="obj"/> and this instance are the same type and represent the same value; otherwise, false.
+            </returns>
+            <param name="obj">Another object to compare to. </param><filterpriority>2</filterpriority>
+        </member>
+        <member name="M:DiffLib.DiffSection.GetHashCode">
+            <summary>
+            Returns the hash code for this instance.
+            </summary>
+            <returns>
+            A 32-bit signed integer that is the hash code for this instance.
+            </returns>
+            <filterpriority>2</filterpriority>
+        </member>
+        <member name="M:DiffLib.DiffSection.op_Equality(DiffLib.DiffSection,DiffLib.DiffSection)">
+            <summary>
+            Implements the equality operator.
+            </summary>
+            <param name="section1"></param>
+            <param name="section2"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DiffLib.DiffSection.op_Inequality(DiffLib.DiffSection,DiffLib.DiffSection)">
+            <summary>
+            Implements the inequality operator.
+            </summary>
+            <param name="section1"></param>
+            <param name="section2"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DiffLib.DiffSection.ToString">
+            <summary>
+            Returns the fully qualified type name of this instance.
+            </summary>
+            <returns>
+            A <see cref="T:System.String"/> containing a fully qualified type name.
+            </returns>
+            <filterpriority>2</filterpriority>
+        </member>
+        <member name="T:DiffLib.ElementSimilarity`1">
+            <summary>
+            This delegate is used by <see cref="T:DiffLib.ElementSimilarityDiffElementAligner`1"/> to work out just how similar
+            two elements are.
+            </summary>
+            <typeparam name="T">
+            The type of elements to work out the similarity between.
+            </typeparam>
+            <param name="element1">
+            The first element.
+            </param>
+            <param name="element2">
+            The second element.
+            </param>
+            <returns>
+            A <see cref="T:System.Double"/> value between 0.0 and 1.0 specifying how similar the two items are. 0.0 means
+            not similar at all, and 1.0 means the equivalent of equality. Values below zero or above one
+            will result in undefined behavior.
+            </returns>
+        </member>
+        <member name="T:DiffLib.ElementSimilarityDiffElementAligner`1">
+            <summary>
+            This class implements a <see cref="T:DiffLib.IDiffElementAligner`1"/> strategy that will try
+            to work out the best way to align two portions, depending on individual element
+            similarity.
+            </summary>
+            <typeparam name="T">
+            The type of elements in the two collections to align.
+            </typeparam>
+        </member>
+        <member name="M:DiffLib.ElementSimilarityDiffElementAligner`1.#ctor(DiffLib.ElementSimilarity{`0},System.Double)">
+            <summary>
+            Constructs a new <see cref="T:DiffLib.ElementSimilarityDiffElementAligner`1"/>.
+            </summary>
+            <param name="similarityFunc">
+            A <see cref="T:DiffLib.ElementSimilarity`1"/> delegate that is used to work out how similar two elements are.
+            </param>
+            <param name="modificationThreshold">
+            A threshold value used to determine if aligned elements are considered replacements or modifications. If
+            two items are more similar than the threshold specifies (similarity > threshold), then it results in
+            a <see cref="F:DiffLib.DiffOperation.Modify"/>, otherwise it results in a <see cref="F:DiffLib.DiffOperation.Replace"/>.
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            <para><paramref name="similarityFunc"/> is <c>null</c>.</para>
+            </exception>
+        </member>
+        <member name="M:DiffLib.ElementSimilarityDiffElementAligner`1.Align(System.Collections.Generic.IList{`0},System.Int32,System.Int32,System.Collections.Generic.IList{`0},System.Int32,System.Int32)">
+            <summary>
+            Align the specified portions of the two collections and output element-by-element operations for the aligned elements.
+            </summary>
+            <param name="collection1">
+            The first collection.
+            </param>
+            <param name="start1">
+            The start of the portion to look at in the first collection, <paramref name="collection1"/>.
+            </param>
+            <param name="length1">
+            The length of the portion to look at in the first collection, <paramref name="collection1"/>.
+            </param>
+            <param name="collection2">
+            The second collection.
+            </param>
+            <param name="start2">
+            The start of the portion to look at in the second collection, <paramref name="collection2"/>.
+            </param>
+            <param name="length2">
+            The length of the portion to look at in the second collection, <paramref name="collection2"/>.
+            </param>
+            <returns>
+            A collection of <see cref="T:DiffLib.DiffElement`1"/> values, one for each aligned element.
+            </returns>
+            <exception cref="T:System.ArgumentNullException">
+            <para><paramref name="collection1"/> is <c>null</c>.</para>
+            <para>- or -</para>
+            <para><paramref name="collection2"/> is <c>null</c>.</para>
+            </exception>
+        </member>
+        <member name="T:DiffLib.IDiffElementAligner`1">
+            <summary>
+            This interface is used by <see cref="M:DiffLib.Diff.AlignElements``1(System.Collections.Generic.IList{``0},System.Collections.Generic.IList{``0},System.Collections.Generic.IEnumerable{DiffLib.DiffSection},DiffLib.IDiffElementAligner{``0})"/> to specify the alignment strategy/implementation to use.
+            </summary>
+            <typeparam name="T">
+            The type of elements in the two collections to align portions of.
+            </typeparam>
+        </member>
+        <member name="M:DiffLib.IDiffElementAligner`1.Align(System.Collections.Generic.IList{`0},System.Int32,System.Int32,System.Collections.Generic.IList{`0},System.Int32,System.Int32)">
+            <summary>
+            Align the specified portions of the two collections and output element-by-element operations for the aligned elements.
+            </summary>
+            <param name="collection1">
+            The first collection.
+            </param>
+            <param name="start1">
+            The start of the portion to look at in the first collection, <paramref name="collection1"/>.
+            </param>
+            <param name="length1">
+            The length of the portion to look at in the first collection, <paramref name="collection1"/>.
+            </param>
+            <param name="collection2">
+            The second collection.
+            </param>
+            <param name="start2">
+            The start of the portion to look at in the second collection, <paramref name="collection2"/>.
+            </param>
+            <param name="length2">
+            The length of the portion to look at in the second collection, <paramref name="collection2"/>.
+            </param>
+            <returns>
+            A collection of <see cref="T:DiffLib.DiffElement`1"/> values, one for each aligned element.
+            </returns>
+            <exception cref="T:System.ArgumentNullException">
+            <para><paramref name="collection1"/> is <c>null</c>.</para>
+            <para>- or -</para>
+            <para><paramref name="collection2"/> is <c>null</c>.</para>
+            </exception>
+        </member>
+        <member name="T:DiffLib.Option`1">
+            <summary>
+            This type functions similar to <see cref="T:System.Nullable`1"/> except that it can hold any type of value
+            and is used for situations where you may or may not have a value.
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:DiffLib.Option`1.#ctor(`0)">
+            <summary>
+            Constructs a new instance of <see cref="T:DiffLib.Option`1"/> with the specified value.
+            </summary>
+            <param name="value">
+            The value of this <see cref="T:DiffLib.Option`1"/>.
+            </param>
+        </member>
+        <member name="P:DiffLib.Option`1.Value">
+            <summary>
+            Gets the value of this <see cref="T:DiffLib.Option`1"/>.
+            </summary>
+        </member>
+        <member name="P:DiffLib.Option`1.HasValue">
+            <summary>
+            Gets whether this <see cref="T:DiffLib.Option`1"/> has a value.
+            </summary>
+        </member>
+        <member name="M:DiffLib.Option`1.op_Implicit(`0)~DiffLib.Option{`0}">
+            <summary>
+            Implements equality operator.
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DiffLib.Option`1.op_Explicit(DiffLib.Option{`0})~`0">
+            <summary>
+            Implements inequality operator.
+            </summary>
+            <param name="option"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DiffLib.Option`1.Equals(DiffLib.Option{`0})">
+            <summary>
+            Indicates whether the current object is equal to another object of the same type.
+            </summary>
+            <returns>
+            true if the current object is equal to the <paramref name="other"/> parameter; otherwise, false.
+            </returns>
+            <param name="other">An object to compare with this object.</param>
+        </member>
+        <member name="M:DiffLib.Option`1.Equals(`0)">
+            <summary>
+            Indicates whether the current object is equal to another object of the same type.
+            </summary>
+            <returns>
+            true if the current object is equal to the <paramref name="other"/> parameter; otherwise, false.
+            </returns>
+            <param name="other">An object to compare with this object.</param>
+        </member>
+        <member name="M:DiffLib.Option`1.Equals(System.Object)">
+            <summary>
+            Indicates whether this instance and a specified object are equal.
+            </summary>
+            <returns>
+            true if <paramref name="obj"/> and this instance are the same type and represent the same value; otherwise, false.
+            </returns>
+            <param name="obj">Another object to compare to. </param><filterpriority>2</filterpriority>
+        </member>
+        <member name="M:DiffLib.Option`1.op_Equality(DiffLib.Option{`0},DiffLib.Option{`0})">
+            <summary>
+            Implements equality operator.
+            </summary>
+            <param name="option"></param>
+            <param name="other"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DiffLib.Option`1.op_Inequality(DiffLib.Option{`0},DiffLib.Option{`0})">
+            <summary>
+            Implements inequality operator.
+            </summary>
+            <param name="option"></param>
+            <param name="other"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DiffLib.Option`1.GetHashCode">
+            <summary>
+            Returns the hash code for this instance.
+            </summary>
+            <returns>
+            A 32-bit signed integer that is the hash code for this instance.
+            </returns>
+            <filterpriority>2</filterpriority>
+        </member>
+        <member name="M:DiffLib.Option`1.ToString">
+            <summary>
+            Returns the fully qualified type name of this instance.
+            </summary>
+            <returns>
+            A <see cref="T:System.String"/> containing a fully qualified type name.
+            </returns>
+            <filterpriority>2</filterpriority>
+        </member>
+        <member name="P:DiffLib.Option`1.None">
+            <summary>
+            Returns an <see cref="T:DiffLib.Option`1"/> that has no value.
+            </summary>
+        </member>
+        <member name="T:DiffLib.StringSimilarityDiffElementAligner">
+            <summary>
+            This class implements a <see cref="T:DiffLib.IDiffElementAligner`1"/> strategy that will try
+            to work out the best way to align two portions, depending on individual string
+            similarity.
+            </summary>
+            <remarks>
+            String similarity will apply a diff between the two strings and count how much of
+            the two strings were considered matching, in relation to the two strings in total.
+            </remarks>
+        </member>
+        <member name="M:DiffLib.StringSimilarityDiffElementAligner.#ctor(System.Double)">
+            <summary>
+            Construct a new <see cref="M:DiffLib.StringSimilarityDiffElementAligner.StringSimilarity(System.String,System.String)"/>.
+            </summary>
+            <param name="modificationThreshold">
+            A threshold value used to determine if aligned elements are considered replacements or modifications. If
+            two items are more similar than the threshold specifies (similarity > threshold), then it results in
+            a <see cref="F:DiffLib.DiffOperation.Modify"/>, otherwise it results in a <see cref="F:DiffLib.DiffOperation.Replace"/>.
+            </param>
+        </member>
+        <member name="M:DiffLib.StringSimilarityDiffElementAligner.Align(System.Collections.Generic.IList{System.String},System.Int32,System.Int32,System.Collections.Generic.IList{System.String},System.Int32,System.Int32)">
+            <summary>
+            Align the specified portions of the two collections and output element-by-element operations for the aligned elements.
+            </summary>
+            <param name="collection1">
+            The first collection.
+            </param>
+            <param name="start1">
+            The start of the portion to look at in the first collection, <paramref name="collection1"/>.
+            </param>
+            <param name="length1">
+            The length of the portion to look at in the first collection, <paramref name="collection1"/>.
+            </param>
+            <param name="collection2">
+            The second collection.
+            </param>
+            <param name="start2">
+            The start of the portion to look at in the second collection, <paramref name="collection2"/>.
+            </param>
+            <param name="length2">
+            The length of the portion to look at in the second collection, <paramref name="collection2"/>.
+            </param>
+            <returns>
+            A collection of <see cref="T:DiffLib.DiffElement`1"/> values, one for each aligned element.
+            </returns>
+            <exception cref="T:System.ArgumentNullException">
+            <para><paramref name="collection1"/> is <c>null</c>.</para>
+            <para>- or -</para>
+            <para><paramref name="collection2"/> is <c>null</c>.</para>
+            </exception>
+        </member>
+    </members>
+</doc>
