@@ -32,7 +32,6 @@ using System.Windows.Shell;
 using VisualMutator.Model.Mutations.Types;
 using VisualMutator.ViewModels;
 using VisualMutator.Views;
-using VisualMutator.Views.Controls;
 using VisualMutator.Views.Converters;
 
 

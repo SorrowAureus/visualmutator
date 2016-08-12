@@ -4,7 +4,7 @@
 library
 C#
 .cs
-C:\Users\Kacper\Desktop\inż\VisualMutator\VM2\PiotrTrzpil-visualmutator-3bf8a5fb3f0f\PiotrTrzpil-visualmutator-3bf8a5fb3f0f\VisualMutator\obj\Release\
+C:\Users\mklatt\Desktop\visualmutator\VisualMutator\obj\Release\
 VisualMutator
 none
 false
@@ -12,9 +12,9 @@ TRACE
 
 14-1628904746
 
-193982567230
-68118521203
+193421079067
+68-2034991475
 Views\OptionsView.xaml;Views\TestsSelectableTree.xaml;Views\MutantDetailsView.xaml;Views\MutationsTree.xaml;Views\SessionCreationView.xaml;Views\ProgressControl.xaml;Views\Resources\GlobalStyles.xaml;Views\Resources\Global.xaml;Views\ResultsSavingView.xaml;Views\TestsTree.xaml;Views\MainView.xaml;Views\Controls\ImageButton.xaml;Views\Controls\Resources.xaml;Views\TypesTree.xaml;
 
-True
+False
 
