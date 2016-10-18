@@ -1,0 +1,5 @@
+/.vs/VisualMutator/v14/*.suo
+bin/
+/VisualMutator.Console/bin
+obj
+bin

@@ -4,39 +4,31 @@
 
     using System;
     using System.Collections.Concurrent;
-    using System.Collections.Generic;
     using System.Collections.Specialized;
-    using System.Diagnostics;
-    using System.IO;
     using System.Linq;
     using System.Reflection;
     using System.Runtime.Caching;
     using System.Threading.Tasks;
-    using System.Windows.Documents;
-    using Extensibility;
     using log4net;
     using Microsoft.Cci;
     using Microsoft.Cci.MutableCodeModel;
     using Mutations;
     using Mutations.MutantsTree;
     using Ninject;
-    using UsefulTools.Core;
-    using Wintellect.PowerCollections;
 
     #endregion
 
     public interface IMutantsCache : IDisposable
     {
-        void setDisabled( bool disableCache = false);
-
+        void setDisabled(bool disableCache = false);
 
         Task<MutationResult> GetMutatedModulesAsync(Mutant mutant);
+
         void Release(MutationResult mutationResult);
     }
 
     public class MutantsCache : IMutantsCache
     {
-
         private readonly ILog _log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         private readonly OptionsModel _options;
         private readonly IWhiteSource _whiteCache;
@@ -44,18 +36,17 @@
         private readonly IMutationExecutor _mutationExecutor;
 
         private readonly MemoryCache _cache;
-       
+
         private const int MaxLoadedModules = 5;
 
         private bool _disableCache;
         private ConcurrentDictionary<string, ConcurrentBag<TaskCompletionSource<MutationResult>>> _map;
 
-
         [Inject]
         public MutantsCache(
             OptionsModel options,
             IWhiteSource whiteCache,
-            MutationSessionChoices choices, 
+            MutationSessionChoices choices,
             IMutationExecutor mutationExecutor)
         {
             _options = options;
@@ -78,7 +69,7 @@
         {
             _disableCache = disableCache;
         }
-    
+
         //TODO:test error behaviour
         public async Task<MutationResult> GetMutatedModulesAsync(Mutant mutant)
         {
@@ -114,7 +105,7 @@
                     {
                         _log.Debug("Cache#Mutant " + mutant.Id + ": Creation complete. Trying to remove subscribers queue");
                         ConcurrentBag<TaskCompletionSource<MutationResult>> awaiters;
-                        if(_map.TryRemove(mutant.Id, out awaiters))
+                        if (_map.TryRemove(mutant.Id, out awaiters))
                         {
                             _log.Debug("Cache#Mutant " + mutant.Id + string.Format(": Subscribers queue removed. Setting result on {0} subscribers", awaiters.Count));
                             foreach (var tcs in awaiters)
@@ -132,7 +123,7 @@
                 else
                 {
                     _log.Debug("Cache contains value for mutant " + mutant.Id);
-                    result = (MutationResult) _cache.Get(mutant.Id);
+                    result = (MutationResult)_cache.Get(mutant.Id);
                 }
                 return result;
             }
@@ -141,7 +132,6 @@
                 _log.Error(e);
                 throw;
             }
-           
         }
 
         public void Release(MutationResult mutationResult)
@@ -149,9 +139,9 @@
             /*foreach (ICciModuleSource cciMod in mutationResult.MutatedModules) //AKB
             {*/
             var cci = (CciModuleSource)mutationResult.MutatedModules;
-                _whiteCache.ReturnToCache(
-                    cci.Modules.Single().Name,
-                    cci);
+            _whiteCache.ReturnToCache(
+                cci.Modules.Single().Name,
+                cci);
             /*}*/
             //  var tt = mutationResult.WhiteModules.Modules.Single().Module.GetAllTypes().Single(t => t.Name.Value == "Range");
             //tt.ToString();
@@ -184,7 +174,6 @@
 
             public override IMethodDefinition Rewrite(IMethodDefinition method)
             {
-                
                 if (MemberHelper.GetMethodSignature(method) == MemberHelper.GetMethodSignature(_sourceMethod))
                 {
                     return _sourceMethod;
@@ -192,6 +181,7 @@
                 return method;
             }
         }
+
         private async Task<MutationResult> CreateNew(Mutant mutant)
         {
             MutationResult result;
@@ -203,8 +193,7 @@
             }
             else
             {
-            
-                if(_options.ParsedParams.LegacyCreation)
+                if (_options.ParsedParams.LegacyCreation)
                 {
                     _log.Debug("Cache#Mutant " + mutant.Id + ": Awaiting white cache.");
                     var cci = await _whiteCache.GetWhiteModulesAsyncOld();
@@ -232,8 +221,6 @@
                     }
                     _log.Debug("Cache#Mutant " + mutant.Id + ": Awaiting mutation finished.");
                 }
-
-
 
                 if (!_disableCache)
                 {
