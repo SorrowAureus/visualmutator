@@ -116,7 +116,7 @@
 
                process.Exited += (sender, args) =>
                {
-                   tcs.TrySetResult(new ProcessResults(process, standardOutput, standardError));
+                   tcs.TrySetResult(new ProcessResults(process, standardOutput.ToArray(), standardError.ToArray()));
                };
 
             if (process.Start() == false)

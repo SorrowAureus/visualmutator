@@ -9,6 +9,9 @@
     using System.Text;
     using System.Threading.Tasks;
     using DiffLib;
+    using DiffPlex;
+    using DiffPlex.DiffBuilder;
+    using DiffPlex.DiffBuilder.Model;
     using log4net;
     using Microsoft.Cci;
     using Mutations;
@@ -60,53 +63,56 @@
                 .Case(CodeLanguage.CSharp, () => new CSharpCodeLineEqualityComparer())
                 .Case(CodeLanguage.IL, () => new ILCodeLineEqualityComparer())
                 .GetResult();
-            var differ = new AlignedDiff<string>(
-                NormalizeAndSplitCode(input1),
-                NormalizeAndSplitCode(input2),
-                eq,
-                new StringSimilarityComparer(),
-                new StringAlignmentFilter());
 
-            int line1 = 0, line2 = 0;
+            //var differ = new Differ(
+            //    NormalizeAndSplitCode(input1),
+            //    NormalizeAndSplitCode(input2),
+            //    eq,
+            //    new StringSimilarityComparer(),
+            //    new StringAlignmentFilter());
+
+
+           int line1 = 0, line2 = 0;
 
             var list = new List<LineChange>();
-            foreach (var change in differ.Generate())
+            foreach (var change in new InlineDiffBuilder(new Differ()).BuildDiffModel(input1,input2).Lines)
             {
                 int startIndex = 0;
-                switch (change.Change)
+                switch (change.Type)
                 {
-                    case ChangeType.Same:
+                    case ChangeType.Unchanged:
                         diff.AppendFormat("{0,4} {1,4} ", ++line1, ++line2);
                         diff.AppendFormat("  ");
-                        diff.AppendLine(change.Element1);
+                        diff.AppendLine(change.Text);
                         break;
-                    case ChangeType.Added:
+                    case ChangeType.Inserted:
                         startIndex = diff.Length;
                         diff.AppendFormat("     {1,4}  +  ", line1, ++line2);
 
-                        diff.AppendLine(change.Element2);
+                        diff.AppendLine(change.Text);
                         list.Add(NewLineChange(LineChangeType.Add, diff, startIndex, diff.Length));
                         break;
                     case ChangeType.Deleted:
                         startIndex = diff.Length;
                         diff.AppendFormat("{0,4}       -  ", ++line1, line2);
-                        diff.AppendLine(change.Element1);
+                        diff.AppendLine(change.Text);
                         list.Add(NewLineChange(LineChangeType.Remove, diff, startIndex, diff.Length));
                         break;
-                    case ChangeType.Changed:
+                    case ChangeType.Modified:
                         startIndex = diff.Length;
                         diff.AppendFormat("{0,4}      ", ++line1, line2);
                         diff.AppendFormat("(-) ");
-                        diff.AppendLine(change.Element1);
+                        diff.AppendLine(change.Text);
                         list.Add(NewLineChange(LineChangeType.Remove, diff, startIndex, diff.Length));
                         startIndex = diff.Length;
                         diff.AppendFormat("     {1,4} ", line1, ++line2);
                         diff.AppendFormat("(+) ");
-                        diff.AppendLine(change.Element2);
+                        diff.AppendLine(change.Text);
                         list.Add(NewLineChange(LineChangeType.Add, diff, startIndex, diff.Length));
                         break;
                 }
             }
+
             return list;
         }
 
