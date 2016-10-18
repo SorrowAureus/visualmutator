@@ -573,7 +573,7 @@
             return base.RewriteReference(parameterDefinition);
         }
 
-        protected override IFieldReference RewriteUnspecialized(IFieldReference fieldReference)
+        public override IFieldReference RewriteUnspecialized(IFieldReference fieldReference)
         {if(Process(fieldReference)){var fieldReferenceNew = rewriter.Rewrite(fieldReference); return base.Rewrite(fieldReferenceNew);}
             return base.RewriteUnspecialized(fieldReference);
         }
@@ -834,10 +834,10 @@
             return base.Rewrite(securityAttribute);
         }
 
-        public override IFieldReference Rewrite(ISpecializedFieldReference specializedFieldReference)
-        {if(Process(specializedFieldReference)){var specializedFieldReferenceNew = rewriter.Rewrite(specializedFieldReference); return  (specializedFieldReferenceNew is ISpecializedFieldReference) ? base.Rewrite(specializedFieldReferenceNew as ISpecializedFieldReference) :base.Rewrite(specializedFieldReferenceNew);}
-            return base.Rewrite(specializedFieldReference);
-        }
+        //public override IFieldReference Rewrite(ISpecializedFieldReference specializedFieldReference)
+        //{if(Process(specializedFieldReference)){var specializedFieldReferenceNew = rewriter.Rewrite(specializedFieldReference); return  (specializedFieldReferenceNew is ISpecializedFieldReference) ? base.Rewrite(specializedFieldReferenceNew as ISpecializedFieldReference) :base.Rewrite(specializedFieldReferenceNew);}
+        //    return base.Rewrite(specializedFieldReference);
+        //}
 
         public override IMethodReference Rewrite(ISpecializedMethodReference specializedMethodReference)
         {if(Process(specializedMethodReference)){var specializedMethodReferenceNew = rewriter.Rewrite(specializedMethodReference); return  (specializedMethodReferenceNew is ISpecializedMethodReference) ? base.Rewrite(specializedMethodReferenceNew as ISpecializedMethodReference) :base.Rewrite(specializedMethodReferenceNew);}

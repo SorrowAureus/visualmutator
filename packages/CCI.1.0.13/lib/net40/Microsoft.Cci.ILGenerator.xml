@@ -4,6 +4,255 @@
         <name>Microsoft.Cci.ILGenerator</name>
     </assembly>
     <members>
+        <member name="T:Microsoft.Cci.ILGeneratorMethodBody">
+            <summary>
+            A metadata (IL) level represetation of the body of a method or of a property/event accessor.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.ILGeneratorMethodBody.#ctor(Microsoft.Cci.ILGenerator,System.Boolean,System.UInt16,Microsoft.Cci.IMethodDefinition,System.Collections.Generic.IEnumerable{Microsoft.Cci.ILocalDefinition},System.Collections.Generic.IEnumerable{Microsoft.Cci.ITypeDefinition})">
+            <summary>
+            Allocates an object that is the metadata (IL) level represetation of the body of a method or of a property/event accessor.
+            </summary>
+            <param name="generator">An object that provides a way to construct the information needed by a method body. Construction should
+            be completed by the time the generator is passed to this constructor. The generator is not referenced by the resulting method body.</param>
+            <param name="localsAreZeroed">True if the locals are initialized by zeroeing the stack upon method entry.</param>
+            <param name="maxStack">The maximum number of elements on the evaluation stack during the execution of the method.</param>
+            <param name="methodDefinition">The definition of the method whose body this is.
+            If this is the body of an event or property accessor, this will hold the corresponding adder/remover/setter or getter method.</param>
+            <param name="localVariables"></param>
+            <param name="privateHelperTypes">Any types that are implicitly defined in order to implement the body semantics.
+            In case of AST to instructions conversion this lists the types produced.
+            In case of instructions to AST decompilation this should ideally be list of all types
+            which are local to method.</param>
+        </member>
+        <member name="M:Microsoft.Cci.ILGeneratorMethodBody.Dispatch(Microsoft.Cci.IMetadataVisitor)">
+            <summary>
+            Calls visitor.Visit(IMethodBody).
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.ILGeneratorMethodBody.GetIteratorScopes">
+            <summary>
+            Returns a block scope associated with each local variable in the iterator for which this is the generator for its MoveNext method.
+            May return null.
+            </summary>
+            <remarks>The PDB file model seems to be that scopes are duplicated if necessary so that there is a separate scope for each
+            local variable in the original iterator and the mapping from local to scope is done by position.</remarks>
+        </member>
+        <member name="M:Microsoft.Cci.ILGeneratorMethodBody.GetLocalScopes">
+            <summary>
+            Returns zero or more local (block) scopes into which the CLR IL operations of this method body is organized.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.ILGeneratorMethodBody.GetNamespaceScopes">
+            <summary>
+            Returns zero or more namespace scopes into which the namespace type containing the given method body has been nested.
+            These scopes determine how simple names are looked up inside the method body. There is a separate scope for each dotted
+            component in the namespace type name. For istance namespace type x.y.z will have two namespace scopes, the first is for the x and the second
+            is for the y.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.ILGeneratorMethodBody.GetSynchronizationInformation">
+            <summary>
+            Returns an object that describes where synchronization points occur in the IL operations of the "MoveNext" method of
+            the state class of an async method. Returns null otherwise.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cci.ILGeneratorMethodBody.OperationExceptionInformation">
+            <summary>
+            A list exception data within the method body IL.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cci.ILGeneratorMethodBody.LocalsAreZeroed">
+            <summary>
+            True if the locals are initialized by zeroeing the stack upon method entry.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cci.ILGeneratorMethodBody.LocalVariables">
+            <summary>
+            The local variables of the method.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cci.ILGeneratorMethodBody.MethodDefinition">
+            <summary>
+            The definition of the method whose body this is.
+            If this is the body of an event or property accessor, this will hold the corresponding adder/remover/setter or getter method.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cci.ILGeneratorMethodBody.Operations">
+            <summary>
+            A list CLR IL operations that implement this method body.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cci.ILGeneratorMethodBody.MaxStack">
+            <summary>
+            The maximum number of elements on the evaluation stack during the execution of the method.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cci.ILGeneratorMethodBody.PrivateHelperTypes">
+            <summary>
+            Any types that are implicitly defined in order to implement the body semantics.
+            In case of AST to instructions conversion this lists the types produced.
+            In case of instructions to AST decompilation this should ideally be list of all types
+            which are local to method.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cci.ILGeneratorMethodBody.Size">
+            <summary>
+            The size in bytes of the method body when serialized.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Cci.ILGeneratorSourceInformationProvider">
+            <summary>
+            An object that can provide information about the local scopes of a method and that can map ILocation objects
+            to IPrimarySourceLocation objects.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.ILGeneratorSourceInformationProvider.GetIteratorScopes(Microsoft.Cci.IMethodBody)">
+            <summary>
+            Returns zero or more local (block) scopes, each defining an IL range in which an iterator local is defined.
+            The scopes are returned by the MoveNext method of the object returned by the iterator method.
+            The index of the scope corresponds to the index of the local. Specifically local scope i corresponds
+            to the local stored in field &lt;localName&gt;x_i of the class used to store the local values in between
+            calls to MoveNext.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.ILGeneratorSourceInformationProvider.GetLocalScopes(Microsoft.Cci.IMethodBody)">
+            <summary>
+            Returns zero or more local (block) scopes into which the CLR IL operations in the given method body is organized.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.ILGeneratorSourceInformationProvider.GetNamespaceScopes(Microsoft.Cci.IMethodBody)">
+            <summary>
+            Returns zero or more namespace scopes into which the namespace type containing the given method body has been nested.
+            These scopes determine how simple names are looked up inside the method body. There is a separate scope for each dotted
+            component in the namespace type name. For istance namespace type x.y.z will have two namespace scopes, the first is for the x and the second
+            is for the y.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.ILGeneratorSourceInformationProvider.GetConstantsInScope(Microsoft.Cci.ILocalScope)">
+            <summary>
+            Returns zero or more local constant definitions that are local to the given scope.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.ILGeneratorSourceInformationProvider.GetVariablesInScope(Microsoft.Cci.ILocalScope)">
+            <summary>
+            Returns zero or more local variable definitions that are local to the given scope.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.ILGeneratorSourceInformationProvider.IsIterator(Microsoft.Cci.IMethodBody)">
+            <summary>
+            Returns true if the method body is an iterator.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.ILGeneratorSourceInformationProvider.GetSynchronizationInformation(Microsoft.Cci.IMethodBody)">
+            <summary>
+            If the given method body is the "MoveNext" method of the state class of an asynchronous method, the returned
+            object describes where synchronization points occur in the IL operations of the "MoveNext" method. Otherwise
+            the result is null.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.ILGeneratorSourceInformationProvider.GetPrimarySourceLocationsFor(System.Collections.Generic.IEnumerable{Microsoft.Cci.ILocation})">
+            <summary>
+            Return zero or more locations in primary source documents that correspond to one or more of the given derived (non primary) document locations.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.ILGeneratorSourceInformationProvider.GetPrimarySourceLocationsFor(Microsoft.Cci.ILocation)">
+            <summary>
+            Return zero or more locations in primary source documents that correspond to the given derived (non primary) document location.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.ILGeneratorSourceInformationProvider.GetPrimarySourceLocationsForDefinitionOf(Microsoft.Cci.ILocalDefinition)">
+            <summary>
+            Return zero or more locations in primary source documents that correspond to the definition of the given local.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.ILGeneratorSourceInformationProvider.GetSourceNameFor(Microsoft.Cci.ILocalDefinition,System.Boolean@)">
+            <summary>
+            Returns the source name of the given local definition, if this is available.
+            Otherwise returns the value of the Name property and sets isCompilerGenerated to true.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Cci.ILRewriter">
+            <summary>
+            Rewrites the IL of method bodies.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.ILRewriter.#ctor(Microsoft.Cci.IMetadataHost,Microsoft.Cci.ILocalScopeProvider,Microsoft.Cci.ISourceLocationProvider)">
+            <summary>
+            
+            </summary>
+            <param name="host"></param>
+            <param name="localScopeProvider"></param>
+            <param name="sourceLocationProvider"></param>
+        </member>
+        <member name="F:Microsoft.Cci.ILRewriter.host">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cci.ILRewriter.localScopeProvider">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cci.ILRewriter.sourceLocationProvider">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cci.ILRewriter.maxStack">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.ILRewriter.Rewrite(Microsoft.Cci.IMethodBody)">
+            <summary>
+            
+            </summary>
+            <param name="methodBody"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Cci.ILRewriter.EmitMethodBody(Microsoft.Cci.IMethodBody)">
+            <summary>
+            
+            </summary>
+            <param name="methodBody"></param>
+        </member>
+        <member name="M:Microsoft.Cci.ILRewriter.EmitDebugInformationFor(Microsoft.Cci.IOperation)">
+            <summary>
+            
+            </summary>
+            <param name="operation"></param>
+        </member>
+        <member name="M:Microsoft.Cci.ILRewriter.EmitOperation(Microsoft.Cci.IOperation)">
+            <summary>
+            Emits the given operation at the current position of the new IL stream. Also tracks any referenced local definitions,
+            so that this.localVariables will contain the exact list of locals used in the new method body.
+            </summary>
+            <param name="operation"></param>
+        </member>
+        <member name="M:Microsoft.Cci.ILRewriter.TrackLocal(System.Object)">
+            <summary>
+            
+            </summary>
+            <param name="operationValue"></param>
+        </member>
+        <member name="M:Microsoft.Cci.ILRewriter.GetLabelFor(System.UInt32)">
+            <summary>
+            Returns a label that represents the given offset in the original IL. This label must be marked
+            at the corresponding location in the rewritten IL.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cci.ILRewriter.Generator">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cci.ILRewriter.Host">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="T:Microsoft.Cci.ILGenerator">
             <summary>
             Generates Microsoft intermediate language (MSIL) instructions.
@@ -555,255 +804,6 @@
             The name of a namepace that has been aliased.  For example the "y.z" of "using x = y.z;" or "using y.z" in C#.
             </summary>
             <value></value>
-        </member>
-        <member name="T:Microsoft.Cci.ILRewriter">
-            <summary>
-            Rewrites the IL of method bodies.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Cci.ILRewriter.#ctor(Microsoft.Cci.IMetadataHost,Microsoft.Cci.ILocalScopeProvider,Microsoft.Cci.ISourceLocationProvider)">
-            <summary>
-            
-            </summary>
-            <param name="host"></param>
-            <param name="localScopeProvider"></param>
-            <param name="sourceLocationProvider"></param>
-        </member>
-        <member name="F:Microsoft.Cci.ILRewriter.host">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="F:Microsoft.Cci.ILRewriter.localScopeProvider">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="F:Microsoft.Cci.ILRewriter.sourceLocationProvider">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="F:Microsoft.Cci.ILRewriter.maxStack">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:Microsoft.Cci.ILRewriter.Rewrite(Microsoft.Cci.IMethodBody)">
-            <summary>
-            
-            </summary>
-            <param name="methodBody"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Microsoft.Cci.ILRewriter.EmitMethodBody(Microsoft.Cci.IMethodBody)">
-            <summary>
-            
-            </summary>
-            <param name="methodBody"></param>
-        </member>
-        <member name="M:Microsoft.Cci.ILRewriter.EmitDebugInformationFor(Microsoft.Cci.IOperation)">
-            <summary>
-            
-            </summary>
-            <param name="operation"></param>
-        </member>
-        <member name="M:Microsoft.Cci.ILRewriter.EmitOperation(Microsoft.Cci.IOperation)">
-            <summary>
-            Emits the given operation at the current position of the new IL stream. Also tracks any referenced local definitions,
-            so that this.localVariables will contain the exact list of locals used in the new method body.
-            </summary>
-            <param name="operation"></param>
-        </member>
-        <member name="M:Microsoft.Cci.ILRewriter.TrackLocal(System.Object)">
-            <summary>
-            
-            </summary>
-            <param name="operationValue"></param>
-        </member>
-        <member name="M:Microsoft.Cci.ILRewriter.GetLabelFor(System.UInt32)">
-            <summary>
-            Returns a label that represents the given offset in the original IL. This label must be marked
-            at the corresponding location in the rewritten IL.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Cci.ILRewriter.Generator">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:Microsoft.Cci.ILRewriter.Host">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="T:Microsoft.Cci.ILGeneratorMethodBody">
-            <summary>
-            A metadata (IL) level represetation of the body of a method or of a property/event accessor.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Cci.ILGeneratorMethodBody.#ctor(Microsoft.Cci.ILGenerator,System.Boolean,System.UInt16,Microsoft.Cci.IMethodDefinition,System.Collections.Generic.IEnumerable{Microsoft.Cci.ILocalDefinition},System.Collections.Generic.IEnumerable{Microsoft.Cci.ITypeDefinition})">
-            <summary>
-            Allocates an object that is the metadata (IL) level represetation of the body of a method or of a property/event accessor.
-            </summary>
-            <param name="generator">An object that provides a way to construct the information needed by a method body. Construction should
-            be completed by the time the generator is passed to this constructor. The generator is not referenced by the resulting method body.</param>
-            <param name="localsAreZeroed">True if the locals are initialized by zeroeing the stack upon method entry.</param>
-            <param name="maxStack">The maximum number of elements on the evaluation stack during the execution of the method.</param>
-            <param name="methodDefinition">The definition of the method whose body this is.
-            If this is the body of an event or property accessor, this will hold the corresponding adder/remover/setter or getter method.</param>
-            <param name="localVariables"></param>
-            <param name="privateHelperTypes">Any types that are implicitly defined in order to implement the body semantics.
-            In case of AST to instructions conversion this lists the types produced.
-            In case of instructions to AST decompilation this should ideally be list of all types
-            which are local to method.</param>
-        </member>
-        <member name="M:Microsoft.Cci.ILGeneratorMethodBody.Dispatch(Microsoft.Cci.IMetadataVisitor)">
-            <summary>
-            Calls visitor.Visit(IMethodBody).
-            </summary>
-        </member>
-        <member name="M:Microsoft.Cci.ILGeneratorMethodBody.GetIteratorScopes">
-            <summary>
-            Returns a block scope associated with each local variable in the iterator for which this is the generator for its MoveNext method.
-            May return null.
-            </summary>
-            <remarks>The PDB file model seems to be that scopes are duplicated if necessary so that there is a separate scope for each
-            local variable in the original iterator and the mapping from local to scope is done by position.</remarks>
-        </member>
-        <member name="M:Microsoft.Cci.ILGeneratorMethodBody.GetLocalScopes">
-            <summary>
-            Returns zero or more local (block) scopes into which the CLR IL operations of this method body is organized.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Cci.ILGeneratorMethodBody.GetNamespaceScopes">
-            <summary>
-            Returns zero or more namespace scopes into which the namespace type containing the given method body has been nested.
-            These scopes determine how simple names are looked up inside the method body. There is a separate scope for each dotted
-            component in the namespace type name. For istance namespace type x.y.z will have two namespace scopes, the first is for the x and the second
-            is for the y.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Cci.ILGeneratorMethodBody.GetSynchronizationInformation">
-            <summary>
-            Returns an object that describes where synchronization points occur in the IL operations of the "MoveNext" method of
-            the state class of an async method. Returns null otherwise.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Cci.ILGeneratorMethodBody.OperationExceptionInformation">
-            <summary>
-            A list exception data within the method body IL.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Cci.ILGeneratorMethodBody.LocalsAreZeroed">
-            <summary>
-            True if the locals are initialized by zeroeing the stack upon method entry.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Cci.ILGeneratorMethodBody.LocalVariables">
-            <summary>
-            The local variables of the method.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Cci.ILGeneratorMethodBody.MethodDefinition">
-            <summary>
-            The definition of the method whose body this is.
-            If this is the body of an event or property accessor, this will hold the corresponding adder/remover/setter or getter method.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Cci.ILGeneratorMethodBody.Operations">
-            <summary>
-            A list CLR IL operations that implement this method body.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Cci.ILGeneratorMethodBody.MaxStack">
-            <summary>
-            The maximum number of elements on the evaluation stack during the execution of the method.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Cci.ILGeneratorMethodBody.PrivateHelperTypes">
-            <summary>
-            Any types that are implicitly defined in order to implement the body semantics.
-            In case of AST to instructions conversion this lists the types produced.
-            In case of instructions to AST decompilation this should ideally be list of all types
-            which are local to method.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Cci.ILGeneratorMethodBody.Size">
-            <summary>
-            The size in bytes of the method body when serialized.
-            </summary>
-        </member>
-        <member name="T:Microsoft.Cci.ILGeneratorSourceInformationProvider">
-            <summary>
-            An object that can provide information about the local scopes of a method and that can map ILocation objects
-            to IPrimarySourceLocation objects.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Cci.ILGeneratorSourceInformationProvider.GetIteratorScopes(Microsoft.Cci.IMethodBody)">
-            <summary>
-            Returns zero or more local (block) scopes, each defining an IL range in which an iterator local is defined.
-            The scopes are returned by the MoveNext method of the object returned by the iterator method.
-            The index of the scope corresponds to the index of the local. Specifically local scope i corresponds
-            to the local stored in field &lt;localName&gt;x_i of the class used to store the local values in between
-            calls to MoveNext.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Cci.ILGeneratorSourceInformationProvider.GetLocalScopes(Microsoft.Cci.IMethodBody)">
-            <summary>
-            Returns zero or more local (block) scopes into which the CLR IL operations in the given method body is organized.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Cci.ILGeneratorSourceInformationProvider.GetNamespaceScopes(Microsoft.Cci.IMethodBody)">
-            <summary>
-            Returns zero or more namespace scopes into which the namespace type containing the given method body has been nested.
-            These scopes determine how simple names are looked up inside the method body. There is a separate scope for each dotted
-            component in the namespace type name. For istance namespace type x.y.z will have two namespace scopes, the first is for the x and the second
-            is for the y.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Cci.ILGeneratorSourceInformationProvider.GetConstantsInScope(Microsoft.Cci.ILocalScope)">
-            <summary>
-            Returns zero or more local constant definitions that are local to the given scope.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Cci.ILGeneratorSourceInformationProvider.GetVariablesInScope(Microsoft.Cci.ILocalScope)">
-            <summary>
-            Returns zero or more local variable definitions that are local to the given scope.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Cci.ILGeneratorSourceInformationProvider.IsIterator(Microsoft.Cci.IMethodBody)">
-            <summary>
-            Returns true if the method body is an iterator.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Cci.ILGeneratorSourceInformationProvider.GetSynchronizationInformation(Microsoft.Cci.IMethodBody)">
-            <summary>
-            If the given method body is the "MoveNext" method of the state class of an asynchronous method, the returned
-            object describes where synchronization points occur in the IL operations of the "MoveNext" method. Otherwise
-            the result is null.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Cci.ILGeneratorSourceInformationProvider.GetPrimarySourceLocationsFor(System.Collections.Generic.IEnumerable{Microsoft.Cci.ILocation})">
-            <summary>
-            Return zero or more locations in primary source documents that correspond to one or more of the given derived (non primary) document locations.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Cci.ILGeneratorSourceInformationProvider.GetPrimarySourceLocationsFor(Microsoft.Cci.ILocation)">
-            <summary>
-            Return zero or more locations in primary source documents that correspond to the given derived (non primary) document location.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Cci.ILGeneratorSourceInformationProvider.GetPrimarySourceLocationsForDefinitionOf(Microsoft.Cci.ILocalDefinition)">
-            <summary>
-            Return zero or more locations in primary source documents that correspond to the definition of the given local.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Cci.ILGeneratorSourceInformationProvider.GetSourceNameFor(Microsoft.Cci.ILocalDefinition,System.Boolean@)">
-            <summary>
-            Returns the source name of the given local definition, if this is available.
-            Otherwise returns the value of the Name property and sets isCompilerGenerated to true.
-            </summary>
         </member>
     </members>
 </doc>

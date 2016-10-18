@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 
 
-using Microsoft.Cci;
 
 using log4net.Appender;
 using log4net.Config;

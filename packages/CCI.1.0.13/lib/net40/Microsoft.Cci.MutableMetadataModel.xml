@@ -4,6 +4,1988 @@
         <name>Microsoft.Cci.MutableMetadataModel</name>
     </assembly>
     <members>
+        <member name="T:Microsoft.Cci.MutableCodeModel.Assembly">
+            <summary>
+            Represents a .NET assembly.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Cci.MutableCodeModel.Module">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Microsoft.Cci.MutableCodeModel.Unit">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Microsoft.Cci.MutableCodeModel.UnitReference">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Microsoft.Cci.MutableCodeModel.ICopyFrom`1">
+            <summary>
+            Implemented by mutable objects that provide a method that makes the mutable object a copy of a given immutable object.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.MutableCodeModel.ICopyFrom`1.Copy(`0,Microsoft.Cci.IInternFactory)">
+            <summary>
+            Makes this mutable object a copy of the given immutable object.
+            </summary>
+            <param name="objectToCopy">An immutable object that implements the same object model interface as this mutable object.</param>
+            <param name="internFactory">The intern factory to use for computing the interned identity (if applicable) of this mutable object.</param>
+        </member>
+        <member name="M:Microsoft.Cci.MutableCodeModel.UnitReference.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.MutableCodeModel.UnitReference.Copy(Microsoft.Cci.IUnitReference,Microsoft.Cci.IInternFactory)">
+            <summary>
+            
+            </summary>
+            <param name="unitReference"></param>
+            <param name="internFactory"></param>
+        </member>
+        <member name="M:Microsoft.Cci.MutableCodeModel.UnitReference.Dispatch(Microsoft.Cci.IMetadataVisitor)">
+            <summary>
+            Calls the visitor.Visit(T) method where T is the most derived object model node interface type implemented by the concrete type
+            of the object implementing IReference. The dispatch method does nothing else.
+            </summary>
+            <param name="visitor"></param>
+        </member>
+        <member name="M:Microsoft.Cci.MutableCodeModel.UnitReference.DispatchAsReference(Microsoft.Cci.IMetadataVisitor)">
+            <summary>
+            Calls the visitor.Visit(T) method where T is the most derived object model node interface type implemented by the concrete type
+            of the object implementing IReference, which is not derived from IDefinition. For example an object implemeting IArrayType will
+            call visitor.Visit(IArrayTypeReference) and not visitor.Visit(IArrayType).
+            The dispatch method does nothing else.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cci.MutableCodeModel.UnitReference.isFrozen">
+            <summary>
+            True if the reference has been frozen and can no longer be modified. A reference becomes frozen
+            as soon as it is resolved or interned. An unfrozen reference can also explicitly be set to be frozen.
+            It is recommended that any code constructing a type reference freezes it immediately after construction is complete.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.UnitReference.Attributes">
+            <summary>
+            A collection of metadata custom attributes that are associated with this definition. May be null.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.UnitReference.IsFrozen">
+            <summary>
+            True if the reference has been frozen and can no longer be modified. A reference becomes frozen
+            as soon as it is resolved or interned. An unfrozen reference can also explicitly be set to be frozen.
+            It is recommended that any code constructing a type reference freezes it immediately after construction is complete.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.UnitReference.Locations">
+            <summary>
+            A potentially empty collection of locations that correspond to this instance. May be null.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.UnitReference.Name">
+            <summary>
+            The name of the referenced unit.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.UnitReference.ResolvedUnit">
+            <summary>
+            The referenced unit, or Dummy.Unit if the reference cannot be resolved.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.UnitReference.UnitIdentity">
+            <summary>
+            The identity of the unit reference.
+            </summary>
+            <value></value>
+            <remarks>The location might not be set.</remarks>
+        </member>
+        <member name="M:Microsoft.Cci.MutableCodeModel.Unit.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.MutableCodeModel.Unit.Copy(Microsoft.Cci.IUnit,Microsoft.Cci.IInternFactory)">
+            <summary>
+            
+            </summary>
+            <param name="unit"></param>
+            <param name="internFactory"></param>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Unit.ContractAssemblySymbolicIdentity">
+            <summary>
+            The identity of the assembly corresponding to the target platform contract assembly at the time this unit was compiled.
+            This property will be used to implement IMetadataHost.ContractAssemblySymbolicIdentity and its implementation must
+            consequently not use the latter.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Unit.CoreAssemblySymbolicIdentity">
+            <summary>
+            The identity of the assembly corresponding to the target platform core assembly at the time this unit was compiled.
+            This property will be used to implement IMetadataHost.CoreAssemblySymbolicIdentity and its implementation must
+            consequently not use the latter.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Unit.Location">
+            <summary>
+            An indication of the location where the unit is or will be stored. This need not be a file system path and may be empty.
+            The interpretation depends on the ICompilationHostEnviroment instance used to resolve references to this unit.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Unit.UninterpretedSections">
+            <summary>
+            A sequence of PE sections that are not well known to PE readers and thus have not been decompiled into 
+            other parts of the Metadata Model. These sections may have meaning to other tools.  May be null.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Unit.PlatformType">
+            <summary>
+            A collection of well known types that must be part of every target platform and that are fundamental to modeling compiled code.
+            The types are obtained by querying the unit set of the compilation and thus can include types that are defined by the compilation itself.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Unit.UnitNamespaceRoot">
+            <summary>
+            A root namespace that contains nested namespaces as well as top level types and anything else that implements INamespaceMember.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Unit.UnitReferences">
+            <summary>
+            A list of other units that are referenced by this unit.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Unit.NamespaceRoot">
+            <summary>
+            The associated root namespace.
+            </summary>
+            <value></value>
+        </member>
+        <member name="M:Microsoft.Cci.MutableCodeModel.Module.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.MutableCodeModel.Module.Copy(Microsoft.Cci.IModule,Microsoft.Cci.IInternFactory)">
+            <summary>
+            
+            </summary>
+            <param name="module"></param>
+            <param name="internFactory"></param>
+        </member>
+        <member name="M:Microsoft.Cci.MutableCodeModel.Module.Dispatch(Microsoft.Cci.IMetadataVisitor)">
+            <summary>
+            Calls visitor.Visit(IModule).
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.MutableCodeModel.Module.DispatchAsReference(Microsoft.Cci.IMetadataVisitor)">
+            <summary>
+            Calls visitor.Visit(IModuleReference).
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Module.AllTypes">
+            <summary>
+            Gets or sets all types.
+            </summary>
+            <value>All types.</value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Module.AssemblyReferences">
+            <summary>
+            A list of the assemblies that are referenced by this module.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Module.BaseAddress">
+            <summary>
+            The preferred memory address at which the module is to be loaded at runtime.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Module.ContainingAssembly">
+            <summary>
+            The Assembly that contains this module. If this module is main module then this returns this. May be null.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Module.DebugInformationLocation">
+            <summary>
+            A path to the debug information corresponding to this module. Can be absolute or relative to the file path of the module. Empty if not specified.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Module.DebugInformationVersion">
+            <summary>
+            A hexadecimal string that is used to store and retrieve the debugging symbols from a symbol store.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Module.DllCharacteristics">
+            <summary>
+            Flags that control the behavior of the target operating system. CLI implementations are supposed to ignore this, but some operating system pay attention.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Module.EntryPoint">
+            <summary>
+            The method that will be called to start execution of this executable module.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Module.FileAlignment">
+            <summary>
+            The alignment of sections in the module's image file.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Module.GenericMethodInstances">
+            <summary>
+            A usually empty (null) collection of generic method instances that are directly or indirectly used by this module.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Module.ILOnly">
+            <summary>
+            True if the module contains only IL and is processor independent.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Module.StrongNameSigned">
+            <summary>
+            True if the module contains a hash of its contents, encrypted with the private key of an assembly strong name.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Module.StructuralTypeInstances">
+            <summary>
+            A usually empty (null) collection of structural type instances that are directly or indirectly used by this module.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Module.StructuralTypeInstanceMembers">
+            <summary>
+            A usually empty (null) collection of structural type instance members that are directly or indirectly used by this module.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Module.Prefers32bits">
+            <summary>
+            If set, the module is platform independent but prefers to be loaded in a 32-bit process for performance reasons.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Module.Kind">
+            <summary>
+            The kind of metadata stored in this module. For example whether this module is an executable or a manifest resource file.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Module.LinkerMajorVersion">
+            <summary>
+            The first part of a two part version number indicating the version of the linker that produced this module. For example, the 8 in 8.0.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Module.LinkerMinorVersion">
+            <summary>
+            The first part of a two part version number indicating the version of the linker that produced this module. For example, the 0 in 8.0.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Module.Location">
+            <summary>
+            An indication of the location where the assembly is or will be stored. This need not be a file system path and may be empty.
+            The interpretation depends on the ICompilationHostEnviroment instance used to resolve references to this unit.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Module.MetadataFormatMajorVersion">
+            <summary>
+            The first part of a two part version number indicating the version of the format used to persist this module. For example, the 1 in 1.0.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Module.MetadataFormatMinorVersion">
+            <summary>
+            The second part of a two part version number indicating the version of the format used to persist this module. For example, the 0 in 1.0.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Module.ModuleAttributes">
+            <summary>
+            A list of objects representing persisted instances of types that extend System.Attribute. Provides an extensible way to associate metadata
+            with this module. May be null.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Module.ModuleName">
+            <summary>
+            The name of the module.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Module.ModuleReferences">
+            <summary>
+            A list of the modules that are referenced by this module. May be null.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Module.Name">
+            <summary>
+            The name of the module.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Module.PersistentIdentifier">
+            <summary>
+            A globally unique persistent identifier for this module.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Module.Machine">
+            <summary>
+            Specifies the target CPU. 
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Module.RequiresAmdInstructionSet">
+            <summary>
+            If set, the module contains instructions or assumptions that are specific to the AMD 64 bit instruction set. Setting this flag to
+            true also sets Requires64bits to true.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Module.RequiresStartupStub">
+            <summary>
+            If set, the module must include a machine code stub that transfers control to the virtual execution system.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Module.Requires32bits">
+            <summary>
+            If set, the module contains instructions that assume a 32 bit instruction set. For example it may depend on an address being 32 bits.
+            This may be true even if the module contains only IL instructions because of PlatformInvoke and COM interop.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Module.Requires64bits">
+            <summary>
+            If set, the module contains instructions that assume a 64 bit instruction set. For example it may depend on an address being 64 bits.
+            This may be true even if the module contains only IL instructions because of PlatformInvoke and COM interop.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Module.SizeOfHeapCommit">
+            <summary>
+            The size of the virtual memory initially committed for the initial process heap.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Module.SizeOfHeapReserve">
+            <summary>
+            The size of the virtual memory to reserve for the initial process heap.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Module.SizeOfStackCommit">
+            <summary>
+            The size of the virtual memory initially committed for the initial thread's stack.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Module.SizeOfStackReserve">
+            <summary>
+            The size of the virtual memory to reserve for the initial thread's stack.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Module.Strings">
+            <summary>
+            Gets or sets the strings. May be null.
+            </summary>
+            <value>The strings.</value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Module.SubsystemMajorVersion">
+            <summary>
+            The first part of a two part version number indicating the operating subsystem that is expected to be the target environment for this module.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Module.SubsystemMinorVersion">
+            <summary>
+            The second part of a two part version number indicating the operating subsystem that is expected to be the target environment for this module.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Module.TargetRuntimeVersion">
+            <summary>
+            Identifies the version of the CLR that is required to load this module or assembly.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Module.TrackDebugData">
+            <summary>
+            True if the instructions in this module must be compiled in such a way that the debugging experience is not compromised.
+            To set the value of this property, add an instance of System.Diagnostics.DebuggableAttribute to the MetadataAttributes list.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Module.TypeReferences">
+            <summary>
+            Zero or more type references used in the module. May be null. If the module is produced by reading in a CLR PE file, then this will be the contents
+            of the type reference table. If the module is produced some other way, the method may return an empty enumeration or an enumeration that is a
+            subset of the type references actually used in the module. May be null.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Module.TypeMemberReferences">
+            <summary>
+            Returns zero or more type member references used in the module. May be null. If the module is produced by reading in a CLR PE file, then this will be the contents
+            of the member reference table (which only contains entries for fields and methods). If the module is produced some other way, 
+            the method may return an empty enumeration or an enumeration that is a subset of the member references actually used in the module. May be null. 
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Module.UnitReferences">
+            <summary>
+            A list of other units that are referenced by this unit.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Module.UsePublicKeyTokensForAssemblyReferences">
+            <summary>
+            True if the module will be persisted with a list of assembly references that include only tokens derived from the public keys
+            of the referenced assemblies, rather than with references that include the full public keys of referenced assemblies as well
+            as hashes over the contents of the referenced assemblies. Setting this property to true is appropriate during development.
+            When building for deployment it is safer to set this property to false.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Module.Win32Resources">
+            <summary>
+            A list of named byte sequences persisted with the module and used during execution, typically via the Win32 API.
+            A module will define Win32 resources rather than "managed" resources mainly to present metadata to legacy tools
+            and not typically use the data in its own code. May be null.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Module.UnitIdentity">
+            <summary>
+            The identity of the unit reference.
+            </summary>
+            <value></value>
+            <remarks>The location might not be set.</remarks>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Module.ModuleIdentity">
+            <summary>
+            The identity of the referenced module.
+            </summary>
+            <value></value>
+            <remarks>The location might not be set.</remarks>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Module.ResolvedModule">
+            <summary>
+            The referenced module, or Dummy.Module if the reference cannot be resolved.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Module.ResolvedUnit">
+            <summary>
+            The referenced unit, or Dummy.Unit if the reference cannot be resolved.
+            </summary>
+            <value></value>
+        </member>
+        <member name="M:Microsoft.Cci.MutableCodeModel.Assembly.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.MutableCodeModel.Assembly.Copy(Microsoft.Cci.IAssembly,Microsoft.Cci.IInternFactory)">
+            <summary>
+            
+            </summary>
+            <param name="assembly"></param>
+            <param name="internFactory"></param>
+        </member>
+        <member name="M:Microsoft.Cci.MutableCodeModel.Assembly.Dispatch(Microsoft.Cci.IMetadataVisitor)">
+            <summary>
+            Calls visitor.Visit(IAssembly).
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.MutableCodeModel.Assembly.DispatchAsReference(Microsoft.Cci.IMetadataVisitor)">
+            <summary>
+            Calls visitor.Visit(IAssemblyReference).
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Assembly.AssemblyAttributes">
+            <summary>
+            A list of objects representing persisted instances of types that extend System.Attribute. Provides an extensible way to associate metadata
+            with this assembly. May be null.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Assembly.ContainingAssembly">
+            <summary>
+            The Assembly that contains this module. If this module is main module then this returns this. May be null.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Assembly.Culture">
+            <summary>
+            Identifies the culture associated with the assembly. Typically specified for sattelite assemblies with localized resources.
+            Empty if not specified.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Assembly.ExportedTypes">
+            <summary>
+            Public types defined in other modules making up this assembly and to which other assemblies may refer to via this assembly. May be null.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Assembly.Flags">
+            <summary>
+            A set of bits and bit ranges representing properties of the assembly. The value of <see cref="P:Microsoft.Cci.MutableCodeModel.Assembly.Flags"/> can be set
+            from source code via the AssemblyFlags assembly custom attribute. The interpretation of the property depends on the target platform.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Assembly.Files">
+            <summary>
+            A list of the files that constitute the assembly. These are not the source language files that may have been
+            used to compile the assembly, but the files that contain constituent modules of a multi-module assembly as well
+            as any external resources. It corresonds to the File table of the .NET assembly file format. May be null.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Assembly.IsRetargetable">
+            <summary>
+            True if the implementation of the referenced assembly used at runtime is not expected to match the version seen at compile time.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Assembly.ContainsForeignTypes">
+            <summary>
+            True if the referenced assembly contains types that describe objects that are neither COM objects nor objects that are managed by the CLR.
+            Instances of such types are created and managed by another runtime and are accessed by CLR objects via some form of interoperation mechanism.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Assembly.Location">
+            <summary>
+            An indication of the location where the assembly is or will be stored. This need not be a file system path and may be empty.
+            The interpretation depends on the ICompilationHostEnviroment instance used to resolve references to this unit.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Assembly.MemberModules">
+            <summary>
+            A list of the modules that constitute the assembly. May be null.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Assembly.ModuleName">
+            <summary>
+            The name of the module containing the assembly manifest. This can be different from the name of the assembly itself.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Assembly.ModuleIdentity">
+            <summary>
+            Gets the module identity.
+            </summary>
+            <value>The module identity.</value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Assembly.Name">
+            <summary>
+            The name of the assembly.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Assembly.PublicKey">
+            <summary>
+            The public part of the key used to encrypt the SHA1 hash over the persisted form of this assembly. Null if not specified.
+            This value is used by the loader to decrypt HashValue which it then compares with a freshly computed hash value to verify the
+            integrity of the assembly. May be null.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Assembly.Resources">
+            <summary>
+            A list of named byte sequences persisted with the assembly and used during execution, typically via .NET Framework helper classes. May be null.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Assembly.SecurityAttributes">
+            <summary>
+            A list of objects representing persisted instances of pairs of security actions and sets of security permissions.
+            These apply by default to every method reachable from the module. May be null.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Assembly.Version">
+            <summary>
+            The version of the assembly.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Assembly.AssemblyIdentity">
+            <summary>
+            The identity of the referenced assembly.
+            </summary>
+            <value></value>
+            <remarks>The location might be empty.</remarks>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Assembly.UnifiedAssemblyIdentity">
+            <summary>
+            Returns the identity of the assembly reference to which this assembly reference has been unified.
+            </summary>
+            <value></value>
+            <remarks>The location might not be set.</remarks>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Assembly.Aliases">
+            <summary>
+            A list of aliases for the root namespace of the referenced assembly.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Assembly.ResolvedAssembly">
+            <summary>
+            The referenced assembly, or Dummy.Assembly if the reference cannot be resolved.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Assembly.HashValue">
+            <summary>
+            The encrypted SHA1 hash of the persisted form of the assembly.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Assembly.PublicKeyToken">
+            <summary>
+            The hashed 8 bytes of the public key of the referenced assembly. This is empty if the referenced assembly does not have a public key.
+            </summary>
+            <value></value>
+        </member>
+        <member name="T:Microsoft.Cci.MutableCodeModel.AssemblyReference">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Microsoft.Cci.MutableCodeModel.ModuleReference">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.MutableCodeModel.ModuleReference.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.MutableCodeModel.ModuleReference.Copy(Microsoft.Cci.IModuleReference,Microsoft.Cci.IInternFactory)">
+            <summary>
+            
+            </summary>
+            <param name="moduleReference"></param>
+            <param name="internFactory"></param>
+        </member>
+        <member name="M:Microsoft.Cci.MutableCodeModel.ModuleReference.DispatchAsReference(Microsoft.Cci.IMetadataVisitor)">
+            <summary>
+            Calls vistor.Visit(IModuleReference).
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.MutableCodeModel.ModuleReference.Resolve">
+            <summary>
+            Tries to resolves the reference with the aid of this.Host. If resolution fails, the result is Dummy.Module.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.ModuleReference.ContainingAssembly">
+            <summary>
+            The Assembly that contains this module. May be null if the module is not part of an assembly.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.ModuleReference.Host">
+            <summary>
+            An object representing the application that is hosting the object model that this reference forms a part of. May be null.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.ModuleReference.ModuleIdentity">
+            <summary>
+            The identity of the referenced module.
+            </summary>
+            <value></value>
+            <remarks>The location might not be set.</remarks>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.ModuleReference.ReferringUnit">
+            <summary>
+            The unit that is the root of a graph that contains this reference instance. This is not the same as ContainingAssembly, which
+            is a reference to the assembly that contains the module which is referenced by this instance. May be null.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.ModuleReference.ResolvedModule">
+            <summary>
+            The referenced module, or Dummy.Module if the reference cannot be resolved.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.ModuleReference.ResolvedUnit">
+            <summary>
+            The referenced unit, or Dummy.Unit if the reference cannot be resolved.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.ModuleReference.UnitIdentity">
+            <summary>
+            The identity of the unit reference.
+            </summary>
+            <value></value>
+            <remarks>The location might not be set.</remarks>
+        </member>
+        <member name="M:Microsoft.Cci.MutableCodeModel.AssemblyReference.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.MutableCodeModel.AssemblyReference.Copy(Microsoft.Cci.IAssemblyReference,Microsoft.Cci.IInternFactory)">
+            <summary>
+            
+            </summary>
+            <param name="assemblyReference"></param>
+            <param name="internFactory"></param>
+        </member>
+        <member name="M:Microsoft.Cci.MutableCodeModel.AssemblyReference.DispatchAsReference(Microsoft.Cci.IMetadataVisitor)">
+            <summary>
+            Calls vistor.Visit(IAssemblyReference).
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.MutableCodeModel.AssemblyReference.Resolve">
+            <summary>
+            Tries to resolves the reference with the aid of this.Host. If resolution fails, the result is Dummy.Module.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.AssemblyReference.Aliases">
+            <summary>
+            A list of aliases for the root namespace of the referenced assembly. May be null.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.AssemblyReference.ResolvedAssembly">
+            <summary>
+            The referenced assembly, or Dummy.Assembly if the reference cannot be resolved.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.AssemblyReference.Culture">
+            <summary>
+            Identifies the culture associated with the assembly reference. Typically specified for sattelite assemblies with localized resources.
+            Empty if not specified.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.AssemblyReference.IsRetargetable">
+            <summary>
+            True if the implementation of the referenced assembly used at runtime is not expected to match the version seen at compile time.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.AssemblyReference.ContainsForeignTypes">
+            <summary>
+            True if the referenced assembly contains types that describe objects that are neither COM objects nor objects that are managed by the CLR.
+            Instances of such types are created and managed by another runtime and are accessed by CLR objects via some form of interoperation mechanism.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.AssemblyReference.HashValue">
+            <summary>
+            The encrypted SHA1 hash of the persisted form of the referenced assembly.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.AssemblyReference.PublicKey">
+            <summary>
+            The public part of the key used to encrypt the SHA1 hash over the persisted form of the referenced assembly. Null if not specified.
+            This value is used by the loader to decrypt HashValue which it then compares with a freshly computed hash value to verify the
+            integrity of the assembly.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.AssemblyReference.PublicKeyToken">
+            <summary>
+            The hashed 8 bytes of the public key of the referenced assembly. This is empty if the referenced assembly does not have a public key. May be null.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.AssemblyReference.Version">
+            <summary>
+            The version of the assembly reference.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.AssemblyReference.Location">
+            <summary>
+            The location of the referenced assembly.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.AssemblyReference.AssemblyIdentity">
+            <summary>
+            The identity of the referenced assembly. Has the same Culture, Name, PublicKeyToken and Version as the reference.
+            </summary>
+            <value></value>
+            <remarks>Also has a location, which may might be empty. Although mostly redundant, the object returned by this
+            property is useful because it derives from System.Object and therefore can be used as a hash table key. It may be more efficient
+            to use the properties defined directly on the reference, since the object returned by this property may be allocated lazily
+            and the allocation can thus be avoided by using the reference's properties.</remarks>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.AssemblyReference.UnifiedAssemblyIdentity">
+            <summary>
+            Returns the identity of the assembly reference to which this assembly reference has been unified.
+            </summary>
+            <value></value>
+            <remarks>The location might not be set.</remarks>
+        </member>
+        <member name="T:Microsoft.Cci.MutableCodeModel.NestedUnitNamespace">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Microsoft.Cci.MutableCodeModel.UnitNamespace">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.MutableCodeModel.UnitNamespace.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.MutableCodeModel.UnitNamespace.Copy(Microsoft.Cci.IUnitNamespace,Microsoft.Cci.IInternFactory)">
+            <summary>
+            
+            </summary>
+            <param name="unitNamespace"></param>
+            <param name="internFactory"></param>
+        </member>
+        <member name="M:Microsoft.Cci.MutableCodeModel.UnitNamespace.Contains(Microsoft.Cci.INamespaceMember)">
+            <summary>
+            Return true if the given member instance is a member of this scope.
+            </summary>
+            <param name="member"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Cci.MutableCodeModel.UnitNamespace.Dispatch(Microsoft.Cci.IMetadataVisitor)">
+            <summary>
+            Calls the visitor.Visit(T) method where T is the most derived object model node interface type implemented by the concrete type
+            of the object implementing IReference. The dispatch method does nothing else.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.MutableCodeModel.UnitNamespace.DispatchAsReference(Microsoft.Cci.IMetadataVisitor)">
+            <summary>
+            Calls the visitor.Visit(T) method where T is the most derived object model node interface type implemented by the concrete type
+            of the object implementing IReference, which is not derived from IDefinition. For example an object implemeting IArrayType will
+            call visitor.Visit(IArrayTypeReference) and not visitor.Visit(IArrayType).
+            The dispatch method does nothing else.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.MutableCodeModel.UnitNamespace.GetMatchingMembersNamed(Microsoft.Cci.IName,System.Boolean,Microsoft.Cci.Function{Microsoft.Cci.INamespaceMember,System.Boolean})">
+            <summary>
+            Returns the list of members with the given name that also satisfy the given predicate.
+            </summary>
+            <param name="name"></param>
+            <param name="ignoreCase"></param>
+            <param name="predicate"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Cci.MutableCodeModel.UnitNamespace.GetMatchingMembers(Microsoft.Cci.Function{Microsoft.Cci.INamespaceMember,System.Boolean})">
+            <summary>
+            Returns the list of members that satisfy the given predicate.
+            </summary>
+            <param name="predicate"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Cci.MutableCodeModel.UnitNamespace.GetMembersNamed(Microsoft.Cci.IName,System.Boolean)">
+            <summary>
+            Returns the list of members with the given name.
+            </summary>
+            <param name="name"></param>
+            <param name="ignoreCase"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Cci.MutableCodeModel.UnitNamespace.ToString">
+            <summary>
+            Returns a <see cref="T:System.String"/> that represents the current <see cref="T:System.Object"/>.
+            </summary>
+            <returns>
+            A <see cref="T:System.String"/> that represents the current <see cref="T:System.Object"/>.
+            </returns>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.UnitNamespace.Attributes">
+            <summary>
+            A collection of metadata custom attributes that are associated with this definition. May be null.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.UnitNamespace.Locations">
+            <summary>
+            A potentially empty collection of locations that correspond to this instance. May be null.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.UnitNamespace.Members">
+            <summary>
+            The collection of member objects comprising the namespaces.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.UnitNamespace.Name">
+            <summary>
+            The name of the entity.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.UnitNamespace.Unit">
+            <summary>
+            The IUnit instance associated with this namespace.
+            </summary>
+            <value></value>
+        </member>
+        <member name="M:Microsoft.Cci.MutableCodeModel.NestedUnitNamespace.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.MutableCodeModel.NestedUnitNamespace.Copy(Microsoft.Cci.INestedUnitNamespace,Microsoft.Cci.IInternFactory)">
+            <summary>
+            
+            </summary>
+            <param name="nestedUnitNamespace"></param>
+            <param name="internFactory"></param>
+        </member>
+        <member name="M:Microsoft.Cci.MutableCodeModel.NestedUnitNamespace.Dispatch(Microsoft.Cci.IMetadataVisitor)">
+            <summary>
+            Calls visitor.Visit(INestedUnitNamespace).
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.MutableCodeModel.NestedUnitNamespace.DispatchAsReference(Microsoft.Cci.IMetadataVisitor)">
+            <summary>
+            Calls visitor.Visit(INestedUnitNamespaceReference).
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.NestedUnitNamespace.ContainingUnitNamespace">
+            <summary>
+            The unit namespace that contains this member.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.NestedUnitNamespace.ContainingScope">
+            <summary>
+            The scope instance with a Members collection that includes this instance.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.NestedUnitNamespace.Container">
+            <summary>
+            The container instance with a Members collection that includes this instance.
+            </summary>
+            <value></value>
+        </member>
+        <member name="T:Microsoft.Cci.MutableCodeModel.NestedUnitNamespaceReference">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Microsoft.Cci.MutableCodeModel.UnitNamespaceReference">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.MutableCodeModel.UnitNamespaceReference.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.MutableCodeModel.UnitNamespaceReference.Copy(Microsoft.Cci.IUnitNamespaceReference,Microsoft.Cci.IInternFactory)">
+            <summary>
+            
+            </summary>
+            <param name="unitNamespaceReference"></param>
+            <param name="internFactory"></param>
+        </member>
+        <member name="M:Microsoft.Cci.MutableCodeModel.UnitNamespaceReference.Dispatch(Microsoft.Cci.IMetadataVisitor)">
+            <summary>
+            Calls the visitor.Visit(T) method where T is the most derived object model node interface type implemented by the concrete type
+            of the object implementing IReference. The dispatch method does nothing else.
+            </summary>
+            <param name="visitor"></param>
+        </member>
+        <member name="M:Microsoft.Cci.MutableCodeModel.UnitNamespaceReference.DispatchAsReference(Microsoft.Cci.IMetadataVisitor)">
+            <summary>
+            Calls the visitor.Visit(T) method where T is the most derived object model node interface type implemented by the concrete type
+            of the object implementing IReference, which is not derived from IDefinition. For example an object implemeting IArrayType will
+            call visitor.Visit(IArrayTypeReference) and not visitor.Visit(IArrayType).
+            The dispatch method does nothing else.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cci.MutableCodeModel.UnitNamespaceReference.isFrozen">
+            <summary>
+            True if the reference has been frozen and can no longer be modified. A reference becomes frozen
+            as soon as it is resolved or interned. An unfrozen reference can also explicitly be set to be frozen.
+            It is recommended that any code constructing a type reference freezes it immediately after construction is complete.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.MutableCodeModel.UnitNamespaceReference.ToString">
+            <summary>
+            Returns a <see cref="T:System.String"/> that represents this instance.
+            </summary>
+            <returns>
+            A <see cref="T:System.String"/> that represents this instance.
+            </returns>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.UnitNamespaceReference.Attributes">
+            <summary>
+            A collection of metadata custom attributes that are associated with this definition. May be null.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.UnitNamespaceReference.IsFrozen">
+            <summary>
+            True if the reference has been frozen and can no longer be modified. A reference becomes frozen
+            as soon as it is resolved or interned. An unfrozen reference can also explicitly be set to be frozen.
+            It is recommended that any code constructing a type reference freezes it immediately after construction is complete.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.UnitNamespaceReference.Locations">
+            <summary>
+            A potentially empty collection of locations that correspond to this instance. May be null.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.UnitNamespaceReference.ResolvedUnitNamespace">
+            <summary>
+            The namespace definition being referred to.
+            </summary>
+            <value></value>
+        </member>
+        <member name="M:Microsoft.Cci.MutableCodeModel.NestedUnitNamespaceReference.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.MutableCodeModel.NestedUnitNamespaceReference.Copy(Microsoft.Cci.INestedUnitNamespaceReference,Microsoft.Cci.IInternFactory)">
+            <summary>
+            
+            </summary>
+            <param name="nestedUnitNamespaceReference"></param>
+            <param name="internFactory"></param>
+        </member>
+        <member name="M:Microsoft.Cci.MutableCodeModel.NestedUnitNamespaceReference.DispatchAsReference(Microsoft.Cci.IMetadataVisitor)">
+            <summary>
+            Calls visitor.Visit(INestedUnitNamespaceReference).
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.MutableCodeModel.NestedUnitNamespaceReference.GetUnit">
+            <summary>
+            Gets the unit.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.NestedUnitNamespaceReference.ContainingUnitNamespace">
+            <summary>
+            A reference to the unit namespace that contains the referenced nested unit namespace.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.NestedUnitNamespaceReference.Name">
+            <summary>
+            The name of the entity.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.NestedUnitNamespaceReference.ResolvedNestedUnitNamespace">
+            <summary>
+            The namespace definition being referred to.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.NestedUnitNamespaceReference.ResolvedUnitNamespace">
+            <summary>
+            The namespace definition being referred to.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.NestedUnitNamespaceReference.Unit">
+            <summary>
+            A reference to the unit that defines the referenced namespace.
+            </summary>
+            <value></value>
+        </member>
+        <member name="T:Microsoft.Cci.MutableCodeModel.RootUnitNamespace">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.MutableCodeModel.RootUnitNamespace.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.MutableCodeModel.RootUnitNamespace.Copy(Microsoft.Cci.IRootUnitNamespace,Microsoft.Cci.IInternFactory)">
+            <summary>
+            
+            </summary>
+            <param name="rootUnitNamespace"></param>
+            <param name="internFactory"></param>
+        </member>
+        <member name="M:Microsoft.Cci.MutableCodeModel.RootUnitNamespace.Dispatch(Microsoft.Cci.IMetadataVisitor)">
+            <summary>
+            Calls visitor.Visit(IRootUnitNamespace).
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.MutableCodeModel.RootUnitNamespace.DispatchAsReference(Microsoft.Cci.IMetadataVisitor)">
+            <summary>
+            Calls visitor.Visit(IRootUnitNamespaceReference).
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.RootUnitNamespace.Unit">
+            <summary>
+            The IUnit instance associated with this namespace.
+            </summary>
+            <value></value>
+        </member>
+        <member name="T:Microsoft.Cci.MutableCodeModel.RootUnitNamespaceReference">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.MutableCodeModel.RootUnitNamespaceReference.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.MutableCodeModel.RootUnitNamespaceReference.Copy(Microsoft.Cci.IRootUnitNamespaceReference,Microsoft.Cci.IInternFactory)">
+            <summary>
+            
+            </summary>
+            <param name="rootUnitNamespaceReference"></param>
+            <param name="internFactory"></param>
+        </member>
+        <member name="M:Microsoft.Cci.MutableCodeModel.RootUnitNamespaceReference.DispatchAsReference(Microsoft.Cci.IMetadataVisitor)">
+            <summary>
+            Calls visitor.Visit(IRootUnitNamespaceReference).
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.RootUnitNamespaceReference.ResolvedUnitNamespace">
+            <summary>
+            The namespace definition being referred to.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.RootUnitNamespaceReference.Unit">
+            <summary>
+            A reference to the unit that defines the referenced namespace.
+            </summary>
+            <value></value>
+        </member>
+        <member name="T:Microsoft.Cci.MutableCodeModel.CustomAttribute">
+            <summary>
+            A metadata custom attribute.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.MutableCodeModel.CustomAttribute.#ctor">
+            <summary>
+            Allocates a metadata custom attribute.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.MutableCodeModel.CustomAttribute.Copy(Microsoft.Cci.ICustomAttribute,Microsoft.Cci.IInternFactory)">
+            <summary>
+            
+            </summary>
+            <param name="customAttribute"></param>
+            <param name="internFactory"></param>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.CustomAttribute.Arguments">
+            <summary>
+            Zero or more positional arguments for the attribute constructor.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.CustomAttribute.Constructor">
+            <summary>
+            A reference to the constructor that will be used to instantiate this custom attribute during execution (if the attribute is inspected via Reflection).
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.CustomAttribute.NamedArguments">
+            <summary>
+            Zero or more named arguments that specify values for fields and properties of the attribute.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.CustomAttribute.NumberOfNamedArguments">
+            <summary>
+            The number of named arguments.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.CustomAttribute.Type">
+            <summary>
+            The type of the attribute. For example System.AttributeUsageAttribute.
+            </summary>
+            <value></value>
+        </member>
+        <member name="T:Microsoft.Cci.MutableCodeModel.FileReference">
+            <summary>
+            Represents a file referenced by an assembly.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.MutableCodeModel.FileReference.#ctor">
+            <summary>
+            Allocates an object that represents a file referenced by an assembly.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.MutableCodeModel.FileReference.Copy(Microsoft.Cci.IFileReference,Microsoft.Cci.IInternFactory)">
+            <summary>
+            
+            </summary>
+            <param name="fileReference"></param>
+            <param name="internFactory"></param>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.FileReference.ContainingAssembly">
+            <summary>
+            The assembly that references this file.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.FileReference.FileName">
+            <summary>
+            Name of the file.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.FileReference.HashValue">
+            <summary>
+            A hash of the file contents.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.FileReference.HasMetadata">
+            <summary>
+            True if the file has metadata.
+            </summary>
+            <value></value>
+        </member>
+        <member name="T:Microsoft.Cci.MutableCodeModel.MarshallingInformation">
+            <summary>
+            Information about how values of managed types should be marshalled to and from unmanaged types.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.MutableCodeModel.MarshallingInformation.#ctor">
+            <summary>
+            Allocates an object containig information about how values of managed types should be marshalled to and from unmanaged types.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.MutableCodeModel.MarshallingInformation.Copy(Microsoft.Cci.IMarshallingInformation,Microsoft.Cci.IInternFactory)">
+            <summary>
+            
+            </summary>
+            <param name="marshallingInformation"></param>
+            <param name="internFactory"></param>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.MarshallingInformation.CustomMarshaller">
+            <summary>
+            A reference to the type implementing the custom marshaller.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.MarshallingInformation.CustomMarshallerRuntimeArgument">
+            <summary>
+            An argument string (cookie) passed to the custom marshaller at run time.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.MarshallingInformation.ElementType">
+            <summary>
+            The unmanged element type of the unmanaged array.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.MarshallingInformation.IidParameterIndex">
+            <summary>
+            Specifies the index of the parameter that contains the value of the Inteface Identifier (IID) of the marshalled object.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.MarshallingInformation.UnmanagedType">
+            <summary>
+            The unmanaged type to which the managed type will be marshalled. This can be be UnmanagedType.CustomMarshaler, in which case the unmanaged type
+            is decided at runtime.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.MarshallingInformation.NumberOfElements">
+            <summary>
+            The number of elements in the fixed size portion of the unmanaged array.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.MarshallingInformation.ParamIndex">
+            <summary>
+            The zero based index of the parameter in the unmanaged method that contains the number of elements in the variable portion of unmanaged array.
+            If the index is null, the variable portion is of size zero, or the caller conveys the size of the variable portion of the array to the unmanaged method in some other way.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.MarshallingInformation.SafeArrayElementSubtype">
+            <summary>
+            The type to which the variant values of all elements of the safe array must belong. See also SafeArrayElementUserDefinedSubtype.
+            (The element type of a safe array is VARIANT. The "sub type" specifies the value of all of the tag fields (vt) of the element values. )
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.MarshallingInformation.SafeArrayElementUserDefinedSubtype">
+            <summary>
+            A reference to the user defined type to which the variant values of all elements of the safe array must belong.
+            (The element type of a safe array is VARIANT. The tag fields will all be either VT_DISPATCH or VT_UNKNOWN or VT_RECORD.
+            The "user defined sub type" specifies the type of value the ppdispVal/ppunkVal/pvRecord fields of the element values may point to.)
+            </summary>
+            <value></value>
+        </member>
+        <member name="T:Microsoft.Cci.MutableCodeModel.Operation">
+            <summary>
+            A single CLR IL operation.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.MutableCodeModel.Operation.#ctor">
+            <summary>
+            Allocates a single CLR IL operation.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.MutableCodeModel.Operation.Copy(Microsoft.Cci.IOperation,Microsoft.Cci.IInternFactory)">
+            <summary>
+            
+            </summary>
+            <param name="operation"></param>
+            <param name="internFactory"></param>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Operation.Location">
+            <summary>
+            The location that corresponds to this instruction.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Operation.Offset">
+            <summary>
+            The offset from the start of the operation stream of a method
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Operation.OperationCode">
+            <summary>
+            The actual value of the operation code
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Operation.Value">
+            <summary>
+            Immediate data such as a string, the address of a branch target, or a metadata reference, such as a Field
+            </summary>
+            <value></value>
+        </member>
+        <member name="T:Microsoft.Cci.MutableCodeModel.OperationExceptionInformation">
+            <summary>
+            Exception information of the method body expressed in terms of offsets in CLR IL.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.MutableCodeModel.OperationExceptionInformation.#ctor">
+            <summary>
+            Allocates an object that provides exception information of the method body expressed in terms of offsets in CLR IL.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.MutableCodeModel.OperationExceptionInformation.Copy(Microsoft.Cci.IOperationExceptionInformation,Microsoft.Cci.IInternFactory)">
+            <summary>
+            
+            </summary>
+            <param name="operationExceptionInformation"></param>
+            <param name="internFactory"></param>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.OperationExceptionInformation.ExceptionType">
+            <summary>
+            If HandlerKind == HandlerKind.Catch, this is the type of expection to catch. If HandlerKind == HandlerKind.Filter, this is System.Object.
+            Otherwise this is a Dummy.TypeReference.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.OperationExceptionInformation.FilterDecisionStartOffset">
+            <summary>
+            Label instruction corresponding to the start of filter decision block
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.OperationExceptionInformation.HandlerEndOffset">
+            <summary>
+            Label instruction corresponding to the end of handler block
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.OperationExceptionInformation.HandlerKind">
+            <summary>
+            Handler kind for this SEH info
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.OperationExceptionInformation.HandlerStartOffset">
+            <summary>
+            Label instruction corresponding to the start of handler block
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.OperationExceptionInformation.TryEndOffset">
+            <summary>
+            Label instruction corresponding to the end of try block
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.OperationExceptionInformation.TryStartOffset">
+            <summary>
+            Label instruction corresponding to the start of try block
+            </summary>
+            <value></value>
+        </member>
+        <member name="T:Microsoft.Cci.MutableCodeModel.PlatformInvokeInformation">
+            <summary>
+            Information that describes how a method from the underlying Platform is to be invoked.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.MutableCodeModel.PlatformInvokeInformation.#ctor">
+            <summary>
+            Allocates an object that provides information that describes how a method from the underlying Platform is to be invoked.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.MutableCodeModel.PlatformInvokeInformation.Copy(Microsoft.Cci.IPlatformInvokeInformation,Microsoft.Cci.IInternFactory)">
+            <summary>
+            
+            </summary>
+            <param name="platformInvokeInformation"></param>
+            <param name="internFactory"></param>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.PlatformInvokeInformation.ImportModule">
+            <summary>
+            Module providing the method/field.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.PlatformInvokeInformation.ImportName">
+            <summary>
+            Name of the method/field providing the implementation.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.PlatformInvokeInformation.NoMangle">
+            <summary>
+            If the PInvoke should use the name specified as is.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.PlatformInvokeInformation.PInvokeCallingConvention">
+            <summary>
+            The calling convention of the PInvoke call.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.PlatformInvokeInformation.StringFormat">
+            <summary>
+            Marshalling of the Strings for this method.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.PlatformInvokeInformation.SupportsLastError">
+            <summary>
+            If the target function supports getting last error.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.PlatformInvokeInformation.UseBestFit">
+            <summary>
+            Enables or disables best-fit mapping behavior when converting Unicode characters to ANSI characters.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.PlatformInvokeInformation.ThrowExceptionForUnmappableChar">
+            <summary>
+            Enables or disables the throwing of an exception on an unmappable Unicode character that is converted to an ANSI "?" character.
+            </summary>
+            <value></value>
+        </member>
+        <member name="T:Microsoft.Cci.MutableCodeModel.PESection">
+            <summary>
+            A section of the PE file that does not contain any objects that can be referenced in another way
+            using this object model. The data of such a section is not decompiled by metadata reader and 
+            is written out unchanged by metadata writers. Presumably it is meaningful in some way and is 
+            thus exposed for use by other tools.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.MutableCodeModel.PESection.#ctor">
+            <summary>
+            A section of the PE file that does not contain any objects that can be referenced in another way
+            using this object model. The data of such a section is not decompiled by metadata reader and 
+            is written out unchanged by metadata writers. Presumably it is meaningful in some way and is 
+            thus exposed for use by other tools.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.MutableCodeModel.PESection.Copy(Microsoft.Cci.IPESection,Microsoft.Cci.IInternFactory)">
+            <summary>
+            
+            </summary>
+            <param name="peSection"></param>
+            <param name="internFactory"></param>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.PESection.SectionName">
+            <summary>
+            The name of the section. Should be exactly eight characters long.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.PESection.Characteristics">
+            <summary>
+            A set of bits that describes the purpose of a section and how it behaves when loaded.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.PESection.VirtualAddress">
+            <summary>
+            For executable images this is the address of the first byte of the section, when loaded into memory, relative to the image base.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.PESection.VirtualSize">
+            <summary>
+            Total size of the section in bytes. If this value is greater than SizeOfRawData, the section is zero-padded.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.PESection.SizeOfRawData">
+            <summary>
+            Size of the initialized data on disk in bytes, shall be a multiple of FileAlignment from the PE header.
+            If this is less than VirtualSize the remainder of the section is zero filled.
+            Because this field is rounded while the VirtualSize field is not, it is possible for this to be greater than VirtualSize.
+            When a section contains only uninitialized data, this field should be 0.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.PESection.Rawdata">
+            <summary>
+            The data, if any, with which the section will be initialized when loaded. May be null.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Cci.MutableCodeModel.Resource">
+            <summary>
+            A named data resource that is stored as part of CLR metadata.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.MutableCodeModel.Resource.#ctor">
+            <summary>
+            Allocates a named data resource that is stored as part of CLR metadata.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.MutableCodeModel.Resource.Copy(Microsoft.Cci.IResource,Microsoft.Cci.IInternFactory)">
+            <summary>
+            
+            </summary>
+            <param name="resource"></param>
+            <param name="internFactory"></param>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Resource.Attributes">
+            <summary>
+            A collection of metadata custom attributes that are associated with this resource.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Resource.Data">
+            <summary>
+            The resource data.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Resource.DefiningAssembly">
+            <summary>
+            A symbolic reference to the IAssembly that defines the resource.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Resource.ExternalFile">
+            <summary>
+            The external file that contains the resource.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Resource.IsInExternalFile">
+            <summary>
+            The resource is in external file
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Resource.IsPublic">
+            <summary>
+            Specifies whether other code from other assemblies may access this resource.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Resource.Name">
+            <summary>
+            The name of the resource.
+            </summary>
+            <value></value>
+        </member>
+        <member name="T:Microsoft.Cci.MutableCodeModel.ResourceReference">
+            <summary>
+            A reference to an IResource instance.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.MutableCodeModel.ResourceReference.#ctor">
+            <summary>
+            Allocates a reference to an IResource instance.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.MutableCodeModel.ResourceReference.Copy(Microsoft.Cci.IResourceReference,Microsoft.Cci.IInternFactory)">
+            <summary>
+            
+            </summary>
+            <param name="resourceReference"></param>
+            <param name="internFactory"></param>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.ResourceReference.Attributes">
+            <summary>
+            A collection of metadata custom attributes that are associated with this resource.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.ResourceReference.DefiningAssembly">
+            <summary>
+            A symbolic reference to the IAssembly that defines the resource.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.ResourceReference.IsPublic">
+            <summary>
+            Specifies whether other code from other assemblies may access this resource.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.ResourceReference.Name">
+            <summary>
+            The name of the resource.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.ResourceReference.Resource">
+            <summary>
+            The referenced resource.
+            </summary>
+            <value></value>
+        </member>
+        <member name="T:Microsoft.Cci.MutableCodeModel.SectionBlock">
+            <summary>
+            Represents a block of data stored at a given offset within a specified section of the PE file.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.MutableCodeModel.SectionBlock.#ctor">
+            <summary>
+            Allocates an object that represents a block of 
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.MutableCodeModel.SectionBlock.Copy(Microsoft.Cci.ISectionBlock,Microsoft.Cci.IInternFactory)">
+            <summary>
+            </summary>
+            <param name="sectionBlock"></param>
+            <param name="internFactory"></param>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.SectionBlock.Data">
+            <summary>
+            Byte information stored in the block.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.SectionBlock.Offset">
+            <summary>
+            Offset into section where the block resides.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.SectionBlock.PESectionKind">
+            <summary>
+            Section where the block resides.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.SectionBlock.Size">
+            <summary>
+            Size of the block.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Cci.MutableCodeModel.SecurityAttribute">
+            <summary>
+            A declarative specification of a security action applied to a set of permissions. Used by the CLR loader to enforce security restrictions.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.MutableCodeModel.SecurityAttribute.#ctor">
+            <summary>
+            Allocates a declarative specification of a security action applied to a set of permissions. Used by the CLR loader to enforce security restrictions.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.MutableCodeModel.SecurityAttribute.Copy(Microsoft.Cci.ISecurityAttribute,Microsoft.Cci.IInternFactory)">
+            <summary>
+            
+            </summary>
+            <param name="securityAttribute"></param>
+            <param name="internFactory"></param>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.SecurityAttribute.Action">
+            <summary>
+            Specifies the security action that can be performed using declarative security. For example the action could be Deny.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.SecurityAttribute.Attributes">
+            <summary>
+            Custom attributes that collectively define the permission set to which the action is applied. Each attribute represents a serialized permission
+            or permission set. The union of the sets, together with the individual permissions, define the set to which the action applies.
+            </summary>
+            <value></value>
+        </member>
+        <member name="T:Microsoft.Cci.MutableCodeModel.Win32Resource">
+            <summary>
+            A resource file formatted according to Win32 API conventions and typically obtained from a Portable Executable (PE) file.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.MutableCodeModel.Win32Resource.#ctor">
+            <summary>
+            Allocates a resource file formatted according to Win32 API conventions and typically obtained from a Portable Executable (PE) file.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.MutableCodeModel.Win32Resource.Copy(Microsoft.Cci.IWin32Resource,Microsoft.Cci.IInternFactory)">
+            <summary>
+            
+            </summary>
+            <param name="win32Resource"></param>
+            <param name="internFactory"></param>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Win32Resource.CodePage">
+            <summary>
+            The code page for which this resource is appropriate.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Win32Resource.Data">
+            <summary>
+            The data of the resource.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Win32Resource.Id">
+            <summary>
+            An integer tag that identifies this resource. If the value is less than 0, this.Name should be used instead.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Win32Resource.LanguageId">
+            <summary>
+            The language for which this resource is appropriate.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Win32Resource.Name">
+            <summary>
+            The name of the resource. Only valid if this.Id &lt; 0.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Win32Resource.TypeId">
+            <summary>
+            An integer tag that identifies what type of resource this is. If the value is less than 0, this.TypeName should be used instead.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.Win32Resource.TypeName">
+            <summary>
+            A string that identifies what type of resource this is. Only valid if this.TypeId &lt; 0.
+            </summary>
+            <value></value>
+        </member>
+        <member name="T:Microsoft.Cci.MutableCodeModel.MetadataConstant">
+            <summary>
+            An expression that does not change its value at runtime and can be evaluated at compile time.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Cci.MutableCodeModel.MetadataExpression">
+            <summary>
+            An expression that can be represented directly in metadata.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.MutableCodeModel.MetadataExpression.#ctor">
+            <summary>
+            An expression that can be represented directly in metadata.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.MutableCodeModel.MetadataExpression.Copy(Microsoft.Cci.IMetadataExpression,Microsoft.Cci.IInternFactory)">
+            <summary>
+            Makes a shallow copy of an expression that can be represented directly in metadata.
+            </summary>
+            <param name="metadataExpression"></param>
+            <param name="internFactory"></param>
+        </member>
+        <member name="M:Microsoft.Cci.MutableCodeModel.MetadataExpression.Dispatch(Microsoft.Cci.IMetadataVisitor)">
+            <summary>
+            Calls the visitor.Visit(T) method where T is the most derived object model node interface type implemented by the concrete type
+            of the object implementing IStatement. The dispatch method does not invoke Dispatch on any child objects. If child traversal
+            is desired, the implementations of the Visit methods should do the subsequent dispatching.
+            </summary>
+            <param name="visitor"></param>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.MetadataExpression.Locations">
+            <summary>
+            A potentially empty collection of locations that correspond to this instance. May be null.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.MetadataExpression.Type">
+            <summary>
+            The type of value the expression represents.
+            </summary>
+            <value></value>
+        </member>
+        <member name="M:Microsoft.Cci.MutableCodeModel.MetadataConstant.#ctor">
+            <summary>
+            An expression that does not change its value at runtime and can be evaluated at compile time.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.MutableCodeModel.MetadataConstant.Copy(Microsoft.Cci.IMetadataConstant,Microsoft.Cci.IInternFactory)">
+            <summary>
+            An expression that does not change its value at runtime and can be evaluated at compile time.
+            </summary>
+            <param name="metadataConstant">A template from which to construct a shallow copy.</param>
+            <param name="internFactory">The intern factory to use for computing the interned identity (if applicable) of this mutable object.</param>
+        </member>
+        <member name="M:Microsoft.Cci.MutableCodeModel.MetadataConstant.Dispatch(Microsoft.Cci.IMetadataVisitor)">
+            <summary>
+            Calls visitor(IMetadataConstant).
+            </summary>
+            <param name="visitor"></param>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.MetadataConstant.Value">
+            <summary>
+            The compile time value of the expression. Can be null.
+            </summary>
+            <value></value>
+        </member>
+        <member name="T:Microsoft.Cci.MutableCodeModel.MetadataCreateArray">
+            <summary>
+            An expression that creates an array instance in metadata. Only for use in custom attributes.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.MutableCodeModel.MetadataCreateArray.#ctor">
+            <summary>
+            An expression that creates an array instance in metadata. Only for use in custom attributes.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.MutableCodeModel.MetadataCreateArray.Copy(Microsoft.Cci.IMetadataCreateArray,Microsoft.Cci.IInternFactory)">
+            <summary>
+            Makes a shallow copy of an expression that creates an array instance in metadata. Only for use in custom attributes.
+            </summary>
+            <param name="createArray"></param>
+            <param name="internFactory"></param>
+        </member>
+        <member name="M:Microsoft.Cci.MutableCodeModel.MetadataCreateArray.Dispatch(Microsoft.Cci.IMetadataVisitor)">
+            <summary>
+            Calls visitor.Visit(IMetadataCreateArray).
+            </summary>
+            <param name="visitor"></param>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.MetadataCreateArray.ElementType">
+            <summary>
+            The element type of the array.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.MetadataCreateArray.Initializers">
+            <summary>
+            The initial values of the array elements. May be empty or null.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.MetadataCreateArray.LowerBounds">
+            <summary>
+            The index value of the first element in each dimension. May be null.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.MetadataCreateArray.Rank">
+            <summary>
+            The number of dimensions of the array.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.MetadataCreateArray.Sizes">
+            <summary>
+            The number of elements allowed in each dimension. May be null.
+            </summary>
+            <value></value>
+        </member>
+        <member name="T:Microsoft.Cci.MutableCodeModel.MetadataNamedArgument">
+            <summary>
+            An expression that represents a (name, value) pair and that is typically used in method calls, custom attributes and object initializers.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.MutableCodeModel.MetadataNamedArgument.#ctor">
+            <summary>
+            An expression that represents a (name, value) pair and that is typically used in method calls, custom attributes and object initializers.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.MutableCodeModel.MetadataNamedArgument.Copy(Microsoft.Cci.IMetadataNamedArgument,Microsoft.Cci.IInternFactory)">
+            <summary>
+            Makes a shallow copy of an expression that represents a (name, value) pair and that is typically used in method calls, custom attributes and object initializers.
+            </summary>
+            <param name="namedArgument"></param>
+            <param name="internFactory"></param>
+        </member>
+        <member name="M:Microsoft.Cci.MutableCodeModel.MetadataNamedArgument.Dispatch(Microsoft.Cci.IMetadataVisitor)">
+            <summary>
+            Calls visitor.Visit(IMetadataNamedArgument).
+            </summary>
+            <param name="visitor"></param>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.MetadataNamedArgument.ArgumentName">
+            <summary>
+            The name of the parameter or property or field that corresponds to the argument.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.MetadataNamedArgument.ArgumentValue">
+            <summary>
+            The value of the argument.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.MetadataNamedArgument.IsField">
+            <summary>
+            True if the named argument provides the value of a field.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.MetadataNamedArgument.ResolvedDefinition">
+            <summary>
+            Returns either null or the parameter or property or field that corresponds to this argument.
+            </summary>
+            <value></value>
+        </member>
+        <member name="T:Microsoft.Cci.MutableCodeModel.MetadataTypeOf">
+            <summary>
+            An expression that results in a System.Type instance.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.MutableCodeModel.MetadataTypeOf.#ctor">
+            <summary>
+            An expression that results in a System.Type instance.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.MutableCodeModel.MetadataTypeOf.Copy(Microsoft.Cci.IMetadataTypeOf,Microsoft.Cci.IInternFactory)">
+            <summary>
+            Makes a shallow copy of an expression that results in a System.Type instance.
+            </summary>
+            <param name="typeOf"></param>
+            <param name="internFactory"></param>
+        </member>
+        <member name="M:Microsoft.Cci.MutableCodeModel.MetadataTypeOf.Dispatch(Microsoft.Cci.IMetadataVisitor)">
+            <summary>
+            Calls visitor.Visit(IMetadataTypeOf).
+            </summary>
+            <param name="visitor"></param>
+        </member>
+        <member name="P:Microsoft.Cci.MutableCodeModel.MetadataTypeOf.TypeToGet">
+            <summary>
+            The type that will be represented by the System.Type instance.
+            </summary>
+            <value></value>
+        </member>
         <member name="T:Microsoft.Cci.MutableCodeModel.MetadataShallowCopier">
             <summary>
             
@@ -2862,213 +4844,6 @@
             </summary>
             <param name="propertyDefinition"></param>
         </member>
-        <member name="T:Microsoft.Cci.MutableCodeModel.MetadataConstant">
-            <summary>
-            An expression that does not change its value at runtime and can be evaluated at compile time.
-            </summary>
-        </member>
-        <member name="T:Microsoft.Cci.MutableCodeModel.MetadataExpression">
-            <summary>
-            An expression that can be represented directly in metadata.
-            </summary>
-        </member>
-        <member name="T:Microsoft.Cci.MutableCodeModel.ICopyFrom`1">
-            <summary>
-            Implemented by mutable objects that provide a method that makes the mutable object a copy of a given immutable object.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Cci.MutableCodeModel.ICopyFrom`1.Copy(`0,Microsoft.Cci.IInternFactory)">
-            <summary>
-            Makes this mutable object a copy of the given immutable object.
-            </summary>
-            <param name="objectToCopy">An immutable object that implements the same object model interface as this mutable object.</param>
-            <param name="internFactory">The intern factory to use for computing the interned identity (if applicable) of this mutable object.</param>
-        </member>
-        <member name="M:Microsoft.Cci.MutableCodeModel.MetadataExpression.#ctor">
-            <summary>
-            An expression that can be represented directly in metadata.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Cci.MutableCodeModel.MetadataExpression.Copy(Microsoft.Cci.IMetadataExpression,Microsoft.Cci.IInternFactory)">
-            <summary>
-            Makes a shallow copy of an expression that can be represented directly in metadata.
-            </summary>
-            <param name="metadataExpression"></param>
-            <param name="internFactory"></param>
-        </member>
-        <member name="M:Microsoft.Cci.MutableCodeModel.MetadataExpression.Dispatch(Microsoft.Cci.IMetadataVisitor)">
-            <summary>
-            Calls the visitor.Visit(T) method where T is the most derived object model node interface type implemented by the concrete type
-            of the object implementing IStatement. The dispatch method does not invoke Dispatch on any child objects. If child traversal
-            is desired, the implementations of the Visit methods should do the subsequent dispatching.
-            </summary>
-            <param name="visitor"></param>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.MetadataExpression.Locations">
-            <summary>
-            A potentially empty collection of locations that correspond to this instance. May be null.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.MetadataExpression.Type">
-            <summary>
-            The type of value the expression represents.
-            </summary>
-            <value></value>
-        </member>
-        <member name="M:Microsoft.Cci.MutableCodeModel.MetadataConstant.#ctor">
-            <summary>
-            An expression that does not change its value at runtime and can be evaluated at compile time.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Cci.MutableCodeModel.MetadataConstant.Copy(Microsoft.Cci.IMetadataConstant,Microsoft.Cci.IInternFactory)">
-            <summary>
-            An expression that does not change its value at runtime and can be evaluated at compile time.
-            </summary>
-            <param name="metadataConstant">A template from which to construct a shallow copy.</param>
-            <param name="internFactory">The intern factory to use for computing the interned identity (if applicable) of this mutable object.</param>
-        </member>
-        <member name="M:Microsoft.Cci.MutableCodeModel.MetadataConstant.Dispatch(Microsoft.Cci.IMetadataVisitor)">
-            <summary>
-            Calls visitor(IMetadataConstant).
-            </summary>
-            <param name="visitor"></param>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.MetadataConstant.Value">
-            <summary>
-            The compile time value of the expression. Can be null.
-            </summary>
-            <value></value>
-        </member>
-        <member name="T:Microsoft.Cci.MutableCodeModel.MetadataCreateArray">
-            <summary>
-            An expression that creates an array instance in metadata. Only for use in custom attributes.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Cci.MutableCodeModel.MetadataCreateArray.#ctor">
-            <summary>
-            An expression that creates an array instance in metadata. Only for use in custom attributes.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Cci.MutableCodeModel.MetadataCreateArray.Copy(Microsoft.Cci.IMetadataCreateArray,Microsoft.Cci.IInternFactory)">
-            <summary>
-            Makes a shallow copy of an expression that creates an array instance in metadata. Only for use in custom attributes.
-            </summary>
-            <param name="createArray"></param>
-            <param name="internFactory"></param>
-        </member>
-        <member name="M:Microsoft.Cci.MutableCodeModel.MetadataCreateArray.Dispatch(Microsoft.Cci.IMetadataVisitor)">
-            <summary>
-            Calls visitor.Visit(IMetadataCreateArray).
-            </summary>
-            <param name="visitor"></param>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.MetadataCreateArray.ElementType">
-            <summary>
-            The element type of the array.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.MetadataCreateArray.Initializers">
-            <summary>
-            The initial values of the array elements. May be empty or null.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.MetadataCreateArray.LowerBounds">
-            <summary>
-            The index value of the first element in each dimension. May be null.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.MetadataCreateArray.Rank">
-            <summary>
-            The number of dimensions of the array.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.MetadataCreateArray.Sizes">
-            <summary>
-            The number of elements allowed in each dimension. May be null.
-            </summary>
-            <value></value>
-        </member>
-        <member name="T:Microsoft.Cci.MutableCodeModel.MetadataNamedArgument">
-            <summary>
-            An expression that represents a (name, value) pair and that is typically used in method calls, custom attributes and object initializers.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Cci.MutableCodeModel.MetadataNamedArgument.#ctor">
-            <summary>
-            An expression that represents a (name, value) pair and that is typically used in method calls, custom attributes and object initializers.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Cci.MutableCodeModel.MetadataNamedArgument.Copy(Microsoft.Cci.IMetadataNamedArgument,Microsoft.Cci.IInternFactory)">
-            <summary>
-            Makes a shallow copy of an expression that represents a (name, value) pair and that is typically used in method calls, custom attributes and object initializers.
-            </summary>
-            <param name="namedArgument"></param>
-            <param name="internFactory"></param>
-        </member>
-        <member name="M:Microsoft.Cci.MutableCodeModel.MetadataNamedArgument.Dispatch(Microsoft.Cci.IMetadataVisitor)">
-            <summary>
-            Calls visitor.Visit(IMetadataNamedArgument).
-            </summary>
-            <param name="visitor"></param>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.MetadataNamedArgument.ArgumentName">
-            <summary>
-            The name of the parameter or property or field that corresponds to the argument.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.MetadataNamedArgument.ArgumentValue">
-            <summary>
-            The value of the argument.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.MetadataNamedArgument.IsField">
-            <summary>
-            True if the named argument provides the value of a field.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.MetadataNamedArgument.ResolvedDefinition">
-            <summary>
-            Returns either null or the parameter or property or field that corresponds to this argument.
-            </summary>
-            <value></value>
-        </member>
-        <member name="T:Microsoft.Cci.MutableCodeModel.MetadataTypeOf">
-            <summary>
-            An expression that results in a System.Type instance.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Cci.MutableCodeModel.MetadataTypeOf.#ctor">
-            <summary>
-            An expression that results in a System.Type instance.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Cci.MutableCodeModel.MetadataTypeOf.Copy(Microsoft.Cci.IMetadataTypeOf,Microsoft.Cci.IInternFactory)">
-            <summary>
-            Makes a shallow copy of an expression that results in a System.Type instance.
-            </summary>
-            <param name="typeOf"></param>
-            <param name="internFactory"></param>
-        </member>
-        <member name="M:Microsoft.Cci.MutableCodeModel.MetadataTypeOf.Dispatch(Microsoft.Cci.IMetadataVisitor)">
-            <summary>
-            Calls visitor.Visit(IMetadataTypeOf).
-            </summary>
-            <param name="visitor"></param>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.MetadataTypeOf.TypeToGet">
-            <summary>
-            The type that will be represented by the System.Type instance.
-            </summary>
-            <value></value>
-        </member>
         <member name="T:Microsoft.Cci.MutableCodeModel.EventDefinition">
             <summary>
             An event is a member that enables an object or class to provide notifications. Clients can attach executable code for events by supplying event handlers.
@@ -5142,623 +6917,6 @@
             When the containing type of the referenced specialized method definition is itself a specialized nested type of a generic type instance,
             then the unspecialized method reference refers to the corresponding method definition from the unspecialized containing type definition.
             (I.e. the unspecialized method reference always refers to a method definition that is not obtained via specialization.)
-            </summary>
-            <value></value>
-        </member>
-        <member name="T:Microsoft.Cci.MutableCodeModel.CustomAttribute">
-            <summary>
-            A metadata custom attribute.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Cci.MutableCodeModel.CustomAttribute.#ctor">
-            <summary>
-            Allocates a metadata custom attribute.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Cci.MutableCodeModel.CustomAttribute.Copy(Microsoft.Cci.ICustomAttribute,Microsoft.Cci.IInternFactory)">
-            <summary>
-            
-            </summary>
-            <param name="customAttribute"></param>
-            <param name="internFactory"></param>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.CustomAttribute.Arguments">
-            <summary>
-            Zero or more positional arguments for the attribute constructor.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.CustomAttribute.Constructor">
-            <summary>
-            A reference to the constructor that will be used to instantiate this custom attribute during execution (if the attribute is inspected via Reflection).
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.CustomAttribute.NamedArguments">
-            <summary>
-            Zero or more named arguments that specify values for fields and properties of the attribute.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.CustomAttribute.NumberOfNamedArguments">
-            <summary>
-            The number of named arguments.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.CustomAttribute.Type">
-            <summary>
-            The type of the attribute. For example System.AttributeUsageAttribute.
-            </summary>
-            <value></value>
-        </member>
-        <member name="T:Microsoft.Cci.MutableCodeModel.FileReference">
-            <summary>
-            Represents a file referenced by an assembly.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Cci.MutableCodeModel.FileReference.#ctor">
-            <summary>
-            Allocates an object that represents a file referenced by an assembly.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Cci.MutableCodeModel.FileReference.Copy(Microsoft.Cci.IFileReference,Microsoft.Cci.IInternFactory)">
-            <summary>
-            
-            </summary>
-            <param name="fileReference"></param>
-            <param name="internFactory"></param>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.FileReference.ContainingAssembly">
-            <summary>
-            The assembly that references this file.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.FileReference.FileName">
-            <summary>
-            Name of the file.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.FileReference.HashValue">
-            <summary>
-            A hash of the file contents.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.FileReference.HasMetadata">
-            <summary>
-            True if the file has metadata.
-            </summary>
-            <value></value>
-        </member>
-        <member name="T:Microsoft.Cci.MutableCodeModel.MarshallingInformation">
-            <summary>
-            Information about how values of managed types should be marshalled to and from unmanaged types.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Cci.MutableCodeModel.MarshallingInformation.#ctor">
-            <summary>
-            Allocates an object containig information about how values of managed types should be marshalled to and from unmanaged types.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Cci.MutableCodeModel.MarshallingInformation.Copy(Microsoft.Cci.IMarshallingInformation,Microsoft.Cci.IInternFactory)">
-            <summary>
-            
-            </summary>
-            <param name="marshallingInformation"></param>
-            <param name="internFactory"></param>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.MarshallingInformation.CustomMarshaller">
-            <summary>
-            A reference to the type implementing the custom marshaller.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.MarshallingInformation.CustomMarshallerRuntimeArgument">
-            <summary>
-            An argument string (cookie) passed to the custom marshaller at run time.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.MarshallingInformation.ElementType">
-            <summary>
-            The unmanged element type of the unmanaged array.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.MarshallingInformation.IidParameterIndex">
-            <summary>
-            Specifies the index of the parameter that contains the value of the Inteface Identifier (IID) of the marshalled object.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.MarshallingInformation.UnmanagedType">
-            <summary>
-            The unmanaged type to which the managed type will be marshalled. This can be be UnmanagedType.CustomMarshaler, in which case the unmanaged type
-            is decided at runtime.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.MarshallingInformation.NumberOfElements">
-            <summary>
-            The number of elements in the fixed size portion of the unmanaged array.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.MarshallingInformation.ParamIndex">
-            <summary>
-            The zero based index of the parameter in the unmanaged method that contains the number of elements in the variable portion of unmanaged array.
-            If the index is null, the variable portion is of size zero, or the caller conveys the size of the variable portion of the array to the unmanaged method in some other way.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.MarshallingInformation.SafeArrayElementSubtype">
-            <summary>
-            The type to which the variant values of all elements of the safe array must belong. See also SafeArrayElementUserDefinedSubtype.
-            (The element type of a safe array is VARIANT. The "sub type" specifies the value of all of the tag fields (vt) of the element values. )
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.MarshallingInformation.SafeArrayElementUserDefinedSubtype">
-            <summary>
-            A reference to the user defined type to which the variant values of all elements of the safe array must belong.
-            (The element type of a safe array is VARIANT. The tag fields will all be either VT_DISPATCH or VT_UNKNOWN or VT_RECORD.
-            The "user defined sub type" specifies the type of value the ppdispVal/ppunkVal/pvRecord fields of the element values may point to.)
-            </summary>
-            <value></value>
-        </member>
-        <member name="T:Microsoft.Cci.MutableCodeModel.Operation">
-            <summary>
-            A single CLR IL operation.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Cci.MutableCodeModel.Operation.#ctor">
-            <summary>
-            Allocates a single CLR IL operation.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Cci.MutableCodeModel.Operation.Copy(Microsoft.Cci.IOperation,Microsoft.Cci.IInternFactory)">
-            <summary>
-            
-            </summary>
-            <param name="operation"></param>
-            <param name="internFactory"></param>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Operation.Location">
-            <summary>
-            The location that corresponds to this instruction.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Operation.Offset">
-            <summary>
-            The offset from the start of the operation stream of a method
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Operation.OperationCode">
-            <summary>
-            The actual value of the operation code
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Operation.Value">
-            <summary>
-            Immediate data such as a string, the address of a branch target, or a metadata reference, such as a Field
-            </summary>
-            <value></value>
-        </member>
-        <member name="T:Microsoft.Cci.MutableCodeModel.OperationExceptionInformation">
-            <summary>
-            Exception information of the method body expressed in terms of offsets in CLR IL.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Cci.MutableCodeModel.OperationExceptionInformation.#ctor">
-            <summary>
-            Allocates an object that provides exception information of the method body expressed in terms of offsets in CLR IL.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Cci.MutableCodeModel.OperationExceptionInformation.Copy(Microsoft.Cci.IOperationExceptionInformation,Microsoft.Cci.IInternFactory)">
-            <summary>
-            
-            </summary>
-            <param name="operationExceptionInformation"></param>
-            <param name="internFactory"></param>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.OperationExceptionInformation.ExceptionType">
-            <summary>
-            If HandlerKind == HandlerKind.Catch, this is the type of expection to catch. If HandlerKind == HandlerKind.Filter, this is System.Object.
-            Otherwise this is a Dummy.TypeReference.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.OperationExceptionInformation.FilterDecisionStartOffset">
-            <summary>
-            Label instruction corresponding to the start of filter decision block
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.OperationExceptionInformation.HandlerEndOffset">
-            <summary>
-            Label instruction corresponding to the end of handler block
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.OperationExceptionInformation.HandlerKind">
-            <summary>
-            Handler kind for this SEH info
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.OperationExceptionInformation.HandlerStartOffset">
-            <summary>
-            Label instruction corresponding to the start of handler block
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.OperationExceptionInformation.TryEndOffset">
-            <summary>
-            Label instruction corresponding to the end of try block
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.OperationExceptionInformation.TryStartOffset">
-            <summary>
-            Label instruction corresponding to the start of try block
-            </summary>
-            <value></value>
-        </member>
-        <member name="T:Microsoft.Cci.MutableCodeModel.PlatformInvokeInformation">
-            <summary>
-            Information that describes how a method from the underlying Platform is to be invoked.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Cci.MutableCodeModel.PlatformInvokeInformation.#ctor">
-            <summary>
-            Allocates an object that provides information that describes how a method from the underlying Platform is to be invoked.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Cci.MutableCodeModel.PlatformInvokeInformation.Copy(Microsoft.Cci.IPlatformInvokeInformation,Microsoft.Cci.IInternFactory)">
-            <summary>
-            
-            </summary>
-            <param name="platformInvokeInformation"></param>
-            <param name="internFactory"></param>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.PlatformInvokeInformation.ImportModule">
-            <summary>
-            Module providing the method/field.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.PlatformInvokeInformation.ImportName">
-            <summary>
-            Name of the method/field providing the implementation.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.PlatformInvokeInformation.NoMangle">
-            <summary>
-            If the PInvoke should use the name specified as is.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.PlatformInvokeInformation.PInvokeCallingConvention">
-            <summary>
-            The calling convention of the PInvoke call.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.PlatformInvokeInformation.StringFormat">
-            <summary>
-            Marshalling of the Strings for this method.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.PlatformInvokeInformation.SupportsLastError">
-            <summary>
-            If the target function supports getting last error.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.PlatformInvokeInformation.UseBestFit">
-            <summary>
-            Enables or disables best-fit mapping behavior when converting Unicode characters to ANSI characters.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.PlatformInvokeInformation.ThrowExceptionForUnmappableChar">
-            <summary>
-            Enables or disables the throwing of an exception on an unmappable Unicode character that is converted to an ANSI "?" character.
-            </summary>
-            <value></value>
-        </member>
-        <member name="T:Microsoft.Cci.MutableCodeModel.PESection">
-            <summary>
-            A section of the PE file that does not contain any objects that can be referenced in another way
-            using this object model. The data of such a section is not decompiled by metadata reader and 
-            is written out unchanged by metadata writers. Presumably it is meaningful in some way and is 
-            thus exposed for use by other tools.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Cci.MutableCodeModel.PESection.#ctor">
-            <summary>
-            A section of the PE file that does not contain any objects that can be referenced in another way
-            using this object model. The data of such a section is not decompiled by metadata reader and 
-            is written out unchanged by metadata writers. Presumably it is meaningful in some way and is 
-            thus exposed for use by other tools.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Cci.MutableCodeModel.PESection.Copy(Microsoft.Cci.IPESection,Microsoft.Cci.IInternFactory)">
-            <summary>
-            
-            </summary>
-            <param name="peSection"></param>
-            <param name="internFactory"></param>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.PESection.SectionName">
-            <summary>
-            The name of the section. Should be exactly eight characters long.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.PESection.Characteristics">
-            <summary>
-            A set of bits that describes the purpose of a section and how it behaves when loaded.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.PESection.VirtualAddress">
-            <summary>
-            For executable images this is the address of the first byte of the section, when loaded into memory, relative to the image base.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.PESection.VirtualSize">
-            <summary>
-            Total size of the section in bytes. If this value is greater than SizeOfRawData, the section is zero-padded.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.PESection.SizeOfRawData">
-            <summary>
-            Size of the initialized data on disk in bytes, shall be a multiple of FileAlignment from the PE header.
-            If this is less than VirtualSize the remainder of the section is zero filled.
-            Because this field is rounded while the VirtualSize field is not, it is possible for this to be greater than VirtualSize.
-            When a section contains only uninitialized data, this field should be 0.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.PESection.Rawdata">
-            <summary>
-            The data, if any, with which the section will be initialized when loaded. May be null.
-            </summary>
-        </member>
-        <member name="T:Microsoft.Cci.MutableCodeModel.Resource">
-            <summary>
-            A named data resource that is stored as part of CLR metadata.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Cci.MutableCodeModel.Resource.#ctor">
-            <summary>
-            Allocates a named data resource that is stored as part of CLR metadata.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Cci.MutableCodeModel.Resource.Copy(Microsoft.Cci.IResource,Microsoft.Cci.IInternFactory)">
-            <summary>
-            
-            </summary>
-            <param name="resource"></param>
-            <param name="internFactory"></param>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Resource.Attributes">
-            <summary>
-            A collection of metadata custom attributes that are associated with this resource.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Resource.Data">
-            <summary>
-            The resource data.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Resource.DefiningAssembly">
-            <summary>
-            A symbolic reference to the IAssembly that defines the resource.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Resource.ExternalFile">
-            <summary>
-            The external file that contains the resource.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Resource.IsInExternalFile">
-            <summary>
-            The resource is in external file
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Resource.IsPublic">
-            <summary>
-            Specifies whether other code from other assemblies may access this resource.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Resource.Name">
-            <summary>
-            The name of the resource.
-            </summary>
-            <value></value>
-        </member>
-        <member name="T:Microsoft.Cci.MutableCodeModel.ResourceReference">
-            <summary>
-            A reference to an IResource instance.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Cci.MutableCodeModel.ResourceReference.#ctor">
-            <summary>
-            Allocates a reference to an IResource instance.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Cci.MutableCodeModel.ResourceReference.Copy(Microsoft.Cci.IResourceReference,Microsoft.Cci.IInternFactory)">
-            <summary>
-            
-            </summary>
-            <param name="resourceReference"></param>
-            <param name="internFactory"></param>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.ResourceReference.Attributes">
-            <summary>
-            A collection of metadata custom attributes that are associated with this resource.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.ResourceReference.DefiningAssembly">
-            <summary>
-            A symbolic reference to the IAssembly that defines the resource.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.ResourceReference.IsPublic">
-            <summary>
-            Specifies whether other code from other assemblies may access this resource.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.ResourceReference.Name">
-            <summary>
-            The name of the resource.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.ResourceReference.Resource">
-            <summary>
-            The referenced resource.
-            </summary>
-            <value></value>
-        </member>
-        <member name="T:Microsoft.Cci.MutableCodeModel.SectionBlock">
-            <summary>
-            Represents a block of data stored at a given offset within a specified section of the PE file.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Cci.MutableCodeModel.SectionBlock.#ctor">
-            <summary>
-            Allocates an object that represents a block of 
-            </summary>
-        </member>
-        <member name="M:Microsoft.Cci.MutableCodeModel.SectionBlock.Copy(Microsoft.Cci.ISectionBlock,Microsoft.Cci.IInternFactory)">
-            <summary>
-            </summary>
-            <param name="sectionBlock"></param>
-            <param name="internFactory"></param>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.SectionBlock.Data">
-            <summary>
-            Byte information stored in the block.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.SectionBlock.Offset">
-            <summary>
-            Offset into section where the block resides.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.SectionBlock.PESectionKind">
-            <summary>
-            Section where the block resides.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.SectionBlock.Size">
-            <summary>
-            Size of the block.
-            </summary>
-        </member>
-        <member name="T:Microsoft.Cci.MutableCodeModel.SecurityAttribute">
-            <summary>
-            A declarative specification of a security action applied to a set of permissions. Used by the CLR loader to enforce security restrictions.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Cci.MutableCodeModel.SecurityAttribute.#ctor">
-            <summary>
-            Allocates a declarative specification of a security action applied to a set of permissions. Used by the CLR loader to enforce security restrictions.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Cci.MutableCodeModel.SecurityAttribute.Copy(Microsoft.Cci.ISecurityAttribute,Microsoft.Cci.IInternFactory)">
-            <summary>
-            
-            </summary>
-            <param name="securityAttribute"></param>
-            <param name="internFactory"></param>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.SecurityAttribute.Action">
-            <summary>
-            Specifies the security action that can be performed using declarative security. For example the action could be Deny.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.SecurityAttribute.Attributes">
-            <summary>
-            Custom attributes that collectively define the permission set to which the action is applied. Each attribute represents a serialized permission
-            or permission set. The union of the sets, together with the individual permissions, define the set to which the action applies.
-            </summary>
-            <value></value>
-        </member>
-        <member name="T:Microsoft.Cci.MutableCodeModel.Win32Resource">
-            <summary>
-            A resource file formatted according to Win32 API conventions and typically obtained from a Portable Executable (PE) file.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Cci.MutableCodeModel.Win32Resource.#ctor">
-            <summary>
-            Allocates a resource file formatted according to Win32 API conventions and typically obtained from a Portable Executable (PE) file.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Cci.MutableCodeModel.Win32Resource.Copy(Microsoft.Cci.IWin32Resource,Microsoft.Cci.IInternFactory)">
-            <summary>
-            
-            </summary>
-            <param name="win32Resource"></param>
-            <param name="internFactory"></param>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Win32Resource.CodePage">
-            <summary>
-            The code page for which this resource is appropriate.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Win32Resource.Data">
-            <summary>
-            The data of the resource.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Win32Resource.Id">
-            <summary>
-            An integer tag that identifies this resource. If the value is less than 0, this.Name should be used instead.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Win32Resource.LanguageId">
-            <summary>
-            The language for which this resource is appropriate.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Win32Resource.Name">
-            <summary>
-            The name of the resource. Only valid if this.Id &lt; 0.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Win32Resource.TypeId">
-            <summary>
-            An integer tag that identifies what type of resource this is. If the value is less than 0, this.TypeName should be used instead.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Win32Resource.TypeName">
-            <summary>
-            A string that identifies what type of resource this is. Only valid if this.TypeId &lt; 0.
             </summary>
             <value></value>
         </member>
@@ -9877,348 +11035,6 @@
             <param name="original"></param>
             <returns></returns>
         </member>
-        <member name="T:Microsoft.Cci.MutableCodeModel.NestedUnitNamespace">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="T:Microsoft.Cci.MutableCodeModel.UnitNamespace">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:Microsoft.Cci.MutableCodeModel.UnitNamespace.#ctor">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:Microsoft.Cci.MutableCodeModel.UnitNamespace.Copy(Microsoft.Cci.IUnitNamespace,Microsoft.Cci.IInternFactory)">
-            <summary>
-            
-            </summary>
-            <param name="unitNamespace"></param>
-            <param name="internFactory"></param>
-        </member>
-        <member name="M:Microsoft.Cci.MutableCodeModel.UnitNamespace.Contains(Microsoft.Cci.INamespaceMember)">
-            <summary>
-            Return true if the given member instance is a member of this scope.
-            </summary>
-            <param name="member"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Microsoft.Cci.MutableCodeModel.UnitNamespace.Dispatch(Microsoft.Cci.IMetadataVisitor)">
-            <summary>
-            Calls the visitor.Visit(T) method where T is the most derived object model node interface type implemented by the concrete type
-            of the object implementing IReference. The dispatch method does nothing else.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Cci.MutableCodeModel.UnitNamespace.DispatchAsReference(Microsoft.Cci.IMetadataVisitor)">
-            <summary>
-            Calls the visitor.Visit(T) method where T is the most derived object model node interface type implemented by the concrete type
-            of the object implementing IReference, which is not derived from IDefinition. For example an object implemeting IArrayType will
-            call visitor.Visit(IArrayTypeReference) and not visitor.Visit(IArrayType).
-            The dispatch method does nothing else.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Cci.MutableCodeModel.UnitNamespace.GetMatchingMembersNamed(Microsoft.Cci.IName,System.Boolean,Microsoft.Cci.Function{Microsoft.Cci.INamespaceMember,System.Boolean})">
-            <summary>
-            Returns the list of members with the given name that also satisfy the given predicate.
-            </summary>
-            <param name="name"></param>
-            <param name="ignoreCase"></param>
-            <param name="predicate"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Microsoft.Cci.MutableCodeModel.UnitNamespace.GetMatchingMembers(Microsoft.Cci.Function{Microsoft.Cci.INamespaceMember,System.Boolean})">
-            <summary>
-            Returns the list of members that satisfy the given predicate.
-            </summary>
-            <param name="predicate"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Microsoft.Cci.MutableCodeModel.UnitNamespace.GetMembersNamed(Microsoft.Cci.IName,System.Boolean)">
-            <summary>
-            Returns the list of members with the given name.
-            </summary>
-            <param name="name"></param>
-            <param name="ignoreCase"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Microsoft.Cci.MutableCodeModel.UnitNamespace.ToString">
-            <summary>
-            Returns a <see cref="T:System.String"/> that represents the current <see cref="T:System.Object"/>.
-            </summary>
-            <returns>
-            A <see cref="T:System.String"/> that represents the current <see cref="T:System.Object"/>.
-            </returns>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.UnitNamespace.Attributes">
-            <summary>
-            A collection of metadata custom attributes that are associated with this definition. May be null.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.UnitNamespace.Locations">
-            <summary>
-            A potentially empty collection of locations that correspond to this instance. May be null.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.UnitNamespace.Members">
-            <summary>
-            The collection of member objects comprising the namespaces.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.UnitNamespace.Name">
-            <summary>
-            The name of the entity.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.UnitNamespace.Unit">
-            <summary>
-            The IUnit instance associated with this namespace.
-            </summary>
-            <value></value>
-        </member>
-        <member name="M:Microsoft.Cci.MutableCodeModel.NestedUnitNamespace.#ctor">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:Microsoft.Cci.MutableCodeModel.NestedUnitNamespace.Copy(Microsoft.Cci.INestedUnitNamespace,Microsoft.Cci.IInternFactory)">
-            <summary>
-            
-            </summary>
-            <param name="nestedUnitNamespace"></param>
-            <param name="internFactory"></param>
-        </member>
-        <member name="M:Microsoft.Cci.MutableCodeModel.NestedUnitNamespace.Dispatch(Microsoft.Cci.IMetadataVisitor)">
-            <summary>
-            Calls visitor.Visit(INestedUnitNamespace).
-            </summary>
-        </member>
-        <member name="M:Microsoft.Cci.MutableCodeModel.NestedUnitNamespace.DispatchAsReference(Microsoft.Cci.IMetadataVisitor)">
-            <summary>
-            Calls visitor.Visit(INestedUnitNamespaceReference).
-            </summary>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.NestedUnitNamespace.ContainingUnitNamespace">
-            <summary>
-            The unit namespace that contains this member.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.NestedUnitNamespace.ContainingScope">
-            <summary>
-            The scope instance with a Members collection that includes this instance.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.NestedUnitNamespace.Container">
-            <summary>
-            The container instance with a Members collection that includes this instance.
-            </summary>
-            <value></value>
-        </member>
-        <member name="T:Microsoft.Cci.MutableCodeModel.NestedUnitNamespaceReference">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="T:Microsoft.Cci.MutableCodeModel.UnitNamespaceReference">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:Microsoft.Cci.MutableCodeModel.UnitNamespaceReference.#ctor">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:Microsoft.Cci.MutableCodeModel.UnitNamespaceReference.Copy(Microsoft.Cci.IUnitNamespaceReference,Microsoft.Cci.IInternFactory)">
-            <summary>
-            
-            </summary>
-            <param name="unitNamespaceReference"></param>
-            <param name="internFactory"></param>
-        </member>
-        <member name="M:Microsoft.Cci.MutableCodeModel.UnitNamespaceReference.Dispatch(Microsoft.Cci.IMetadataVisitor)">
-            <summary>
-            Calls the visitor.Visit(T) method where T is the most derived object model node interface type implemented by the concrete type
-            of the object implementing IReference. The dispatch method does nothing else.
-            </summary>
-            <param name="visitor"></param>
-        </member>
-        <member name="M:Microsoft.Cci.MutableCodeModel.UnitNamespaceReference.DispatchAsReference(Microsoft.Cci.IMetadataVisitor)">
-            <summary>
-            Calls the visitor.Visit(T) method where T is the most derived object model node interface type implemented by the concrete type
-            of the object implementing IReference, which is not derived from IDefinition. For example an object implemeting IArrayType will
-            call visitor.Visit(IArrayTypeReference) and not visitor.Visit(IArrayType).
-            The dispatch method does nothing else.
-            </summary>
-        </member>
-        <member name="F:Microsoft.Cci.MutableCodeModel.UnitNamespaceReference.isFrozen">
-            <summary>
-            True if the reference has been frozen and can no longer be modified. A reference becomes frozen
-            as soon as it is resolved or interned. An unfrozen reference can also explicitly be set to be frozen.
-            It is recommended that any code constructing a type reference freezes it immediately after construction is complete.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Cci.MutableCodeModel.UnitNamespaceReference.ToString">
-            <summary>
-            Returns a <see cref="T:System.String"/> that represents this instance.
-            </summary>
-            <returns>
-            A <see cref="T:System.String"/> that represents this instance.
-            </returns>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.UnitNamespaceReference.Attributes">
-            <summary>
-            A collection of metadata custom attributes that are associated with this definition. May be null.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.UnitNamespaceReference.IsFrozen">
-            <summary>
-            True if the reference has been frozen and can no longer be modified. A reference becomes frozen
-            as soon as it is resolved or interned. An unfrozen reference can also explicitly be set to be frozen.
-            It is recommended that any code constructing a type reference freezes it immediately after construction is complete.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.UnitNamespaceReference.Locations">
-            <summary>
-            A potentially empty collection of locations that correspond to this instance. May be null.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.UnitNamespaceReference.ResolvedUnitNamespace">
-            <summary>
-            The namespace definition being referred to.
-            </summary>
-            <value></value>
-        </member>
-        <member name="M:Microsoft.Cci.MutableCodeModel.NestedUnitNamespaceReference.#ctor">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:Microsoft.Cci.MutableCodeModel.NestedUnitNamespaceReference.Copy(Microsoft.Cci.INestedUnitNamespaceReference,Microsoft.Cci.IInternFactory)">
-            <summary>
-            
-            </summary>
-            <param name="nestedUnitNamespaceReference"></param>
-            <param name="internFactory"></param>
-        </member>
-        <member name="M:Microsoft.Cci.MutableCodeModel.NestedUnitNamespaceReference.DispatchAsReference(Microsoft.Cci.IMetadataVisitor)">
-            <summary>
-            Calls visitor.Visit(INestedUnitNamespaceReference).
-            </summary>
-        </member>
-        <member name="M:Microsoft.Cci.MutableCodeModel.NestedUnitNamespaceReference.GetUnit">
-            <summary>
-            Gets the unit.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.NestedUnitNamespaceReference.ContainingUnitNamespace">
-            <summary>
-            A reference to the unit namespace that contains the referenced nested unit namespace.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.NestedUnitNamespaceReference.Name">
-            <summary>
-            The name of the entity.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.NestedUnitNamespaceReference.ResolvedNestedUnitNamespace">
-            <summary>
-            The namespace definition being referred to.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.NestedUnitNamespaceReference.ResolvedUnitNamespace">
-            <summary>
-            The namespace definition being referred to.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.NestedUnitNamespaceReference.Unit">
-            <summary>
-            A reference to the unit that defines the referenced namespace.
-            </summary>
-            <value></value>
-        </member>
-        <member name="T:Microsoft.Cci.MutableCodeModel.RootUnitNamespace">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:Microsoft.Cci.MutableCodeModel.RootUnitNamespace.#ctor">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:Microsoft.Cci.MutableCodeModel.RootUnitNamespace.Copy(Microsoft.Cci.IRootUnitNamespace,Microsoft.Cci.IInternFactory)">
-            <summary>
-            
-            </summary>
-            <param name="rootUnitNamespace"></param>
-            <param name="internFactory"></param>
-        </member>
-        <member name="M:Microsoft.Cci.MutableCodeModel.RootUnitNamespace.Dispatch(Microsoft.Cci.IMetadataVisitor)">
-            <summary>
-            Calls visitor.Visit(IRootUnitNamespace).
-            </summary>
-        </member>
-        <member name="M:Microsoft.Cci.MutableCodeModel.RootUnitNamespace.DispatchAsReference(Microsoft.Cci.IMetadataVisitor)">
-            <summary>
-            Calls visitor.Visit(IRootUnitNamespaceReference).
-            </summary>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.RootUnitNamespace.Unit">
-            <summary>
-            The IUnit instance associated with this namespace.
-            </summary>
-            <value></value>
-        </member>
-        <member name="T:Microsoft.Cci.MutableCodeModel.RootUnitNamespaceReference">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:Microsoft.Cci.MutableCodeModel.RootUnitNamespaceReference.#ctor">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:Microsoft.Cci.MutableCodeModel.RootUnitNamespaceReference.Copy(Microsoft.Cci.IRootUnitNamespaceReference,Microsoft.Cci.IInternFactory)">
-            <summary>
-            
-            </summary>
-            <param name="rootUnitNamespaceReference"></param>
-            <param name="internFactory"></param>
-        </member>
-        <member name="M:Microsoft.Cci.MutableCodeModel.RootUnitNamespaceReference.DispatchAsReference(Microsoft.Cci.IMetadataVisitor)">
-            <summary>
-            Calls visitor.Visit(IRootUnitNamespaceReference).
-            </summary>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.RootUnitNamespaceReference.ResolvedUnitNamespace">
-            <summary>
-            The namespace definition being referred to.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.RootUnitNamespaceReference.Unit">
-            <summary>
-            A reference to the unit that defines the referenced namespace.
-            </summary>
-            <value></value>
-        </member>
         <member name="T:Microsoft.Cci.MutableCodeModel.AliasForType">
             <summary>
             
@@ -11509,822 +12325,6 @@
             <summary>
             This type of array is a single dimensional array with zero lower bound for index values.
             </summary>
-        </member>
-        <member name="T:Microsoft.Cci.MutableCodeModel.Assembly">
-            <summary>
-            Represents a .NET assembly.
-            </summary>
-        </member>
-        <member name="T:Microsoft.Cci.MutableCodeModel.Module">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="T:Microsoft.Cci.MutableCodeModel.Unit">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="T:Microsoft.Cci.MutableCodeModel.UnitReference">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:Microsoft.Cci.MutableCodeModel.UnitReference.#ctor">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:Microsoft.Cci.MutableCodeModel.UnitReference.Copy(Microsoft.Cci.IUnitReference,Microsoft.Cci.IInternFactory)">
-            <summary>
-            
-            </summary>
-            <param name="unitReference"></param>
-            <param name="internFactory"></param>
-        </member>
-        <member name="M:Microsoft.Cci.MutableCodeModel.UnitReference.Dispatch(Microsoft.Cci.IMetadataVisitor)">
-            <summary>
-            Calls the visitor.Visit(T) method where T is the most derived object model node interface type implemented by the concrete type
-            of the object implementing IReference. The dispatch method does nothing else.
-            </summary>
-            <param name="visitor"></param>
-        </member>
-        <member name="M:Microsoft.Cci.MutableCodeModel.UnitReference.DispatchAsReference(Microsoft.Cci.IMetadataVisitor)">
-            <summary>
-            Calls the visitor.Visit(T) method where T is the most derived object model node interface type implemented by the concrete type
-            of the object implementing IReference, which is not derived from IDefinition. For example an object implemeting IArrayType will
-            call visitor.Visit(IArrayTypeReference) and not visitor.Visit(IArrayType).
-            The dispatch method does nothing else.
-            </summary>
-        </member>
-        <member name="F:Microsoft.Cci.MutableCodeModel.UnitReference.isFrozen">
-            <summary>
-            True if the reference has been frozen and can no longer be modified. A reference becomes frozen
-            as soon as it is resolved or interned. An unfrozen reference can also explicitly be set to be frozen.
-            It is recommended that any code constructing a type reference freezes it immediately after construction is complete.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.UnitReference.Attributes">
-            <summary>
-            A collection of metadata custom attributes that are associated with this definition. May be null.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.UnitReference.IsFrozen">
-            <summary>
-            True if the reference has been frozen and can no longer be modified. A reference becomes frozen
-            as soon as it is resolved or interned. An unfrozen reference can also explicitly be set to be frozen.
-            It is recommended that any code constructing a type reference freezes it immediately after construction is complete.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.UnitReference.Locations">
-            <summary>
-            A potentially empty collection of locations that correspond to this instance. May be null.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.UnitReference.Name">
-            <summary>
-            The name of the referenced unit.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.UnitReference.ResolvedUnit">
-            <summary>
-            The referenced unit, or Dummy.Unit if the reference cannot be resolved.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.UnitReference.UnitIdentity">
-            <summary>
-            The identity of the unit reference.
-            </summary>
-            <value></value>
-            <remarks>The location might not be set.</remarks>
-        </member>
-        <member name="M:Microsoft.Cci.MutableCodeModel.Unit.#ctor">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:Microsoft.Cci.MutableCodeModel.Unit.Copy(Microsoft.Cci.IUnit,Microsoft.Cci.IInternFactory)">
-            <summary>
-            
-            </summary>
-            <param name="unit"></param>
-            <param name="internFactory"></param>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Unit.ContractAssemblySymbolicIdentity">
-            <summary>
-            The identity of the assembly corresponding to the target platform contract assembly at the time this unit was compiled.
-            This property will be used to implement IMetadataHost.ContractAssemblySymbolicIdentity and its implementation must
-            consequently not use the latter.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Unit.CoreAssemblySymbolicIdentity">
-            <summary>
-            The identity of the assembly corresponding to the target platform core assembly at the time this unit was compiled.
-            This property will be used to implement IMetadataHost.CoreAssemblySymbolicIdentity and its implementation must
-            consequently not use the latter.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Unit.Location">
-            <summary>
-            An indication of the location where the unit is or will be stored. This need not be a file system path and may be empty.
-            The interpretation depends on the ICompilationHostEnviroment instance used to resolve references to this unit.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Unit.UninterpretedSections">
-            <summary>
-            A sequence of PE sections that are not well known to PE readers and thus have not been decompiled into 
-            other parts of the Metadata Model. These sections may have meaning to other tools.  May be null.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Unit.PlatformType">
-            <summary>
-            A collection of well known types that must be part of every target platform and that are fundamental to modeling compiled code.
-            The types are obtained by querying the unit set of the compilation and thus can include types that are defined by the compilation itself.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Unit.UnitNamespaceRoot">
-            <summary>
-            A root namespace that contains nested namespaces as well as top level types and anything else that implements INamespaceMember.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Unit.UnitReferences">
-            <summary>
-            A list of other units that are referenced by this unit.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Unit.NamespaceRoot">
-            <summary>
-            The associated root namespace.
-            </summary>
-            <value></value>
-        </member>
-        <member name="M:Microsoft.Cci.MutableCodeModel.Module.#ctor">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:Microsoft.Cci.MutableCodeModel.Module.Copy(Microsoft.Cci.IModule,Microsoft.Cci.IInternFactory)">
-            <summary>
-            
-            </summary>
-            <param name="module"></param>
-            <param name="internFactory"></param>
-        </member>
-        <member name="M:Microsoft.Cci.MutableCodeModel.Module.Dispatch(Microsoft.Cci.IMetadataVisitor)">
-            <summary>
-            Calls visitor.Visit(IModule).
-            </summary>
-        </member>
-        <member name="M:Microsoft.Cci.MutableCodeModel.Module.DispatchAsReference(Microsoft.Cci.IMetadataVisitor)">
-            <summary>
-            Calls visitor.Visit(IModuleReference).
-            </summary>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Module.AllTypes">
-            <summary>
-            Gets or sets all types.
-            </summary>
-            <value>All types.</value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Module.AssemblyReferences">
-            <summary>
-            A list of the assemblies that are referenced by this module.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Module.BaseAddress">
-            <summary>
-            The preferred memory address at which the module is to be loaded at runtime.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Module.ContainingAssembly">
-            <summary>
-            The Assembly that contains this module. If this module is main module then this returns this. May be null.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Module.DebugInformationLocation">
-            <summary>
-            A path to the debug information corresponding to this module. Can be absolute or relative to the file path of the module. Empty if not specified.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Module.DebugInformationVersion">
-            <summary>
-            A hexadecimal string that is used to store and retrieve the debugging symbols from a symbol store.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Module.DllCharacteristics">
-            <summary>
-            Flags that control the behavior of the target operating system. CLI implementations are supposed to ignore this, but some operating system pay attention.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Module.EntryPoint">
-            <summary>
-            The method that will be called to start execution of this executable module.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Module.FileAlignment">
-            <summary>
-            The alignment of sections in the module's image file.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Module.GenericMethodInstances">
-            <summary>
-            A usually empty (null) collection of generic method instances that are directly or indirectly used by this module.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Module.ILOnly">
-            <summary>
-            True if the module contains only IL and is processor independent.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Module.StrongNameSigned">
-            <summary>
-            True if the module contains a hash of its contents, encrypted with the private key of an assembly strong name.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Module.StructuralTypeInstances">
-            <summary>
-            A usually empty (null) collection of structural type instances that are directly or indirectly used by this module.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Module.StructuralTypeInstanceMembers">
-            <summary>
-            A usually empty (null) collection of structural type instance members that are directly or indirectly used by this module.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Module.Prefers32bits">
-            <summary>
-            If set, the module is platform independent but prefers to be loaded in a 32-bit process for performance reasons.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Module.Kind">
-            <summary>
-            The kind of metadata stored in this module. For example whether this module is an executable or a manifest resource file.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Module.LinkerMajorVersion">
-            <summary>
-            The first part of a two part version number indicating the version of the linker that produced this module. For example, the 8 in 8.0.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Module.LinkerMinorVersion">
-            <summary>
-            The first part of a two part version number indicating the version of the linker that produced this module. For example, the 0 in 8.0.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Module.Location">
-            <summary>
-            An indication of the location where the assembly is or will be stored. This need not be a file system path and may be empty.
-            The interpretation depends on the ICompilationHostEnviroment instance used to resolve references to this unit.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Module.MetadataFormatMajorVersion">
-            <summary>
-            The first part of a two part version number indicating the version of the format used to persist this module. For example, the 1 in 1.0.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Module.MetadataFormatMinorVersion">
-            <summary>
-            The second part of a two part version number indicating the version of the format used to persist this module. For example, the 0 in 1.0.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Module.ModuleAttributes">
-            <summary>
-            A list of objects representing persisted instances of types that extend System.Attribute. Provides an extensible way to associate metadata
-            with this module. May be null.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Module.ModuleName">
-            <summary>
-            The name of the module.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Module.ModuleReferences">
-            <summary>
-            A list of the modules that are referenced by this module. May be null.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Module.Name">
-            <summary>
-            The name of the module.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Module.PersistentIdentifier">
-            <summary>
-            A globally unique persistent identifier for this module.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Module.Machine">
-            <summary>
-            Specifies the target CPU. 
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Module.RequiresAmdInstructionSet">
-            <summary>
-            If set, the module contains instructions or assumptions that are specific to the AMD 64 bit instruction set. Setting this flag to
-            true also sets Requires64bits to true.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Module.RequiresStartupStub">
-            <summary>
-            If set, the module must include a machine code stub that transfers control to the virtual execution system.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Module.Requires32bits">
-            <summary>
-            If set, the module contains instructions that assume a 32 bit instruction set. For example it may depend on an address being 32 bits.
-            This may be true even if the module contains only IL instructions because of PlatformInvoke and COM interop.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Module.Requires64bits">
-            <summary>
-            If set, the module contains instructions that assume a 64 bit instruction set. For example it may depend on an address being 64 bits.
-            This may be true even if the module contains only IL instructions because of PlatformInvoke and COM interop.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Module.SizeOfHeapCommit">
-            <summary>
-            The size of the virtual memory initially committed for the initial process heap.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Module.SizeOfHeapReserve">
-            <summary>
-            The size of the virtual memory to reserve for the initial process heap.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Module.SizeOfStackCommit">
-            <summary>
-            The size of the virtual memory initially committed for the initial thread's stack.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Module.SizeOfStackReserve">
-            <summary>
-            The size of the virtual memory to reserve for the initial thread's stack.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Module.Strings">
-            <summary>
-            Gets or sets the strings. May be null.
-            </summary>
-            <value>The strings.</value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Module.SubsystemMajorVersion">
-            <summary>
-            The first part of a two part version number indicating the operating subsystem that is expected to be the target environment for this module.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Module.SubsystemMinorVersion">
-            <summary>
-            The second part of a two part version number indicating the operating subsystem that is expected to be the target environment for this module.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Module.TargetRuntimeVersion">
-            <summary>
-            Identifies the version of the CLR that is required to load this module or assembly.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Module.TrackDebugData">
-            <summary>
-            True if the instructions in this module must be compiled in such a way that the debugging experience is not compromised.
-            To set the value of this property, add an instance of System.Diagnostics.DebuggableAttribute to the MetadataAttributes list.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Module.TypeReferences">
-            <summary>
-            Zero or more type references used in the module. May be null. If the module is produced by reading in a CLR PE file, then this will be the contents
-            of the type reference table. If the module is produced some other way, the method may return an empty enumeration or an enumeration that is a
-            subset of the type references actually used in the module. May be null.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Module.TypeMemberReferences">
-            <summary>
-            Returns zero or more type member references used in the module. May be null. If the module is produced by reading in a CLR PE file, then this will be the contents
-            of the member reference table (which only contains entries for fields and methods). If the module is produced some other way, 
-            the method may return an empty enumeration or an enumeration that is a subset of the member references actually used in the module. May be null. 
-            </summary>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Module.UnitReferences">
-            <summary>
-            A list of other units that are referenced by this unit.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Module.UsePublicKeyTokensForAssemblyReferences">
-            <summary>
-            True if the module will be persisted with a list of assembly references that include only tokens derived from the public keys
-            of the referenced assemblies, rather than with references that include the full public keys of referenced assemblies as well
-            as hashes over the contents of the referenced assemblies. Setting this property to true is appropriate during development.
-            When building for deployment it is safer to set this property to false.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Module.Win32Resources">
-            <summary>
-            A list of named byte sequences persisted with the module and used during execution, typically via the Win32 API.
-            A module will define Win32 resources rather than "managed" resources mainly to present metadata to legacy tools
-            and not typically use the data in its own code. May be null.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Module.UnitIdentity">
-            <summary>
-            The identity of the unit reference.
-            </summary>
-            <value></value>
-            <remarks>The location might not be set.</remarks>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Module.ModuleIdentity">
-            <summary>
-            The identity of the referenced module.
-            </summary>
-            <value></value>
-            <remarks>The location might not be set.</remarks>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Module.ResolvedModule">
-            <summary>
-            The referenced module, or Dummy.Module if the reference cannot be resolved.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Module.ResolvedUnit">
-            <summary>
-            The referenced unit, or Dummy.Unit if the reference cannot be resolved.
-            </summary>
-            <value></value>
-        </member>
-        <member name="M:Microsoft.Cci.MutableCodeModel.Assembly.#ctor">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:Microsoft.Cci.MutableCodeModel.Assembly.Copy(Microsoft.Cci.IAssembly,Microsoft.Cci.IInternFactory)">
-            <summary>
-            
-            </summary>
-            <param name="assembly"></param>
-            <param name="internFactory"></param>
-        </member>
-        <member name="M:Microsoft.Cci.MutableCodeModel.Assembly.Dispatch(Microsoft.Cci.IMetadataVisitor)">
-            <summary>
-            Calls visitor.Visit(IAssembly).
-            </summary>
-        </member>
-        <member name="M:Microsoft.Cci.MutableCodeModel.Assembly.DispatchAsReference(Microsoft.Cci.IMetadataVisitor)">
-            <summary>
-            Calls visitor.Visit(IAssemblyReference).
-            </summary>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Assembly.AssemblyAttributes">
-            <summary>
-            A list of objects representing persisted instances of types that extend System.Attribute. Provides an extensible way to associate metadata
-            with this assembly. May be null.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Assembly.ContainingAssembly">
-            <summary>
-            The Assembly that contains this module. If this module is main module then this returns this. May be null.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Assembly.Culture">
-            <summary>
-            Identifies the culture associated with the assembly. Typically specified for sattelite assemblies with localized resources.
-            Empty if not specified.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Assembly.ExportedTypes">
-            <summary>
-            Public types defined in other modules making up this assembly and to which other assemblies may refer to via this assembly. May be null.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Assembly.Flags">
-            <summary>
-            A set of bits and bit ranges representing properties of the assembly. The value of <see cref="P:Microsoft.Cci.MutableCodeModel.Assembly.Flags"/> can be set
-            from source code via the AssemblyFlags assembly custom attribute. The interpretation of the property depends on the target platform.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Assembly.Files">
-            <summary>
-            A list of the files that constitute the assembly. These are not the source language files that may have been
-            used to compile the assembly, but the files that contain constituent modules of a multi-module assembly as well
-            as any external resources. It corresonds to the File table of the .NET assembly file format. May be null.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Assembly.IsRetargetable">
-            <summary>
-            True if the implementation of the referenced assembly used at runtime is not expected to match the version seen at compile time.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Assembly.ContainsForeignTypes">
-            <summary>
-            True if the referenced assembly contains types that describe objects that are neither COM objects nor objects that are managed by the CLR.
-            Instances of such types are created and managed by another runtime and are accessed by CLR objects via some form of interoperation mechanism.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Assembly.Location">
-            <summary>
-            An indication of the location where the assembly is or will be stored. This need not be a file system path and may be empty.
-            The interpretation depends on the ICompilationHostEnviroment instance used to resolve references to this unit.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Assembly.MemberModules">
-            <summary>
-            A list of the modules that constitute the assembly. May be null.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Assembly.ModuleName">
-            <summary>
-            The name of the module containing the assembly manifest. This can be different from the name of the assembly itself.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Assembly.ModuleIdentity">
-            <summary>
-            Gets the module identity.
-            </summary>
-            <value>The module identity.</value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Assembly.Name">
-            <summary>
-            The name of the assembly.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Assembly.PublicKey">
-            <summary>
-            The public part of the key used to encrypt the SHA1 hash over the persisted form of this assembly. Null if not specified.
-            This value is used by the loader to decrypt HashValue which it then compares with a freshly computed hash value to verify the
-            integrity of the assembly. May be null.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Assembly.Resources">
-            <summary>
-            A list of named byte sequences persisted with the assembly and used during execution, typically via .NET Framework helper classes. May be null.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Assembly.SecurityAttributes">
-            <summary>
-            A list of objects representing persisted instances of pairs of security actions and sets of security permissions.
-            These apply by default to every method reachable from the module. May be null.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Assembly.Version">
-            <summary>
-            The version of the assembly.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Assembly.AssemblyIdentity">
-            <summary>
-            The identity of the referenced assembly.
-            </summary>
-            <value></value>
-            <remarks>The location might be empty.</remarks>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Assembly.UnifiedAssemblyIdentity">
-            <summary>
-            Returns the identity of the assembly reference to which this assembly reference has been unified.
-            </summary>
-            <value></value>
-            <remarks>The location might not be set.</remarks>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Assembly.Aliases">
-            <summary>
-            A list of aliases for the root namespace of the referenced assembly.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Assembly.ResolvedAssembly">
-            <summary>
-            The referenced assembly, or Dummy.Assembly if the reference cannot be resolved.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Assembly.HashValue">
-            <summary>
-            The encrypted SHA1 hash of the persisted form of the assembly.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.Assembly.PublicKeyToken">
-            <summary>
-            The hashed 8 bytes of the public key of the referenced assembly. This is empty if the referenced assembly does not have a public key.
-            </summary>
-            <value></value>
-        </member>
-        <member name="T:Microsoft.Cci.MutableCodeModel.AssemblyReference">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="T:Microsoft.Cci.MutableCodeModel.ModuleReference">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:Microsoft.Cci.MutableCodeModel.ModuleReference.#ctor">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:Microsoft.Cci.MutableCodeModel.ModuleReference.Copy(Microsoft.Cci.IModuleReference,Microsoft.Cci.IInternFactory)">
-            <summary>
-            
-            </summary>
-            <param name="moduleReference"></param>
-            <param name="internFactory"></param>
-        </member>
-        <member name="M:Microsoft.Cci.MutableCodeModel.ModuleReference.DispatchAsReference(Microsoft.Cci.IMetadataVisitor)">
-            <summary>
-            Calls vistor.Visit(IModuleReference).
-            </summary>
-        </member>
-        <member name="M:Microsoft.Cci.MutableCodeModel.ModuleReference.Resolve">
-            <summary>
-            Tries to resolves the reference with the aid of this.Host. If resolution fails, the result is Dummy.Module.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.ModuleReference.ContainingAssembly">
-            <summary>
-            The Assembly that contains this module. May be null if the module is not part of an assembly.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.ModuleReference.Host">
-            <summary>
-            An object representing the application that is hosting the object model that this reference forms a part of. May be null.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.ModuleReference.ModuleIdentity">
-            <summary>
-            The identity of the referenced module.
-            </summary>
-            <value></value>
-            <remarks>The location might not be set.</remarks>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.ModuleReference.ReferringUnit">
-            <summary>
-            The unit that is the root of a graph that contains this reference instance. This is not the same as ContainingAssembly, which
-            is a reference to the assembly that contains the module which is referenced by this instance. May be null.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.ModuleReference.ResolvedModule">
-            <summary>
-            The referenced module, or Dummy.Module if the reference cannot be resolved.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.ModuleReference.ResolvedUnit">
-            <summary>
-            The referenced unit, or Dummy.Unit if the reference cannot be resolved.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.ModuleReference.UnitIdentity">
-            <summary>
-            The identity of the unit reference.
-            </summary>
-            <value></value>
-            <remarks>The location might not be set.</remarks>
-        </member>
-        <member name="M:Microsoft.Cci.MutableCodeModel.AssemblyReference.#ctor">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:Microsoft.Cci.MutableCodeModel.AssemblyReference.Copy(Microsoft.Cci.IAssemblyReference,Microsoft.Cci.IInternFactory)">
-            <summary>
-            
-            </summary>
-            <param name="assemblyReference"></param>
-            <param name="internFactory"></param>
-        </member>
-        <member name="M:Microsoft.Cci.MutableCodeModel.AssemblyReference.DispatchAsReference(Microsoft.Cci.IMetadataVisitor)">
-            <summary>
-            Calls vistor.Visit(IAssemblyReference).
-            </summary>
-        </member>
-        <member name="M:Microsoft.Cci.MutableCodeModel.AssemblyReference.Resolve">
-            <summary>
-            Tries to resolves the reference with the aid of this.Host. If resolution fails, the result is Dummy.Module.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.AssemblyReference.Aliases">
-            <summary>
-            A list of aliases for the root namespace of the referenced assembly. May be null.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.AssemblyReference.ResolvedAssembly">
-            <summary>
-            The referenced assembly, or Dummy.Assembly if the reference cannot be resolved.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.AssemblyReference.Culture">
-            <summary>
-            Identifies the culture associated with the assembly reference. Typically specified for sattelite assemblies with localized resources.
-            Empty if not specified.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.AssemblyReference.IsRetargetable">
-            <summary>
-            True if the implementation of the referenced assembly used at runtime is not expected to match the version seen at compile time.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.AssemblyReference.ContainsForeignTypes">
-            <summary>
-            True if the referenced assembly contains types that describe objects that are neither COM objects nor objects that are managed by the CLR.
-            Instances of such types are created and managed by another runtime and are accessed by CLR objects via some form of interoperation mechanism.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.AssemblyReference.HashValue">
-            <summary>
-            The encrypted SHA1 hash of the persisted form of the referenced assembly.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.AssemblyReference.PublicKey">
-            <summary>
-            The public part of the key used to encrypt the SHA1 hash over the persisted form of the referenced assembly. Null if not specified.
-            This value is used by the loader to decrypt HashValue which it then compares with a freshly computed hash value to verify the
-            integrity of the assembly.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.AssemblyReference.PublicKeyToken">
-            <summary>
-            The hashed 8 bytes of the public key of the referenced assembly. This is empty if the referenced assembly does not have a public key. May be null.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.AssemblyReference.Version">
-            <summary>
-            The version of the assembly reference.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.AssemblyReference.Location">
-            <summary>
-            The location of the referenced assembly.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.AssemblyReference.AssemblyIdentity">
-            <summary>
-            The identity of the referenced assembly. Has the same Culture, Name, PublicKeyToken and Version as the reference.
-            </summary>
-            <value></value>
-            <remarks>Also has a location, which may might be empty. Although mostly redundant, the object returned by this
-            property is useful because it derives from System.Object and therefore can be used as a hash table key. It may be more efficient
-            to use the properties defined directly on the reference, since the object returned by this property may be allocated lazily
-            and the allocation can thus be avoided by using the reference's properties.</remarks>
-        </member>
-        <member name="P:Microsoft.Cci.MutableCodeModel.AssemblyReference.UnifiedAssemblyIdentity">
-            <summary>
-            Returns the identity of the assembly reference to which this assembly reference has been unified.
-            </summary>
-            <value></value>
-            <remarks>The location might not be set.</remarks>
         </member>
     </members>
 </doc>

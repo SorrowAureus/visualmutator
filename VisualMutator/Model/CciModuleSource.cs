@@ -3,12 +3,10 @@
     #region
 
     using System;
-    using System.Collections.Concurrent;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
     using System.Reflection;
-    using System.Threading.Tasks;
     using CSharpSourceEmitter;
     using Decompilation;
     using Decompilation.PeToText;
@@ -17,11 +15,9 @@
     using Microsoft.Cci;
     using Microsoft.Cci.ILToCodeModel;
     using Microsoft.Cci.MutableCodeModel;
-    using Microsoft.Cci.MutableContracts;
     using StoringMutants;
     using VisualMutator.Infrastructure;
     using Assembly = Microsoft.Cci.MutableCodeModel.Assembly;
-    using Module = Microsoft.Cci.MutableCodeModel.Module;
     using SourceEmitter = CSharpSourceEmitter.SourceEmitter;
 
     #endregion
@@ -29,16 +25,21 @@
     public interface ICciModuleSource : IModuleSource
     {
         IModuleInfo AppendFromFile(string filePath);
+
         MemoryStream WriteToStream(IModuleInfo module);
+
         void WriteToStream(IModuleInfo module, FileStream stream, string filePath);
+
         MetadataReaderHost Host
         {
             get;
         }
+
         List<ModuleInfo> ModulesInfo
         {
             get;
         }
+
         SourceEmitter GetSourceEmitter(CodeLanguage language, IModule assembly, SourceEmitterOutputString sourceEmitterOutput);
     }
 
@@ -56,6 +57,7 @@
                 return _moduleInfoList.Cast<IModuleInfo>().ToList();
             }
         }
+
         public List<ModuleInfo> ModulesInfo
         {
             get
@@ -63,16 +65,19 @@
                 return _moduleInfoList;
             }
         }
+
         public CciModuleSource(MetadataReaderHost host = null)
         {
             pdbReaders = new Dictionary<string, PdbReader>(StringComparer.OrdinalIgnoreCase);
             _host = host ?? new PeReader.DefaultHost();
             _moduleInfoList = new List<ModuleInfo>();
         }
+
         public CciModuleSource(MetadataReaderHost host, List<ModuleInfo> moduleInfoList) : this(host)
         {
             _moduleInfoList = moduleInfoList;
         }
+
         public CciModuleSource(ProjectFilesClone filesClone) : this()
         {
             foreach (var assembliesPath in filesClone.Assemblies)
@@ -84,6 +89,7 @@
                 _moduleInfoList.Add(m);
             }
         }
+
         public CciModuleSource(string path) : this()
         {
             //  var sss = new CodeDeepCopier(this.Host);
@@ -121,6 +127,7 @@
             Dispose(true);
             GC.SuppressFinalize(this);
         }
+
         public void Dispose(bool disposing)
         {
             foreach (var moduleInfo in _moduleInfoList)
@@ -133,15 +140,12 @@
 
             _moduleInfoList.Clear();
             _host.Dispose();
-
         }
 
         ~CciModuleSource()
         {
             Dispose(false);
         }
-
-
 
         public SourceEmitter GetSourceEmitter(CodeLanguage lang, IModule module, SourceEmitterOutputString output)
         {
@@ -183,11 +187,12 @@
             TryGetPdbReader(module, out pdbReader);
 
             module = new MetadataDeepCopier(_host).Copy(module);
-          //  var decompiled = Decompiler.GetCodeModelFromMetadataModel(_host, module, pdbReader,
-          //      DecompilerOptions.None);
+            //  var decompiled = Decompiler.GetCodeModelFromMetadataModel(_host, module, pdbReader,
+            //      DecompilerOptions.None);
             return module;
             //  return new CodeDeepCopier(_host, pdbReader).Copy(decompiled);
         }
+
         public ModuleInfo DecompileFile(string filePath)
         {
             _log.Info("Decompiling file: " + filePath);
@@ -212,7 +217,6 @@
             return module;
         }
 
-
         public IModuleInfo FindModuleInfo(IModule module)
         {
             return _moduleInfoList.First(m => m.Module.Name.Value == module.Name.Value);
@@ -227,7 +231,6 @@
             if (module.PdbReader == null)
             {
                 PeWriter.WritePeToStream(module.Module, _host, stream);
-
             }
             else
             {
@@ -252,7 +255,6 @@
             }
             else
             {
-
                 using (var pdbWriter = new PdbWriter(Path.ChangeExtension(filePath, "pdb"), module.PdbReader))
                 {
                     PeWriter.WritePeToStream(module.Module, _host, stream, module.PdbReader,
@@ -270,6 +272,7 @@
                 _moduleInfoList = _moduleInfoList.Where(m => m == s).ToList();
             }
         }
+
         public void ReplaceWith(List<IAssembly> modules)
         {
             foreach (var moduleInfo in _moduleInfoList)
@@ -277,23 +280,25 @@
                 moduleInfo.Module = modules.Single(m => m.Name.Value == moduleInfo.Name);
             }
         }
+
         public CciModuleSource CloneWith(IAssembly newMod)
         {
             var cci = new CciModuleSource(Host, _moduleInfoList);
             cci.ReplaceWith(newMod);
             return cci;
         }
-       
+
         public CodeDeepCopier CreateCopier()
         {
             //ModuleInfo moduleInfo = (ModuleInfo) Modules.Single();
             return new CodeDeepCopier(Host);//, moduleInfo.SourceLocationProvider, moduleInfo.LocalScopeProvider);
-
         }
+
         public Assembly Copy(ModuleInfo module)
         {
             return new MetadataDeepCopier(_host).Copy(module.Module);
         }
+
         public Assembly Decompile(ModuleInfo module)
         {
             return Decompiler.GetCodeModelFromMetadataModel(_host, module.Module, module.PdbReader, DecompilerOptions.None);

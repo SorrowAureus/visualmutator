@@ -79,7 +79,7 @@
             _settingsManager.Initialize();
 
             LocateNUnitConsole();
-            LocateXUnitConsole();
+            //LocateXUnitConsole();
         }
 
         private void LocateNUnitConsole()
