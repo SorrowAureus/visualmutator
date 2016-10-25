@@ -86,7 +86,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="-\JetBrains\Annotations\CoreAnnotations.cs" />
     <Compile Include="CommandLineParser.cs" />
     <Compile Include="ConsoleInfrastructureModule.cs" />
     <Compile Include="ConsoleNinjectModule.cs" />
@@ -104,6 +103,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="packages.config" />
+    <Content Include="xunitconsole.zip">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\VisualMutator.Extensibility\VisualMutator.Extensibility.csproj">

@@ -1,0 +1,353 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.Cci.PeWriter</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.Cci.ReadOnlyList`1">
+            <summary>
+            Fixed size array wrapped as IReadOnlyList{T}
+            Construct with known size N, call Add N times, Freeze, and then use as IReadOnlyList{T} or IEnumerable{T}
+            </summary>
+            <typeparam name="T"></typeparam>
+            <remarks>Optimization for List list = new List{T}(); list.Add() list.Add() ...; list.TrimExcess(); list.AsReadOnly() </remarks>
+        </member>
+        <member name="M:Microsoft.Cci.ReadOnlyList`1.#ctor(System.Int32)">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.ReadOnlyList`1.Create(System.UInt32)">
+            <summary>
+            Creation helper
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.ReadOnlyList`1.Create(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            Creation helper from IEnumerable{T}
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.ReadOnlyList`1.Freeze(Microsoft.Cci.ReadOnlyList{`0})">
+            <summary>
+            Freeze to be read-only
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.ReadOnlyList`1.Add(`0)">
+            <summary>
+            Append item
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cci.ReadOnlyList`1.Count">
+            <summary>
+            Count of total allowed items
+            </summary>
+        </member>
+        <member name="P:Microsoft.Cci.ReadOnlyList`1.Item(System.Int32)">
+            <summary>
+            Return an item
+            </summary>
+        </member>
+        <member name="T:Microsoft.Cci.VirtualReadOnlyList`1">
+             <summary>
+             Virtual IReadOnlyList + its enumerator
+             </summary>
+             <remarks>Borrowed from the internal implementation of "yield return", IEnumerable and IEnumerator are implemented in the 
+             same class here, to save one extra allocation for the most common usage pattern of single enumerator in the same thread.
+            
+             This class is used mostly by SingletonList. There are quite a few CCI objects which store single object inside by needs to return IEnumerable from it.
+             This is used in super high frequency (e.g. BaseClasses) that we need to reduce memory allocation and CPU cost for it.
+            
+             This solution is better replacement for GetSingletonEnumerable which just uses "yield return":
+             1) There only needs to be single implementation.
+             2) All the source code is here.
+             3) IReadOnlyList is implemented so caller can query for Count and this[index] without going through enumerator at all.
+             </remarks>
+             <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:Microsoft.Cci.VirtualReadOnlyList`1.GetItem(System.Int32)">
+            <summary>
+            One method to be implemented in derived classes
+            </summary>
+        </member>
+        <member name="T:Microsoft.Cci.ReadOnlyListEnumerator`1">
+            <summary>
+            Enumerator for IReadOnlyList
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="T:Microsoft.Cci.SingletonList`1">
+            <summary>
+            IReadOnlyList wrapper for single item, + its enumerator (similar to yield return)
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="T:Microsoft.Cci.StringBuilderCache">
+            <summary>
+            Caching 10 StringBuilders per thread (for nested usage)
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.StringBuilderCache.GetList">
+            <summary>
+            Get StringBuilder array
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.StringBuilderCache.Acquire">
+            <summary>
+            Acquire a StringBuilder
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.StringBuilderCache.Release(System.Text.StringBuilder)">
+            <summary>
+            Release StringBuilder to cache
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.StringBuilderCache.GetStringAndRelease(System.Text.StringBuilder)">
+            <summary>
+            Release StringBuilder to cache, after getting string from it
+            </summary>
+        </member>
+        <member name="T:Microsoft.Cci.ContainerCache">
+            <summary>
+            Reusing Containers
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.ContainerCache.AcquireObjectDictionary">
+            <summary>
+            Acquire a Dictionary
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.ContainerCache.Release(System.Collections.Generic.Dictionary{System.Object,System.Object})">
+            <summary>
+            Release Dictionary to cache
+            </summary>
+        </member>
+        <member name="T:Microsoft.Cci.ArrayT`1">
+            <summary>
+            Array related helpers
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:Microsoft.Cci.Toolbox.ToReadOnly``1(System.Collections.Generic.List{``0})">
+            <summary>
+            Getting read-only IEnumerable{T} from List{T}
+            Read-only is only enforced in DEBUG build to catch programming errors. In release mode, we just return the original list for performance
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="list"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Microsoft.Cci.EnumerableAdapter`1">
+            <summary>
+            Wrapper around IEnumerable{T}, optimized for IReadOnlyList{T}
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:Microsoft.Cci.WriterUtilities.BinaryWriterCache.Acquire(System.Boolean)">
+            <summary>
+            Acquire a BinaryWriter
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.WriterUtilities.BinaryWriterCache.ReleaseToCache(Microsoft.Cci.WriterUtilities.BinaryWriter)">
+            <summary>
+            Release BinaryWriter to cache
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.WriterUtilities.BinaryWriterCache.ToArrayAndRelease(Microsoft.Cci.WriterUtilities.BinaryWriter)">
+            <summary>
+            Convert to array and release BinaryWriter to cache
+            </summary>
+        </member>
+        <member name="T:Microsoft.Cci.WriterUtilities.MemoryStreamList">
+            <summary>
+            List of MemoryStream, avoiding growing huge MemoryStream in LOH, breaking it into parts
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.WriterUtilities.MemoryStreamList.CheckFlush">
+            <summary>
+            If stream is 32-bit aligned and having less than 10% unused space, store it and start a new stream
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cci.PeWriterInternal.ReferenceIndexer.typeReferenceNeedsToken">
+            <summary>
+            True if the type reference is traversed from a location that needs a token for the type reference.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Cci.PeWriter.StringIdx">
+            <summary>
+            Wraps a virtual string table index.
+            An override to SerializeIndex does the resolving at the right time.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.PeWriter.FoldStrings">
+            <summary>
+            Fills in stringIndexMap with data from stringIndex and write to stringWriter.  
+            </summary>
+        </member>
+        <member name="T:Microsoft.Cci.PeWriter.SuffixSort">
+            <summary>
+            Sorts strings such that a string is followed immediately by all strings
+            that are a suffix of it.  
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.PeWriter.ComputeSizeOfVersionString(System.Byte[])">
+            <summary>
+            returns a multiple 4 that is at least 12 and at most 256 and that is just big enough to hold the version string.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.PeWriter.GetDefiningUnitReference(Microsoft.Cci.ITypeReference)">
+            <summary>
+            Returns a reference to the unit that defines the given referenced type. If the referenced type is a structural type, such as a pointer or a generic type instance,
+            then the result is null.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.PeWriter.GetCorrespondingMethodToken(Microsoft.Cci.IMethodDefinition)">
+            <summary>
+            Deals with the case where the given method is from a module that is being rewritten or merged into this.module.
+            The method comes from the synchronization information for the current method and this information could still
+            be that obtained from the PDB of the module being rewritten or merged.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.PeWriter.AppendGetSerializedTypeName(Microsoft.Cci.IAssembly,System.Text.StringBuilder,Microsoft.Cci.ITypeReference,System.Boolean)">
+            <summary>
+            sb.Append(GetSerializedTypeName(typeReference, omitTypeArguments))
+            </summary>
+        </member>
+        <member name="T:Microsoft.Cci.CustomSectionProvider">
+            <summary>
+            Called by the PEWriter to allow a plug-in to provide a custom section that will be stored in the PE file along
+            with the sections that contain serialized metadata.
+            </summary>
+            <param name="peFileData">A somewhat random collection of values that can be useful to know about a PE file, but which cannot be obtained from a metadata model.</param>
+            <param name="tokenProvider">A mapper from metadata objects to the tokens that will be used in the PE file being writtern.</param>
+            <returns>An IPESection objet that is to be serialized into the PE file being written out by PEWriter (which is calling this delegate).</returns>
+        </member>
+        <member name="T:Microsoft.Cci.PEFileData">
+            <summary>
+            A somewhat random collection of values that can be useful to know about a PE file, but which cannot be obtained from a metadata model.
+            These values can be persisted inside a custom section and help a reader of the custom section to quickly
+            find values in the standard sections of the PE file. They can also be used to verify that the custom section matches to the PE file.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cci.PEFileData.timeStamp">
+            <summary>
+            The time stamp that the PE writer will write into the PE file.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cci.PEFileData.wellKnownTypes">
+            <summary>
+            Type def tokens for the "well known" types. Only non null if the PE file contains the "core" .NET library which defines System.Object.
+            The types are: System.Object, System.String, System.ValueType, System.Enum, System.Array, System.Boolean, System.Void, System.Char, System.SByte
+            System.Byte, System.UInt16, System.Int32, System.UInt32, System.Int64, System.UInt64, System.Single, System.Double, System.IntPtr, System.UIntPtr,
+            System.MarshalByRefObject, System.MultiCastDelegate, System.Nullable, System.__Canon, System.Runtime.Remoting.Proxies.__TransparentProxy
+            System.__ComObject, System.ContextBoundObject.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cci.PEFileData.offsetToMethodDefTable">
+            <summary>
+            The offset from the start of the metadata tables to the first row of the first MethodDef table.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cci.PEFileData.methodDefRecordSize">
+            <summary>
+            The size of a row of the MethodDef table.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cci.PEFileData.methodDefCount">
+            <summary>
+            The number of rows in the MethodDef table.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cci.PEFileData.offsetToFieldRvaTable">
+            <summary>
+            The offset from the start of the metadata tables, to the first row of the FieldRVA table.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cci.PEFileData.fieldRvaRecordSize">
+            <summary>
+            The size of a row of the FieldRVA table.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cci.PEFileData.fieldRvaCount">
+            <summary>
+            The number of rows in the FieldRVA table.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cci.PEFileData.ilImageSize">
+            <summary>
+            The number of bytes in the PE image (as reported in the NT header).
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cci.PEFileData.targetProcessorArchitecture">
+            <summary>
+            The particular processor architecture required by the assembly in the PE file being written. Architecture independent assemblies will report X86 as their architecture.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Cci.TargetProcessorArchitecture">
+            <summary>
+            An enumeration of processor architectures.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cci.TargetProcessorArchitecture.X86">
+            <summary>
+            Intel x86
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cci.TargetProcessorArchitecture.X64">
+            <summary>
+            AMD x64
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cci.TargetProcessorArchitecture.IA64">
+            <summary>
+            Intel IA64
+            </summary>
+        </member>
+        <member name="F:Microsoft.Cci.TargetProcessorArchitecture.ARM">
+            <summary>
+            ARM
+            </summary>
+        </member>
+        <member name="T:Microsoft.Cci.ITokenProvider">
+            <summary>
+            Provides methods that map metadata references onto PE file tokens.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.ITokenProvider.GetTokenFor(Microsoft.Cci.IFieldReference)">
+            <summary>
+            Returns the metadata token value that is used instead of the given field reference when serializing metadata using the PE file format.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.ITokenProvider.GetTokenFor(Microsoft.Cci.IMethodReference)">
+            <summary>
+            Returns the metadata token value that is used instead of the given method reference when serializing metadata using the PE file format.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.ITokenProvider.GetTokenFor(Microsoft.Cci.ITypeReference)">
+            <summary>
+            Returns the metadata token value that is used instead of the given type reference when serializing metadata using the PE file format.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Cci.ITokenProvider.GetTokenFor(System.String)">
+            <summary>
+            Returns the metadata token value that is used instead of the given string when serializing metadata using the PE file format.
+            </summary>
+        </member>
+        <member name="T:CciEventSource">
+            <summary>
+            This eventSource can be used for Telemetry/tracing of the CCI assembly.   
+                    PerfView /Providers=*Microsoft-CCI collect 
+            turns it on.  
+            </summary>
+        </member>
+        <member name="F:CciEventSource.Keywords.PERead">
+            <summary>
+            Events associated with reading IL DLLs
+            </summary>
+        </member>
+        <member name="F:CciEventSource.Keywords.PEWrite">
+            <summary>
+            Events associated with writing IL DLLs
+            </summary>
+        </member>
+    </members>
+</doc>

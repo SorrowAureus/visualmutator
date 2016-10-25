@@ -573,7 +573,7 @@
             return base.RewriteReference(parameterDefinition);
         }
 
-        public override IFieldReference RewriteUnspecialized(IFieldReference fieldReference)
+        protected override IFieldReference RewriteUnspecialized(IFieldReference fieldReference)
         {if(Process(fieldReference)){var fieldReferenceNew = rewriter.Rewrite(fieldReference); return base.Rewrite(fieldReferenceNew);}
             return base.RewriteUnspecialized(fieldReference);
         }

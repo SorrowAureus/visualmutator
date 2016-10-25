@@ -43,7 +43,6 @@ namespace VisualMutator.Console
 
 
 
-     //   private static ICollection<TestId> _selectedTests;
 
         private async Task<object> L1()
         {

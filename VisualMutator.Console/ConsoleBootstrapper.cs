@@ -60,7 +60,6 @@
                 Console.WriteLine(_parser.OtherParams.ToString());
                 _boot.AppController.OptionsManager.WriteOptions(optionsModel);
 
-              //  _connection.Build();
                 MethodIdentifier methodIdentifier;
                 _connection.GetCurrentClassAndMethod(out methodIdentifier);
 
@@ -82,13 +81,13 @@
                 //                }
 
                 _connection.End();
-                //   Console.ReadLine();
+
             }
             catch (Exception e)
             {
                 _log.Error(e);
             }
-          //  Console.ReadLine();
+
         }
     }
 }

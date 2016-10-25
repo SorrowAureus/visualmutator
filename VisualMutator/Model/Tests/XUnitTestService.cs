@@ -24,7 +24,7 @@
         {
             _settingsManager = settingsManager;
             _contextFactory = contextFactory;
-            XUnitConsolePath = FindConsolePath();
+            //XUnitConsolePath = FindConsolePath();
         }
 
         public string FrameWorkName { get { return "XUnit"; } }
