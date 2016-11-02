@@ -7,6 +7,8 @@
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
+    using System.Reactive.Linq;
+    using System.Reactive.Subjects;
     using System.Reflection;
     using System.Threading;
     using System.Threading.Tasks;

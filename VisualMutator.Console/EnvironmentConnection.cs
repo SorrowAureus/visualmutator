@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
+    using System.Reactive.Subjects;
     using Infrastructure;
     using Model;
     using Model.CoverageFinder;
