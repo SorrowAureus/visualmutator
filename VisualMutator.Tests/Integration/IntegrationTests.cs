@@ -58,7 +58,7 @@
 
             var options = new OptionsModel();
             var muexe = new MutationExecutor(options, choices, null);
-            var mucon = new MutantsContainer(muexe, new OriginalCodebase(cci.InList()));
+            var mucon = new MutantsContainer(muexe, new OriginalCodebase(cci.InList()),new OptionsModel());
             var nodes = mucon.InitMutantsForOperators(ProgressCounter.Inactive());
             Mutant mutant = nodes.Cast<CheckedNode>()
               .SelectManyRecursive(n => n.Children ?? new NotifyingCollection<CheckedNode>())
@@ -264,7 +264,7 @@
             _kernel.Bind<MutationSessionChoices>().ToConstant(choices);
 
             var exec = _kernel.Get<MutationExecutor>();
-            var container = new MutantsContainer(exec, original);
+            var container = new MutantsContainer(exec, original, new OptionsModel());
             IList<AssemblyNode> assemblies = container.InitMutantsForOperators(ProgressCounter.Inactive());
 
             var mutants = assemblies.Cast<CheckedNode>()

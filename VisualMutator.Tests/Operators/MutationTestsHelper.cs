@@ -114,7 +114,7 @@
                           };
 
             var exec = new MutationExecutor(new OptionsModel(), choices, null);
-            var container = new MutantsContainer(exec, original);
+            var container = new MutantsContainer(exec, original, new OptionsModel());
             IList<AssemblyNode> assemblies = container.InitMutantsForOperators(ProgressCounter.Inactive());
 
             var mutants = assemblies.Cast<CheckedNode>()

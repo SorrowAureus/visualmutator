@@ -10,7 +10,6 @@
     using Ninject.Activation.Strategies;
     using Ninject.Modules;
     using NUnit.Framework;
-    using SoftwareApproach.TestingExtensions;
     using UsefulTools.DependencyInjection;
     using VisualMutator.Infrastructure;
     using VisualMutator.Infrastructure.NinjectModules;

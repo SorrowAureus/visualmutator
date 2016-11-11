@@ -5,7 +5,6 @@
     using System.Threading.Tasks;
     using Model.StoringMutants;
     using NUnit.Framework;
-    using SoftwareApproach.TestingExtensions;
     using UsefulTools.Paths;
 
     [TestFixture]

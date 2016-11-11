@@ -21,11 +21,11 @@
     using NUnit.Framework;
     using Operators;
     using OperatorsStandard.Operators;
-    using SoftwareApproach.TestingExtensions;
     using UsefulTools.CheckboxedTree;
     using UsefulTools.Core;
     using UsefulTools.ExtensionMethods;
     using Util;
+    using SoftwareApproach.TestingExtensions;
     using MethodIdentifier = Extensibility.MethodIdentifier;
 
     #endregion
@@ -68,7 +68,7 @@ namespace Ns
 
            
             var exec = new MutationExecutor(null, choices, null);
-            var container = new MutantsContainer(exec, new OriginalCodebase(cci.InList(), new List<string>()));
+            var container = new MutantsContainer(exec, new OriginalCodebase(cci.InList()),new OptionsModel());
             IList<AssemblyNode> assemblies = container.InitMutantsForOperators(ProgressCounter.Inactive());
 
             var mut = assemblies.Cast<CheckedNode>()
@@ -130,7 +130,7 @@ namespace Ns
                           };
 
             var exec = new MutationExecutor(null, choices, null);
-            var container = new MutantsContainer(exec, new OriginalCodebase(cci.InList(), new List<string>()));
+            var container = new MutantsContainer(exec, new OriginalCodebase(cci.InList(), new List<string>()),new OptionsModel());
             IList<AssemblyNode> assemblies = container.InitMutantsForOperators(ProgressCounter.Inactive());
 
             var mut = assemblies.Cast<CheckedNode>()
@@ -206,7 +206,7 @@ namespace Ns
             };
 
             var exec = new MutationExecutor(null, choices, null);
-            var container = new MutantsContainer(exec, new OriginalCodebase(cci.InList(), new List<string>()));
+            var container = new MutantsContainer(exec, new OriginalCodebase(cci.InList(), new List<string>()),new OptionsModel());
             IList<AssemblyNode> assemblies = container.InitMutantsForOperators(ProgressCounter.Inactive());
 
             var mutants = assemblies.Cast<CheckedNode>()
