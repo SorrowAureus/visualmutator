@@ -18,11 +18,7 @@
     {
         private StandardKernel _kernel;
 
-        [Test]
-        public void Test1()
-        {
-          
-        }
+
 
         [Test]
         public void TestPartialParameters()

@@ -32,8 +32,8 @@
     <WarningLevel>4</WarningLevel>
     <CopyVsixExtensionFiles>False</CopyVsixExtensionFiles>
     <Prefer32Bit>false</Prefer32Bit>
-    <DeployExtension>True</DeployExtension>
-    <CreateVsixContainer>True</CreateVsixContainer>
+    <DeployExtension>False</DeployExtension>
+    <CreateVsixContainer>False</CreateVsixContainer>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>

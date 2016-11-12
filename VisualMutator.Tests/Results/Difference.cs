@@ -31,10 +31,7 @@
         }
 
 
-        [Test]
-        public void Test1()
-        {
-        }
+
 
         //SomeNamespace.Namespace:
         public void Method()
