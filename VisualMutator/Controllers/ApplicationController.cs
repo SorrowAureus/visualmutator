@@ -71,7 +71,6 @@
         public void Initialize()
         {
             _log.Info("Initializing package VisualMutator...");
-            _log.Debug("Debug Test...");
 
             Trace.Listeners.Add(new CustomTraceListener());
 
@@ -79,7 +78,7 @@
             _settingsManager.Initialize();
 
             LocateNUnitConsole();
-            //LocateXUnitConsole();
+            LocateXUnitConsole();
         }
 
         private void LocateNUnitConsole()

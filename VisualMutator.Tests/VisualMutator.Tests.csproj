@@ -285,7 +285,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="-\JetBrains\Annotations\CoreAnnotations.cs" />
     <Compile Include="Infrastructure\FileSystemManagerTests.cs" />
     <Compile Include="Infrastructure\NinjectMemoryTests.cs" />
     <Compile Include="Infrastructure\ParserTests.cs" />
@@ -293,6 +292,7 @@
     <Compile Include="Infrastructure\NinjectTests.cs" />
     <Compile Include="Infrastructure\NinjectParamBindingsTests.cs" />
     <Compile Include="Integration\IntegrationTests.cs" />
+    <Compile Include="Model\Mutations\Operators\MEFOperatorLoaderTests.cs" />
     <Compile Include="Mutations\CciMethodMatchingTests.cs" />
     <Compile Include="Mutations\VisualStudioCodeElementsFormatterTests.cs" />
     <Compile Include="Mutations\NamespaceGrouperTests.cs" />
