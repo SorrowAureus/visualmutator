@@ -74,70 +74,53 @@
     <Reference Include="May">
       <HintPath>..\packages\Strilanc.Value.May.1.0.2\lib\portable-net4+sl4+wp7+win8\May.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Cci.Analysis.ControlAndDataFlowGraph, , Culture=neutral, PublicKeyToken=736440c9b414ea16, processorArchitecture=MSIL">
-      <HintPath>D:\github\Visualmutator\visualmutatorpavzaj\packages\CCI_fixed\Microsoft.Cci.Analysis.ControlAndDataFlowGraph.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Microsoft.Cci.Analysis.ControlAndDataFlowGraph">
+      <HintPath>..\packages\CCI_fixed\Microsoft.Cci.Analysis.ControlAndDataFlowGraph.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Cci.CodeModel, , Culture=neutral, PublicKeyToken=736440c9b414ea16, processorArchitecture=MSIL">
-      <HintPath>D:\github\Visualmutator\visualmutatorpavzaj\packages\CCI_fixed\Microsoft.Cci.CodeModel.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Microsoft.Cci.CodeModel">
+      <HintPath>..\packages\CCI_fixed\Microsoft.Cci.CodeModel.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Cci.CodeModelToIL, , Culture=neutral, PublicKeyToken=736440c9b414ea16, processorArchitecture=MSIL">
-      <HintPath>D:\github\Visualmutator\visualmutatorpavzaj\packages\CCI_fixed\Microsoft.Cci.CodeModelToIL.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Microsoft.Cci.CodeModelToIL">
+      <HintPath>..\packages\CCI_fixed\Microsoft.Cci.CodeModelToIL.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Cci.ContractExtractor, , Culture=neutral, PublicKeyToken=736440c9b414ea16, processorArchitecture=MSIL">
-      <HintPath>D:\github\Visualmutator\visualmutatorpavzaj\packages\CCI_fixed\Microsoft.Cci.ContractExtractor.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Microsoft.Cci.ContractExtractor">
+      <HintPath>..\packages\CCI_fixed\Microsoft.Cci.ContractExtractor.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Cci.CSharpSourceEmitter,  Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>D:\github\Visualmutator\visualmutatorpavzaj\packages\CCI_fixed\Microsoft.Cci.CSharpSourceEmitter.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Microsoft.Cci.CSharpSourceEmitter">
+      <HintPath>..\packages\CCI_fixed\Microsoft.Cci.CSharpSourceEmitter.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Cci.ILGenerator, , Culture=neutral, PublicKeyToken=736440c9b414ea16, processorArchitecture=MSIL">
-      <HintPath>D:\github\Visualmutator\visualmutatorpavzaj\packages\CCI_fixed\Microsoft.Cci.ILGenerator.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Microsoft.Cci.ILGenerator">
+      <HintPath>..\packages\CCI_fixed\Microsoft.Cci.ILGenerator.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Cci.MetadataHelper, , Culture=neutral, PublicKeyToken=736440c9b414ea16, processorArchitecture=MSIL">
-      <HintPath>D:\github\Visualmutator\visualmutatorpavzaj\packages\CCI_fixed\Microsoft.Cci.MetadataHelper.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-      <Private>True</Private>
+    <Reference Include="Microsoft.Cci.MetadataHelper">
+      <HintPath>..\packages\CCI_fixed\Microsoft.Cci.MetadataHelper.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Cci.MetadataModel, , Culture=neutral, PublicKeyToken=736440c9b414ea16, processorArchitecture=MSIL">
-      <HintPath>D:\github\Visualmutator\visualmutatorpavzaj\packages\CCI_fixed\Microsoft.Cci.MetadataModel.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Microsoft.Cci.MetadataModel">
+      <HintPath>..\packages\CCI_fixed\Microsoft.Cci.MetadataModel.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Cci.MutableCodeModel, , Culture=neutral, PublicKeyToken=736440c9b414ea16, processorArchitecture=MSIL">
-      <HintPath>D:\github\Visualmutator\visualmutatorpavzaj\packages\CCI_fixed\Microsoft.Cci.MutableCodeModel.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Microsoft.Cci.MutableCodeModel">
+      <HintPath>..\packages\CCI_fixed\Microsoft.Cci.MutableCodeModel.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Cci.MutableMetadataModel, , Culture=neutral, PublicKeyToken=736440c9b414ea16, processorArchitecture=MSIL">
-      <HintPath>D:\github\Visualmutator\visualmutatorpavzaj\packages\CCI_fixed\Microsoft.Cci.MutableMetadataModel.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Microsoft.Cci.MutableMetadataModel">
+      <HintPath>..\packages\CCI_fixed\Microsoft.Cci.MutableMetadataModel.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Cci.NewILToCodeModel, , Culture=neutral, PublicKeyToken=736440c9b414ea16, processorArchitecture=MSIL">
-      <HintPath>D:\github\Visualmutator\visualmutatorpavzaj\packages\CCI_fixed\Microsoft.Cci.NewILToCodeModel.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Microsoft.Cci.NewILToCodeModel">
+      <HintPath>..\packages\CCI_fixed\Microsoft.Cci.NewILToCodeModel.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Cci.PdbReader, , Culture=neutral, PublicKeyToken=736440c9b414ea16, processorArchitecture=MSIL">
-      <HintPath>D:\github\Visualmutator\visualmutatorpavzaj\packages\CCI_fixed\Microsoft.Cci.PdbReader.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Microsoft.Cci.PdbReader">
+      <HintPath>..\packages\CCI_fixed\Microsoft.Cci.PdbReader.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Cci.PdbWriter, , Culture=neutral, PublicKeyToken=736440c9b414ea16, processorArchitecture=MSIL">
-      <HintPath>D:\github\Visualmutator\visualmutatorpavzaj\packages\CCI_fixed\Microsoft.Cci.PdbWriter.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Microsoft.Cci.PdbWriter">
+      <HintPath>..\packages\CCI_fixed\Microsoft.Cci.PdbWriter.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Cci.PeReader, , Culture=neutral, PublicKeyToken=736440c9b414ea16, processorArchitecture=MSIL">
-      <HintPath>D:\github\Visualmutator\visualmutatorpavzaj\packages\CCI_fixed\Microsoft.Cci.PeReader.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Microsoft.Cci.PeReader">
+      <HintPath>..\packages\CCI_fixed\Microsoft.Cci.PeReader.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Cci.PeWriter, , Culture=neutral, PublicKeyToken=736440c9b414ea16, processorArchitecture=MSIL">
-      <HintPath>D:\github\Visualmutator\visualmutatorpavzaj\packages\CCI_fixed\Microsoft.Cci.PeWriter.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Microsoft.Cci.PeWriter">
+      <HintPath>..\packages\CCI_fixed\Microsoft.Cci.PeWriter.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Cci.SourceModel, , Culture=neutral, PublicKeyToken=736440c9b414ea16, processorArchitecture=MSIL">
-      <HintPath>D:\github\Visualmutator\visualmutatorpavzaj\packages\CCI_fixed\Microsoft.Cci.SourceModel.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Microsoft.Cci.SourceModel">
+      <HintPath>..\packages\CCI_fixed\Microsoft.Cci.SourceModel.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
@@ -179,7 +162,9 @@
       <HintPath>..\packages\RunProcessAsTask.1.1.3\lib\RunProcessAsTask.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.Composition">
+      <Private>False</Private>
+    </Reference>
     <Reference Include="System.Core" />
     <Reference Include="System.IO.Compression" />
     <Reference Include="System.IO.Compression.FileSystem" />

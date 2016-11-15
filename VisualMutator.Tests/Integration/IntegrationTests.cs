@@ -116,8 +116,10 @@
 
             var muma = _kernel.Get<MutantMaterializer>();
 
+            IObserver<SessionEventArgs> sub=null;
 
-            IObserver<SessionEventArgs> sub = new ReplaySubject<SessionEventArgs>();
+            Assert.Inconclusive("IObserver<SessionEventArgs> sub = new ReplaySubject<SessionEventArgs>();");
+            
             foreach (var mutant in mutants)
             {
                 //  var copy = new CciModuleSource(TestProjects.MiscUtil);
@@ -182,7 +184,11 @@
             var muma = _kernel.Get<MutantMaterializer>();
 
 
-            IObserver<SessionEventArgs> sub = new ReplaySubject<SessionEventArgs>();
+            IObserver<SessionEventArgs> sub = null;
+
+            Assert.Inconclusive("sub=new ReplaySubject<SessionEventArgs>();");
+
+            
             foreach (var mutant in mutants)
             {
                 //  var copy = new CciModuleSource(TestProjects.MiscUtil);
