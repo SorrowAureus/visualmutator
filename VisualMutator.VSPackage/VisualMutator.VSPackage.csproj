@@ -46,8 +46,9 @@
     <Prefer32Bit>false</Prefer32Bit>
     <CreateVsixContainer>True</CreateVsixContainer>
     <DeployExtension>False</DeployExtension>
-    <CopyVsixExtensionFiles>True</CopyVsixExtensionFiles>
-    <CopyVsixExtensionLocation>..\..\..\</CopyVsixExtensionLocation>
+    <CopyVsixExtensionFiles>False</CopyVsixExtensionFiles>
+    <CopyVsixExtensionLocation>
+    </CopyVsixExtensionLocation>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
@@ -351,6 +352,10 @@
             CollectExtensionViews;
             $(CopyAllFilesToSingleFolderForPackageDependsOn);
         </CopyAllFilesToSingleFolderForPackageDependsOn>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PostBuildEvent>if exist D:\github\Visualmutator\visualmutatorpavzaj\VisualMutator.VSPackage\bin\Release\VisualMutator.VSPackage.vsix (copy D:\github\Visualmutator\visualmutatorpavzaj\VisualMutator.VSPackage\bin\Release\VisualMutator.VSPackage.vsix D:\github\Visualmutator\visualmutatorpavzaj\VisualMutator.VSPackage.vsix /y)		
+</PostBuildEvent>
   </PropertyGroup>
   <Target Name="CollectExtensionDLLs">
     <ItemGroup>
