@@ -4,39 +4,31 @@
 
     using System;
     using System.Diagnostics;
-    using System.Reactive.Linq;
     using System.Threading;
-    using Ninject;
-    using Ninject.Activation.Strategies;
-    using Ninject.Modules;
     using NUnit.Framework;
-    using UsefulTools.DependencyInjection;
     using VisualMutator.Infrastructure;
-    using VisualMutator.Infrastructure.NinjectModules;
 
     #endregion
 
     [TestFixture]
     public class ProcessTests
     {
-
-        [Test]
+        [Test, Ignore("What it does?")]
         public void Test1()
         {
             var processes = new Processes();
             var p = new ProcessStartInfo("mspaint.exe");
-           // p.
+            // p.
             var s = new CancellationTokenSource();
             processes.RunAsync(p, s).ContinueWith(t =>
             {
-                if(t.IsCanceled)
+                if (t.IsCanceled)
                 {
                     Console.WriteLine("cancelled");
-                 }
+                }
             });
 
             Assert.Inconclusive("Observable.Timer(TimeSpan.FromSeconds(3)).Subscribe( a => s.Cancel());");
-            
 
             //Thread.Sleep(10000);
         }
