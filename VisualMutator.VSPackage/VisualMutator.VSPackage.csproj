@@ -354,7 +354,7 @@
         </CopyAllFilesToSingleFolderForPackageDependsOn>
   </PropertyGroup>
   <PropertyGroup>
-    <PostBuildEvent>if exist D:\github\Visualmutator\visualmutatorpavzaj\VisualMutator.VSPackage\bin\Release\VisualMutator.VSPackage.vsix (copy D:\github\Visualmutator\visualmutatorpavzaj\VisualMutator.VSPackage\bin\Release\VisualMutator.VSPackage.vsix D:\github\Visualmutator\visualmutatorpavzaj\VisualMutator.VSPackage.vsix /y)		
+    <PostBuildEvent>if exist $(TargetDir)$(TargetName).vsix (copy $(TargetDir)$(TargetName).vsix $(SolutionDir)$(TargetName).vsix /y)		
 </PostBuildEvent>
   </PropertyGroup>
   <Target Name="CollectExtensionDLLs">
