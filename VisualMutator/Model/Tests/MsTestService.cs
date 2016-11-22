@@ -1,9 +1,9 @@
 ﻿namespace VisualMutator.Model.Tests
 {
+    using System.Diagnostics;
     using System.IO;
     using System.Linq;
     using System.Reflection;
-    using CoverageFinder;
     using log4net;
     using Microsoft.Cci;
     using Services;
@@ -24,7 +24,20 @@
         {
             _settingsManager = settingsManager;
             _contextFactory = contextFactory;
-            MsTestConsolePath = @"C:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\IDE\MSTest.exe";
+            MsTestConsolePath = GetMstestExeDir();
+        }
+
+        private string GetMstestExeDir()
+        {
+            var vsProcessExeFileLocation = Process.GetCurrentProcess().MainModule.FileName.ToUpper();
+
+            if (vsProcessExeFileLocation.Contains("MICROSOFT VISUAL STUDIO") && vsProcessExeFileLocation.Contains("COMMON7"))
+            {
+                vsProcessExeFileLocation = vsProcessExeFileLocation.Substring(0, vsProcessExeFileLocation.IndexOf("IDE"));
+                return $"{vsProcessExeFileLocation}IDE\\MSTest.exe";
+            }
+            else
+                throw new FileNotFoundException("Could not find MSTest.exe");
         }
 
         public string FrameWorkName { get { return "MsTest"; } }
