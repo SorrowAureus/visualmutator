@@ -11,7 +11,6 @@
     using System.Xml.Linq;
     using Infrastructure;
     using log4net;
-    using NUnit.Core;
     using RunProcessAsTask;
     using TestsTree;
     using UsefulTools.Core;

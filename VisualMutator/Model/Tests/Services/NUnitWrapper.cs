@@ -1,88 +1,108 @@
 ﻿namespace VisualMutator.Model.Tests.Services
 {
+    using System;
+
     #region
 
-    using System;
     using System.Collections.Generic;
+    using System.Diagnostics;
+    using System.IO;
     using System.Linq;
     using System.Reflection;
-    using Exceptions;
+    using System.Xml.Linq;
     using log4net;
-    using NUnit.Core;
-    using NUnit.Util;
+    using NUnit.Framework.Interfaces;
+    using UsefulTools.Core;
 
     #endregion
 
     public interface INUnitWrapper
     {
-        TestFilter NameFilter { get; }
-        ITest LoadTests(IEnumerable<string> assemblies);
+        ITestFilter NameFilter { get; }
+
+        IDictionary<string, List<string>> LoadTests(IEnumerable<string> assemblies);
+
         void UnloadProject();
     }
 
     public class NUnitWrapper : INUnitWrapper
     {
-
-
         private readonly ILog _log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-     
-        public TestFilter NameFilter
+
+        public ITestFilter NameFilter
         {
             get { return null; }
         }
 
-        public NUnitWrapper()
-        {
-            InternalTrace.Initialize("nunit-visual-mutator.log", InternalTraceLevel.Verbose);
-         
-            CoreExtensions.Host.InitializeService();
-            ServiceManager.Services.AddService(new SettingsService());
-            ServiceManager.Services.AddService(new DomainManager());
-            ServiceManager.Services.AddService(new RecentFilesService());
-            ServiceManager.Services.AddService(new ProjectService());
-            ServiceManager.Services.AddService(new AddinRegistry());
-            ServiceManager.Services.AddService(new AddinManager());
-            ServiceManager.Services.AddService(new TestAgency());
+        public ISettingsManager SettingsManager { get; private set; }
 
-           
+        public NUnitWrapper(ISettingsManager settingsManager)
+        {
+            this.SettingsManager = settingsManager;
         }
 
-       
-        public ITest LoadTests(IEnumerable<string> assemblies)
+        public IDictionary<string, List<string>> LoadTests(IEnumerable<string> assemblies)
         {
+            var enumerable = assemblies as IList<string> ?? assemblies.ToList();
 
-          
-                var testRunner = new SimpleTestRunner();
-                
-                var enumerable = assemblies as IList<string> ?? assemblies.ToList();
-                _log.Debug("Creating NUnit package for files " + string.Join(", ", enumerable));
-                var package = new TestPackage("", enumerable.ToList());
-                package.Settings["RuntimeFramework"] = new RuntimeFramework(RuntimeType.Net, Environment.Version);
-                package.Settings["UseThreadedRunner"] = false;
+            XElement xml = GetNunitTestsFromAssemblies(assemblies);
 
-//                lock (this)
-//                {
-                    _log.Debug("Loading NUnit package: " + package);
-                    bool load = testRunner.Load(package);
-                    if (!load)
-                    {
-                        throw new Exception("Tests load result: false.");
-                    }
-                    var t = testRunner.Test;
-                    testRunner.Unload();
-                    return t;
-//                }
-               
-            
+            var testFixtures = xml.Descendants("test-suite").Where(p => p.Attributes("type").Single().Value == "TestFixture");
 
+            var result = new Dictionary<string, List<string>>();
+
+            foreach (var item in testFixtures)
+            {
+                var testFixtureFullName = item.Attributes("fullname").Single().Value;
+
+                var testCases = item.Descendants("test-case").SelectMany(p => p.Attributes("fullname").Select(q => q.Value)).ToList();
+
+                result.Add(testFixtureFullName, testCases);
+            }
+
+            return result;
         }
 
-       
+        private XElement GetNunitTestsFromAssemblies(IEnumerable<string> assemblies)
+        {
+            var testAssembliesNunitArgs = string.Join(" ", assemblies);
+
+            _log.Debug("Creating NUnit package for files " + testAssembliesNunitArgs);
+
+            var nUnitConsolePath = Path.GetFullPath(Path.Combine(SettingsManager["NUnitConsoleDirPath"], "nunit3-console.exe"));
+
+            var testExplorationResultFileDir = Path.Combine(Path.GetDirectoryName(nUnitConsolePath), Guid.NewGuid().ToString());
+
+            var startInfo = new ProcessStartInfo
+            {
+                Arguments = $"--explore:{testExplorationResultFileDir};format=nunit3 --noresult --inprocess --dispose-runners {testAssembliesNunitArgs}",
+                CreateNoWindow = true,
+                WindowStyle = ProcessWindowStyle.Hidden,
+                ErrorDialog = false,
+                RedirectStandardOutput = true,
+                FileName = nUnitConsolePath,
+                UseShellExecute = false,
+            };
+
+            using (var processHandle = Process.Start(startInfo))
+            {
+                var timedOut = !processHandle.WaitForExit(20 * 60 * 1000);
+                if (timedOut)
+                {
+                    processHandle.Kill();
+                    throw new TimeoutException("Nunit Console timed out!");
+                }
+            }
+
+            XElement xml = XElement.Parse(File.ReadAllText(testExplorationResultFileDir));
+
+            File.Delete(testExplorationResultFileDir); // how to avoid file operations?
+
+            return xml;
+        }
+
         public void UnloadProject()
         {
         }
-
-     
-
     }
 }

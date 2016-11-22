@@ -1,31 +1,31 @@
-﻿namespace VisualMutator.Model.Tests
+﻿using NUnit.Framework.Interfaces;
+
+namespace VisualMutator.Model.Tests
 {
     #region
-
-    using NUnit.Core;
 
     #endregion
 
     public abstract class TestId
     {
-         
     }
+
     public class NUnitTestId : TestId
     {
-        public TestName TestName { get; set; }
+        public string TestName { get; set; }
 
-        public NUnitTestId(TestName testName)
+        public NUnitTestId(string testName)
         {
             TestName = testName;
         }
 
         public override string ToString()
         {
-            return TestName.FullName;
+            return TestName;
         }
     }
+
     public class MsTestTestId : TestId
     {
-
     }
 }

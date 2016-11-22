@@ -44,7 +44,7 @@
         {
             get
             {
-                return AllowAll ? new List<string>() : _selectedTests.MinimalSelectionList;
+                return AllowAll ? new List<string>() : _selectedTests.TestIds.Select(p=>p.ToString()).ToList();
             }
         }
 

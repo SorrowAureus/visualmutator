@@ -86,7 +86,7 @@
             const string key = "NUnitConsoleDirPath";
             if (!_settingsManager.ContainsKey(key) 
                 || !Directory.Exists(_settingsManager[key])
-                 || !File.Exists(Path.Combine(_settingsManager[key], "nunit-console.exe")))
+                 || !File.Exists(Path.Combine(_settingsManager[key], "nunit3-console.exe")))
             {
                 var localDir = Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath);
                 Debug.Assert(localDir != null, "localDir != null");

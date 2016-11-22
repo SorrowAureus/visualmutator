@@ -31,6 +31,7 @@
                         select part.CreatePart();
             return parts;
         }
+
         public IEnumerable<IOperatorsPackage> ReloadOperators()
         {
             try
@@ -48,10 +49,8 @@
             }
             catch (ReflectionTypeLoadException e)
             {
-                
-                throw new Exception(e.LoaderExceptions.Select(ee=>ee.Message).Aggregate( (e1,e2)=>e1+", "+e2),e);
+                throw new Exception(e.LoaderExceptions.Select(ee => ee.Message).Aggregate((e1, e2) => e1 + ", " + e2), e);
             }
-           
         }
     }
 
