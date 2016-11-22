@@ -73,7 +73,7 @@
         private string FindConsolePath()
         {
             var nUnitDirPath = _settingsManager["NUnitConsoleDirPath"];
-            var nUnitConsolePath = Path.Combine(nUnitDirPath, "nunit-console-x86.exe");
+            var nUnitConsolePath = Path.Combine(nUnitDirPath, "nunit3-console.exe");
             
             if (!_svc.FileSystem.File.Exists(nUnitConsolePath))
             {

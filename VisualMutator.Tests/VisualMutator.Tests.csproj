@@ -271,6 +271,7 @@
     <Compile Include="Infrastructure\ProcessTests.cs" />
     <Compile Include="Integration\IntegrationTests.cs" />
     <Compile Include="Model\Mutations\Operators\MEFOperatorLoaderTests.cs" />
+    <Compile Include="Model\Tests\Services\NUnitTestsRunContextTests.cs" />
     <Compile Include="Model\Tests\Services\NUnitXmlTestServiceTests.cs" />
     <Compile Include="Mutations\CciMethodMatchingTests.cs" />
     <Compile Include="Mutations\MutantsContainerTests.cs" />

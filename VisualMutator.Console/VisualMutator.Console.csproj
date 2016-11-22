@@ -129,9 +129,7 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-    <Content Include="nunitconsole.zip">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <None Include="nunitconsole.zip" />
     <None Include="packages.config" />
     <Content Include="xunitconsole.zip">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

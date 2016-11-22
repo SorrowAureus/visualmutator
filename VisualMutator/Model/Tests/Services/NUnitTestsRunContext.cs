@@ -131,33 +131,10 @@
         public Task<ProcessResults> RunNUnitConsole(string nunitConsolePath,
             string inputFile, string outputFile)
         {
-            var listpath = new FilePathAbsolute(inputFile)
-                .GetBrotherFileWithName(
-                Path.GetFileNameWithoutExtension(inputFile) + "-Runlist.txt").Path;
+            string arg = PrepareNunitArgs(inputFile, outputFile);
 
-            string testToRun = "";
-            if(!_testsSelector.AllowAll)
-            {
-                using (var file = File.CreateText(listpath))
-                {
-                    foreach (var str in _testsSelector.MinimalSelectionList)
-                    {
-                        file.WriteLine(str.Trim());
-                    }
-                }
-                testToRun = " /runlist:" + listpath.InQuotes() + " ";
-            }
+            _log.Info("Running \"" + nunitConsolePath + "\" " + arg);
 
-            string arg = inputFile.InQuotes()
-                         + testToRun
-                         + " /xml \"" + outputFile + "\" /nologo -trace=Verbose /noshadow /nothread";
-
-            if (_options.ParsedParams.NUnitNetVersion.Length != 0)
-            {
-                arg += (" /framework:" + _options.OtherParams);
-            }
-
-            _log.Info("Running \"" + nunitConsolePath+"\" " + arg);
             var startInfo = new ProcessStartInfo
             {
                 Arguments = arg,
@@ -167,9 +144,41 @@
                 FileName = nunitConsolePath,
                 UseShellExecute = false,
             };
+
             return _processes.RunAsync(startInfo, _cancellationTokenSource);
         }
 
+        protected string PrepareNunitArgs(string inputFile, string outputFile)
+        {
+            var listpath = new FilePathAbsolute(inputFile)
+                .GetBrotherFileWithName(
+                Path.GetFileNameWithoutExtension(inputFile) + "-Runlist.txt").Path;
+
+            string testToRun = "";
+
+            if (!_testsSelector.AllowAll)
+            {
+                using (var file = File.CreateText(listpath))
+                {
+                    foreach (var str in _testsSelector.MinimalSelectionList)
+                    {
+                        file.WriteLine(str.Trim());
+                    }
+                }
+                testToRun = " --testlist=" + listpath.InQuotes() + " ";
+            }
+
+            string arg = inputFile.InQuotes()
+                         + testToRun
+                         + " --result=\"" + outputFile + "\";format=nunit2 --noheader --nocolor --dispose-runners --inprocess";
+
+            if (_options.ParsedParams.NUnitNetVersion.Length != 0)
+            {
+                arg += (" --framework=" + _options.OtherParams);
+            }
+
+            return arg;
+        }
 
 
 
