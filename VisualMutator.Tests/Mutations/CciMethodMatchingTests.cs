@@ -12,7 +12,6 @@
     using Model;
     using Model.CoverageFinder;
     using Model.Mutations.Types;
-    using NUnit.Core;
     using NUnit.Framework;
     using UsefulTools.CheckboxedTree;
     using UsefulTools.ExtensionMethods;

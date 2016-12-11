@@ -15,7 +15,8 @@
     using Exceptions;
     using Infrastructure;
     using log4net;
-    using NUnit.Core;
+    using NUnit.Framework.Interfaces;
+    using NUnit.Framework.Internal;
     using RunProcessAsTask;
     using Strilanc.Value;
     using TestsTree;
@@ -136,23 +137,23 @@
             foreach (ITest testClass in classes.Where(c => c.Tests != null && c.Tests.Count != 0))
             {
 
-                var c = new TestNodeClass(testClass.TestName.Name)
+                var c = new TestNodeClass(testClass.FullName)
                 {
-                    Namespace = testClass.Parent.TestName.FullName,
+                    Namespace = testClass.Parent.FullName,
                     //  FullName = testClass.TestName.FullName,
 
                 };
 
                 foreach (ITest testMethod in testClass.Tests.Cast<ITest>())
                 {
-                    if (_nUnitWrapper.NameFilter == null || _nUnitWrapper.NameFilter.Match(testMethod))
+                    if (_nUnitWrapper.NameFilter == null || _nUnitWrapper.NameFilter.IsExplicitMatch(testMethod))
                     {
-                        string testName = testMethod.TestName.FullName;
+                        string testName = testMethod.FullName;
                         //if(!context.TestMap.ContainsKey(testName))
                         //  {
                         var nodeMethod = new TestNodeMethod(c, testName)
                         {
-                            TestId = new NUnitTestId(testMethod.TestName),
+                            TestId = new NUnitTestId(testMethod),
                             Identifier = CreateIdentifier(testMethod),
                         };
                         c.Children.Add(nodeMethod);
@@ -176,7 +177,7 @@
 
         private MethodIdentifier CreateIdentifier(ITest testMethod)
         {
-            return new MethodIdentifier(testMethod.TestName.FullName + "()");
+            return new MethodIdentifier(testMethod.FullName + "()");
         }
 
         private IEnumerable<ITest> GetTestClasses(ITest test)
@@ -191,7 +192,7 @@
         private void GetTestClassesInternal(List<ITest> list, ITest test)
         {
             var tests = test.Tests ?? new ITest[0];
-            if (test.TestType == "TestFixture")
+            if (((Test)test).TestType == "TestFixture")
             {
                 list.Add(test);
             }

@@ -30,7 +30,6 @@
     using Model.Tests.TestsTree;
     using Ninject;
     using NUnit.Framework;
-    using NUnit.Util;
     using OperatorsStandard.Operators;
     using Roslyn.Compilers;
     using Roslyn.Compilers.CSharp;

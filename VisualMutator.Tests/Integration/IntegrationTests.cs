@@ -24,7 +24,6 @@
     using Model.Tests.TestsTree;
     using Ninject;
     using NUnit.Framework;
-    using NUnit.Util;
     using Operators;
     using OperatorsStandard.Operators;
     using Roslyn.Compilers.CSharp;
@@ -240,7 +239,7 @@
             _kernel.Bind<OptionsModel>().ToConstant(options);
             _kernel.Bind<IMutationExecutor>().To<MutationExecutor>().InSingletonScope();
             _kernel.Bind<TestingMutant>().ToSelf().AndFromFactory();
-            _kernel.Bind<TestLoader>().ToSelf().AndFromFactory();
+            //_kernel.Bind<TestLoader>().ToSelf().AndFromFactory();
 
             _kernel.BindMock<IHostEnviromentConnection>(mock =>
             {

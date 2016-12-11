@@ -9,7 +9,6 @@
     using System.Threading.Tasks;
     using Infrastructure;
     using log4net;
-    using NUnit.Core;
     using UsefulTools.ExtensionMethods;
     using UsefulTools.FileSystem;
     using UsefulTools.Paths;

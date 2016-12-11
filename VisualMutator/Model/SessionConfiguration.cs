@@ -14,7 +14,6 @@
     using Microsoft.Cci;
     using Mutations;
     using Mutations.Types;
-    using NUnit.Util;
     using StoringMutants;
     using Tests;
     using Tests.TestsTree;

@@ -19,7 +19,6 @@ namespace TestGround
     using Ninject;
     using Ninject.Activation.Strategies;
     using Ninject.Modules;
-    using NUnit.Core;
     using Roslyn.Compilers;
     using Roslyn.Compilers.CSharp;
     using UsefulTools.DependencyInjection;
