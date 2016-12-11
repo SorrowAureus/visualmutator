@@ -1,10 +1,5 @@
-﻿using NUnit.Framework;
-using VisualMutator.Model.Tests.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
+using NUnit.Framework;
 
 namespace VisualMutator.Model.Tests.Services.Tests
 {
@@ -20,7 +15,9 @@ namespace VisualMutator.Model.Tests.Services.Tests
         [Test()]
         public void LoadTestsTest()
         {
-            throw new NotImplementedException();
+            var subject = new NUnitWrapper();
+
+            subject.LoadTests(new string[] { @"D:\ovs\Codility\PassingCarsTests3\bin\Debug\PassingCarsTests3.dll" });
         }
 
         [Test()]
