@@ -91,15 +91,21 @@
 
             try
             {
-                ITest testRoot = _nUnitWrapper.LoadTests(assemblyPath.InList());
-                int testCount = testRoot.TestsEx().SelectMany(n => n.TestsEx()).Count();
+                var testRoot = _nUnitWrapper.LoadTests(assemblyPath.InList());
+
+                int testCount = testRoot.Values.Count();
+
                 if (testCount == 0)
                 {
                     return May.NoValue;
                 }
+
                 var classNodes = BuildTestTree(testRoot);
+
                 var context = new TestsLoadContext(FrameworkName, classNodes.ToList());
+
                 UnloadTests();
+
                 return context;
             }
             catch (Exception e)
@@ -130,42 +136,30 @@
             // _nUnitWrapper.UnloadProject();
         }
 
-        private IEnumerable<TestNodeClass> BuildTestTree(ITest test)
+        private IEnumerable<TestNodeClass> BuildTestTree(IDictionary<string, List<string>> testFixtures)
         {
-            IEnumerable<ITest> classes = GetTestClasses(test).ToList();
 
-            foreach (ITest testClass in classes.Where(c => c.Tests != null && c.Tests.Count != 0))
+
+            foreach (var testFixture in testFixtures)
             {
 
-                var c = new TestNodeClass(testClass.FullName)
+                var c = new TestNodeClass(testFixture.Key)
                 {
-                    Namespace = testClass.Parent.FullName,
-                    //  FullName = testClass.TestName.FullName,
+                    Namespace = testFixture.Key,
 
                 };
 
-                foreach (ITest testMethod in testClass.Tests.Cast<ITest>())
+                foreach (var testCase in testFixture.Value)
                 {
-                    if (_nUnitWrapper.NameFilter == null || _nUnitWrapper.NameFilter.IsExplicitMatch(testMethod))
+                    string testName = testCase;
+
+                    var nodeMethod = new TestNodeMethod(c, testName)
                     {
-                        string testName = testMethod.FullName;
-                        //if(!context.TestMap.ContainsKey(testName))
-                        //  {
-                        var nodeMethod = new TestNodeMethod(c, testName)
-                        {
-                            TestId = new NUnitTestId(testMethod),
-                            Identifier = CreateIdentifier(testMethod),
-                        };
-                        c.Children.Add(nodeMethod);
-                       // _log.Debug("Adding test: " + testName);
-                        // context.TestMap.Add(testName, nodeMethod);
-                        // }
-                        //  else
-                        //  {
-                        //       _log.Debug("Already exists test: " + testName);
-                        //       //TODO: handle he case where parametrized test method may be present duplicated.
-                        //   }
-                    }
+                        TestId = new NUnitTestId(testCase),
+                        Identifier = CreateIdentifier(testCase),
+                    };
+
+                    c.Children.Add(nodeMethod);
                 }
                 if (c.Children.Any())
                 {
@@ -175,9 +169,9 @@
             }
         }
 
-        private MethodIdentifier CreateIdentifier(ITest testMethod)
+        private MethodIdentifier CreateIdentifier(string testMethodName)
         {
-            return new MethodIdentifier(testMethod.FullName + "()");
+            return new MethodIdentifier(testMethodName + "()");
         }
 
         private IEnumerable<ITest> GetTestClasses(ITest test)

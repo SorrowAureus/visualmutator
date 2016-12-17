@@ -12,16 +12,16 @@ namespace VisualMutator.Model.Tests
 
     public class NUnitTestId : TestId
     {
-        public ITest TestName { get; set; }
+        public string TestName { get; set; }
 
-        public NUnitTestId(ITest testName)
+        public NUnitTestId(string testName)
         {
             TestName = testName;
         }
 
         public override string ToString()
         {
-            return TestName.FullName;
+            return TestName;
         }
     }
 
