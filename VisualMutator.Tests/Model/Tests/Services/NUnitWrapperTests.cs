@@ -17,7 +17,7 @@ namespace VisualMutator.Model.Tests.Services.Tests
         {
             var subject = new NUnitWrapper();
 
-            subject.LoadTests(new string[] { @"D:\ovs\Codility\PassingCarsTests3\bin\Debug\PassingCarsTests3.dll" });
+            subject.LoadTests(new string[] { @"D:\ovs\Codility\PassingCarsTests\bin\Debug\PassingCarsTests.dll" });
         }
 
         [Test()]

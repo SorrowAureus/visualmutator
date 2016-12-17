@@ -560,6 +560,11 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>echo Nunit.Extensions &gt; $(TargetDir)nunit.nuget.addins
+mkdir Nunit.Extensions
+copy $(SolutionDir)packages\NUnit.Extension.NUnitV2Driver.3.5.0\tools\ $(TargetDir)Nunit.Extensions</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
