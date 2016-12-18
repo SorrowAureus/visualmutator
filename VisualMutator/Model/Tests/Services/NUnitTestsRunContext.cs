@@ -172,7 +172,7 @@
                          + testToRun
                          + " --result=\"" + outputFile + "\";format=nunit2 --noheader --nocolor --dispose-runners --inprocess";
 
-            if (_options.ParsedParams.NUnitNetVersion.Length != 0)
+            if (_options?.ParsedParams.NUnitNetVersion.Length != 0)
             {
                 arg += (" --framework=" + _options.OtherParams);
             }

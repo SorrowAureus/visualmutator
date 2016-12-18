@@ -79,6 +79,7 @@
                 TestProjects.NUnitConsolePath,
                 filePathTests,
                 new TestsSelector());
+
             var testResult = runContext.RunTests().Result;
             
             var count = testResult.ResultMethods
