@@ -1,8 +1,8 @@
 /.vs/VisualMutator/v14/*.suo
 bin/
 /VisualMutator.Console/bin
-obj
-bin
+**/obj
+**/bin
 System.Security.Cryptography.Algorithms.4.2.0
 System.Security.Cryptography.Encoding.4.0.0
 System.Security.Cryptography.Primitives.4.0.0

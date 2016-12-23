@@ -3,6 +3,8 @@
     #region
 
     using System.Collections.Generic;
+    using System.Diagnostics;
+    using System.IO;
     using System.Linq;
     using System.Reflection;
     using System.Xml;
@@ -11,6 +13,7 @@
     using NUnit.Engine;
     using NUnit.Engine.Services;
     using NUnit.Framework.Interfaces;
+    using UsefulTools.Core;
 
     #endregion
 
@@ -34,8 +37,11 @@
             get { return null; }
         }
 
-        public NUnitWrapper()
+        public ISettingsManager SettingsManager { get; private set; }
+
+        public NUnitWrapper(ISettingsManager settingsManager)
         {
+            this.SettingsManager = settingsManager;
             engine = new TestEngine();
 
             engine.InternalTraceLevel = NUnit.Engine.InternalTraceLevel.Off;
@@ -58,6 +64,18 @@
             var package = new TestPackage(enumerable.ToList());
 
             _log.Debug("Loading NUnit package: " + package);
+
+            var nUnitConsolePath = Path.Combine(SettingsManager["NUnitConsoleDirPath"], "nunit3-console.exe");
+
+            //var startInfo = new ProcessStartInfo
+            //{
+            //    Arguments = $"{nUnitConsolePath} --Explore "--jAKIŚ OUTPUT,
+            //    CreateNoWindow = true,
+            //    ErrorDialog = true,
+            //    RedirectStandardOutput = false,
+            //    FileName = nUnitConsolePath,
+            //    UseShellExecute = false,
+            //};
 
             XmlNode loaded;
 

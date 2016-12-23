@@ -71,7 +71,7 @@
             return _testsRunContextFactory.CreateWithParams(_nunitConsolePath, mutatedPath, selector);
         }
 
-        private string FindConsolePath()
+        public  string FindConsolePath()
         {
             var nUnitDirPath = _settingsManager["NUnitConsoleDirPath"];
             var nUnitConsolePath = Path.Combine(nUnitDirPath, "nunit3-console.exe");
