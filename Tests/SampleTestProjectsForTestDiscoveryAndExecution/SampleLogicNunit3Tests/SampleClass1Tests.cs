@@ -6,9 +6,9 @@ namespace SampleLogic.Tests
     public class SampleClass1Tests
     {
         [Test()]
-        public void Method1Test()
+        public void MethodReturningTrueTest()
         {
-            Assert.Pass();
+            Assert.IsTrue(new SampleClass1().MethodReturningTrue());
         }
     }
 }

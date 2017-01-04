@@ -1,10 +1,4 @@
 ﻿using NUnit.Framework;
-using SampleLogic;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SampleLogic.Tests
 {
@@ -12,9 +6,9 @@ namespace SampleLogic.Tests
     public class SampleClass1Tests
     {
         [Test()]
-        public void Method1Test()
+        public void MethodReturningTrueTest()
         {
-            Assert.Pass();
+            Assert.IsTrue(new SampleClass1().MethodReturningTrue());
         }
     }
 }

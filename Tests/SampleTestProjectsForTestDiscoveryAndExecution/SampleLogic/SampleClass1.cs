@@ -2,8 +2,9 @@
 {
     public class SampleClass1
     {
-        public void Method1()
+        public bool MethodReturningTrue()
         {
+            return true;
         }
     }
 }

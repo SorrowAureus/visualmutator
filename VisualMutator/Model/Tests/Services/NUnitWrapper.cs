@@ -1,5 +1,7 @@
 ﻿namespace VisualMutator.Model.Tests.Services
 {
+    using System;
+
     #region
 
     using System.Collections.Generic;
@@ -60,34 +62,51 @@
         public IDictionary<string, List<string>> LoadTests(IEnumerable<string> assemblies)
         {
             var enumerable = assemblies as IList<string> ?? assemblies.ToList();
-            _log.Debug("Creating NUnit package for files " + string.Join(", ", enumerable));
+
+            var testAssembliesNunitArgs = string.Join(" ", assemblies);
+
+            _log.Debug("Creating NUnit package for files " + testAssembliesNunitArgs);
+
+            var nUnitConsolePath = Path.Combine(SettingsManager["NUnitConsoleDirPath"], "nunit3-console.exe");
+
+            var testExplorationResultFileName = Guid.NewGuid().ToString();
+
+            var startInfo = new ProcessStartInfo
+            {
+                Arguments = $"--explore:{testExplorationResultFileName};format=nunit3 {testAssembliesNunitArgs}",
+                CreateNoWindow = true,
+                WindowStyle = ProcessWindowStyle.Hidden,
+                ErrorDialog = false,
+                RedirectStandardOutput = true,
+                FileName = nUnitConsolePath,
+                UseShellExecute = false,
+            };
+
+            var processHandle = Process.Start(startInfo);
+
+            processHandle.WaitForExit();
+
+            //using (StreamReader reader = processHandle.StandardOutput)
+            //{
+            //    string results = reader.ReadToEnd();
+            //    Console.Write(results);
+            //}
+
+            XmlNode loaded;
+
             var package = new TestPackage(enumerable.ToList());
 
             _log.Debug("Loading NUnit package: " + package);
 
-            var nUnitConsolePath = Path.Combine(SettingsManager["NUnitConsoleDirPath"], "nunit3-console.exe");
-
-            //var startInfo = new ProcessStartInfo
+            //using (var testRunner = engine.GetRunner(package))
             //{
-            //    Arguments = $"{nUnitConsolePath} --Explore "--jAKIŚ OUTPUT,
-            //    CreateNoWindow = true,
-            //    ErrorDialog = true,
-            //    RedirectStandardOutput = false,
-            //    FileName = nUnitConsolePath,
-            //    UseShellExecute = false,
-            //};
-
-            XmlNode loaded;
-
-            using (var testRunner = engine.GetRunner(package))
-            {
-                loaded = testRunner.Explore(new NUnit.Engine.TestFilter(""));
-                testRunner.Unload();
-            }
+            //    loaded = testRunner.Explore(new NUnit.Engine.TestFilter(""));
+            //    testRunner.Unload();
+            //}
 
             var result = new Dictionary<string, List<string>>();
 
-            XElement xml = XElement.Parse(loaded.OuterXml);
+            XElement xml = XElement.Parse(File.ReadAllText(testExplorationResultFileName));
 
             var testFixtures = xml.Descendants("test-suite").Where(p => p.Attributes("type").Single().Value == "TestFixture");
 
