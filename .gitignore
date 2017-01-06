@@ -108,3 +108,6 @@ System.Runtime.InteropServices.RuntimeInformation.4.0.0
 System.Runtime.InteropServices.WindowsRuntime.4.0.1
 System.Runtime.Numerics.4.0.1
 /packages/NUnit.2.6.4/lib/nunit.framework.dll
+/packages/NUnit.2.6.4/NUnit.2.6.4.nupkg
+/packages/NUnit.2.6.4/license.txt
+/packages/NUnit.2.6.4/lib/nunit.framework.xml

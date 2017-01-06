@@ -69,13 +69,13 @@
 
             _log.Debug("Creating NUnit package for files " + testAssembliesNunitArgs);
 
-            var nUnitConsolePath = Path.Combine(SettingsManager["NUnitConsoleDirPath"], "nunit3-console.exe");
+            var nUnitConsolePath = Path.GetFullPath(Path.Combine(SettingsManager["NUnitConsoleDirPath"], "nunit3-console.exe"));
 
-            var testExplorationResultFileName = Guid.NewGuid().ToString();
+            var testExplorationResultFileDir = Path.Combine(Path.GetDirectoryName(nUnitConsolePath), Guid.NewGuid().ToString());
 
             var startInfo = new ProcessStartInfo
             {
-                Arguments = $"--explore:{testExplorationResultFileName};format=nunit3 --noresult --inprocess --dispose-runners {testAssembliesNunitArgs}",
+                Arguments = $"--explore:{testExplorationResultFileDir};format=nunit3 --noresult --inprocess --dispose-runners {testAssembliesNunitArgs}",
                 CreateNoWindow = true,
                 WindowStyle = ProcessWindowStyle.Hidden,
                 ErrorDialog = false,
@@ -94,9 +94,9 @@
                 }
             }
 
-            XElement xml = XElement.Parse(File.ReadAllText(testExplorationResultFileName));
+            XElement xml = XElement.Parse(File.ReadAllText(testExplorationResultFileDir));
 
-            File.Delete(testExplorationResultFileName); // how to avoid file operations?
+            File.Delete(testExplorationResultFileDir); // how to avoid file operations?
 
             return xml;
         }
