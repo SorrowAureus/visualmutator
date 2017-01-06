@@ -46,6 +46,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestGround", "Tests\TestGround\TestGround.csproj", "{A8502D08-C5FF-43F2-B01D-AF4D6BB1D32A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VisualMutator.OperatorTests", "Tests\VisualMutator.OperatorTests\VisualMutator.OperatorTests.csproj", "{81498B98-B208-44F7-AF7E-6E1583D47D88}"
+	ProjectSection(ProjectDependencies) = postProject
+		{8FDC25E2-B546-4DF6-B2A6-EAF5CA33BD92} = {8FDC25E2-B546-4DF6-B2A6-EAF5CA33BD92}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VisualMutator.Tests", "Tests\VisualMutator.Tests\VisualMutator.Tests.csproj", "{8FDC25E2-B546-4DF6-B2A6-EAF5CA33BD92}"
 	ProjectSection(ProjectDependencies) = postProject
