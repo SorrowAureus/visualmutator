@@ -48,6 +48,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VisualMutator.OperatorTests", "Tests\VisualMutator.OperatorTests\VisualMutator.OperatorTests.csproj", "{81498B98-B208-44F7-AF7E-6E1583D47D88}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VisualMutator.Tests", "Tests\VisualMutator.Tests\VisualMutator.Tests.csproj", "{8FDC25E2-B546-4DF6-B2A6-EAF5CA33BD92}"
+	ProjectSection(ProjectDependencies) = postProject
+		{505A7925-D494-4B7B-8176-DCA20D25EA61} = {505A7925-D494-4B7B-8176-DCA20D25EA61}
+		{17973AB3-718D-4D9C-A0B9-19C5D96C8508} = {17973AB3-718D-4D9C-A0B9-19C5D96C8508}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
