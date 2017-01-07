@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="MvcMutations\ChangeRouteTest.cs" />
     <None Include="MvcMutations\SwapActionNamesTests.cs" />
     <None Include="MvcMutations\RedirectToAction.cs" />
