@@ -7,23 +7,19 @@
     using System.Xml;
     using System.Xml.Linq;
     using log4net;
-    using Strilanc.Value;
     using TestsTree;
     using UsefulTools.ExtensionMethods;
-    using UsefulTools.Switches;
 
     public class MsTestResultsParser
     {
         private ILog _log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
-
-
         public Dictionary<string, TmpTestNodeMethod> ProcessResultFile(string fileName)
         {
             _log.Debug("Processing result file: " + fileName);
-            var s = new XmlReaderSettings {CheckCharacters = false};
+            var s = new XmlReaderSettings { CheckCharacters = false };
             var resultDictionary = new Dictionary<string, TmpTestNodeMethod>();
-            using(XmlReader reader = XmlReader.Create(fileName, s))
+            using (XmlReader reader = XmlReader.Create(fileName, s))
             {
                 var doc = XDocument.Load(reader);
 
@@ -41,7 +37,6 @@
 
                     var node = new TmpTestNodeMethod(fullClassName + "." + methodName);
 
-
                     node.State = TranslateTestResultStatus(testResult.Attribute("outcome").Value);
 
                     if (node.State == TestNodeState.Failure)
@@ -51,28 +46,28 @@
                     }
 
                     resultDictionary.Add(node.Name, node);
-
                 }
             }
-           
+
             return resultDictionary;
         }
-        
+
         private TestNodeState TranslateTestResultStatus(string status)
         {
             switch (status)
             {
                 case "Passed":
                     return TestNodeState.Success;
+
                 case "Failed":
                     return TestNodeState.Failure;
+
                 case "Inconclusive":
                     return TestNodeState.Inconclusive;
+
                 default:
                     throw new ArgumentException("status");
             }
         }
-
-
     }
 }

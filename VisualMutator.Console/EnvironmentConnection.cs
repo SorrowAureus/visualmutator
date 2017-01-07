@@ -6,7 +6,6 @@
     using System.Linq;
     using System.Reactive.Subjects;
     using Infrastructure;
-    using Model;
     using Model.CoverageFinder;
     using UsefulTools.Paths;
 
@@ -32,7 +31,7 @@
 
         public IEnumerable<FilePathAbsolute> GetProjectAssemblyPaths()
         {
-           return _parser.AssembliesPathsList.Select(a => a.ToFilePathAbs()).Concat(_parser.TestAssembliesList.Select(a => a.ToFilePathAbs()));
+            return _parser.AssembliesPathsList.Select(a => a.ToFilePathAbs()).Concat(_parser.TestAssembliesList.Select(a => a.ToFilePathAbs()));
         }
 
         public string GetTempPath()

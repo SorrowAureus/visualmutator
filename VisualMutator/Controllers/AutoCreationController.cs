@@ -5,36 +5,27 @@
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
-    using System.Diagnostics;
-    using System.IO;
     using System.Linq;
     using System.Reflection;
-    using System.Runtime.InteropServices;
-    using System.Security.Cryptography;
     using System.Threading;
     using System.Threading.Tasks;
     using Infrastructure;
     using log4net;
-    using Microsoft.Cci;
     using Model;
     using Model.CoverageFinder;
     using Model.Exceptions;
-    using Model.Mutations.MutantsTree;
     using Model.Mutations.Operators;
     using Model.Mutations.Types;
-    using Model.StoringMutants;
-    using Model.Tests;
     using Model.Tests.TestsTree;
     using UsefulTools.Core;
     using UsefulTools.DependencyInjection;
     using UsefulTools.ExtensionMethods;
-    using UsefulTools.Paths;
     using UsefulTools.Wpf;
     using ViewModels;
 
     #endregion
 
-    public class AutoCreationController 
+    public class AutoCreationController
     {
         private readonly ILog _log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
@@ -50,7 +41,7 @@
 
         public MutationSessionChoices Result { get; protected set; }
 
-        TaskCompletionSource<object> tcs = new TaskCompletionSource<object>();
+        private TaskCompletionSource<object> tcs = new TaskCompletionSource<object>();
         private DateTime _sessionCreationWindowShowTime;
 
         public AutoCreationController(
@@ -71,7 +62,7 @@
             _sessionCreatorFactory = sessionCreatorFactory;
             _execute = execute;
             _svc = svc;
-            
+
             _viewModel.CommandCreateMutants = new SmartCommand(CommandOk,
                () => _viewModel.TypesTreeMutate.Assemblies != null && _viewModel.TypesTreeMutate.Assemblies.Count != 0
                      && _viewModel.TypesTreeToTest.TestAssemblies != null && _viewModel.TypesTreeToTest.TestAssemblies.Count != 0
@@ -94,11 +85,9 @@
 
             Task<List<CciModuleSource>> assembliesTask = _sessionConfiguration.LoadAssemblies();
 
-        
-          //  Task<List<MethodIdentifier>> coveringTask = sessionCreator.FindCoveringTests(assembliesTask, matcher);
+            //  Task<List<MethodIdentifier>> coveringTask = sessionCreator.FindCoveringTests(assembliesTask, matcher);
 
             Task<TestsRootNode> testsTask = _sessionConfiguration.LoadTests();
-
 
             ITestsSelectStrategy testsSelector;
             bool constrainedMutation = false;
@@ -114,7 +103,7 @@
                 testsSelector = new AllTestsSelectStrategy(testsTask);
                 matcher = new AllMatcher();
             }
-            _log.Info("Selecting tests in assemblies: "+ testAssemblies.MakeString());
+            _log.Info("Selecting tests in assemblies: " + testAssemblies.MakeString());
             var testsSelecting = testsSelector.SelectTests(testAssemblies);
 
             var t1 = sessionCreator.GetOperators();
@@ -125,7 +114,7 @@
             {
                 _viewModel.MutationsTree.MutationPackages
                     = new ReadOnlyCollection<PackageNode>(task.Result.Packages);
-            },CancellationToken.None, TaskContinuationOptions.NotOnFaulted, _execute.GuiScheduler);
+            }, CancellationToken.None, TaskContinuationOptions.NotOnFaulted, _execute.GuiScheduler);
 
             var t22 = t2.ContinueWith(task =>
             {
@@ -148,16 +137,12 @@
                 {
                     ClassCoverage.UnmarkNotCovered(_viewModel.TypesTreeMutate.Assemblies, _viewModel.TypesTreeToTest.TestAssemblies);
                 }
-
-               
             }, CancellationToken.None, TaskContinuationOptions.NotOnFaulted, _execute.GuiScheduler);
 
-              
             try
             {
                 var mainTask = Task.WhenAll(t1, t2, testsSelecting, t11, t22, t33).ContinueWith(t =>
                 {
-                    
                     if (t.Exception != null)
                     {
                         ShowError(t.Exception);
@@ -165,7 +150,7 @@
                         tcs.TrySetCanceled();
                     }
                 }, _execute.GuiScheduler);
-               
+
                 var wrappedTask = Task.WhenAll(tcs.Task, mainTask);
 
                 if (_sessionConfiguration.AssemblyLoadProblem)
@@ -212,15 +197,15 @@
                 if (_viewModel.TypesTreeToTest.TestAssemblies.All(a => a.IsIncluded == false))
                 {
                     //_svc.Logging.ShowError(UserMessages.ErrorNoTestsToRun(), _viewModel.View);
-                       throw new Exception(UserMessages.ErrorNoTestsToRun());
+                    throw new Exception(UserMessages.ErrorNoTestsToRun());
                 }
             }
-            
+
             return AcceptChoices();
         }
+
         protected MutationSessionChoices AcceptChoices()
         {
-            
             return new MutationSessionChoices
             {
                 SelectedOperators = _viewModel.MutationsTree.MutationPackages.SelectMany(pack => pack.Operators)
@@ -229,10 +214,8 @@
                 TestAssemblies = _viewModel.TypesTreeToTest.TestAssemblies,
                 SessionCreationWindowShowTime = _sessionCreationWindowShowTime
             };
-
         }
 
-        
         private void ShowError(Exception exc)
         {
             var aggregate = exc as AggregateException;
@@ -247,16 +230,12 @@
             }
             else if (innerException is TestsLoadingException)
             {
-                _svc.Logging.ShowError(UserMessages.ErrorTestsLoading() + " "+innerException, _viewModel.View);
+                _svc.Logging.ShowError(UserMessages.ErrorTestsLoading() + " " + innerException, _viewModel.View);
             }
             else
             {
                 _svc.Logging.ShowError(innerException, _viewModel.View);
             }
         }
-
-
-
-      
     }
 }

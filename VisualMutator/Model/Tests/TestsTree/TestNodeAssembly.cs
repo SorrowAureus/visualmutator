@@ -8,20 +8,16 @@
 
     #region Usings
 
-    
-
-    #endregion
+    #endregion Usings
 
     #endregion
 
     public class TestNodeAssembly : TestTreeNode
     {
-
         public TestNodeAssembly(TestsRootNode parent, string name)
             : base(parent, name, true)
         {
         }
-
 
         public string AssemblyPath
         {

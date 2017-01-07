@@ -1,14 +1,8 @@
-﻿using System;
+﻿using System.Collections.ObjectModel;
 using System.IO;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using VisualMutator.Model.Mutations.Types;
 using VisualMutator.Model.Tests.TestsTree;
-
-
 
 namespace VisualMutator.Controllers
 {
@@ -63,6 +57,7 @@ namespace VisualMutator.Controllers
                 }
             }
         }
+
         public static bool checkClassCoverage(UsefulTools.CheckboxedTree.CheckedNode cl, ReadOnlyCollection<TestNodeAssembly> testAssemblies)
         {
             string searchedClass = cl.Name;
@@ -70,18 +65,18 @@ namespace VisualMutator.Controllers
 
             foreach (TestNodeAssembly test in testAssemblies)
             {
-                    if (File.ReadAllText(test.AssemblyPath).Contains(searchedClass))
-                    {
-                        result = true;
-                    }
-            }       
-            return result; 
+                if (File.ReadAllText(test.AssemblyPath).Contains(searchedClass))
+                {
+                    result = true;
+                }
+            }
+            return result;
         }
 
-        public static bool checkMethodCoverage(string clName,UsefulTools.CheckboxedTree.CheckedNode met, ReadOnlyCollection<TestNodeAssembly> testAssemblies)
+        public static bool checkMethodCoverage(string clName, UsefulTools.CheckboxedTree.CheckedNode met, ReadOnlyCollection<TestNodeAssembly> testAssemblies)
         {
             string searchedMethod = met.Name;
-            bool result=false;
+            bool result = false;
 
             foreach (TestNodeAssembly test in testAssemblies)
             {

@@ -17,13 +17,12 @@
     {
         private StandardKernel _kernel;
 
-
         [Test]
         public void TestPartialParameters()
         {
             var modules = new INinjectModule[]
             {
-                new TestModule(), 
+                new TestModule(),
             };
 
             _kernel = new StandardKernel();
@@ -49,7 +48,7 @@
                 });
             }
         }
-      
+
         public class SomeMainModule
         {
             private readonly IFactory<SomeObject> _objectFactory;
@@ -61,6 +60,7 @@
                 someObject = _objectFactory.Create();
             }
         }
+
         public class SomeObject
         {
             private readonly SomeMainModule _module;

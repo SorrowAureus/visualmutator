@@ -1,13 +1,8 @@
 ﻿namespace VisualMutator.Model.Mutations
 {
     using System.Collections.Generic;
-    using System.IO;
-    using System.Linq;
-    using System.Threading.Tasks;
-    using System.Windows.Documents;
     using Microsoft.Cci;
     using MutantsTree;
-    using StoringMutants;
 
     public class MutationResult
     {
@@ -18,7 +13,7 @@
             get { return _mutant; }
         }
 
-        public MutationResult(Mutant mutant, ICciModuleSource mutatedModules, List<CciModuleSource> old, IMethodDefinition methodMutated, List<IMethodDefinition> additionalMethodsMutated=null)
+        public MutationResult(Mutant mutant, ICciModuleSource mutatedModules, List<CciModuleSource> old, IMethodDefinition methodMutated, List<IMethodDefinition> additionalMethodsMutated = null)
         {
             _mutant = mutant;
             MutatedModules = mutatedModules;
@@ -31,8 +26,5 @@
         public List<CciModuleSource> Old { get; set; }
         public IMethodDefinition MethodMutated { get; set; }
         public List<IMethodDefinition> AdditionalMethodsMutated { get; set; }
-
-     
-
     }
 }

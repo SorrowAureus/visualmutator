@@ -40,12 +40,11 @@
             }
         }
 
-        
         public override void Visit(IMethodCall methodCall)
         {
             base.Visit(methodCall);
             ScannedMethodCalls++;
-            if (_currentTestMethod != null )
+            if (_currentTestMethod != null)
             {
                 if (_searcher.Matches(methodCall.MethodToCall))
                 {
@@ -69,8 +68,5 @@
             get;
             set;
         }
-
-       
-
     }
 }

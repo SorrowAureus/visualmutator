@@ -12,8 +12,6 @@
     using Microsoft.VisualStudio;
     using Microsoft.VisualStudio.Shell;
     using Microsoft.VisualStudio.Shell.Interop;
-    using Ninject;
-    using VisualMutator.Controllers;
 
     #endregion
 
@@ -23,8 +21,8 @@
     ///  The minimum requirement for a class to be considered a valid package for Visual Studio
     ///  is to implement the IVsPackage interface and register itself with the shell.
     ///  This package uses the helper classes defined inside the Managed Package Framework (MPF)
-    ///  to do it: it derives from the Package class that provides the implementation of the 
-    ///  IVsPackage interface and uses the registration attributes defined in the framework to 
+    ///  to do it: it derives from the Package class that provides the implementation of the
+    ///  IVsPackage interface and uses the registration attributes defined in the framework to
     ///  register itself and its components with the shell.
     ///</summary>
     // This attribute tells the PkgDef creation utility (CreatePkgDef.exe) that this class is
@@ -47,9 +45,9 @@
 
         /// <summary>
         ///   Default constructor of the package.
-        ///   Inside this method you can place any initialization code that does not require 
-        ///   any Visual Studio service because at this point the package object is created but 
-        ///   not sited yet inside Visual Studio environment. The place to do all the other 
+        ///   Inside this method you can place any initialization code that does not require
+        ///   any Visual Studio service because at this point the package object is created but
+        ///   not sited yet inside Visual Studio environment. The place to do all the other
         ///   initialization is the Initialize method.
         /// </summary>
         public VisualMutator_VSPackagePackage()
@@ -58,9 +56,7 @@
                 string.Format(
                     CultureInfo.CurrentCulture, "Entering constructor for: {0}", ToString()));
 
-            
-                _bootstrapper = new Bootstrapper(this);
-            
+            _bootstrapper = new Bootstrapper(this);
         }
 
         private void CommandMutateAndTest(object sender, EventArgs e)
@@ -70,8 +66,8 @@
         }
 
         /// <summary>
-        ///   This function is called when the user clicks the menu item that shows the 
-        ///   tool window. See the Initialize method to see how the menu item is associated to 
+        ///   This function is called when the user clicks the menu item that shows the
+        ///   tool window. See the Initialize method to see how the menu item is associated to
         ///   this function using the OleMenuCommandService service and the MenuCommand class.
         /// </summary>
         private void ShowToolWindow(object sender, EventArgs e)
@@ -111,10 +107,10 @@
                     GuidList.guidVisualMutator_VSPackageCmdSet, (int)PkgCmdIDList.cmdidVisualMutator);
                 var menuToolWin = new MenuCommand(ShowToolWindow, toolwndCommandID);
                 mcs.AddCommand(menuToolWin);
-              //  VsMenus.
-             //   var ctxCommandID = new CommandID(
-             //      GuidList.guidVisualMutator_VSPackageCmdSet, (int)PkgCmdIDList.cmdidVisualMutatorCtx);
-             //   mcs.AddCommand(new OleMenuCommand(CommandMutateAndTest, ctxCommandID));
+                //  VsMenus.
+                //   var ctxCommandID = new CommandID(
+                //      GuidList.guidVisualMutator_VSPackageCmdSet, (int)PkgCmdIDList.cmdidVisualMutatorCtx);
+                //   mcs.AddCommand(new OleMenuCommand(CommandMutateAndTest, ctxCommandID));
                 CommandID id = new CommandID(GuidList.guidVisualMutator_VSPackageCmdSet, PkgCmdIDList.cmdidMyCommand);
                 // Now create the OleMenuCommand object for this command. The EventHandler object is the
                 // function that will be called when the user will select the command.

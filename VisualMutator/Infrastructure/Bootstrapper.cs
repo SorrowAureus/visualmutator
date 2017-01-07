@@ -35,12 +35,10 @@
 
         private static readonly ILog _log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
-
         static Bootstrapper()
         {
             Log4NetConfig.Execute();
         }
- 
 
         public Bootstrapper(IList<INinjectModule> dependentModules)
         {
@@ -52,39 +50,36 @@
             _log.Info("Starting bootstrapper.");
             try
             {
-
                 _log.Info("Configuring dependency container.");
                 SetupDependencyInjection();
 
                 _log.Info("Executing dependency injection.");
                 _appController = _kernel.Get<ApplicationController>();
-
             }
             catch (Exception e)
             {
-                _log.Error("Error during addin initialization",e);
+                _log.Error("Error during addin initialization", e);
                 if (Debugger.IsAttached)
                 {
                     Debugger.Break();
                 }
                 else
                 {
-                    if(_kernel != null)
+                    if (_kernel != null)
                     {
                         _kernel.Get<IMessageService>().ShowFatalError(e);
                     }
-                   // MessageBox.Show(e.ToString());
+                    // MessageBox.Show(e.ToString());
                 }
             }
         }
-       
+
         public void SetupDependencyInjection()
         {
             _kernel = new StandardKernel();
             _kernel.Components.Add<IActivationStrategy, MyMonitorActivationStrategy>();
             _kernel.Load(_dependentModules);
         }
-   
 
         public object Shell
         {

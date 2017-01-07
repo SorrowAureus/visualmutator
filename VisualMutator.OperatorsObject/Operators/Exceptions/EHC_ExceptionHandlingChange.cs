@@ -24,17 +24,17 @@
         {
             public override void Visit(ICatchClause catchClause)
             {
-              //  _log.Info("Visit ICatchClause: " + catchClause);
+                //  _log.Info("Visit ICatchClause: " + catchClause);
 
                 if (catchClause.ExceptionContainer != Dummy.LocalVariable) //if local variable is declared
                 {
-                    if(catchClause.Body.Statements.Any())
+                    if (catchClause.Body.Statements.Any())
                     {
                         var throwStatement = catchClause.Body.Statements.First() as ThrowStatement;
-                        if(throwStatement == null || throwStatement.Exception.Type != catchClause.ExceptionType)
+                        if (throwStatement == null || throwStatement.Exception.Type != catchClause.ExceptionType)
                         {
                             //if doesnt already have the same throw
-                             MarkMutationTarget(catchClause);
+                            MarkMutationTarget(catchClause);
                         }
                     }
                     else // Empty block
@@ -42,7 +42,7 @@
                         MarkMutationTarget(catchClause);
                     }
                 }
-                else if (TypeHelper.GetMethod(catchClause.ExceptionType.ResolvedType, 
+                else if (TypeHelper.GetMethod(catchClause.ExceptionType.ResolvedType,
                     Host.NameTable.GetNameFor(".ctor")) != Dummy.MethodDefinition)
                 {
                     MarkMutationTarget(catchClause);
@@ -50,10 +50,8 @@
             }
         }
 
-
         public class EXSRewriter : OperatorCodeRewriter
         {
-
             public override ICatchClause Rewrite(ICatchClause catchClause)
             {
                 _log.Info("Rewriting ITryCatchFinallyStatement: " + catchClause + " Pass: " + MutationTarget.PassInfo);
@@ -74,7 +72,6 @@
                         MethodToCall = ctor,
                         Type = catchClause.ExceptionContainer.Type
                     };
-
                 }
                 return new CatchClause(catchClause)
                 {
@@ -87,9 +84,7 @@
                     }
                 };
             }
-           
         }
-
 
         public IOperatorCodeVisitor CreateVisitor()
         {
@@ -100,6 +95,5 @@
         {
             return new EXSRewriter();
         }
-
     }
 }

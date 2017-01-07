@@ -10,7 +10,6 @@
     [Serializable]
     public class TestsLoadingException : Exception
     {
-
         public TestsLoadingException()
         {
         }
@@ -19,7 +18,7 @@
             : base(message)
         {
         }
-      
+
         public TestsLoadingException(string message, Exception inner)
             : base(message, inner)
         {

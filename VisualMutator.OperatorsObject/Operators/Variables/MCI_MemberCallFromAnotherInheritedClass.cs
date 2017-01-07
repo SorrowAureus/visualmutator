@@ -20,6 +20,7 @@
             return TypeHelper.Type1DerivesFromOrIsTheSameAsType2(source, target)
                 || TypeHelper.Type1ImplementsType2(source, target);
         }
+
         private static bool FieldIsNotThis(IFieldDefinition fieldDefinition, IExpression source)
         {
             var bound = source as BoundExpression;
@@ -27,36 +28,33 @@
             bool ret = bound == null || field == null || field.ResolvedField != fieldDefinition;
             return ret;
         }
+
         private static IFieldDefinition TryFindField(IMethodCall call, IMethodDefinition currentMethod)
         {
             var targetType = call.ThisArgument.Type;
-   
+
             var field = currentMethod.ContainingTypeDefinition.Fields
                 .Where(f => f.IsStatic == currentMethod.IsStatic)
                 .FirstOrDefault(f => isCompatibile(targetType, f.Type.ResolvedType)
                     && FieldIsNotThis(f, call.ThisArgument) && !call.MethodToCall.ResolvedMethod.IsConstructor);
             return field;
         }
+
         public class MCIVisitor : OperatorCodeVisitor
         {
             public override void Visit(IMethodCall call)
             {
-
-
                 var field = TryFindField(call, Parent.CurrentMethod);
 
-                if(field != null)
+                if (field != null)
                 {
                     MarkMutationTarget(call);
                 }
-
-               
             }
         }
 
         public class MCIRewriter : OperatorCodeRewriter
         {
-
             public override IExpression Rewrite(IMethodCall call)
             {
                 var field = TryFindField(call, CurrentMethod);
@@ -72,7 +70,6 @@
                             },
                             Type = field.Type,
                             Definition = field,
-
                         }
                     };
                 }
@@ -92,6 +89,5 @@
         {
             return new MCIRewriter();
         }
-
     }
 }

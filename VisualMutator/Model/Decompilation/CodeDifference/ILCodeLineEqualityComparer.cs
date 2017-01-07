@@ -25,7 +25,6 @@ namespace VisualMutator.Model.Decompilation.CodeDifference
 
         private string NormalizeLine(string line)
         {
-
             line = line.Trim();
 
             var regex = new Regex(@"^IL_[\D\d]*: ");
@@ -45,7 +44,6 @@ namespace VisualMutator.Model.Decompilation.CodeDifference
             {
                 return line;
             }
-
         }
     }
 }

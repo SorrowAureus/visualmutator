@@ -13,7 +13,6 @@
     {
         protected static readonly ILog _log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
-
         public OperatorInfo Info
         {
             get
@@ -21,12 +20,10 @@
                 return new OperatorInfo("DMC", "Delegated method change", "");
             }
         }
-      
 
         public IOperatorCodeVisitor CreateVisitor()
         {
             return new DMCVisitor();
-
         }
 
         public IOperatorCodeRewriter CreateRewriter()
@@ -34,9 +31,6 @@
             return new DMCRewriter();
         }
 
-
-
-    
         public class DMCVisitor : OperatorCodeVisitor
         {
             public override void Visit(ICreateDelegateInstance createDelegate)
@@ -52,15 +46,10 @@
                     MarkMutationTarget(createDelegate, otherMethod.ToString());
                 }
             }
-
-       
-
-       
         }
 
         public class DMCRewriter : OperatorCodeRewriter
         {
-
             public override IExpression Rewrite(ICreateDelegateInstance createDelegate)
             {
                 var newDel = new CreateDelegateInstance(createDelegate);
@@ -69,8 +58,6 @@
                     .First(m => m.ToString() == MutationTarget.PassInfo);
                 return newDel;
             }
-           
         }
-
     }
 }

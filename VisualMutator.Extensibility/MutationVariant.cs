@@ -8,11 +8,13 @@
         private readonly string _signature;
         private readonly string _additionalInfo;
         private IDictionary<string, object> _astObjects;
+
         public IDictionary<string, AstDescriptor> ObjectsIndices
         {
             get;
             set;
         }
+
         public string Signature
         {
             get { return _signature; }
@@ -43,6 +45,7 @@
             _additionalInfo = additionalInfo;
             _astObjects = astObjects;
         }
+
         public MutationVariant()
         {
             _signature = "";

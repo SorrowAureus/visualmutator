@@ -2,22 +2,23 @@
 {
     #region
 
-    using Extensibility;
-    using Model.Decompilation;
-    using Model.Mutations;
-    using Model.StoringMutants;
-    using Ninject.Modules;
     using Controllers;
+    using Extensibility;
     using Model;
+    using Model.Decompilation;
     using Model.Decompilation.CodeDifference;
+    using Model.Mutations;
     using Model.Mutations.Operators;
     using Model.Mutations.Types;
+    using Model.StoringMutants;
     using Model.Tests;
     using Model.Tests.Services;
     using Model.Verification;
+    using Ninject.Modules;
     using ViewModels;
 
     #endregion
+
     public class VisualMutatorViewsModule : NinjectModule
     {
         public override void Load()
@@ -33,20 +34,16 @@
         }
     }
 
-
     public class VisualMutatorModule : NinjectModule
     {
-
         public override void Load()
         {
-
             Bind<ApplicationController>().ToSelf().InSingletonScope();
 
             Bind<OptionsController>().ToSelf().AndFromFactory();
 
-
             Bind<ITestsService>().To<NUnitXmlTestService>().InSingletonScope();
-          //  Bind<NUnitTestLoader>().ToSelf().InSingletonScope();
+            //  Bind<NUnitTestLoader>().ToSelf().InSingletonScope();
             Bind<INUnitWrapper>().To<NUnitWrapper>().InSingletonScope();
             Bind<NUnitTestsRunContext>().ToSelf().AndFromFactory();
             Bind<INUnitExternal>().To<NUnitResultsParser>().InSingletonScope();
@@ -57,7 +54,6 @@
             Bind<MsTestResultsParser>().ToSelf().InSingletonScope();
             Bind<MsTestRunContext>().ToSelf().AndFromFactory();
             Bind<MsTestService>().ToSelf().InSingletonScope();
-
 
             Bind<IOptionsManager>().To<OptionsManager>().InSingletonScope();
             Bind<ContinuousConfigurator>().ToSelf().InSingletonScope();
@@ -73,7 +69,6 @@
             {
                 ch0.Bind<IOperatorsManager>().To<OperatorsManager>().InSingletonScope();
                 ch0.Bind<IOperatorLoader>().To<MEFOperatorLoader>().InSingletonScope();
-                
 
                 ch0.BindObjectRoot<SessionConfiguration>().ToSelf(ch1 => // on session creation
                 {
@@ -87,9 +82,7 @@
 
                         ch2.BindObjectRoot<TestingMutant>().ToSelf(ch3 => // on mutant testing
                         {
-                          
                         });
-
 
                         ch2.Bind<MutantDetailsController>().ToSelf().AndFromFactory();
                         ch2.Bind<ResultsSavingController>().ToSelf().AndFromFactory();
@@ -107,10 +100,6 @@
                     });
                 });
             });
-
-
         }
-
-
     }
 }

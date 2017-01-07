@@ -4,12 +4,8 @@
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
-    using System.Reactive.Subjects;
-    using System.Reflection;
-    using System.Threading.Tasks;
     using Controllers;
     using Extensibility;
-    using log4net;
     using Microsoft.Cci.MutableCodeModel;
     using Model;
     using Model.Decompilation;
@@ -34,7 +30,6 @@
     using UsefulTools.ExtensionMethods;
     using UsefulTools.Paths;
     using Util;
-    using Views;
     using VisualMutator.Infrastructure;
 
     [TestFixture]
@@ -46,8 +41,8 @@
             var cci = new CciModuleSource(TestProjects.MiscUtil);
             var choices = new MutationSessionChoices();
             var tt = cci.Module.Module.GetAllTypes();
-          //  var type = (NamedTypeDefinition)cci.Module.Module.GetAllTypes().Single(t => t.Name.Value == "Range");
-           // var method = new MethodIdentifier(type.Methods.First(m => m.Name.Value == "Contains"));
+            //  var type = (NamedTypeDefinition)cci.Module.Module.GetAllTypes().Single(t => t.Name.Value == "Range");
+            // var method = new MethodIdentifier(type.Methods.First(m => m.Name.Value == "Contains"));
             MethodIdentifier method = null;
             choices.SelectedOperators.Add(new IdentityOperator2());
             choices.Filter = method == null ? MutationFilter.AllowAll() :
@@ -57,7 +52,7 @@
 
             var options = new OptionsModel();
             var muexe = new MutationExecutor(options, choices, null);
-            var mucon = new MutantsContainer(muexe, new OriginalCodebase(cci.InList()),new OptionsModel());
+            var mucon = new MutantsContainer(muexe, new OriginalCodebase(cci.InList()), new OptionsModel());
             var nodes = mucon.InitMutantsForOperators(ProgressCounter.Inactive());
             Mutant mutant = nodes.Cast<CheckedNode>()
               .SelectManyRecursive(n => n.Children ?? new NotifyingCollection<CheckedNode>())
@@ -81,14 +76,13 @@
                 new TestsSelector());
 
             var testResult = runContext.RunTests().Result;
-            
+
             var count = testResult.ResultMethods
                 .GroupBy(t => t.State)
                 .ToDictionary(t => t.Key);
             var countStrings = count.Select(pair => pair.Key.ToString() + ": " + pair.Value.Count());
             _log.Info(string.Format("All test results: " + string.Join(" ", countStrings)));
             count[TestNodeState.Failure].Count().ShouldEqual(0);
-           
         }
 
         [Test]
@@ -102,7 +96,7 @@
             var cciTests = new CciModuleSource(TestProjects.MiscUtilTests);
 
             var toMutate = TestProjects.MiscUtil.InList();
-            var original = new OriginalCodebase(new List<CciModuleSource> {cci, cciTests});
+            var original = new OriginalCodebase(new List<CciModuleSource> { cci, cciTests });
 
             var type = (NamedTypeDefinition)cci.Module.Module.GetAllTypes().Single(t => t.Name.Value == "Range");
             var method = type.Methods.First(m => m.Name.Value == "Contains");
@@ -113,26 +107,24 @@
 
             var vis = _kernel.Get<ICodeVisualizer>();
 
-
             var muma = _kernel.Get<MutantMaterializer>();
 
-            IObserver<SessionEventArgs> sub=null;
+            IObserver<SessionEventArgs> sub = null;
 
             Assert.Inconclusive("IObserver<SessionEventArgs> sub = new ReplaySubject<SessionEventArgs>();");
-            
+
             foreach (var mutant in mutants)
             {
                 //  var copy = new CciModuleSource(TestProjects.MiscUtil);
                 //    MutationResult result = exec.ExecuteMutation(mutant, copy).Result;
                 var muma2 = _kernel.Get<IFactory<TestingMutant>>().CreateWithParams(sub, mutant);
 
-
                 var r = muma2.RunAsync().Result;
                 var namespaces = _kernel.Get<TestsContainer>().CreateMutantTestTree(mutant);
                 var meth = namespaces.Cast<CheckedNode>()
                     .SelectManyRecursive(n => n.Children, leafsOnly: true).OfType<TestNodeMethod>();
 
-             //   vis.CreateDifferenceListing()
+                //   vis.CreateDifferenceListing()
                 meth.Count(m => m.State == TestNodeState.Failure).ShouldBeGreaterThan(0);
                 //  var storedMutantInfo = muma.StoreMutant(mutant).Result;
 
@@ -140,9 +132,7 @@
 
                 //   CodeWithDifference differenceListing = vis.CreateDifferenceListing(CodeLanguage.CSharp, mutant, result).Result;
                 //     differenceListing.LineChanges.Count.ShouldEqual(2);
-
             }
-
         }
 
         [Test]
@@ -153,7 +143,6 @@
             {
                 cci.WriteToStream(cci.Module, file, file.Name);
             }
-            
         }
 
         [Test]
@@ -169,7 +158,7 @@
             var cci1 = new CciModuleSource(TestProjects.AutoMapperNet4);
             var cciTests = new CciModuleSource(TestProjects.AutoMapperTests);
 
-            var original = new OriginalCodebase(new List<CciModuleSource> {cci, cci1, cciTests});
+            var original = new OriginalCodebase(new List<CciModuleSource> { cci, cci1, cciTests });
             var toMutate = new List<string>{
                     TestProjects.AutoMapper,
                  TestProjects.AutoMapperNet4};
@@ -180,21 +169,17 @@
 
             var vis = _kernel.Get<ICodeVisualizer>();
 
-
             var muma = _kernel.Get<MutantMaterializer>();
-
 
             IObserver<SessionEventArgs> sub = null;
 
             Assert.Inconclusive("sub=new ReplaySubject<SessionEventArgs>();");
 
-            
             foreach (var mutant in mutants)
             {
                 //  var copy = new CciModuleSource(TestProjects.MiscUtil);
                 //    MutationResult result = exec.ExecuteMutation(mutant, copy).Result;
                 var muma2 = _kernel.Get<IFactory<TestingMutant>>().CreateWithParams(sub, mutant);
-
 
                 var r = muma2.RunAsync().Result;
                 var namespaces = _kernel.Get<TestsContainer>().CreateMutantTestTree(mutant);
@@ -208,17 +193,13 @@
 
                 //   CodeWithDifference differenceListing = vis.CreateDifferenceListing(CodeLanguage.CSharp, mutant, result).Result;
                 //     differenceListing.LineChanges.Count.ShouldEqual(2);
-
             }
-
         }
 
-
-        private IEnumerable<Mutant> SetupMutations(OriginalCodebase original, 
-            List<FilePathAbsolute> paths, List<string> toMutate, 
-            List<IMutationOperator> operators, MethodIdentifier method= null)
+        private IEnumerable<Mutant> SetupMutations(OriginalCodebase original,
+            List<FilePathAbsolute> paths, List<string> toMutate,
+            List<IMutationOperator> operators, MethodIdentifier method = null)
         {
-
             var options = new OptionsModel();
             options.OtherParams = "--debugfiles true";
 
@@ -257,16 +238,16 @@
             var testsTask = _kernel.Get<TestsLoader>().LoadTests(testsClone.Assemblies.AsStrings().ToList());
 
             var strategy = new AllTestsSelectStrategy(testsTask);
-         
+
             var choices = new MutationSessionChoices
-                          {
-                              Filter = method == null ? MutationFilter.AllowAll() :
+            {
+                Filter = method == null ? MutationFilter.AllowAll() :
                                  new MutationFilter(
                                   new List<TypeIdentifier>(),
                                   method.InList()),
-                              SelectedOperators = operators,
-                              TestAssemblies = strategy.SelectTests(null).Result
-                          };
+                SelectedOperators = operators,
+                TestAssemblies = strategy.SelectTests(null).Result
+            };
             _kernel.Bind<MutationSessionChoices>().ToConstant(choices);
 
             var exec = _kernel.Get<MutationExecutor>();

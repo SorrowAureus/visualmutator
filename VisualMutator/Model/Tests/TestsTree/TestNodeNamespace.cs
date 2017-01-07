@@ -4,19 +4,15 @@
 
     using System.Collections.Generic;
     using System.Linq;
-    using UsefulTools.CheckboxedTree;
 
     #region Usings
 
-    
-
-    #endregion
+    #endregion Usings
 
     #endregion
 
     public class TestNodeNamespace : TestTreeNode
     {
-
         public TestNodeNamespace(TestTreeNode parent, string name)
             : base(parent, name, true)
         {
@@ -29,7 +25,5 @@
                 return Children.Cast<TestNodeClass>();
             }
         }
-
-
     }
 }

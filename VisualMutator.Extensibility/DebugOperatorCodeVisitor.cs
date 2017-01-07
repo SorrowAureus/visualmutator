@@ -1,8 +1,6 @@
 namespace VisualMutator.Extensibility
 {
-    using System;
     using System.Collections.Generic;
-    using System.Linq;
     using System.Text;
     using Microsoft.Cci;
 
@@ -10,6 +8,7 @@ namespace VisualMutator.Extensibility
     {
         private readonly List<InvokInfo> allElements = new List<InvokInfo>();
         public DebugCodeTraverser Traverser { get; set; }
+
         public List<InvokInfo> AllElements
         {
             get { return allElements; }
@@ -890,8 +889,6 @@ namespace VisualMutator.Extensibility
             allElements.Add(new InvokInfo(Traverser, "IWin32Resource", win32Resource));
         }
 
-      
-
         public IVisualCodeVisitor Parent { get; set; }
         public MetadataReaderHost Host { get; set; }
         public IOperatorUtils OperatorUtils { get; set; }
@@ -906,6 +903,7 @@ namespace VisualMutator.Extensibility
             }
             return b.ToString();
         }
+
         public string ToStringBasicVisit()
         {
             var b = new StringBuilder();
@@ -916,14 +914,13 @@ namespace VisualMutator.Extensibility
             }
             return b.ToString();
         }
+
         public void Initialize()
         {
-            
         }
 
         public void VisitAny(object o)
         {
-            
         }
     }
 }

@@ -20,7 +20,6 @@ namespace VisualMutator.OperatorTests
 
     public class TestAssemblyFile : IDisposable
     {
-
         public string FilePath
         {
             get;
@@ -30,7 +29,6 @@ namespace VisualMutator.OperatorTests
         public TestAssemblyFile()
         {
             string p = Path.Combine(Utils.NerdDinner3Directory, Utils.NerdDinner3AssemblyName);
-
 
             FilePath = Path.Combine(Utils.NerdDinner3Directory, "session", Utils.NerdDinner3AssemblyName);
             Directory.CreateDirectory(Path.Combine(Utils.NerdDinner3Directory, "session"));
@@ -43,11 +41,9 @@ namespace VisualMutator.OperatorTests
         }
     }
 
-
     [TestFixture]
     public class RedirectToAction
     {
-
         [Test]
         public void Test1()
         {
@@ -57,7 +53,6 @@ namespace VisualMutator.OperatorTests
             var dinnersController = assembly.MainModule.Types.Single(t => t.Name == "DinnersController");
 
             var createMethod = dinnersController.Methods.Single(m => m.Name == "Create" && m.Parameters.Count == 1);
-
 
             var instr = createMethod.Body.Instructions.Single(i =>
             {
@@ -78,7 +73,7 @@ namespace VisualMutator.OperatorTests
             {
                 SelectedOperators = new[] { mutator },
                 Assemblies = new[] { assembly },
-                SelectedTypes = assembly.MainModule.Types 
+                SelectedTypes = assembly.MainModule.Types
             };
             MutantsContainer mutantsContainer = new MutantsContainer();
             var executedOperator = mutantsContainer.GenerateMutantsForOperators(mutationSessionChoices).Single();
@@ -106,18 +101,8 @@ namespace VisualMutator.OperatorTests
                     return false;
                 });
 
-                return instr3.Count()==(2);
+                return instr3.Count() == (2);
             });
-
-     
-
-
-
-                
-
-            
-           
         }
-
     }
 }

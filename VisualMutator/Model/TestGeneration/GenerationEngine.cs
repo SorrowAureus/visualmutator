@@ -14,36 +14,33 @@
 
     public class GenerationEngine
     {
-        string execTemplate =
-@" using System; 
-using System.Collections.Generic; 
-using System.Text; 
-using System.Linq; 
-  
-namespace VisualMutator_generated 
-{ 
-    public class Program 
-    { 
-        public static void Main(string[] args) 
-        { 
-            
-        } 
-    } 
-}"; 
+        private string execTemplate =
+@" using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Linq;
 
+namespace VisualMutator_generated
+{
+    public class Program
+    {
+        public static void Main(string[] args)
+        {
+        }
+    }
+}";
 
         public void Process(IModuleSource original, Mutant mutant)
         {
             var tree = SyntaxTree.ParseText(execTemplate);
 
-            CompilationUnitSyntax root = tree.GetRoot(); 
-            var firstParameters = 
-                from methodDeclaration in root.DescendantNodes().OfType<MethodDeclarationSyntax>() 
-                where methodDeclaration.Identifier.ValueText == "Main" 
-                select methodDeclaration.ParameterList.Parameters.First(); 
+            CompilationUnitSyntax root = tree.GetRoot();
+            var firstParameters =
+                from methodDeclaration in root.DescendantNodes().OfType<MethodDeclarationSyntax>()
+                where methodDeclaration.Identifier.ValueText == "Main"
+                select methodDeclaration.ParameterList.Parameters.First();
 
-          //  Syntax.MethodDeclaration(Syntax.)
-
+            //  Syntax.MethodDeclaration(Syntax.)
 
             var comp = Compilation.Create("MyCompilation",
                 new CompilationOptions(OutputKind.DynamicallyLinkedLibrary))
@@ -61,14 +58,12 @@ namespace VisualMutator_generated
                 throw new InvalidProgramException(aggregate);
             }
 
-          /*  Compilation compilation = Compilation.Create("")
-                .AddReferences(new MetadataFileReference(typeof(object).Assembly.Location))
-                .AddSyntaxTrees()
+            /*  Compilation compilation = Compilation.Create("")
+                  .AddReferences(new MetadataFileReference(typeof(object).Assembly.Location))
+                  .AddSyntaxTrees()
 
-
-
-            var method = ActeeFinder
-            valueSupplier.supplyValues(method);*/
+              var method = ActeeFinder
+              valueSupplier.supplyValues(method);*/
         }
     }
 }

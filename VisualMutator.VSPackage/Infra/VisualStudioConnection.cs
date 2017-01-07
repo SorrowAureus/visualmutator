@@ -8,7 +8,6 @@
     using System.Linq;
     using System.Reactive.Subjects;
     using System.Reflection;
-    using System.Text.RegularExpressions;
     using System.Windows.Forms;
     using EnvDTE;
     using EnvDTE80;
@@ -21,9 +20,7 @@
     using UsefulTools.ExtensionMethods;
     using UsefulTools.Paths;
     using UsefulTools.Switches;
-    using UsefulTools.Wpf;
     using VisualMutator.Infrastructure;
-    using VisualMutator.Model;
     using VisualMutator.Model.CoverageFinder;
 
     #endregion
@@ -44,7 +41,6 @@
 
         private readonly Subject<EventType> _subject;
 
-
         public VisualStudioConnection(Package package)
         {
             _package = package;
@@ -52,12 +48,13 @@
             _solutionEvents = ((Events2)_dte.Events).SolutionEvents;
             _buildEvents = ((Events2)_dte.Events).BuildEvents;
             _subject = new Subject<EventType>();
-        
         }
+
         public void Build()
         {
             _dte.Solution.SolutionBuild.Build(true);
         }
+
         public SettingsManager SettingsManager
         {
             get
@@ -66,15 +63,14 @@
             }
         }
 
-
         public NativeWindowInfo WindowInfo
         {
             get
             {
                 Window vsWindow = _dte.MainWindow;
-                return new NativeWindowInfo(new IntPtr(vsWindow.HWnd), vsWindow.Top, 
+                return new NativeWindowInfo(new IntPtr(vsWindow.HWnd), vsWindow.Top,
                     vsWindow.Left, vsWindow.Width, vsWindow.Height);
-                    //new IntPtr(vsWindow.HWnd); 
+                //new IntPtr(vsWindow.HWnd);
             }
         }
 
@@ -89,14 +85,11 @@
             return new WindowWrapper(ownerWindowHandle);
         }
 
-  
-     
         public IObservable<EventType> Events
         {
             get { return _subject; }
         }
 
-    
         private void Guarded(Action action)
         {
             try
@@ -105,21 +98,19 @@
             }
             catch (Exception e)
             {
-
                 _log.Error(e);
             }
         }
-       
+
         public void Initialize()
         {
-            _buildEvents.OnBuildBegin += delegate {Guarded(() => _subject.OnNext(EventType.BuildBegin)); };
+            _buildEvents.OnBuildBegin += delegate { Guarded(() => _subject.OnNext(EventType.BuildBegin)); };
             _buildEvents.OnBuildDone += delegate { Guarded(() => _subject.OnNext(EventType.BuildDone)); };
 
             _solutionEvents.Opened += () => Guarded(() => _subject.OnNext(EventType.HostOpened));
             _solutionEvents.AfterClosing += () => Guarded(() => _subject.OnNext(EventType.HostClosed));
 
             _settingsManager = new ShellSettingsManager(_package);
-
 
             if (_dte.Solution.IsOpen)
             {
@@ -134,7 +125,6 @@
             ProjectItem projectItem = projectItems.First(i => i.Name == className);
         }
 
-
         public string GetTempPath()
         {
             return Path.GetTempPath();
@@ -142,7 +132,6 @@
 
         public IEnumerable<DirectoryPathAbsolute> GetProjectPaths()
         {
-
             return from project in _dte.Solution.Cast<Project>()
                    let confManager = project.ConfigurationManager
                    where confManager != null
@@ -162,10 +151,10 @@
             methodIdentifier = null;
             //EnvDTE80.vsCMParameterKind.vsCMParameterKin
             CodeFunction methodAtCaret = new VisualStudioCodeSearcher().GetMethodAtCaret(_dte);
-            if(methodAtCaret != null)
+            if (methodAtCaret != null)
             {
                 var parameters = methodAtCaret.Parameters.Cast<CodeParameter2>().ToList();
-                var names = parameters.Select(p => GetKindString(p) 
+                var names = parameters.Select(p => GetKindString(p)
                     + (string.IsNullOrEmpty(p.Type.AsFullName) ? TranslateTypeName(p.Type.AsString)
                     : p.Type.AsFullName)).ToList();
 
@@ -178,7 +167,6 @@
 
         private string TranslateTypeName(string asString)
         {
-
             return asString
                 .Replace("byte[]", "System.Byte[]")
                 .Replace("char[]", "System.Char[]")
@@ -189,18 +177,16 @@
 
         private string GetKindString(CodeParameter2 codeParameter)
         {
-
             return Switch.Into<string>().From(codeParameter.ParameterKind)
                 .Case(vsCMParameterKind.vsCMParameterKindOut, "out ")
                 .Case(vsCMParameterKind.vsCMParameterKindRef, "ref ")
                 .Default("");
         }
 
-
         private void Collect(Project p, IList<Project> projects)
         {
-         //   Trace.WriteLine(p.Name + " " + p.ConfigurationManager);
-            if ( p.ProjectItems != null)
+            //   Trace.WriteLine(p.Name + " " + p.ConfigurationManager);
+            if (p.ProjectItems != null)
             {
                 foreach (ProjectItem projectItem in p.ProjectItems)
                 {
@@ -212,16 +198,15 @@
                 projects.Add(p);
             }
         }
+
         private void Collect(ProjectItem p, IList<Project> projects)
         {
-          //  Trace.WriteLine(p.Name + " " + (p.ConfigurationManager == null));
+            //  Trace.WriteLine(p.Name + " " + (p.ConfigurationManager == null));
             if (p.ProjectItems != null)
             {
                 foreach (ProjectItem projectItem in p.ProjectItems)
                 {
-                    
                     Collect(projectItem, projects);
-                    
                 }
             }
             var ss = p.Object as Project;
@@ -230,6 +215,7 @@
                 projects.Add(ss);
             }
         }
+
         public IEnumerable<FilePathAbsolute> GetProjectAssemblyPaths()
         {
             var projects2 = _dte.Solution.Projects.Cast<Project>();
@@ -238,8 +224,8 @@
             {
                 Collect(project, listt);
             }
-            
-            return from project in listt 
+
+            return from project in listt
                    where project.ConfigurationManager != null
                    let config = project.ConfigurationManager.ActiveConfiguration
                    where config != null && config.IsBuildable
@@ -260,8 +246,6 @@
                 _dte.Solution.Properties.Cast<Property>().Single(p => p.Name == "Path").Value;
             return Directory.GetParent(slnPath).CreateSubdirectory("visal_mutator_mutants").FullName;
         }
-
-     
 
         public class WindowWrapper : IWin32Window
         {

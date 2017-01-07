@@ -31,7 +31,6 @@
 
         public void Initialize()
         {
-            
         }
 
         public bool ContainsKey(string mutationresultsfilepath)

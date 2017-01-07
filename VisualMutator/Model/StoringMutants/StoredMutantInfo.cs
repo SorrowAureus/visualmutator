@@ -15,8 +15,6 @@
 
         private readonly List<string> _assembliesPaths;
 
-   
-
         public List<string> AssembliesPaths
         {
             get

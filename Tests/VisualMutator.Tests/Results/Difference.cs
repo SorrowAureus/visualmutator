@@ -21,7 +21,6 @@
             }
         }
 
-
         [Test]
         public void Test0()
         {
@@ -30,41 +29,36 @@
             Assert.Fail();
         }
 
-
-
-
         //SomeNamespace.Namespace:
         public void Method()
         {
             int i = 0;
-            for(int j=0; j<10; j++)
+            for (int j = 0; j < 10; j++)
             {
                 i = i + j;
             }
-           // int j=4;
-
+            // int j=4;
         }
 
-//
-//            string mutatedMethod = @"
-//
-//    //SomeNamespace.Namespace:
-//    public void Method()
-//    {
-//        int i = 0;
-//        for(int j=0; j<10; j++)
-//        {
-//            i = i - j;
-//        }
-//        int j=4;
-//        int j2=5;
-//    }
-//
-//";
+        //
+        //            string mutatedMethod = @"
+        //
+        //    //SomeNamespace.Namespace:
+        //    public void Method()
+        //    {
+        //        int i = 0;
+        //        for(int j=0; j<10; j++)
+        //        {
+        //            i = i - j;
+        //        }
+        //        int j=4;
+        //        int j2=5;
+        //    }
+        //
+        //";
 
-            //  var diff = new CodeDifferenceCreator(
-            //       new AssembliesManager()).GetDiff(CodeLanguage.CSharp, testMethod, mutatedMethod);
-        
+        //  var diff = new CodeDifferenceCreator(
+        //       new AssembliesManager()).GetDiff(CodeLanguage.CSharp, testMethod, mutatedMethod);
 
         [Test]
         public void Test2()

@@ -11,7 +11,7 @@ namespace VisualMutator.ViewModels
 
     #endregion
 
-    public class MutantDetailsViewModel: ViewModel<IMutantDetailsView>
+    public class MutantDetailsViewModel : ViewModel<IMutantDetailsView>
     {
         public MutantDetailsViewModel(IMutantDetailsView view)
             : base(view)
@@ -24,7 +24,6 @@ namespace VisualMutator.ViewModels
 
             SelectedIndex = 1;
         }
-
 
         private NotifyingCollection<TestNodeNamespace> _testNamespaces;
 
@@ -54,7 +53,6 @@ namespace VisualMutator.ViewModels
             }
         }
 
-
         private string _selectedTabHeader;
 
         public string SelectedTabHeader
@@ -68,6 +66,7 @@ namespace VisualMutator.ViewModels
                 SetAndRise(ref _selectedTabHeader, value, () => SelectedTabHeader);
             }
         }
+
         private int _selectedIndex;
 
         public int SelectedIndex
@@ -81,6 +80,7 @@ namespace VisualMutator.ViewModels
                 SetAndRise(ref _selectedIndex, value, () => SelectedIndex);
             }
         }
+
         private bool _isCodeLoading;
 
         public bool IsCodeLoading
@@ -94,6 +94,7 @@ namespace VisualMutator.ViewModels
                 SetAndRise(ref _isCodeLoading, value, () => IsCodeLoading);
             }
         }
+
         public void PresentCode(CodeWithDifference codeWithDifference)
         {
             View.PresentCode(codeWithDifference);

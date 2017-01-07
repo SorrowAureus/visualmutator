@@ -2,7 +2,6 @@
 {
     using System.Collections.Generic;
     using System.Linq;
-    using Mutations;
     using Mutations.MutantsTree;
     using TestsTree;
 
@@ -14,7 +13,6 @@
 
         public IEnumerable<TestNodeNamespace> CreateMutantTestTree(List<TmpTestNodeMethod> nodeMethods)
         {
-
             var list = nodeMethods.GroupBy(n => ExtractTypeName(n.Name)).ToList();
 
             TestsRootNode root = new TestsRootNode();

@@ -14,7 +14,6 @@
     {
         protected static readonly ILog _log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
-
         public OperatorInfo Info
         {
             get
@@ -25,14 +24,12 @@
 
         public class EOCVisitor : OperatorCodeVisitor
         {
-
             public override void Visit(IMethodCall methodCall)
             {
                 _log.Info("Visiting IMethodCall: " + methodCall);
                 var defaultEqualsDefinition = TypeHelper.GetMethod(Host.PlatformType.SystemObject.ResolvedType.Members,
                                                                   Host.NameTable.GetNameFor("Equals"),
                                                                   Host.PlatformType.SystemObject);
-
 
                 var methodDefinition = methodCall.MethodToCall.ResolvedMethod;
                 var containingType = methodCall.ThisArgument.Type.ResolvedType;
@@ -52,9 +49,9 @@
                     {
                         MarkMutationTarget(methodCall);
                     }
-
                 }
             }
+
             public override void Visit(IEquality operation)
             {
                 _log.Info("Visiting IEquality: " + operation);
@@ -79,19 +76,19 @@
                 }
             }
         }
-     
+
         public class EOCRewriter : OperatorCodeRewriter
         {
-
             public override IExpression Rewrite(IMethodCall methodCall)
             {
-                _log.Info("Rewriting IMethodCall: " + methodCall+" Pass: "+MutationTarget.PassInfo);
+                _log.Info("Rewriting IMethodCall: " + methodCall + " Pass: " + MutationTarget.PassInfo);
                 var equality = new Equality();
                 equality.LeftOperand = methodCall.ThisArgument;
                 equality.RightOperand = methodCall.Arguments.Single();
                 equality.Type = Host.PlatformType.SystemBoolean;
                 return equality;
             }
+
             public override IExpression Rewrite(IEquality operation)
             {
                 _log.Info("Rewriting IEquality: " + operation + " Pass: " + MutationTarget.PassInfo);
@@ -113,7 +110,7 @@
                                                                   Host.NameTable.GetNameFor("Equals"),
                                                                   Host.PlatformType.SystemObject);
                 methodCall.Arguments = argument.InList();
-                
+
                 return methodCall;
             }
         }
@@ -121,16 +118,11 @@
         public IOperatorCodeVisitor CreateVisitor()
         {
             return new EOCVisitor();
-
         }
 
         public IOperatorCodeRewriter CreateRewriter()
         {
             return new EOCRewriter();
         }
-
-      
-
-       
     }
 }

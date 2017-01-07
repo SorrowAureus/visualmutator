@@ -10,7 +10,6 @@
     [Serializable]
     public class NoTestsSelectedException : Exception
     {
-
         public NoTestsSelectedException()
         {
         }
@@ -19,7 +18,7 @@
             : base(message)
         {
         }
-      
+
         public NoTestsSelectedException(string message, Exception inner)
             : base(message, inner)
         {

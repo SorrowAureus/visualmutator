@@ -10,7 +10,6 @@
     [Serializable]
     public class StrongNameSignedAssemblyException : Exception
     {
-
         public StrongNameSignedAssemblyException()
         {
         }
@@ -19,7 +18,7 @@
             : base(message)
         {
         }
-      
+
         public StrongNameSignedAssemblyException(string message, Exception inner)
             : base(message, inner)
         {

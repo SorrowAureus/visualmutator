@@ -7,27 +7,20 @@
     using System.Diagnostics;
     using System.Linq;
     using System.Reflection;
-    using System.Threading.Tasks;
-    using Exceptions;
     using Extensibility;
     using log4net;
-    using Microsoft.Cci.MutableCodeModel;
     using MutantsTree;
-    using Operators;
-    using StoringMutants;
     using Strilanc.Value;
     using Types;
     using UsefulTools.CheckboxedTree;
     using UsefulTools.Core;
-    using UsefulTools.ExtensionMethods;
-    using UsefulTools.Paths;
-    using Assembly = Microsoft.Cci.MutableCodeModel.Assembly;
 
     #endregion
 
     public interface IMutantsContainer
     {
         Mutant CreateEquivalentMutant(out AssemblyNode assemblyNode);
+
         IList<AssemblyNode> InitMutantsForOperators(ProgressCounter percentCompleted);
     }
 
@@ -49,14 +42,10 @@
             _mutationExecutor = mutationExecutor;
             _originalCodebase = originalCodebase;
             _options = options;//AKB
-
         }
-
-
 
         public Mutant CreateEquivalentMutant(out AssemblyNode assemblyNode)
         {
-
             assemblyNode = new AssemblyNode("All modules");
             var nsNode = new TypeNamespaceNode(assemblyNode, "");
             assemblyNode.Children.Add(nsNode);
@@ -66,9 +55,9 @@
             typeNode.Children.Add(methodNode);
             var group = new MutantGroup("Testing original program", methodNode);
             var target = new MutationTarget(new MutationVariant())
-                         {
-                             Name = "Original program",
-                         };
+            {
+                Name = "Original program",
+            };
             var mutant = new Mutant("0", group, target);
 
             group.Children.Add(mutant);
@@ -76,7 +65,6 @@
             group.UpdateDisplayedText();
             return mutant;
         }
-
 
         public IList<AssemblyNode> InitMutantsForOperators(ProgressCounter percentCompleted)
         {
@@ -131,7 +119,6 @@
         private AssemblyNode BuildMutantsTree(string moduleName,
             MultiDictionary<IMutationOperator, MutationTarget> mutationTargets)
         {
-
             var assemblyNode = new AssemblyNode(moduleName);
 
             System.Action<CheckedNode, ICollection<MutationTarget>> typeNodeCreator = (parent, targets) =>
@@ -141,20 +128,20 @@
                     orderby t.TypeName
                     group t by t.TypeName
                         into byTypeGrouping
-                        select new TypeNode(parent, byTypeGrouping.Key,
-                            from gr in byTypeGrouping
-                            group gr by gr.MethodRaw.Name.Value
-                                into byMethodGrouping
-                                orderby byMethodGrouping.Key
-                                let md = byMethodGrouping.First().MethodRaw
-                                select new MethodNode(md.Name.Value, md,
-                                    from gr in byMethodGrouping
-                                    group gr by gr.GroupName
-                                        into byGroupGrouping
-                                        orderby byGroupGrouping.Key
-                                        select GroupOrMutant(byGroupGrouping)
-                                )
-                        );
+                    select new TypeNode(parent, byTypeGrouping.Key,
+                        from gr in byTypeGrouping
+                        group gr by gr.MethodRaw.Name.Value
+                            into byMethodGrouping
+                        orderby byMethodGrouping.Key
+                        let md = byMethodGrouping.First().MethodRaw
+                        select new MethodNode(md.Name.Value, md,
+                                from gr in byMethodGrouping
+                                group gr by gr.GroupName
+                                    into byGroupGrouping
+                                orderby byGroupGrouping.Key
+                                select GroupOrMutant(byGroupGrouping)
+                            )
+                    );
 
                 parent.Children.AddRange(typeNodes);
             };
@@ -167,13 +154,13 @@
                 typeNodeCreator,
                 mutationTargets.Values.SelectMany(a => a).ToList());
 
-
             foreach (var node in assemblyNode.Children.Where(n => n.Children.Count == 0).ToList())
             {
                 assemblyNode.Children.Remove(node);
             }
             return assemblyNode;
         }
+
         //AKB
         private List<AssemblyNode> modifyAssNodes(List<AssemblyNode> assNodes)
         {
@@ -208,7 +195,7 @@
                                                 }
                                                 ((Mutant)assMutantsNode.Children[i].Children[j])._mutationTargets.Add(partner.MutationTarget);
                                                 ((Mutant)assMutantsNode.Children[i].Children[j]).UpdateDisplayedText();
-                                            }                                        
+                                            }
                                         }
                                     }
                                     else
@@ -226,7 +213,7 @@
                                             }
                                             ((Mutant)assMutantsNode.Children[i])._mutationTargets.Add(partner.MutationTarget);
                                             ((Mutant)assMutantsNode.Children[i]).UpdateDisplayedText();
-                                        }   
+                                        }
                                     }
                                 }
                             }
@@ -396,7 +383,7 @@
                     }
                 }
             }
-                return assNodes;
+            return assNodes;
         }
 
         private string getIdWithoutNr(string id)

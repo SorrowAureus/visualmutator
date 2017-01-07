@@ -1,10 +1,8 @@
 ﻿namespace VisualMutator.Model
 {
-    using System.Linq;
     using Infrastructure;
     using StoringMutants;
     using UsefulTools.DependencyInjection;
-    using UsefulTools.ExtensionMethods;
 
     public class ContinuousConfigurator
     {
@@ -23,19 +21,15 @@
             _continuousConfigurationFactory = continuousConfigurationFactory;
         }
 
-
-
         public IObjectRoot<ContinuousConfiguration> GetConfiguration()
         {
             return _configuration;
         }
 
-
         public void CreateConfiguration()
         {
             DisposeConfiguration();
             var optionsModel = _optionsManager.ReadOptions();
-
 
             IWhiteSource whiteCache;
             if (optionsModel.WhiteCacheThreadsCount != 0)

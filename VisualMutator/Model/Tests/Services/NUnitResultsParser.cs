@@ -2,33 +2,22 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics;
-    using System.IO;
     using System.Linq;
     using System.Reflection;
-    using System.Threading.Tasks;
     using System.Xml;
     using System.Xml.Linq;
-    using Infrastructure;
     using log4net;
-    using RunProcessAsTask;
-    using TestsTree;
-    using UsefulTools.Core;
-    using UsefulTools.ExtensionMethods;
-    using UsefulTools.Paths;
 
     public interface INUnitExternal
     {
-        Dictionary<string, MyTestResult> ProcessResultFile( string fileName);
+        Dictionary<string, MyTestResult> ProcessResultFile(string fileName);
     }
 
     public class NUnitResultsParser : INUnitExternal
     {
         private ILog _log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
-
-        
-        public Dictionary<string, MyTestResult> ProcessResultFile( string fileName)
+        public Dictionary<string, MyTestResult> ProcessResultFile(string fileName)
         {
             _log.Debug("Processing result file: " + fileName);
             XmlReaderSettings s = new XmlReaderSettings();
@@ -78,7 +67,6 @@
 
                         GetValue(resultDictionary, node, isParametrizedTest);
                     }
-                
                 }
             }
             catch (Exception e)
@@ -86,14 +74,13 @@
                 _log.Error("Log file parsing error", e);
                 throw;
             }
-            
+
             reader.Close();
             return resultDictionary;
         }
-        
+
         private void GetValue(Dictionary<string, MyTestResult> resultDictionary, XElement test, bool isParametrizedTest)
         {
-            
             try
             {
                 String testName = test.Attribute("name").Value;
@@ -103,7 +90,6 @@
                     if (paranIdx > 0)
                         testName = testName.Substring(0, paranIdx);
                 }
-                
 
                 var result = new MyTestResult(test.Attribute("name").Value);
                 if (test.Attribute("success") != null)
@@ -118,13 +104,11 @@
                 }
 
                 resultDictionary.Add(result.Name, result);
-              
             }
             catch (Exception e)
             {
                 _log.Error("Log file parsing error", e);
             }
         }
-     
     }
 }

@@ -1,12 +1,9 @@
 namespace VisualMutator.Extensibility
 {
-    using System;
-    using System.Collections.Generic;
     using Microsoft.Cci;
 
     public interface IOperatorCodeVisitor
     {
-
         /// <summary>
         /// Performs some computation with the given addition.
         /// </summary>
@@ -979,14 +976,15 @@ namespace VisualMutator.Extensibility
             get;
             set;
         }
+
         MetadataReaderHost Host { get; set; }
-        
 
         IOperatorUtils OperatorUtils
         {
             get;
             set;
         }
+
         void Initialize();
 
         void VisitAny(object o);

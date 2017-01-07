@@ -26,7 +26,6 @@
 
         public class VisualSourceEmitter : SourceEmitter
         {
-
             public VisualSourceEmitter(ISourceEmitterOutput sourceEmitterOutput, IMetadataHost host, PdbReader/*?*/ pdbReader, bool noIL, bool printCompilerGeneratedMembers)
                 : base(sourceEmitterOutput)
             {
@@ -36,9 +35,9 @@
                 this.printCompilerGeneratedMembers = printCompilerGeneratedMembers;
             }
 
-            IMetadataHost host;
-            PdbReader/*?*/ pdbReader;
-            bool noIL;
+            private IMetadataHost host;
+            private PdbReader/*?*/ pdbReader;
+            private bool noIL;
 
             public override void Traverse(IMethodBody methodBody)
             {
@@ -56,8 +55,8 @@
                     Traverse(sourceMethodBody.Block.Statements);
                 else
                 {
-                   // this.Traverse(sourceMethodBody.Block);
-                  //  PrintToken(CSharpToken.NewLine);
+                    // this.Traverse(sourceMethodBody.Block);
+                    //  PrintToken(CSharpToken.NewLine);
 
                     if (pdbReader != null)
                         PrintScopes(methodBody);
@@ -175,8 +174,5 @@
                 sourceEmitterOutput.WriteLine(psloc.Source);
             }
         }
-
     }
-
-   
 }

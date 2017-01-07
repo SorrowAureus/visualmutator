@@ -8,7 +8,6 @@
         public TestsRootNode()
             : base(null, "", true)
         {
-
         }
 
         public IEnumerable<TestNodeAssembly> TestNodeAssemblies

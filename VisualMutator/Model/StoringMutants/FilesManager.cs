@@ -21,23 +21,21 @@
             _clonesFactory = clonesFactory;
         }
 
-        public async Task<ProjectFilesClone> CreateProjectClone(IEnumerable<FilePathAbsolute> referencedFiles, 
+        public async Task<ProjectFilesClone> CreateProjectClone(IEnumerable<FilePathAbsolute> referencedFiles,
             IEnumerable<FilePathAbsolute> projectFiles, FilePathAbsolute tmp)
         {
-
-
             var clone = _clonesFactory.CreateWithParams(tmp);
             foreach (var referenced in referencedFiles)
             {
                 try
                 {
-                    var destination = (FilePathAbsolute) tmp.AsChild(referenced);
+                    var destination = (FilePathAbsolute)tmp.AsChild(referenced);
                     await CopyOverwriteAsync(referenced, destination);
                     clone.Referenced.Add(destination);
                 }
                 catch (Exception e)
                 {
-                    _log.Warn("Could not copy file : " +e.Message);
+                    _log.Warn("Could not copy file : " + e.Message);
                     clone.IsIncomplete = true;
                 }
             }
@@ -45,7 +43,7 @@
             {
                 try
                 {
-                    var destination = (FilePathAbsolute) tmp.AsChild(projFile);
+                    var destination = (FilePathAbsolute)tmp.AsChild(projFile);
                     await CopyOverwriteAsync(projFile, destination);
                     clone.Assemblies.Add(destination);
                 }
@@ -64,7 +62,7 @@
             {
                 using (FileStream destinationStream = File.Create(dst.Path))
                 {
-                    lock(this)
+                    lock (this)
                     {
                         sourceStream.CopyTo(destinationStream);
                     }

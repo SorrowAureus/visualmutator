@@ -6,7 +6,6 @@
 
     public class JID_FieldInitializationDeletion : IMutationOperator
     {
-       
         public OperatorInfo Info
         {
             get
@@ -14,11 +13,9 @@
                 return new OperatorInfo("JID", "Field Initialization Deletion", "");
             }
         }
-      
+
         public class JIDVisitor : OperatorCodeVisitor
         {
-           
-    
             public override void Visit(IExpressionStatement statement)
             {
                 var assignment = statement.Expression as IAssignment;
@@ -30,14 +27,11 @@
                         MarkMutationTarget(statement);
                     }
                 }
-               
             }
-
         }
 
         public class JIDRewriter : OperatorCodeRewriter
         {
-
             public override IStatement Rewrite(IExpressionStatement statement)
             {
                 return new EmptyStatement();
@@ -53,6 +47,5 @@
         {
             return new JIDRewriter();
         }
-
     }
 }

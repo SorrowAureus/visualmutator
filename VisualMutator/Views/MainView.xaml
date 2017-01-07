@@ -13,56 +13,50 @@
              mc:Ignorable="d"
              d:DesignHeight="488" d:DesignWidth="544" Visibility="Hidden">
 
-    <UserControl.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Resources/Global.xaml" />
-                <ResourceDictionary Source="Controls/Resources.xaml" />
-                <ResourceDictionary Source="Controls/ImageButton.xaml" />
-            </ResourceDictionary.MergedDictionaries>
+  <UserControl.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="Resources/Global.xaml" />
+        <ResourceDictionary Source="Controls/Resources.xaml" />
+        <ResourceDictionary Source="Controls/ImageButton.xaml" />
+      </ResourceDictionary.MergedDictionaries>
 
-            <Style TargetType="Rectangle" x:Key="MutationStateRectangleStyle">
-                <Setter Property="Height" Value="10" />
-                <Setter Property="Width" Value="10" />
-                <Setter Property="Margin" Value="0,0,5,0" />
-                <Setter Property="Stroke" Value="Black" />
-                <Setter Property="Fill"
-                        Value="{Binding RelativeSource={RelativeSource Mode=FindAncestor, 
+      <Style TargetType="Rectangle" x:Key="MutationStateRectangleStyle">
+        <Setter Property="Height" Value="10" />
+        <Setter Property="Width" Value="10" />
+        <Setter Property="Margin" Value="0,0,5,0" />
+        <Setter Property="Stroke" Value="Black" />
+        <Setter Property="Fill"
+                        Value="{Binding RelativeSource={RelativeSource Mode=FindAncestor,
                 AncestorType={x:Type TreeViewItem}}, Path=DataContext.State,
                 Converter={Converters:MutantResultStateToFillConverter}}" />
-            </Style>
+      </Style>
+    </ResourceDictionary>
+  </UserControl.Resources>
 
-        </ResourceDictionary>
-    </UserControl.Resources>
+  <Grid d:DataContext="{d:DesignInstance ViewModels:MainViewModel}">
+    <!-- Visibility="{Binding IsVisible, Converter={Converters:BoolToVisibilityConverter}}"-->
+    <Grid.Resources>
+    </Grid.Resources>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto" />
+      <RowDefinition />
+      <RowDefinition Height="5" />
+      <RowDefinition />
+    </Grid.RowDefinitions>
 
-    <Grid d:DataContext="{d:DesignInstance ViewModels:MainViewModel}">
-        <!-- Visibility="{Binding IsVisible, Converter={Converters:BoolToVisibilityConverter}}"-->
-        <Grid.Resources>
+    <Grid Grid.Row="0">
 
+      <Grid.RowDefinitions>
+        <RowDefinition />
+        <RowDefinition />
+        <RowDefinition />
+      </Grid.RowDefinitions>
 
-        </Grid.Resources>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition />
-            <RowDefinition Height="5" />
-            <RowDefinition />
-        </Grid.RowDefinitions>
+      <WrapPanel Grid.Row="0">
+        <TextBlock Width="210" HorizontalAlignment="Left" Text="{Binding OperationsStateDescription}" />
 
-
-        <Grid Grid.Row="0">
-
-            <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-            </Grid.RowDefinitions>
-
-
-            <WrapPanel Grid.Row="0">
-                <TextBlock Width="210" HorizontalAlignment="Left" Text="{Binding OperationsStateDescription}" />
-
-               
-                <Controls:ImageButton HorizontalAlignment="Right"
+        <Controls:ImageButton HorizontalAlignment="Right"
                                       NormalImage="/VisualMutator;component/Views/images/button_stop_unpressed.png"
                                       DisabledImage="/VisualMutator;component/Views/images/button_stop_disabled.png"
                                       HoverImage="/VisualMutator;component/Views/images/button_stop_mouseover.png"
@@ -70,7 +64,7 @@
                                       ImageSize="18" ToolTip="Stop"
                                       ToolTipService.ShowOnDisabled="True"
                                       Command="{Binding CommandStop}" />
-                <Controls:ImageButton HorizontalAlignment="Right"
+        <Controls:ImageButton HorizontalAlignment="Right"
                                       NormalImage="/VisualMutator;component/Views/images/button_continue_unpressed.png"
                                       DisabledImage="/VisualMutator;component/Views/images/button_continue_disabled.png"
                                       HoverImage="/VisualMutator;component/Views/images/button_continue_mouseover.png"
@@ -78,7 +72,7 @@
                                       ImageSize="18" ToolTip="Continue"
                                       ToolTipService.ShowOnDisabled="True"
                                       Command="{Binding CommandContinue}" />
-                <Controls:ImageButton HorizontalAlignment="Right"
+        <Controls:ImageButton HorizontalAlignment="Right"
                                       NormalImage="/VisualMutator;component/Views/images/button_pause_unpressed.png"
                                       DisabledImage="/VisualMutator;component/Views/images/button_pause_disabled.png"
                                       HoverImage="/VisualMutator;component/Views/images/button_pause_mouseover.png"
@@ -86,135 +80,123 @@
                                       ImageSize="18" ToolTip="Pause"
                                       ToolTipService.ShowOnDisabled="True"
                                       Command="{Binding CommandPause}" />
-                <Button HorizontalAlignment="Right" Content="New session..."
+        <Button HorizontalAlignment="Right" Content="New session..."
                         Command="{Binding CommandCreateNewMutants}" />
-                <Button HorizontalAlignment="Right" Content="Options"
+        <Button HorizontalAlignment="Right" Content="Options"
                         Command="{Binding CommandOptions}" />
-            </WrapPanel>
+      </WrapPanel>
 
-            <DockPanel Grid.Row="1">
-                <TextBlock DockPanel.Dock="Left" Text="{Binding MutantsRatio}" />
-                <TextBlock DockPanel.Dock="Right" Text="{Binding MarkedEq}" />
-                <TextBlock DockPanel.Dock="Top" Text="{Binding MutationScore}" />
+      <DockPanel Grid.Row="1">
+        <TextBlock DockPanel.Dock="Left" Text="{Binding MutantsRatio}" />
+        <TextBlock DockPanel.Dock="Right" Text="{Binding MarkedEq}" />
+        <TextBlock DockPanel.Dock="Top" Text="{Binding MutationScore}" />
+      </DockPanel>
 
-
-            </DockPanel>
-
-
-            <ProgressBar Height="25" Grid.Row="2"
+      <ProgressBar Height="25" Grid.Row="2"
                          IsIndeterminate="{Binding IsProgressIndeterminate}"
                          Value="{Binding Progress}" />
+    </Grid>
 
-        </Grid>
-
-
-        <TreeView Grid.Row="1" Name="Tree" ItemsSource="{Binding MutantAssemblies}"
+    <TreeView Grid.Row="1" Name="Tree" ItemsSource="{Binding MutantAssemblies}"
                   SelectedItemChanged="TreeView_SelectedItemChanged">
 
-            <TreeView.Resources>
-                <ContextMenu x:Key="ErrorMutantContextMenu" StaysOpen="true">
-                    <MenuItem Header="Error Message" Click="MenuItemMessage_Click" Visibility="Collapsed"/>
-                    <MenuItem Header="Mark Equivalent" Click="MenuItemMarkEquivalent_Click" Visibility="Collapsed" />
-                    <MenuItem Header="Unmark Equivalent" Click="MenuItemUnmarkEquivalent_Click" Visibility="Collapsed" />
-                </ContextMenu>
+      <TreeView.Resources>
+        <ContextMenu x:Key="ErrorMutantContextMenu" StaysOpen="true">
+          <MenuItem Header="Error Message" Click="MenuItemMessage_Click" Visibility="Collapsed" />
+          <MenuItem Header="Mark Equivalent" Click="MenuItemMarkEquivalent_Click" Visibility="Collapsed" />
+          <MenuItem Header="Unmark Equivalent" Click="MenuItemUnmarkEquivalent_Click" Visibility="Collapsed" />
+        </ContextMenu>
 
-                <HierarchicalDataTemplate DataType="{x:Type types:AssemblyNode}"
+        <HierarchicalDataTemplate DataType="{x:Type types:AssemblyNode}"
                                           ItemsSource="{Binding Children}">
-                    <DockPanel>
-                        <Rectangle Style="{StaticResource MutationStateRectangleStyle}" />
-                        <TextBlock Text="{Binding Name}" />
-                    </DockPanel>
-                    <HierarchicalDataTemplate.ItemContainerStyle>
-                        <Style TargetType="{x:Type TreeViewItem}">
-                            <Setter Property="IsExpanded" Value="True" />
-                        </Style>
-                    </HierarchicalDataTemplate.ItemContainerStyle>
-                </HierarchicalDataTemplate>
+          <DockPanel>
+            <Rectangle Style="{StaticResource MutationStateRectangleStyle}" />
+            <TextBlock Text="{Binding Name}" />
+          </DockPanel>
+          <HierarchicalDataTemplate.ItemContainerStyle>
+            <Style TargetType="{x:Type TreeViewItem}">
+              <Setter Property="IsExpanded" Value="True" />
+            </Style>
+          </HierarchicalDataTemplate.ItemContainerStyle>
+        </HierarchicalDataTemplate>
 
-                <HierarchicalDataTemplate DataType="{x:Type types:TypeNamespaceNode}"
+        <HierarchicalDataTemplate DataType="{x:Type types:TypeNamespaceNode}"
                                           ItemsSource="{Binding Children}">
-                    <DockPanel>
-                        <Rectangle Style="{StaticResource MutationStateRectangleStyle}" />
-                        <TextBlock Text="{Binding Name}" />
-                    </DockPanel>
-                    <HierarchicalDataTemplate.ItemContainerStyle>
-                        <Style TargetType="{x:Type TreeViewItem}">
-                            <Setter Property="IsExpanded" Value="True" />
-                        </Style>
-                    </HierarchicalDataTemplate.ItemContainerStyle>
-                </HierarchicalDataTemplate>
+          <DockPanel>
+            <Rectangle Style="{StaticResource MutationStateRectangleStyle}" />
+            <TextBlock Text="{Binding Name}" />
+          </DockPanel>
+          <HierarchicalDataTemplate.ItemContainerStyle>
+            <Style TargetType="{x:Type TreeViewItem}">
+              <Setter Property="IsExpanded" Value="True" />
+            </Style>
+          </HierarchicalDataTemplate.ItemContainerStyle>
+        </HierarchicalDataTemplate>
 
-                <HierarchicalDataTemplate DataType="{x:Type types:TypeNode}"
+        <HierarchicalDataTemplate DataType="{x:Type types:TypeNode}"
                                           ItemsSource="{Binding Children}">
-                    <DockPanel>
-                        <Rectangle Style="{StaticResource MutationStateRectangleStyle}" />
-                        <TextBlock Text="{Binding Name}" />
-                    </DockPanel>
-                    <HierarchicalDataTemplate.ItemContainerStyle>
-                        <Style TargetType="{x:Type TreeViewItem}">
-                            <Setter Property="IsExpanded" Value="True" />
-                        </Style>
-                    </HierarchicalDataTemplate.ItemContainerStyle>
-                </HierarchicalDataTemplate>
+          <DockPanel>
+            <Rectangle Style="{StaticResource MutationStateRectangleStyle}" />
+            <TextBlock Text="{Binding Name}" />
+          </DockPanel>
+          <HierarchicalDataTemplate.ItemContainerStyle>
+            <Style TargetType="{x:Type TreeViewItem}">
+              <Setter Property="IsExpanded" Value="True" />
+            </Style>
+          </HierarchicalDataTemplate.ItemContainerStyle>
+        </HierarchicalDataTemplate>
 
-                <HierarchicalDataTemplate DataType="{x:Type types:MethodNode}"
+        <HierarchicalDataTemplate DataType="{x:Type types:MethodNode}"
                                           ItemsSource="{Binding Children}">
-                    <DockPanel>
-                        <Rectangle Style="{StaticResource MutationStateRectangleStyle}" />
-                        <TextBlock Text="{Binding Name}" />
-                    </DockPanel>
-                    <HierarchicalDataTemplate.ItemContainerStyle>
-                        <Style TargetType="{x:Type TreeViewItem}">
-                            <Setter Property="IsExpanded" Value="True" />
-                            <EventSetter Event="TreeViewItem.PreviewMouseRightButtonDown"
+          <DockPanel>
+            <Rectangle Style="{StaticResource MutationStateRectangleStyle}" />
+            <TextBlock Text="{Binding Name}" />
+          </DockPanel>
+          <HierarchicalDataTemplate.ItemContainerStyle>
+            <Style TargetType="{x:Type TreeViewItem}">
+              <Setter Property="IsExpanded" Value="True" />
+              <EventSetter Event="TreeViewItem.PreviewMouseRightButtonDown"
                                          Handler="trv_PreviewMouseRightButtonDown" />
-                        </Style>
-                    </HierarchicalDataTemplate.ItemContainerStyle>
-                </HierarchicalDataTemplate>
-                
-                <HierarchicalDataTemplate DataType="{x:Type MutantsTree:MutantGroup}"
+            </Style>
+          </HierarchicalDataTemplate.ItemContainerStyle>
+        </HierarchicalDataTemplate>
+
+        <HierarchicalDataTemplate DataType="{x:Type MutantsTree:MutantGroup}"
                                           ItemsSource="{Binding Children}">
-                    <DockPanel>
-                        <Rectangle Style="{StaticResource MutationStateRectangleStyle}" />
-                        <TextBlock Text="{Binding DisplayedText}" />
-                    </DockPanel>
-                    <HierarchicalDataTemplate.ItemContainerStyle>
-                        <Style TargetType="{x:Type TreeViewItem}">
-                            <Setter Property="IsExpanded" Value="True" />
-                            <EventSetter Event="TreeViewItem.PreviewMouseRightButtonDown"
+          <DockPanel>
+            <Rectangle Style="{StaticResource MutationStateRectangleStyle}" />
+            <TextBlock Text="{Binding DisplayedText}" />
+          </DockPanel>
+          <HierarchicalDataTemplate.ItemContainerStyle>
+            <Style TargetType="{x:Type TreeViewItem}">
+              <Setter Property="IsExpanded" Value="True" />
+              <EventSetter Event="TreeViewItem.PreviewMouseRightButtonDown"
                                          Handler="trv_PreviewMouseRightButtonDown" />
-                        </Style>
-                        
-                    </HierarchicalDataTemplate.ItemContainerStyle>
-                </HierarchicalDataTemplate>
+            </Style>
+          </HierarchicalDataTemplate.ItemContainerStyle>
+        </HierarchicalDataTemplate>
 
-                <DataTemplate DataType="{x:Type MutantsTree:Mutant}">
-                    <DockPanel>
-                        <Rectangle Style="{StaticResource MutationStateRectangleStyle}" >
-                        </Rectangle>
-                        <TextBlock Text="{Binding DisplayedText}" /> 
-                        
-                    </DockPanel>
+        <DataTemplate DataType="{x:Type MutantsTree:Mutant}">
+          <DockPanel>
+            <Rectangle Style="{StaticResource MutationStateRectangleStyle}">
+            </Rectangle>
+            <TextBlock Text="{Binding DisplayedText}" />
+          </DockPanel>
+        </DataTemplate>
+      </TreeView.Resources>
+    </TreeView>
 
-                </DataTemplate>
-            </TreeView.Resources>
-        </TreeView>
+    <GridSplitter Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" />
 
+    <Grid Grid.Row="3">
 
-        <GridSplitter Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" />
+      <Grid.RowDefinitions>
+        <RowDefinition />
+        <RowDefinition Height="Auto" />
+      </Grid.RowDefinitions>
 
-
-        <Grid Grid.Row="3">
-
-            <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-
-
-            <Views:MutantDetailsView Grid.Row="0" Content="{Binding MutantDetailsViewModel.View}" />
-            <Button Grid.Row="1" Content="Save Results..." Command="{Binding CommandSaveResults}" />
-        </Grid>
-
+      <Views:MutantDetailsView Grid.Row="0" Content="{Binding MutantDetailsViewModel.View}" />
+      <Button Grid.Row="1" Content="Save Results..." Command="{Binding CommandSaveResults}" />
     </Grid>
+  </Grid>
 </UserControl>

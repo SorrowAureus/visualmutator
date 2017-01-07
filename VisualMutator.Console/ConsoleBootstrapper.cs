@@ -5,13 +5,11 @@
     using System;
     using System.Collections.Generic;
     using System.Reflection;
-    using System.Threading;
     using System.Threading.Tasks;
     using log4net;
     using Model;
     using Model.CoverageFinder;
     using Ninject.Modules;
-    using UsefulTools.ExtensionMethods;
     using VisualMutator.Infrastructure;
     using VisualMutator.Infrastructure.NinjectModules;
 
@@ -24,8 +22,6 @@
         private static ILog _log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         private readonly Bootstrapper _boot;
 
- 
-
         public ConsoleBootstrapper(EnvironmentConnection connection, CommandLineParser parser)
         {
             _connection = connection;
@@ -37,7 +33,6 @@
                 new ConsoleNinjectModule(connection)});
         }
 
-
         public object Shell
         {
             get
@@ -45,7 +40,6 @@
                 return _boot.Shell;
             }
         }
-
 
         public async Task Initialize()
         {
@@ -81,13 +75,11 @@
                 //                }
 
                 _connection.End();
-
             }
             catch (Exception e)
             {
                 _log.Error(e);
             }
-
         }
     }
 }

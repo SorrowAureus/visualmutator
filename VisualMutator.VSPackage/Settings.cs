@@ -1,9 +1,9 @@
-﻿namespace PiotrTrzpil.VisualMutator_VSPackage.Properties {
+﻿namespace PiotrTrzpil.VisualMutator_VSPackage.Properties
+{
     #region
 
     using System.ComponentModel;
     using System.Configuration;
-
 
     // This class allows you to handle specific events on the settings class:
     //  The SettingChanging event is raised before a setting's value is changed.
@@ -13,9 +13,10 @@
 
     #endregion
 
-    public sealed partial class Settings {
-        
-        public Settings() {
+    public sealed partial class Settings
+    {
+        public Settings()
+        {
             // // To add event handlers for saving and changing settings, uncomment the lines below:
             //
             // this.SettingChanging += this.SettingChangingEventHandler;
@@ -23,12 +24,14 @@
             // this.SettingsSaving += this.SettingsSavingEventHandler;
             //
         }
-        
-        private void SettingChangingEventHandler(object sender, SettingChangingEventArgs e) {
+
+        private void SettingChangingEventHandler(object sender, SettingChangingEventArgs e)
+        {
             // Add code to handle the SettingChangingEvent event here.
         }
-        
-        private void SettingsSavingEventHandler(object sender, CancelEventArgs e) {
+
+        private void SettingsSavingEventHandler(object sender, CancelEventArgs e)
+        {
             // Add code to handle the SettingsSaving event here.
         }
     }

@@ -18,7 +18,13 @@
         }
 
         public ICollection<TestId> TestIds { get; private set; }
-        public string TestsDescription { get {return string.Join(" ", _minimalSelectionList).Trim();
-            } }
+
+        public string TestsDescription
+        {
+            get
+            {
+                return string.Join(" ", _minimalSelectionList).Trim();
+            }
+        }
     }
 }

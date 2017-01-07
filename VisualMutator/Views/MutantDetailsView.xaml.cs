@@ -26,10 +26,8 @@
             codeTextBox.HorizontalScrollBarVisibility = ScrollBarVisibility.Auto;
             codeTextBox.VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
 
-        //    codeTextBox.FontFamily = new FontFamily("Consolas");
+            //    codeTextBox.FontFamily = new FontFamily("Consolas");
         }
-
-     
 
         public void PresentCode(CodeWithDifference codeWithDifference)
         {
@@ -43,7 +41,6 @@
 
                 HighlightRow(document, lineChange.Text, color);
             }
-
         }
 
         public void ClearCode()
@@ -55,7 +52,6 @@
 
         public void HighlightRow(FlowDocument document, string text, Color color)
         {
-            
             Regex reg = new Regex(Regex.Escape(text), RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
             var start = document.ContentStart;
@@ -71,7 +67,7 @@
 
                     textrange.ApplyPropertyValue(TextElement.BackgroundProperty, new SolidColorBrush(color));
 
-                    //start = textrange.End; 
+                    //start = textrange.End;
                 }
                 start = start.GetNextContextPosition(LogicalDirection.Forward);
             }
@@ -79,21 +75,17 @@
 
         private void tabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            // 'VisualMutator.Model.Mutations.CSharpCodeLanguage' in addedItems? ... 
+            // 'VisualMutator.Model.Mutations.CSharpCodeLanguage' in addedItems? ...
             if (e.AddedItems.Cast<object>().All(i => i is TabItem))
             {
                 ((MutantDetailsViewModel)DataContext)
                    .SelectedTabHeader = (string)e.AddedItems.Cast<TabItem>().Single().Header;
             }
-           
         }
-
     }
 
     public interface IMutantDetailsView : IView
     {
-      
-
         void PresentCode(CodeWithDifference codeWithDifference);
 
         void ClearCode();

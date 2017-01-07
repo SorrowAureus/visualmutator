@@ -6,23 +6,17 @@
     using System.Text;
     using Microsoft.Cci;
     using MutantsTree;
-    using StoringMutants;
     using UsefulTools.CheckboxedTree;
-    using UsefulTools.ExtensionMethods;
     using UsefulTools.Paths;
 
     #endregion
+
     public class AssemblyNode : MutationNode
     {
-     
-
-
         public AssemblyNode(string name)
-            : base( name, true)
+            : base(name, true)
         {
-           
         }
-
 
         public FilePathAbsolute AssemblyPath
         {
@@ -33,29 +27,24 @@
 
     public class TypeNamespaceNode : MutationNode
     {
-
         public TypeNamespaceNode(CheckedNode parent, string name)
-            : base( name, true)
+            : base(name, true)
         {
             Parent = parent;
         }
-        
     }
-
 
     public class TypeNode : MutationNode
     {
-
         public TypeNode(CheckedNode parent, string name, IEnumerable<MethodNode> children = null)
-            : base( name, true)
+            : base(name, true)
         {
             Parent = parent;
-            if(children != null)
+            if (children != null)
             {
                 Children.AddRange(children);
             }
         }
-
 
         public string Namespace
         {
@@ -66,7 +55,7 @@
                 while (node.Parent != null)
                 {
                     sb.Append(node.Name);
-                    node = (MutationNode) node.Parent;
+                    node = (MutationNode)node.Parent;
                 }
                 return sb.ToString();
             }
@@ -76,7 +65,7 @@
     public class MethodNode : MutationNode
     {
         private readonly IMethodDefinition _methodDefinition;
-       
+
         public MethodNode(CheckedNode parent, string name, IMethodDefinition methodDefinition, bool hasChildren)
             : base(name, hasChildren)
         {
@@ -88,7 +77,7 @@
            : base(name, true)
         {
             _methodDefinition = methodDefinition;
-            
+
             Children.AddRange(children);
             foreach (var child in Children)
             {
@@ -96,13 +85,10 @@
             }
         }
 
-        //TODO: refactor and remove 
+        //TODO: refactor and remove
         public IMethodDefinition MethodDefinition
         {
             get { return _methodDefinition; }
         }
-
-        
     }
-
 }

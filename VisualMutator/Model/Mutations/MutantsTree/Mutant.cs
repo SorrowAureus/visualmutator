@@ -3,7 +3,6 @@ namespace VisualMutator.Model.Mutations.MutantsTree
     #region
 
     using System.Collections.Generic;
-    using Extensibility;
     using Tests;
     using Tests.Services;
     using UsefulTools.ExtensionMethods;
@@ -13,7 +12,6 @@ namespace VisualMutator.Model.Mutations.MutantsTree
 
     public class Mutant : MutationNode
     {
-
         public Mutant(string id, MutantGroup parent, MutationTarget mutationTarget)
             : base("Mutant", false)
         {
@@ -25,6 +23,7 @@ namespace VisualMutator.Model.Mutations.MutantsTree
             Parent = parent;
             UpdateDisplayedText();
         }
+
         public Mutant(string id, MutationTarget mutationTarget)
            : base("Mutant", false)
         {
@@ -65,7 +64,7 @@ namespace VisualMutator.Model.Mutations.MutantsTree
                 _id = value;
             }
         }
-        
+
         private int _numberOfFailedTests;
 
         public int NumberOfFailedTests
@@ -82,7 +81,7 @@ namespace VisualMutator.Model.Mutations.MutantsTree
 
         private string _displayedText;
 
-        public string DisplayedText  
+        public string DisplayedText
         {
             get
             {
@@ -106,6 +105,7 @@ namespace VisualMutator.Model.Mutations.MutantsTree
                 return MutationTarget.Variant.Signature;
             }
         }
+
         private readonly MutantTestSession _mutantTestSession;
 
         public MutantTestSession MutantTestSession
@@ -114,12 +114,9 @@ namespace VisualMutator.Model.Mutations.MutantsTree
             {
                 return _mutantTestSession;
             }
-
         }
 
         public MutantKilledSubstate KilledSubstate { get; set; }
-
-       
 
         private bool _isEquivalent;
 
@@ -170,7 +167,7 @@ namespace VisualMutator.Model.Mutations.MutantsTree
              .Case(MutantResultState.Error, () => MutantTestSession.ErrorDescription)
              .GetResult();
 
-            if(IsEquivalent)
+            if (IsEquivalent)
             {
                 stateText = "Equivalent";
             }
@@ -178,7 +175,7 @@ namespace VisualMutator.Model.Mutations.MutantsTree
             DisplayedText = "{0} - {1} - {2}".Formatted(Id, MutationTarget.Variant.Signature, stateText);
         }
     }
-  
+
     public enum MutantKilledSubstate
     {
         Normal,

@@ -2,12 +2,9 @@
 {
     using System.Collections.Generic;
     using Microsoft.Cci;
-    using Microsoft.Cci.MutableCodeModel;
 
-
-    public abstract class OperatorCodeRewriterBase 
+    public abstract class OperatorCodeRewriterBase
     {
-      
         /// <summary>
         /// Rewrites the given addition.
         /// </summary>
@@ -16,7 +13,6 @@
         {
             return addition;
         }
-
 
         /// <summary>
         /// Rewrites the given addressable expression.
@@ -27,7 +23,6 @@
             return addressableExpression;
         }
 
-
         /// <summary>
         /// Rewrites the given address dereference expression.
         /// </summary>
@@ -36,7 +31,6 @@
         {
             return addressDereference;
         }
-
 
         /// <summary>
         /// Rewrites the given AddressOf expression.
@@ -47,7 +41,6 @@
             return addressOf;
         }
 
-
         /// <summary>
         /// Rewrites the given anonymous delegate expression.
         /// </summary>
@@ -56,7 +49,6 @@
         {
             return anonymousDelegate;
         }
-
 
         /// <summary>
         /// Rewrites the given array indexer expression.
@@ -67,7 +59,6 @@
             return arrayIndexer;
         }
 
-
         /// <summary>
         /// Rewrites the given assert statement.
         /// </summary>
@@ -76,7 +67,6 @@
         {
             return assertStatement;
         }
-
 
         /// <summary>
         /// Rewrites the given assignment expression.
@@ -87,7 +77,6 @@
             return assignment;
         }
 
-
         /// <summary>
         /// Rewrites the given assume statement.
         /// </summary>
@@ -96,7 +85,6 @@
         {
             return assumeStatement;
         }
-
 
         /// <summary>
         /// Rewrites the given bitwise and expression.
@@ -107,7 +95,6 @@
             return binaryOperation;
         }
 
-
         /// <summary>
         /// Rewrites the given bitwise and expression.
         /// </summary>
@@ -116,7 +103,6 @@
         {
             return bitwiseAnd;
         }
-
 
         /// <summary>
         /// Rewrites the given bitwise or expression.
@@ -127,7 +113,6 @@
             return bitwiseOr;
         }
 
-
         /// <summary>
         /// Rewrites the given block expression.
         /// </summary>
@@ -136,7 +121,6 @@
         {
             return blockExpression;
         }
-
 
         /// <summary>
         /// Rewrites the given statement block.
@@ -147,7 +131,6 @@
             return block;
         }
 
-
         /// <summary>
         /// Rewrites the given bound expression.
         /// </summary>
@@ -156,7 +139,6 @@
         {
             return boundExpression;
         }
-
 
         /// <summary>
         /// Rewrites the given break statement.
@@ -167,7 +149,6 @@
             return breakStatement;
         }
 
-
         /// <summary>
         /// Rewrites the cast-if-possible expression.
         /// </summary>
@@ -176,7 +157,6 @@
         {
             return castIfPossible;
         }
-
 
         /// <summary>
         /// Rewrites the given catch clause.
@@ -187,7 +167,6 @@
             return catchClause;
         }
 
-
         /// <summary>
         /// Rewrites the given check-if-instance expression.
         /// </summary>
@@ -196,7 +175,6 @@
         {
             return checkIfInstance;
         }
-
 
         /// <summary>
         /// Rewrites the given compile time constant.
@@ -207,7 +185,6 @@
             return constant;
         }
 
-
         /// <summary>
         /// Rewrites the given conditional expression.
         /// </summary>
@@ -216,7 +193,6 @@
         {
             return conditional;
         }
-
 
         /// <summary>
         /// Rewrites the given conditional statement.
@@ -227,7 +203,6 @@
             return conditionalStatement;
         }
 
-
         /// <summary>
         /// Rewrites the given continue statement.
         /// </summary>
@@ -236,7 +211,6 @@
         {
             return continueStatement;
         }
-
 
         /// <summary>
         /// Rewrites the given conversion expression.
@@ -247,7 +221,6 @@
             return conversion;
         }
 
-
         /// <summary>
         /// Rewrites the given copy memory statement.
         /// </summary>
@@ -256,7 +229,6 @@
         {
             return copyMemoryStatement;
         }
-
 
         /// <summary>
         /// Rewrites the given array creation expression.
@@ -267,7 +239,6 @@
             return createArray;
         }
 
-
         /// <summary>
         /// Rewrites the anonymous object creation expression.
         /// </summary>
@@ -276,7 +247,6 @@
         {
             return createDelegateInstance;
         }
-
 
         /// <summary>
         /// Rewrites the given constructor call expression.
@@ -287,7 +257,6 @@
             return createObjectInstance;
         }
 
-
         /// <summary>
         /// Rewrites the given debugger break statement.
         /// </summary>
@@ -296,7 +265,6 @@
         {
             return debuggerBreakStatement;
         }
-
 
         /// <summary>
         /// Rewrites the given defalut value expression.
@@ -307,7 +275,6 @@
             return defaultValue;
         }
 
-
         /// <summary>
         /// Rewrites the given division expression.
         /// </summary>
@@ -316,7 +283,6 @@
         {
             return division;
         }
-
 
         /// <summary>
         /// Rewrites the given do until statement.
@@ -327,7 +293,6 @@
             return doUntilStatement;
         }
 
-
         /// <summary>
         /// Rewrites the given dup value expression.
         /// </summary>
@@ -336,7 +301,6 @@
         {
             return dupValue;
         }
-
 
         /// <summary>
         /// Rewrites the given empty statement.
@@ -347,7 +311,6 @@
             return emptyStatement;
         }
 
-
         /// <summary>
         /// Rewrites the given equality expression.
         /// </summary>
@@ -356,7 +319,6 @@
         {
             return equality;
         }
-
 
         /// <summary>
         /// Rewrites the given exclusive or expression.
@@ -367,7 +329,6 @@
             return exclusiveOr;
         }
 
-
         /// <summary>
         /// Rewrites the given expression.
         /// </summary>
@@ -376,7 +337,6 @@
         {
             return expression;
         }
-
 
         /// <summary>
         /// Rewrites the given expression statement.
@@ -387,7 +347,6 @@
             return expressionStatement;
         }
 
-
         /// <summary>
         /// Rewrites the given fill memory statement.
         /// </summary>
@@ -396,7 +355,6 @@
         {
             return fillMemoryStatement;
         }
-
 
         /// <summary>
         /// Rewrites the given foreach statement.
@@ -407,7 +365,6 @@
             return forEachStatement;
         }
 
-
         /// <summary>
         /// Rewrites the given for statement.
         /// </summary>
@@ -416,7 +373,6 @@
         {
             return forStatement;
         }
-
 
         /// <summary>
         /// Rewrites the given get type of typed reference expression.
@@ -427,7 +383,6 @@
             return getTypeOfTypedReference;
         }
 
-
         /// <summary>
         /// Rewrites the given get value of typed reference expression.
         /// </summary>
@@ -436,7 +391,6 @@
         {
             return getValueOfTypedReference;
         }
-
 
         /// <summary>
         /// Rewrites the given goto statement.
@@ -447,7 +401,6 @@
             return gotoStatement;
         }
 
-
         /// <summary>
         /// Rewrites the given goto switch case statement.
         /// </summary>
@@ -456,7 +409,6 @@
         {
             return gotoSwitchCaseStatement;
         }
-
 
         /// <summary>
         /// Rewrites the given greater-than expression.
@@ -467,7 +419,6 @@
             return greaterThan;
         }
 
-
         /// <summary>
         /// Rewrites the given greater-than-or-equal expression.
         /// </summary>
@@ -476,7 +427,6 @@
         {
             return greaterThanOrEqual;
         }
-
 
         /// <summary>
         /// Rewrites the given labeled statement.
@@ -487,7 +437,6 @@
             return labeledStatement;
         }
 
-
         /// <summary>
         /// Rewrites the given left shift expression.
         /// </summary>
@@ -496,7 +445,6 @@
         {
             return leftShift;
         }
-
 
         /// <summary>
         /// Rewrites the given less-than expression.
@@ -507,7 +455,6 @@
             return lessThan;
         }
 
-
         /// <summary>
         /// Rewrites the given less-than-or-equal expression.
         /// </summary>
@@ -516,7 +463,6 @@
         {
             return lessThanOrEqual;
         }
-
 
         /// <summary>
         /// Rewrites the given local declaration statement.
@@ -527,7 +473,6 @@
             return localDeclarationStatement;
         }
 
-
         /// <summary>
         /// Rewrites the given lock statement.
         /// </summary>
@@ -536,7 +481,6 @@
         {
             return lockStatement;
         }
-
 
         /// <summary>
         /// Rewrites the given logical not expression.
@@ -547,7 +491,6 @@
             return logicalNot;
         }
 
-
         /// <summary>
         /// Rewrites the given make typed reference expression.
         /// </summary>
@@ -556,7 +499,6 @@
         {
             return makeTypedReference;
         }
-
 
         /// <summary>
         /// Rewrites the the given method body.
@@ -567,7 +509,6 @@
             return methodBody;
         }
 
-
         /// <summary>
         /// Rewrites the given method call.
         /// </summary>
@@ -576,7 +517,6 @@
         {
             return methodCall;
         }
-
 
         /// <summary>
         /// Rewrites the given modulus expression.
@@ -587,7 +527,6 @@
             return modulus;
         }
 
-
         /// <summary>
         /// Rewrites the given multiplication expression.
         /// </summary>
@@ -596,7 +535,6 @@
         {
             return multiplication;
         }
-
 
         /// <summary>
         /// Rewrites the given named argument expression.
@@ -607,7 +545,6 @@
             return namedArgument;
         }
 
-
         /// <summary>
         /// Rewrites the given not equality expression.
         /// </summary>
@@ -616,7 +553,6 @@
         {
             return notEquality;
         }
-
 
         /// <summary>
         /// Rewrites the given old value expression.
@@ -627,7 +563,6 @@
             return oldValue;
         }
 
-
         /// <summary>
         /// Rewrites the given one's complement expression.
         /// </summary>
@@ -636,7 +571,6 @@
         {
             return onesComplement;
         }
-
 
         /// <summary>
         /// Rewrites the given out argument expression.
@@ -647,7 +581,6 @@
             return outArgument;
         }
 
-
         /// <summary>
         /// Rewrites the given pointer call.
         /// </summary>
@@ -656,7 +589,6 @@
         {
             return pointerCall;
         }
-
 
         /// <summary>
         /// Rewrites the given pop value expression.
@@ -667,7 +599,6 @@
             return popValue;
         }
 
-
         /// <summary>
         /// Rewrites the given push statement.
         /// </summary>
@@ -676,7 +607,6 @@
         {
             return pushStatement;
         }
-
 
         /// <summary>
         /// Rewrites the given ref argument expression.
@@ -687,7 +617,6 @@
             return refArgument;
         }
 
-
         /// <summary>
         /// Rewrites the given resource usage statement.
         /// </summary>
@@ -696,7 +625,6 @@
         {
             return resourceUseStatement;
         }
-
 
         /// <summary>
         /// Rewrites the rethrow statement.
@@ -707,7 +635,6 @@
             return rethrowStatement;
         }
 
-
         /// <summary>
         /// Rewrites the return statement.
         /// </summary>
@@ -716,7 +643,6 @@
         {
             return returnStatement;
         }
-
 
         /// <summary>
         /// Rewrites the given return value expression.
@@ -727,7 +653,6 @@
             return returnValue;
         }
 
-
         /// <summary>
         /// Rewrites the given right shift expression.
         /// </summary>
@@ -736,7 +661,6 @@
         {
             return rightShift;
         }
-
 
         /// <summary>
         /// Rewrites the given runtime argument handle expression.
@@ -747,7 +671,6 @@
             return runtimeArgumentHandleExpression;
         }
 
-
         /// <summary>
         /// Rewrites the given sizeof(); expression.
         /// </summary>
@@ -756,7 +679,6 @@
         {
             return sizeOf;
         }
-
 
         /// <summary>
         /// Rewrites the given stack array create expression.
@@ -767,7 +689,6 @@
             return stackArrayCreate;
         }
 
-
         /// <summary>
         /// Rewrites the the given source method body.
         /// </summary>
@@ -776,7 +697,6 @@
         {
             return sourceMethodBody;
         }
-
 
         /// <summary>
         /// Rewrites the specified statement.
@@ -787,7 +707,6 @@
             return statement;
         }
 
-
         /// <summary>
         /// Rewrites the given subtraction expression.
         /// </summary>
@@ -796,7 +715,6 @@
         {
             return subtraction;
         }
-
 
         /// <summary>
         /// Rewrites the given switch case.
@@ -807,7 +725,6 @@
             return switchCase;
         }
 
-
         /// <summary>
         /// Rewrites the given switch statement.
         /// </summary>
@@ -816,7 +733,6 @@
         {
             return switchStatement;
         }
-
 
         /// <summary>
         /// Rewrites the given target expression.
@@ -827,7 +743,6 @@
             return targetExpression;
         }
 
-
         /// <summary>
         /// Rewrites the given this reference expression.
         /// </summary>
@@ -836,7 +751,6 @@
         {
             return thisReference;
         }
-
 
         /// <summary>
         /// Rewrites the throw statement.
@@ -847,7 +761,6 @@
             return throwStatement;
         }
 
-
         /// <summary>
         /// Rewrites the given tokenof(); expression.
         /// </summary>
@@ -856,7 +769,6 @@
         {
             return tokenOf;
         }
-
 
         /// <summary>
         /// Rewrites the try-catch-filter-finally statement.
@@ -867,7 +779,6 @@
             return tryCatchFilterFinallyStatement;
         }
 
-
         /// <summary>
         /// Rewrites the given typeof(); expression.
         /// </summary>
@@ -876,7 +787,6 @@
         {
             return typeOf;
         }
-
 
         /// <summary>
         /// Rewrites the given unary negation expression.
@@ -887,7 +797,6 @@
             return unaryNegation;
         }
 
-
         /// <summary>
         /// Rewrites the given unary plus expression.
         /// </summary>
@@ -896,7 +805,6 @@
         {
             return unaryPlus;
         }
-
 
         /// <summary>
         /// Rewrites the given vector length expression.
@@ -907,7 +815,6 @@
             return vectorLength;
         }
 
-
         /// <summary>
         /// Rewrites the given while do statement.
         /// </summary>
@@ -916,7 +823,6 @@
         {
             return whileDoStatement;
         }
-
 
         /// <summary>
         /// Rewrites the given yield break statement.
@@ -927,7 +833,6 @@
             return yieldBreakStatement;
         }
 
-
         /// <summary>
         /// Rewrites the given yield return statement.
         /// </summary>
@@ -936,7 +841,6 @@
         {
             return yieldReturnStatement;
         }
-
 
         /// <summary>
         /// Rewrites the given list of catch clauses.
@@ -947,7 +851,6 @@
             return catchClauses;
         }
 
-
         /// <summary>
         /// Rewrites the given list of expressions.
         /// </summary>
@@ -956,7 +859,6 @@
         {
             return expressions;
         }
-
 
         /// <summary>
         /// Rewrites the given list of switch cases.
@@ -967,7 +869,6 @@
             return switchCases;
         }
 
-
         /// <summary>
         /// Rewrites the given list of statements.
         /// </summary>
@@ -977,7 +878,6 @@
             return statements;
         }
 
-
         /// <summary>
         /// Rewrites the alias for type
         /// </summary>
@@ -985,7 +885,6 @@
         {
             return aliasForType;
         }
-
 
         /// <summary>
         /// Rewrites the alias for type member.
@@ -995,7 +894,6 @@
             return aliasMember;
         }
 
-
         /// <summary>
         /// Rewrites the array type reference.
         /// </summary>
@@ -1003,7 +901,6 @@
         {
             return arrayTypeReference;
         }
-
 
         /// <summary>
         /// Rewrites the given assembly.
@@ -1013,7 +910,6 @@
             return assembly;
         }
 
-
         /// <summary>
         /// Rewrites the given assembly reference.
         /// </summary>
@@ -1021,7 +917,6 @@
         {
             return assemblyReference;
         }
-
 
         /// <summary>
         /// Rewrites the given custom attribute.
@@ -1031,7 +926,6 @@
             return customAttribute;
         }
 
-
         /// <summary>
         /// Rewrites the given custom modifier.
         /// </summary>
@@ -1039,7 +933,6 @@
         {
             return customModifier;
         }
-
 
         /// <summary>
         /// Rewrites the given event definition.
@@ -1049,7 +942,6 @@
             return eventDefinition;
         }
 
-
         /// <summary>
         /// Rewrites the given field definition.
         /// </summary>
@@ -1057,7 +949,6 @@
         {
             return fieldDefinition;
         }
-
 
         /// <summary>
         /// Rewrites the given field reference.
@@ -1067,7 +958,6 @@
             return fieldReference;
         }
 
-
         /// <summary>
         /// Rewrites the reference to a local definition.
         /// </summary>
@@ -1075,7 +965,6 @@
         {
             return localDefinition;
         }
-
 
         /// <summary>
         /// Rewrites the reference to a parameter.
@@ -1085,7 +974,6 @@
             return parameterDefinition;
         }
 
-
         /// <summary>
         /// Rewrites the given field reference.
         /// </summary>
@@ -1093,7 +981,6 @@
         {
             return fieldReference;
         }
-
 
         /// <summary>
         /// Rewrites the given file reference.
@@ -1103,7 +990,6 @@
             return fileReference;
         }
 
-
         /// <summary>
         /// Rewrites the given function pointer type reference.
         /// </summary>
@@ -1111,7 +997,6 @@
         {
             return functionPointerTypeReference;
         }
-
 
         /// <summary>
         /// Rewrites the given generic method instance reference.
@@ -1122,7 +1007,6 @@
             return genericMethodInstanceReference;
         }
 
-
         /// <summary>
         /// Rewrites the given generic method parameter reference.
         /// </summary>
@@ -1130,7 +1014,6 @@
         {
             return genericMethodParameter;
         }
-
 
         /// <summary>
         /// Rewrites the given generic method parameter reference.
@@ -1140,7 +1023,6 @@
             return genericMethodParameterReference;
         }
 
-
         /// <summary>
         /// Rewrites the given generic type instance reference.
         /// </summary>
@@ -1148,7 +1030,6 @@
         {
             return genericTypeInstanceReference;
         }
-
 
         /// <summary>
         /// Rewrites the given generic type parameter reference.
@@ -1158,7 +1039,6 @@
             return genericTypeParameter;
         }
 
-
         /// <summary>
         /// Rewrites the given generic type parameter reference.
         /// </summary>
@@ -1166,7 +1046,6 @@
         {
             return genericTypeParameterReference;
         }
-
 
         /// <summary>
         /// Rewrites the specified global field definition.
@@ -1176,7 +1055,6 @@
             return globalFieldDefinition;
         }
 
-
         /// <summary>
         /// Rewrites the specified global method definition.
         /// </summary>
@@ -1184,7 +1062,6 @@
         {
             return globalMethodDefinition;
         }
-
 
         /// <summary>
         /// Rewrites the specified local definition.
@@ -1194,7 +1071,6 @@
             return localDefinition;
         }
 
-
         /// <summary>
         /// Rewrites the given managed pointer type reference.
         /// </summary>
@@ -1202,7 +1078,6 @@
         {
             return managedPointerTypeReference;
         }
-
 
         /// <summary>
         /// Rewrites the given marshalling information.
@@ -1212,7 +1087,6 @@
             return marshallingInformation;
         }
 
-
         /// <summary>
         /// Rewrites the given metadata constant.
         /// </summary>
@@ -1220,7 +1094,6 @@
         {
             return constant;
         }
-
 
         /// <summary>
         /// Rewrites the given metadata array creation expression.
@@ -1230,7 +1103,6 @@
             return metadataCreateArray;
         }
 
-
         /// <summary>
         /// Rewrites the given metadata expression.
         /// </summary>
@@ -1238,7 +1110,6 @@
         {
             return metadataExpression;
         }
-
 
         /// <summary>
         /// Rewrites the given metadata named argument expression.
@@ -1248,7 +1119,6 @@
             return namedArgument;
         }
 
-
         /// <summary>
         /// Rewrites the given metadata typeof expression.
         /// </summary>
@@ -1256,7 +1126,6 @@
         {
             return metadataTypeOf;
         }
-
 
         /// <summary>
         /// Rewrites the given method definition.
@@ -1266,7 +1135,6 @@
             return method;
         }
 
-
         /// <summary>
         /// Rewrites the given method implementation.
         /// </summary>
@@ -1274,7 +1142,6 @@
         {
             return methodImplementation;
         }
-
 
         /// <summary>
         /// Rewrites the given method reference.
@@ -1284,7 +1151,6 @@
             return methodReference;
         }
 
-
         /// <summary>
         /// Rewrites the given method reference.
         /// </summary>
@@ -1292,7 +1158,6 @@
         {
             return methodReference;
         }
-
 
         /// <summary>
         /// Rewrites the given modified type reference.
@@ -1302,7 +1167,6 @@
             return modifiedTypeReference;
         }
 
-
         /// <summary>
         /// Rewrites the given module.
         /// </summary>
@@ -1310,7 +1174,6 @@
         {
             return module;
         }
-
 
         /// <summary>
         /// Rewrites the given module reference.
@@ -1320,7 +1183,6 @@
             return moduleReference;
         }
 
-
         /// <summary>
         /// Rewrites the named specified type reference.
         /// </summary>
@@ -1328,7 +1190,6 @@
         {
             return namedTypeDefinition;
         }
-
 
         /// <summary>
         /// Rewrites the named specified type reference.
@@ -1338,7 +1199,6 @@
             return typeReference;
         }
 
-
         /// <summary>
         /// Rewrites the namespace alias for type.
         /// </summary>
@@ -1346,7 +1206,6 @@
         {
             return namespaceAliasForType;
         }
-
 
         /// <summary>
         /// Rewrites the namespace definition.
@@ -1356,7 +1215,6 @@
             return namespaceDefinition;
         }
 
-
         /// <summary>
         /// Rewrites the specified namespace member.
         /// </summary>
@@ -1364,7 +1222,6 @@
         {
             return namespaceMember;
         }
-
 
         /// <summary>
         /// Rewrites the given namespace type definition.
@@ -1374,7 +1231,6 @@
             return namespaceTypeDefinition;
         }
 
-
         /// <summary>
         /// Rewrites the given namespace type reference.
         /// </summary>
@@ -1382,7 +1238,6 @@
         {
             return namespaceTypeReference;
         }
-
 
         /// <summary>
         /// Rewrites the nested alias for type
@@ -1392,7 +1247,6 @@
             return nestedAliasForType;
         }
 
-
         /// <summary>
         /// Rewrites the given nested type definition.
         /// </summary>
@@ -1400,7 +1254,6 @@
         {
             return namespaceTypeDefinition;
         }
-
 
         /// <summary>
         /// Rewrites the given namespace type reference.
@@ -1410,7 +1263,6 @@
             return nestedTypeReference;
         }
 
-
         /// <summary>
         /// Rewrites the given namespace type reference.
         /// </summary>
@@ -1418,7 +1270,6 @@
         {
             return nestedTypeReference;
         }
-
 
         /// <summary>
         /// Rewrites the specified nested unit namespace.
@@ -1428,7 +1279,6 @@
             return nestedUnitNamespace;
         }
 
-
         /// <summary>
         /// Rewrites the specified reference to a nested unit namespace.
         /// </summary>
@@ -1437,7 +1287,6 @@
             return nestedUnitNamespaceReference;
         }
 
-
         /// <summary>
         /// Rewrites the specified operation.
         /// </summary>
@@ -1445,7 +1294,6 @@
         {
             return operation;
         }
-
 
         /// <summary>
         /// Rewrites the specified operation exception information.
@@ -1456,7 +1304,6 @@
             return operationExceptionInformation;
         }
 
-
         /// <summary>
         /// Rewrites the given parameter definition.
         /// </summary>
@@ -1464,7 +1311,6 @@
         {
             return parameterDefinition;
         }
-
 
         /// <summary>
         /// Rewrites the given parameter type information.
@@ -1474,7 +1320,6 @@
             return parameterTypeInformation;
         }
 
-
         /// <summary>
         /// Rewrites the given PE section.
         /// </summary>
@@ -1482,7 +1327,6 @@
         {
             return peSection;
         }
-
 
         /// <summary>
         /// Rewrites the specified platform invoke information.
@@ -1492,7 +1336,6 @@
             return platformInvokeInformation;
         }
 
-
         /// <summary>
         /// Rewrites the given pointer type reference.
         /// </summary>
@@ -1500,7 +1343,6 @@
         {
             return pointerTypeReference;
         }
-
 
         /// <summary>
         /// Rewrites the given property definition.
@@ -1510,7 +1352,6 @@
             return propertyDefinition;
         }
 
-
         /// <summary>
         /// Rewrites the given reference to a manifest resource.
         /// </summary>
@@ -1518,7 +1359,6 @@
         {
             return resourceReference;
         }
-
 
         /// <summary>
         /// Rewrites the given root unit namespace.
@@ -1528,7 +1368,6 @@
             return rootUnitNamespace;
         }
 
-
         /// <summary>
         /// Rewrites the given reference to a root unit namespace.
         /// </summary>
@@ -1536,7 +1375,6 @@
         {
             return rootUnitNamespaceReference;
         }
-
 
         /// <summary>
         /// Rewrites the given security attribute.
@@ -1546,7 +1384,6 @@
             return securityAttribute;
         }
 
-
         /// <summary>
         /// Rewrites the given specialized field reference.
         /// </summary>
@@ -1554,7 +1391,6 @@
         {
             return specializedFieldReference;
         }
-
 
         /// <summary>
         /// Rewrites the given specialized method reference.
@@ -1564,7 +1400,6 @@
             return specializedMethodReference;
         }
 
-
         /// <summary>
         /// Rewrites the given specialized nested type reference.
         /// </summary>
@@ -1572,7 +1407,6 @@
         {
             return specializedNestedTypeReference;
         }
-
 
         /// <summary>
         /// Rewrites the given type definition.
@@ -1582,7 +1416,6 @@
             return typeDefinition;
         }
 
-
         /// <summary>
         /// Rewrites the specified type member.
         /// </summary>
@@ -1590,7 +1423,6 @@
         {
             return typeMember;
         }
-
 
         /// <summary>
         /// Rewrites the specified type reference.
@@ -1600,7 +1432,6 @@
             return typeReference;
         }
 
-
         /// <summary>
         /// Rewrites the specified unit.
         /// </summary>
@@ -1608,7 +1439,6 @@
         {
             return unit;
         }
-
 
         /// <summary>
         /// Rewrites the specified unit namespace.
@@ -1618,7 +1448,6 @@
             return unitNamespace;
         }
 
-
         /// <summary>
         /// Rewrites the specified reference to a unit namespace.
         /// </summary>
@@ -1626,7 +1455,6 @@
         {
             return unitNamespaceReference;
         }
-
 
         /// <summary>
         /// Rewrites the specified unit reference.
@@ -1636,7 +1464,6 @@
             return unitReference;
         }
 
-
         /// <summary>
         /// Rewrites the given Win32 resource.
         /// </summary>
@@ -1644,7 +1471,6 @@
         {
             return win32Resource;
         }
-
 
         /// <summary>
         /// Rewrites the list of aliases for types.
@@ -1654,7 +1480,6 @@
             return aliasesForTypes;
         }
 
-
         /// <summary>
         /// Rewrites the list of members of a type alias.
         /// </summary>
@@ -1662,7 +1487,6 @@
         {
             return aliasMembers;
         }
-
 
         /// <summary>
         /// Rewrites the specified assembly references.
@@ -1672,7 +1496,6 @@
             return assemblyReferences;
         }
 
-
         /// <summary>
         /// Rewrites the specified custom attributes.
         /// </summary>
@@ -1680,7 +1503,6 @@
         {
             return customAttributes;
         }
-
 
         /// <summary>
         /// Rewrites the specified custom modifiers.
@@ -1690,7 +1512,6 @@
             return customModifiers;
         }
 
-
         /// <summary>
         /// Rewrites the specified events.
         /// </summary>
@@ -1698,7 +1519,6 @@
         {
             return events;
         }
-
 
         /// <summary>
         /// Rewrites the specified fields.
@@ -1708,7 +1528,6 @@
             return fields;
         }
 
-
         /// <summary>
         /// Rewrites the specified file references.
         /// </summary>
@@ -1716,7 +1535,6 @@
         {
             return fileReferences;
         }
-
 
         /// <summary>
         /// Rewrites the specified generic parameters.
@@ -1726,7 +1544,6 @@
             return genericParameters;
         }
 
-
         /// <summary>
         /// Rewrites the specified generic parameters.
         /// </summary>
@@ -1734,7 +1551,6 @@
         {
             return genericParameters;
         }
-
 
         /// <summary>
         /// Rewrites the specified local definitions.
@@ -1744,7 +1560,6 @@
             return localDefinitions;
         }
 
-
         /// <summary>
         /// Rewrites the specified expressions.
         /// </summary>
@@ -1752,7 +1567,6 @@
         {
             return expressions;
         }
-
 
         /// <summary>
         /// Rewrites the specified named arguments.
@@ -1762,7 +1576,6 @@
             return namedArguments;
         }
 
-
         /// <summary>
         /// Rewrites the specified methods.
         /// </summary>
@@ -1770,7 +1583,6 @@
         {
             return methods;
         }
-
 
         /// <summary>
         /// Rewrites the specified method implementations.
@@ -1780,7 +1592,6 @@
             return methodImplementations;
         }
 
-
         /// <summary>
         /// Rewrites the specified method references.
         /// </summary>
@@ -1788,7 +1599,6 @@
         {
             return methodReferences;
         }
-
 
         /// <summary>
         /// Rewrites the specified modules.
@@ -1798,7 +1608,6 @@
             return modules;
         }
 
-
         /// <summary>
         /// Rewrites the specified module references.
         /// </summary>
@@ -1806,7 +1615,6 @@
         {
             return moduleReferences;
         }
-
 
         /// <summary>
         /// Rewrites the specified types.
@@ -1816,7 +1624,6 @@
             return types;
         }
 
-
         /// <summary>
         /// Rewrites the specified namespace members.
         /// </summary>
@@ -1824,7 +1631,6 @@
         {
             return namespaceMembers;
         }
-
 
         /// <summary>
         /// Rewrites the specified nested types.
@@ -1834,7 +1640,6 @@
             return nestedTypes;
         }
 
-
         /// <summary>
         /// Rewrites the specified operations.
         /// </summary>
@@ -1842,7 +1647,6 @@
         {
             return operations;
         }
-
 
         /// <summary>
         /// Rewrites the specified operation exception informations.
@@ -1853,7 +1657,6 @@
             return operationExceptionInformations;
         }
 
-
         /// <summary>
         /// Rewrites the specified parameters.
         /// </summary>
@@ -1861,7 +1664,6 @@
         {
             return parameters;
         }
-
 
         /// <summary>
         /// Rewrites the specified parameter type informations.
@@ -1872,7 +1674,6 @@
             return parameterTypeInformations;
         }
 
-
         /// <summary>
         /// Rewrites the specified PE sections.
         /// </summary>
@@ -1880,7 +1681,6 @@
         {
             return peSections;
         }
-
 
         /// <summary>
         /// Rewrites the specified properties.
@@ -1890,7 +1690,6 @@
             return properties;
         }
 
-
         /// <summary>
         /// Rewrites the specified resource references.
         /// </summary>
@@ -1899,7 +1698,6 @@
             return resourceReferences;
         }
 
-
         /// <summary>
         /// Rewrites the specified security attributes.
         /// </summary>
@@ -1907,7 +1705,6 @@
         {
             return securityAttributes;
         }
-
 
         /// <summary>
         /// Rewrites the specified type members.
@@ -1918,7 +1715,6 @@
             return typeMembers;
         }
 
-
         /// <summary>
         /// Rewrites the specified type references.
         /// </summary>
@@ -1926,7 +1722,6 @@
         {
             return typeReferences;
         }
-
 
         /// <summary>
         /// Rewrites the specified type references.

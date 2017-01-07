@@ -4,7 +4,6 @@
     using System.Diagnostics;
     using System.Linq;
     using System.Reflection;
-    using Extensibility;
     using log4net;
     using Microsoft.Cci;
     using UsefulTools.ExtensionMethods;
@@ -12,7 +11,6 @@
     public class AstProcessor
     {
         private ILog _log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-
 
         protected readonly IDictionary<object, AstDescriptor> AllAstIndices;
         public IDictionary<AstDescriptor, object> AllAstObjects;
@@ -32,32 +30,29 @@
             _traversedModule = module;
             _currentDescriptor = new AstDescriptor(0);
         }
+
         public bool IsCurrentlyProcessed(object obj)
         {
             return obj == _currentNode.Object;
         }
+
         public void Process<T>(T obj)
         {
-            
-            _currentNode = new AstNode(CreateProcessingContext<T>(),obj);//new AstNode(new AstDescriptor(TreeObjectsCounter), obj);
+            _currentNode = new AstNode(CreateProcessingContext<T>(), obj);//new AstNode(new AstDescriptor(TreeObjectsCounter), obj);
             if (!AllAstIndices.ContainsKey(obj))
             {
                 AllAstIndices.Add(obj, GetDescriptorForCurrent());
-               
             }
             AllAstObjects.Add(GetDescriptorForCurrent(), obj);
             AllNodes.Add(_currentNode);
             _currentDescriptor = _currentDescriptor.Increment();
-
         }
 
         public void TypeEnter(INamespaceTypeDefinition namespaceTypeDefinition)
         {
-            
             _currentDescriptor = _currentDescriptor.GoDown();
-         //   _log.Debug("Going down on "+new TypeIdentifier(namespaceTypeDefinition)+" - "+_currentDescriptor);
+            //   _log.Debug("Going down on "+new TypeIdentifier(namespaceTypeDefinition)+" - "+_currentDescriptor);
             _currentTypeNode = new AstNode(_currentNode.Context, namespaceTypeDefinition);
-            
         }
 
         public void TypeExit(INamespaceTypeDefinition namespaceTypeDefinition)
@@ -65,30 +60,33 @@
             _currentTypeNode = null;
             _currentDescriptor = _currentDescriptor.GoUp();
         }
+
         public void MethodEnter(IMethodDefinition method)
         {
             _currentDescriptor = _currentDescriptor.GoDown();
-         //   _log.Debug("Going down on " + new MethodIdentifier(method) + " - " + _currentDescriptor);
+            //   _log.Debug("Going down on " + new MethodIdentifier(method) + " - " + _currentDescriptor);
             _currentMethodNode = new AstNode(_currentNode.Context, method);
-          
         }
 
         public void MethodExit(IMethodDefinition method)
         {
             _currentMethodNode = null;
-              _currentDescriptor = _currentDescriptor.GoUp();
+            _currentDescriptor = _currentDescriptor.GoUp();
         }
+
         public void MethodBodyEnter(ISourceMethodBody method)
         {
             _currentBody = method;
             _currentDescriptor = _currentDescriptor.GoDown();
         }
+
         public AstDescriptor MethodBodyExit(ISourceMethodBody method)
         {
             _currentBody = null;
             _currentDescriptor = _currentDescriptor.GoUp();
             return _currentDescriptor;
         }
+
         public AstDescriptor GetDescriptorForCurrent()
         {
             return _currentDescriptor; //_currentNode.Context.Descriptor;
@@ -109,7 +107,7 @@
             if (mutationTarget.ProcessingContext != null &&
                 mutationTarget.ProcessingContext.ModuleName == _traversedModule.Name.Value)
             {
-                var type = (INamespaceTypeDefinition) AllAstObjects[
+                var type = (INamespaceTypeDefinition)AllAstObjects[
                     mutationTarget.ProcessingContext.Type.Context.Descriptor];
                 mutationTarget.NamespaceName = type.ContainingUnitNamespace.Name.Value;
                 mutationTarget.TypeName = type.Name.Value;
@@ -118,18 +116,19 @@
 
         public AstNode PostProcessBack(MutationTarget mutationTarget)
         {
-            if( mutationTarget.ProcessingContext.ModuleName != _traversedModule.Name.Value)
+            if (mutationTarget.ProcessingContext.ModuleName != _traversedModule.Name.Value)
             {
                 return null;
             }
             //Are we processing an object corresponding to any mutation target?
-        //    var target = _mutationTargets.SingleOrDefault(t => t.CounterValue == TreeObjectsCounter);
+            //    var target = _mutationTargets.SingleOrDefault(t => t.CounterValue == TreeObjectsCounter);
             AstNode node;
-            if(mutationTarget.ProcessingContext != null)
-            {if(!AllAstObjects.ContainsKey(mutationTarget.ProcessingContext.Descriptor))
+            if (mutationTarget.ProcessingContext != null)
+            {
+                if (!AllAstObjects.ContainsKey(mutationTarget.ProcessingContext.Descriptor))
                 {
-                    _log.Error("No object: "+ mutationTarget.ProcessingContext.Descriptor);
-                    _log.Error("All objects: "+ AllAstObjects.Keys.Select(_=>_.ToString()).Aggregate((a,b) => a + "\n"+b));
+                    _log.Error("No object: " + mutationTarget.ProcessingContext.Descriptor);
+                    _log.Error("All objects: " + AllAstObjects.Keys.Select(_ => _.ToString()).Aggregate((a, b) => a + "\n" + b));
                     Debugger.Break();
                 }
                 node = new AstNode(mutationTarget.ProcessingContext,
@@ -139,7 +138,7 @@
             {
                 node = new AstNode(new ProcessingContext(), new AstDescriptor());
             }
-            
+
             if (mutationTarget.ProcessingContext != null && mutationTarget.ProcessingContext.ModuleName == _traversedModule.Name.Value)
             {
                 //TODO: do better. now they can be null for changeless mutant
@@ -191,15 +190,13 @@
         public ProcessingContext CreateProcessingContext<T>()
         {
             return new ProcessingContext()
-                   {
-                       Descriptor = _currentDescriptor,
-                       Method = _currentMethodNode,
-                       Type = _currentTypeNode,
-                       CallTypeName = typeof(T).Name,
-                       ModuleName = _traversedModule.Name.Value,
-                   };
+            {
+                Descriptor = _currentDescriptor,
+                Method = _currentMethodNode,
+                Type = _currentTypeNode,
+                CallTypeName = typeof(T).Name,
+                ModuleName = _traversedModule.Name.Value,
+            };
         }
-
-
     }
 }

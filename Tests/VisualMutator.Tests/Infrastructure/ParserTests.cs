@@ -8,7 +8,7 @@
     public class ParserTests
     {
         [Test]
-         public void TestOptions()
+        public void TestOptions()
         {
             var opt = new OptionsModel();
             opt.OtherParams = "--debugfiles true --nunitnetversion net40 --loglevel INFO";

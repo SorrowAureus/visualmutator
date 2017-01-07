@@ -9,7 +9,7 @@
     using Microsoft.Cci.MutableCodeModel;
     using UsefulTools.ExtensionMethods;
 
-    public class OMR_OverloadingMethodContentsChange  : IMutationOperator
+    public class OMR_OverloadingMethodContentsChange : IMutationOperator
     {
         protected static readonly ILog _log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
@@ -20,6 +20,7 @@
                 return new OperatorInfo("OMR", "Overloading method contents change", "");
             }
         }
+
         public static string GetMethodSignatureString(IMethodDefinition method)
         {
             return null;
@@ -35,6 +36,7 @@
 
                 return methodsInThisType.ToList();
             }
+
             public override void Visit(IMethodBody body)
             {
                 var method = body.MethodDefinition;
@@ -44,25 +46,20 @@
                 var compatibileMethods = methods.Where(m => m.Parameters
                     .All(p => method.Parameters.Any(p2 => p2.Type == p.Type))).ToList();
 
-                if(compatibileMethods.Count != 0)
+                if (compatibileMethods.Count != 0)
                 {
-              
                     MarkMutationTarget(body, compatibileMethods.First().ToString().InList());
                 }
-  
             }
-
-          
         }
 
         public class OMRRewriter : OperatorCodeRewriter
         {
-
             public override IMethodBody Rewrite(IMethodBody body)
             {
                 var method = body.MethodDefinition;
                 _log.Info("Rewriting IMethodBody of: " + method + " Pass: " + MutationTarget.PassInfo);
-     
+
                 var newBody = new SourceMethodBody(Host)
                 {
                     MethodDefinition = method,
@@ -73,20 +70,20 @@
 
                 var replacement = method.ContainingTypeDefinition.Methods.Single(m => m.ToString() == MutationTarget.PassInfo);
                 var methodCall = new MethodCall
-                    {
-                        MethodToCall = replacement,
-                        Type = replacement.Type,
-                        ThisArgument = new ThisReference() {Type = method.ContainingTypeDefinition}
-                    };
+                {
+                    MethodToCall = replacement,
+                    Type = replacement.Type,
+                    ThisArgument = new ThisReference() { Type = method.ContainingTypeDefinition }
+                };
                 foreach (var param in replacement.Parameters)
                 {
                     methodCall.Arguments.Add(new BoundExpression()
-                        {
-                            Definition = method.Parameters
+                    {
+                        Definition = method.Parameters
                                 .First(p =>
                                     ((INamedTypeReference)p.Type).Name.Value ==
                                     ((INamedTypeReference)param.Type).Name.Value)
-                        });
+                    });
                     //  methodCall.Arguments.Add(method.Parameters.First(p => new ));
                 }
 
@@ -104,30 +101,22 @@
                     {
                         Expression = methodCall
                     });
-                   
                 }
-        
+
                 return newBody;
             }
         }
 
-     
+        private OMRVisitor visitor = new OMRVisitor();
 
-   
-
-        OMRVisitor visitor = new OMRVisitor();
         public IOperatorCodeVisitor CreateVisitor()
         {
             return visitor;
-
         }
 
         public IOperatorCodeRewriter CreateRewriter()
         {
             return new OMRRewriter();
         }
-
-
-
     }
 }

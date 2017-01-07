@@ -6,11 +6,17 @@
     public interface IWhiteSource
     {
         Task Initialize();
+
         Task<List<CciModuleSource>> GetWhiteModulesAsync();
+
         void Dispose();
+
         void Pause(bool paused);
+
         Task<CciModuleSource> GetWhiteSourceAsync(string moduleName);
+
         void ReturnToCache(string name, CciModuleSource whiteModules);
+
         Task<List<CciModuleSource>> GetWhiteModulesAsyncOld();
     }
 }

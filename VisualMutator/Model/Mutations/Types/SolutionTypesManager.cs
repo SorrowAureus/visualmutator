@@ -4,18 +4,13 @@
 
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics;
     using System.Linq;
     using System.Reflection;
-    using System.Windows.Forms;
     using CoverageFinder;
-    using Exceptions;
     using Extensibility;
-    using Infrastructure;
     using log4net;
     using Microsoft.Cci;
     using MutantsTree;
-    using StoringMutants;
     using UsefulTools.CheckboxedTree;
     using UsefulTools.ExtensionMethods;
     using UsefulTools.Paths;
@@ -25,28 +20,30 @@
 
     public interface ITypesManager
     {
-
         bool IsAssemblyLoadError { get; set; }
 
         IList<AssemblyNode> CreateNodesFromAssemblies(List<CciModuleSource> modules,
             ICodePartsMatcher constraints);
+
         MutationFilter CreateFilterBasedOnSelection(ICollection<AssemblyNode> assemblies);
     }
+
     public static class Helpers
     {
         public static string GetTypeFullName(this INamespaceTypeReference t)
         {
             var nsPart = TypeHelper.GetNamespaceName(t.ContainingUnitNamespace, NameFormattingOptions.None);
-            var typePart = t.Name.Value + (t.MangleName ? "`"+t.GenericParameterCount : "");
+            var typePart = t.Name.Value + (t.MangleName ? "`" + t.GenericParameterCount : "");
             return nsPart + "." + typePart;
         }
     }
+
     public class SolutionTypesManager : ITypesManager
     {
         private readonly ILog _log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         public bool IsAssemblyLoadError { get; set; }
-   
+
         public SolutionTypesManager()
         {
         }
@@ -67,14 +64,12 @@
             var root = new RootNode();
             root.Children.AddRange(assemblyNodes);
             root.IsIncluded = true;
-           // root.Children[1].IsIncluded = false; //experiment toDel
+            // root.Children[1].IsIncluded = false; //experiment toDel
 
             return assemblyNodes;
         }
 
-     
-
-        public AssemblyNode CreateAssemblyNode(IModuleInfo module, 
+        public AssemblyNode CreateAssemblyNode(IModuleInfo module,
             ICodePartsMatcher matcher)
         {
             var assemblyNode = new AssemblyNode(module.Name);
@@ -83,7 +78,7 @@
             {
                 foreach (INamedTypeDefinition typeDefinition in leafTypes)
                 {
-                   // _log.Debug("For types: matching: ");
+                    // _log.Debug("For types: matching: ");
                     if (matcher.Matches(typeDefinition))
                     {
                         var type = new TypeNode(parent, typeDefinition.Name.Value);
@@ -101,7 +96,6 @@
             Func<INamedTypeDefinition, string> namespaceExtractor = typeDef =>
                 TypeHelper.GetDefiningNamespace(typeDef).Name.Value;
 
-
             NamespaceGrouper<INamespaceTypeDefinition, CheckedNode>.
                 GroupTypes(assemblyNode,
                     namespaceExtractor,
@@ -109,8 +103,7 @@
                     typeNodeCreator,
                         module.Module.GetAllTypes().ToList());
 
-
-            //remove empty amespaces. 
+            //remove empty amespaces.
             //TODO to refactor...
             List<TypeNamespaceNode> checkedNodes = assemblyNode.Children.OfType<TypeNamespaceNode>().ToList();
             foreach (TypeNamespaceNode node in checkedNodes)
@@ -119,6 +112,7 @@
             }
             return assemblyNode;
         }
+
         public void RemoveFromParentIfEmpty(MutationNode node)
         {
             var children = node.Children.ToList();
@@ -156,6 +150,5 @@
                        && !named.Name.Value.Contains("=");
             }
         }
-
     }
 }

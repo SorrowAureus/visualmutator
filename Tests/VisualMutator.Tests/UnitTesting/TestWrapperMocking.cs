@@ -2,8 +2,6 @@
 {
     #region
 
-    using System.Collections;
-    using Moq;
     using NUnit.Framework.Interfaces;
 
     #endregion
@@ -25,7 +23,6 @@
             //        FullName = parentFixture.TestName.FullName,
             //        Name = parentFixture.TestName.Name,
             //    };
-
 
             //m.Setup(_ => _.TestName).Returns(tn);
             //m.Setup(_ => _.Parent.TestName).Returns(ptn);
@@ -49,7 +46,6 @@
             //        Name = namespaceName
             //    };
 
-
             //m.Setup(_ => _.TestName).Returns(tn);
             //m.Setup(_ => _.Parent.TestName).Returns(ptn);
             //m.Setup(_ => _.Tests).Returns(new ArrayList());
@@ -57,15 +53,15 @@
             //return m.Object;
         }
 
-      /*  public static Mock<INUnitWrapper> MockNUnitWrapperForLoad(out List<ITest> testClasses)
-        {
-            var wrapperMock = new Mock<INUnitWrapper>();
+        /*  public static Mock<INUnitWrapper> MockNUnitWrapperForLoad(out List<ITest> testClasses)
+          {
+              var wrapperMock = new Mock<INUnitWrapper>();
 
-            var list = new List<ITest>();
-            wrapperMock.Setup(_ => _.TestLoaded).Returns(list.ToObservable<ITest>());
-            wrapperMock.Setup(_ => _.TestLoadFailed).Returns(new List<Exception>().ToObservable());
-            testClasses = list;
-            return wrapperMock;
-        }*/
+              var list = new List<ITest>();
+              wrapperMock.Setup(_ => _.TestLoaded).Returns(list.ToObservable<ITest>());
+              wrapperMock.Setup(_ => _.TestLoadFailed).Returns(new List<Exception>().ToObservable());
+              testClasses = list;
+              return wrapperMock;
+          }*/
     }
 }

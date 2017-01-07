@@ -1,7 +1,6 @@
 ﻿namespace VisualMutator.Model.Tests
 {
     using System.Collections.Generic;
-    using System.Diagnostics;
     using System.IO;
     using System.Linq;
     using System.Reflection;
@@ -16,7 +15,6 @@
         private readonly TestServiceManager _testServiceManager;
         private readonly ILog _log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
-
         public TestsLoader(TestServiceManager testServiceManager)
         {
             _testServiceManager = testServiceManager;
@@ -24,11 +22,10 @@
 
         public async Task<TestsRootNode> LoadTests(IList<string> assembliesPaths)
         {
-            _log.Info("Loading tests from: "+string.Join(",", assembliesPaths));
+            _log.Info("Loading tests from: " + string.Join(",", assembliesPaths));
             var tasks = new Dictionary<string, Task<May<TestNodeAssembly>>>();
             var testsRootNode = new TestsRootNode();
 
-            
             foreach (var path in assembliesPaths)
             {
                 string path1 = path;
@@ -38,16 +35,13 @@
 
                 var task = LoadFor(path1, testNodeAssembly);
                 tasks.Add(path, task);
-
             }
             var assemblies = await Task.WhenAll(tasks.Values);
-            
+
             testsRootNode.Children.AddRange(assemblies.WhereHasValue());
             testsRootNode.State = TestNodeState.Inactive;
             testsRootNode.IsIncluded = true;
             return testsRootNode;
-            
-
         }
 
         private async Task<May<TestNodeAssembly>> LoadFor(string path1, TestNodeAssembly testNodeAssembly)
@@ -72,7 +66,7 @@
 
             //                        else return result.Result.Bind(context =>
             //                        {
-            //                          //  
+            //                          //
             //
             //                            IEnumerable<TestNodeNamespace> testNamespaces =
             //                                GroupTestClasses(context.ClassNodes, testNodeAssembly);
@@ -81,8 +75,5 @@
             //                            return new May<TestNodeAssembly>(testNodeAssembly);
             //                        });
         }
-
-
-        
     }
 }

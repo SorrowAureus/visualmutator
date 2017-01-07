@@ -1,27 +1,19 @@
 ﻿namespace VisualMutator.Tests.Mutations
 {
-    using System;
     using System.IO;
     using System.Linq;
-    using System.Threading.Tasks;
-    using Infrastructure;
     using Model.StoringMutants;
-    using Moq;
     using Ninject;
-    using Ninject.Modules;
-    using Ninject.Syntax;
     using NUnit.Framework;
     using SoftwareApproach.TestingExtensions;
     using UsefulTools.Paths;
     using Util;
     using VisualMutator.Infrastructure;
-    using VisualMutator.Infrastructure.NinjectModules;
 
     [TestFixture]
     public class WhiteCacheIntTests
     {
         private StandardKernel _kernel;
-
 
         [SetUp]
         public void Setup()
@@ -59,11 +51,5 @@
             b.Modules.Count.ShouldEqual(1);
             c.Modules.Count.ShouldEqual(1);
         }
-
-
-
     }
-
-
-   
 }

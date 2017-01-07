@@ -16,7 +16,6 @@
             Bind<IMutationsTreeView>().ToMethod(c => new Mock<IMutationsTreeView>().Object);
             Bind<ITypesTreeView>().ToMethod(c => new Mock<ITypesTreeView>().Object);
             Bind<IOptionsView>().ToMethod(c => new Mock<IOptionsView>().Object);
-
         }
     }
 }

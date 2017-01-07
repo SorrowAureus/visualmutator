@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
-    using System.Linq;
     using System.Management;
     using System.Reflection;
     using System.Security;
@@ -16,12 +15,18 @@
     public interface IProcesses
     {
         Task<ProcessResults> RunHiddenAsync(string path, string args);
-         Task<ProcessResults> RunAsync(ProcessStartInfo processStartInfo);
-         Task<ProcessResults> RunAsync(string fileName);
-         Task<ProcessResults> RunAsync(ProcessStartInfo processStartInfo, CancellationTokenSource cancellationToken);
-         Task<ProcessResults> RunAsync(string fileName, string arguments);
-         Task<ProcessResults> RunAsync(string fileName, string userName, SecureString password, string domain);
-         Task<ProcessResults> RunAsync(string fileName, string arguments, string userName, SecureString password, string domain);
+
+        Task<ProcessResults> RunAsync(ProcessStartInfo processStartInfo);
+
+        Task<ProcessResults> RunAsync(string fileName);
+
+        Task<ProcessResults> RunAsync(ProcessStartInfo processStartInfo, CancellationTokenSource cancellationToken);
+
+        Task<ProcessResults> RunAsync(string fileName, string arguments);
+
+        Task<ProcessResults> RunAsync(string fileName, string userName, SecureString password, string domain);
+
+        Task<ProcessResults> RunAsync(string fileName, string arguments, string userName, SecureString password, string domain);
     }
 
     public class Processes : IProcesses
@@ -34,6 +39,7 @@
         {
             return ProcessEx.RunAsync(processStartInfo);
         }
+
         public Task<ProcessResults> RunHiddenAsync(string path, string args)
         {
             var startInfo = new ProcessStartInfo
@@ -68,7 +74,6 @@
             return ProcessEx.RunAsync(fileName, arguments, userName, password, domain);
         }
 
-
         public Task<ProcessResults> RunAsync(ProcessStartInfo processStartInfo, CancellationTokenSource cancellationToken)
         {
             processStartInfo.UseShellExecute = false;
@@ -102,7 +107,6 @@
                 }
             };
 
-            
             cancellationToken.Token.ThrowIfCancellationRequested();
 
             _log.Debug("Registering cancellation for " + cancellationToken.GetHashCode());
@@ -113,11 +117,10 @@
                 KillProcessAndChildren(process.Id);
             });
 
-
-               process.Exited += (sender, args) =>
-               {
-                   tcs.TrySetResult(new ProcessResults(process, standardOutput.ToArray(), standardError.ToArray()));
-               };
+            process.Exited += (sender, args) =>
+            {
+                tcs.TrySetResult(new ProcessResults(process, standardOutput.ToArray(), standardError.ToArray()));
+            };
 
             if (process.Start() == false)
             {
@@ -129,7 +132,6 @@
 
             return tcs.Task;
         }
-
 
         private static void KillProcessAndChildren(int pid)
         {

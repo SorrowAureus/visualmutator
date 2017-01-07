@@ -1,15 +1,8 @@
 ﻿namespace VisualMutator.Tests.UnitTesting
 {
-    using System.Collections.Generic;
-    using System.Collections.ObjectModel;
-    using System.Linq;
-    using Model.Tests;
-    using Model.Tests.TestsTree;
-
     #region
 
     using NUnit.Framework;
-    using SoftwareApproach.TestingExtensions;
 
     #endregion
 
@@ -20,10 +13,7 @@
         {
         }
 
-
-
         /*
-
 
         [Test]
         public void LoadingTests()
@@ -140,8 +130,6 @@
 
             methods.Count.ShouldEqual(0);
         }
-
-
 
        // [Test]
         public void Wrapper()

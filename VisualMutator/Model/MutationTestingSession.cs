@@ -3,19 +3,13 @@
     #region
 
     using System.Collections.Generic;
-    using System.Collections.ObjectModel;
-    using Extensibility;
-    using Infrastructure;
     using Mutations;
-    using Mutations.MutantsTree;
     using Mutations.Types;
-    using StoringMutants;
 
     #endregion
 
     public class MutationTestingSession
     {
-
         public MutationTestingSession()
         {
             MutantsGrouped = new List<AssemblyNode>();

@@ -1,11 +1,10 @@
 ﻿namespace VisualMutator.Model.Mutations
 {
-    using System.Reflection.Emit;
-
     public interface IAstDescriptor
     {
         bool IsContainedIn(AstDescriptor another);
     }
+
     public struct DummyDescriptor : IAstDescriptor
     {
         public bool Equals(DummyDescriptor other)
@@ -16,7 +15,7 @@
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
-            return obj is DummyDescriptor && Equals((DummyDescriptor) obj);
+            return obj is DummyDescriptor && Equals((DummyDescriptor)obj);
         }
 
         public override int GetHashCode()
@@ -55,11 +54,13 @@
             _significant = significant;
             _index = index;
         }
+
         public AstDescriptor(int index)
         {
             _significant = new DummyDescriptor();
             _index = index;
         }
+
         public bool Equals(AstDescriptor other)
         {
             return _significant.Equals(other._significant) && _index == other._index;
@@ -68,14 +69,14 @@
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
-            return obj is AstDescriptor && Equals((AstDescriptor) obj);
+            return obj is AstDescriptor && Equals((AstDescriptor)obj);
         }
 
         public override int GetHashCode()
         {
             unchecked
             {
-                return (_significant.GetHashCode()*1397) ^ _index;
+                return (_significant.GetHashCode() * 1397) ^ _index;
             }
         }
 
@@ -96,16 +97,17 @@
 
         public override string ToString()
         {
-           return _significant + string.Format("->{0}", _index);
+            return _significant + string.Format("->{0}", _index);
         }
 
         public AstDescriptor GoDown()
         {
             return new AstDescriptor(this, 0);
         }
+
         public AstDescriptor GoUp()
         {
-            return (AstDescriptor) _significant;
+            return (AstDescriptor)_significant;
         }
 
         public AstDescriptor Increment()

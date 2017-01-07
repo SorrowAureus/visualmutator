@@ -15,6 +15,7 @@
     {
         Visibility Visibility { set; }
     }
+
     public partial class MutationResultsView : UserControl, IMutationResultsView
     {
         public MutationResultsView()
@@ -28,15 +29,11 @@
             vm.SelectedMutationTreeItem = e.NewValue;
         }
 
-
-
         private void MenuItemMessage_Click(object sender, RoutedEventArgs e)
         {
-
             string message = ((Mutant)Tree.SelectedItem).MutantTestSession.Exception.ToString();
             MessageBox.Show(message);
         }
-
 
         private void trv_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -71,17 +68,15 @@
                     markEquivalent.Visibility = Visibility.Collapsed;
                     unmarkEquivalent.Visibility = Visibility.Collapsed;
                 }
-
             }
             catch
             {
-                
             }
         }
 
         private void MenuItemMarkEquivalent_Click(object sender, RoutedEventArgs e)
         {
-            var mutant = ((Mutant) Tree.SelectedItem);
+            var mutant = ((Mutant)Tree.SelectedItem);
             mutant.IsEquivalent = true;
         }
 
@@ -91,7 +86,4 @@
             mutant.IsEquivalent = false;
         }
     }
-
-   
-
 }

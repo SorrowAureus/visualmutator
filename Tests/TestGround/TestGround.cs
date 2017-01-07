@@ -6,7 +6,7 @@
     {
         public int AdditionOrSubstraction(int a, int b, bool condition)
         {
-            if(condition)
+            if (condition)
             {
                 return a + b;
             }
@@ -16,11 +16,11 @@
             }
         }
 
-
         public override int Something(int x)
         {
             return x + 5;
         }
+
         public static int FailOnZero(int x)
         {
             if (x == 0)
@@ -50,16 +50,17 @@
         }
 
         public virtual int Something(int x)
-         {
-             if (x > 10)
-             {
-                 return x + y;
-             }
-             else
-             {
-                 return y + 5;
-             }
-         }
+        {
+            if (x > 10)
+            {
+                return x + y;
+            }
+            else
+            {
+                return y + 5;
+            }
+        }
+
         public int Something2(int x)
         {
             return -x;

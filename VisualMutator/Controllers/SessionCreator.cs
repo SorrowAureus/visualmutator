@@ -10,11 +10,8 @@
     using Model.CoverageFinder;
     using Model.Mutations.Operators;
     using Model.Mutations.Types;
-    using Model.StoringMutants;
-    using Model.Tests.TestsTree;
     using UsefulTools.CheckboxedTree;
     using UsefulTools.Core;
-    using UsefulTools.ExtensionMethods;
 
     public class SessionCreator
     {
@@ -38,8 +35,6 @@
 
         public Subject<object> Events { get; set; }
 
-       
-
         public async Task<OperatorPackagesRoot> GetOperators()
         {
             try
@@ -53,12 +48,8 @@
                 throw;
             }
             //Events.OnNext(root);
-            
         }
 
-       
-
-       
         public async Task<List<AssemblyNode>> BuildAssemblyTree(Task<List<CciModuleSource>> assembliesTask,
             bool constrainedMutation, ICodePartsMatcher matcher)
         {
@@ -72,7 +63,7 @@
                 root.Children.AddRange(assemblies);
                 TreeUtils.ExpandLoneNodes(root);
             }
-            if(assemblies.Count == 0)
+            if (assemblies.Count == 0)
             {
                 throw new InvalidOperationException(UserMessages.ErrorNoFilesToMutate());
             }
@@ -80,9 +71,5 @@
             return assemblies;
             //Events.OnNext(assemblies);
         }
-
-      
-
-
     }
 }

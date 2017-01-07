@@ -17,10 +17,9 @@
                 return new OperatorInfo("ROR", "Relational operator replacement", "");
             }
         }
+
         public class RORVisitor : OperatorCodeVisitor
         {
-            
-      
             private void ProcessOperation<T>(T operation) where T : IBinaryOperation
             {
                 var operandTypeCode = operation.LeftOperand.Type.TypeCode;
@@ -35,9 +34,8 @@
                 // float less, greater
                 // bool, object: equals, ne
 
-
-                if (operandTypeCode.IsIn(PrimitiveTypeCode.Boolean, 
-                    PrimitiveTypeCode.NotPrimitive, PrimitiveTypeCode.Char, 
+                if (operandTypeCode.IsIn(PrimitiveTypeCode.Boolean,
+                    PrimitiveTypeCode.NotPrimitive, PrimitiveTypeCode.Char,
                     PrimitiveTypeCode.Reference, PrimitiveTypeCode.String))
                 {
                     passes.AddRange("Equality", "NotEquality");
@@ -49,7 +47,6 @@
                     passes.AddRange("Equality", "NotEquality");
                 }
                 passes = passes.Where(elem => elem != operation.GetType().Name).ToList();
-             
 
                 MarkMutationTarget(operation, passes);
             }
@@ -58,30 +55,35 @@
             {
                 ProcessOperation(operation);
             }
+
             public override void Visit(IGreaterThan operation)
             {
                 ProcessOperation(operation);
             }
+
             public override void Visit(IGreaterThanOrEqual operation)
             {
                 ProcessOperation(operation);
             }
+
             public override void Visit(ILessThanOrEqual operation)
             {
                 ProcessOperation(operation);
             }
+
             public override void Visit(IEquality operation)
             {
                 ProcessOperation(operation);
             }
+
             public override void Visit(INotEquality operation)
             {
                 ProcessOperation(operation);
             }
         }
+
         public class RORRewriter : OperatorCodeRewriter
         {
-           
             private IExpression ReplaceOperation<T>(T operation) where T : IBinaryOperation
             {
                 var replacement = Switch.Into<Expression>()
@@ -92,8 +94,8 @@
                     .Case("LessThanOrEqual", new LessThanOrEqual())
                     .Case("Equality", new Equality())
                     .Case("NotEquality", new NotEquality())
-                    .Case("True", new CompileTimeConstant{Value = true})
-                    .Case("False", new CompileTimeConstant{Value = false})
+                    .Case("True", new CompileTimeConstant { Value = true })
+                    .Case("False", new CompileTimeConstant { Value = false })
                     .GetResult();
                 replacement.Type = Host.PlatformType.SystemBoolean;
                 var binary = replacement as BinaryOperation;
@@ -108,32 +110,37 @@
 
                 return replacement;
             }
+
             public override IExpression Rewrite(ILessThan operation)
             {
                 return ReplaceOperation(operation);
             }
+
             public override IExpression Rewrite(IGreaterThan operation)
             {
                 return ReplaceOperation(operation);
             }
+
             public override IExpression Rewrite(ILessThanOrEqual operation)
             {
                 return ReplaceOperation(operation);
             }
+
             public override IExpression Rewrite(IGreaterThanOrEqual operation)
             {
                 return ReplaceOperation(operation);
             }
+
             public override IExpression Rewrite(IEquality operation)
             {
                 return ReplaceOperation(operation);
             }
+
             public override IExpression Rewrite(INotEquality operation)
             {
                 return ReplaceOperation(operation);
             }
         }
-        
 
         public IOperatorCodeVisitor CreateVisitor()
         {

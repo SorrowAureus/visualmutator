@@ -7,6 +7,7 @@
         Stop,
         SaveResults
     }
+
     public class ControlEvent
     {
         private readonly ControlEventType _type;

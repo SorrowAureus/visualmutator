@@ -12,7 +12,6 @@
     {
         protected static readonly ILog _log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
-
         public OperatorInfo Info
         {
             get
@@ -20,7 +19,6 @@
                 return new OperatorInfo("ISD", "Base keyword deletion", "");
             }
         }
-      
 
         public class ISDVisitor : OperatorCodeVisitor
         {
@@ -31,41 +29,32 @@
                 {
                     var method = call.MethodToCall.ResolvedMethod;
                     if (method.IsVirtual && !Parent.CurrentMethod.IsNewSlot
-                     && method.Name.Value == Parent.CurrentMethod.Name.Value )
+                     && method.Name.Value == Parent.CurrentMethod.Name.Value)
                     {//
-                  //  && Parent.CurrentMethod.ContainingTypeDefinition.BaseClasses
-                  //      .Any(c => c.ResolvedType == method.ContainingTypeDefinition)
+                     //  && Parent.CurrentMethod.ContainingTypeDefinition.BaseClasses
+                     //      .Any(c => c.ResolvedType == method.ContainingTypeDefinition)
                         MarkMutationTarget(statement);
                     }
                 }
-                
             }
         }
 
         public class ISDRewriter : OperatorCodeRewriter
         {
-
             public override IStatement Rewrite(IExpressionStatement statement)
             {
-               
                 return new EmptyStatement();
-            } 
+            }
         }
-
 
         public IOperatorCodeVisitor CreateVisitor()
         {
             return new ISDVisitor();
-
         }
 
         public IOperatorCodeRewriter CreateRewriter()
         {
             return new ISDRewriter();
         }
-
-
-
-    
     }
 }

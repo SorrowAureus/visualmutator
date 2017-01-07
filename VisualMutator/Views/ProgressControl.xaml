@@ -6,29 +6,29 @@
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
 
-    <UserControl.Resources>
-        <Style TargetType="Grid" x:Key="FadeAnimation">
-            <Style.Triggers>
-                <DataTrigger Binding="{Binding ElementName=ProgressCtr, Path=Visibility}" Value="Visible">
-                    <DataTrigger.EnterActions>
-                        <BeginStoryboard>
-                            <Storyboard>
-                                <DoubleAnimation Storyboard.TargetProperty="Opacity"
+  <UserControl.Resources>
+    <Style TargetType="Grid" x:Key="FadeAnimation">
+      <Style.Triggers>
+        <DataTrigger Binding="{Binding ElementName=ProgressCtr, Path=Visibility}" Value="Visible">
+          <DataTrigger.EnterActions>
+            <BeginStoryboard>
+              <Storyboard>
+                <DoubleAnimation Storyboard.TargetProperty="Opacity"
                                                  From="0.0" To="1.0" Duration="0:0:0.5" />
-                            </Storyboard>
-                        </BeginStoryboard>
-                    </DataTrigger.EnterActions>
-                </DataTrigger>
-            </Style.Triggers>
-        </Style>
-    </UserControl.Resources>
+              </Storyboard>
+            </BeginStoryboard>
+          </DataTrigger.EnterActions>
+        </DataTrigger>
+      </Style.Triggers>
+    </Style>
+  </UserControl.Resources>
 
-    <Grid Style="{StaticResource FadeAnimation}">
-        <Border Background="#C0FFFFFF">
-            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                <TextBlock FontSize="14pt" Text="Loading..." />
-                <ProgressBar IsIndeterminate="True" Height="16" Margin="0, 4" />
-            </StackPanel>
-        </Border>
-    </Grid>
+  <Grid Style="{StaticResource FadeAnimation}">
+    <Border Background="#C0FFFFFF">
+      <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+        <TextBlock FontSize="14pt" Text="Loading..." />
+        <ProgressBar IsIndeterminate="True" Height="16" Margin="0, 4" />
+      </StackPanel>
+    </Border>
+  </Grid>
 </UserControl>

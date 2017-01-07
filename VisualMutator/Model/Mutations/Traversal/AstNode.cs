@@ -13,6 +13,7 @@
             get;
             private set;
         }
+
         public object Object { get; set; }
 
         public override string ToString()

@@ -5,21 +5,14 @@ namespace VisualMutator.Model.StoringMutants
     using System;
     using System.Collections.Concurrent;
     using System.Collections.Generic;
-    using System.Diagnostics;
-    using System.IO;
     using System.Linq;
     using System.Reflection;
-    using System.Text;
     using System.Threading;
-    using Exceptions;
-    using Extensibility;
     using Infrastructure;
     using log4net;
-    using stdole;
 
     public class WhiteCache : IDisposable, IWhiteSource
     {
-
         private class WhiteClient
         {
             private TaskCompletionSource<CciModuleSource> _tcs;
@@ -42,11 +35,12 @@ namespace VisualMutator.Model.StoringMutants
             }
         }
 
-
         private readonly IProjectClonesManager _fileManager;
         private readonly OptionsModel _options;
-       // private readonly BlockingCollection<CciModuleSource> _whiteCache;
+
+        // private readonly BlockingCollection<CciModuleSource> _whiteCache;
         private BlockingCollection<ProjectFilesClone> _paths;
+
         private readonly ILog _log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         private int _maxCount;
         private readonly ConcurrentQueue<WhiteClient> _clients;
@@ -78,7 +72,7 @@ namespace VisualMutator.Model.StoringMutants
             _clients = new ConcurrentQueue<WhiteClient>();
             _maxCount = maxCount;
             _initialMaxCount = maxCount;
-            _log.Debug("Whitecache Initializing with max count: "+ _initialMaxCount);
+            _log.Debug("Whitecache Initializing with max count: " + _initialMaxCount);
             _paths = new BlockingCollection<ProjectFilesClone>();
         }
 
@@ -88,8 +82,8 @@ namespace VisualMutator.Model.StoringMutants
             _paths = new BlockingCollection<ProjectFilesClone>();
             ProjectFilesClone[] projectFilesClones = await Task.WhenAll(
                 Enumerable.Range(0, _threadsCount)
-                .Select(i => _fileManager.CreateCloneAsync("WhiteCache-"+i)));
-            
+                .Select(i => _fileManager.CreateCloneAsync("WhiteCache-" + i)));
+
             _filesPool = projectFilesClones.ToList();
             foreach (var projectFilesClone in _filesPool)
             {
@@ -98,21 +92,20 @@ namespace VisualMutator.Model.StoringMutants
 
             ProjectFilesClone filesClone = _paths.Take();
 
-                _mainModules = Task.Run(() =>
+            _mainModules = Task.Run(() =>
+            {
+                _referenceStrings = new List<string>();
+                var task = filesClone.Assemblies.Select(a =>
                 {
-                    _referenceStrings = new List<string>();
-                    var task = filesClone.Assemblies.Select(a =>
-                    {
-                        var cci = new CciModuleSource(a.Path);
-                        cci.Guid = Guid.NewGuid();
-                        _log.Debug("Whitecache#" + a.FileName + ": Created initial source: "+cci.Guid);
-                        return cci;
-                    }).ToList();
+                    var cci = new CciModuleSource(a.Path);
+                    cci.Guid = Guid.NewGuid();
+                    _log.Debug("Whitecache#" + a.FileName + ": Created initial source: " + cci.Guid);
+                    return cci;
+                }).ToList();
 
-                    _paths.Add(filesClone);
-                    return task;
-                });
-            
+                _paths.Add(filesClone);
+                return task;
+            });
 
             new Thread(() =>
             {
@@ -120,18 +113,17 @@ namespace VisualMutator.Model.StoringMutants
                 {
                     InitializeModuleNames();
 
-
                     foreach (ProjectFilesClone item in _paths.GetConsumingEnumerable())
                     {
-                        lock(this)
+                        lock (this)
                         {
                             while (_whiteCaches.All(_ => _.Value.Count >= _maxCount) && !_paths.IsAddingCompleted)
                             {
                                 Monitor.Wait(this);
                             }
                         }
-                       
-                        if(_paths.IsAddingCompleted)
+
+                        if (_paths.IsAddingCompleted)
                         {
                             return;
                         }
@@ -150,7 +142,6 @@ namespace VisualMutator.Model.StoringMutants
                     _error = e;
                     _paths.CompleteAdding();
                 }
-
             }).Start();
         }
 
@@ -160,17 +151,16 @@ namespace VisualMutator.Model.StoringMutants
             foreach (var path in projectFilesClone.Assemblies)
             {
                 var cci = new CciModuleSource(path.Path);
-                
+
                 _moduleNameToFileName.Add(cci.Modules.Single().Name, path.FileName);
                 _fileNameToModuleName.Add(path.FileName, cci.Modules.Single().Name);
-                var queue = new BlockingCollection<CciModuleSource>(20) {cci};
+                var queue = new BlockingCollection<CciModuleSource>(20) { cci };
                 _whiteCaches.TryAdd(path.FileName, queue);
                 _log.Debug("Whitecache#" + PrintCacheState(path.FileName) + "Initializing module name.");
             }
             _paths.Add(projectFilesClone);
             _initialized = true;
             NotifyClients();
-            
         }
 
         private string PrintCacheState(string key)
@@ -181,7 +171,7 @@ namespace VisualMutator.Model.StoringMutants
             }
             else
             {
-                return "notfound: " + key+": ";
+                return "notfound: " + key + ": ";
             }
         }
 
@@ -192,11 +182,11 @@ namespace VisualMutator.Model.StoringMutants
                 if (whiteCach.Value.Count < _maxCount)
                 {
                     var guid = Guid.NewGuid();
-                    _log.Debug("Whitecache#"+ PrintCacheState(whiteCach.Key) + "Add started.");
+                    _log.Debug("Whitecache#" + PrintCacheState(whiteCach.Key) + "Add started.");
                     var filePath = item1.Assemblies.Single(_ => _.FileName == whiteCach.Key);
                     var cci = new CciModuleSource(filePath.Path);
                     cci.Guid = guid;
-                    
+
                     whiteCach.Value.Add(cci);
                     _log.Debug("Whitecache#" + PrintCacheState(whiteCach.Key) + "Add finished: " + guid);
                 }
@@ -206,7 +196,7 @@ namespace VisualMutator.Model.StoringMutants
         private void NotifyClients()
         {
             WhiteClient client;
-            if(_clients.TryDequeue(out client))
+            if (_clients.TryDequeue(out client))
             {
                 CciModuleSource cciModuleSource = TryTake(client.Key);
                 if (cciModuleSource != null)
@@ -220,11 +210,11 @@ namespace VisualMutator.Model.StoringMutants
                 }
             }
         }
+
         public Task<List<CciModuleSource>> GetWhiteModulesAsyncOld()
         {
             return Task.WhenAll(_whiteCaches.Select(wc => GetWhiteSourceAsync(_fileNameToModuleName[wc.Key])))
                 .ContinueWith(t => t.Result.ToList());
-
         }
 
         public Task<List<CciModuleSource>> GetWhiteModulesAsync()
@@ -234,7 +224,7 @@ namespace VisualMutator.Model.StoringMutants
 
         private CciModuleSource TryTake(string moduleName)
         {
-            if(!_initialized)
+            if (!_initialized)
             {
                 return null; //Not yet initialized
             }
@@ -252,7 +242,6 @@ namespace VisualMutator.Model.StoringMutants
             }
         }
 
-
         public void Pause(bool pause)
         {
             lock (this)
@@ -260,7 +249,7 @@ namespace VisualMutator.Model.StoringMutants
                 if (!pause)
                 {
                     _maxCount = _initialMaxCount;
-                    _log.Debug("Whitecache unpausing. Current count: "+ _initialMaxCount);
+                    _log.Debug("Whitecache unpausing. Current count: " + _initialMaxCount);
                     Pulse();
                 }
                 else
@@ -279,11 +268,10 @@ namespace VisualMutator.Model.StoringMutants
 
         public Task<CciModuleSource> GetWhiteSourceAsync(string moduleName)
         {
-            
             CciModuleSource cciModuleSource = TryTake(moduleName);
             if (cciModuleSource != null)
             {
-                _log.Debug("Whitecache#" + PrintCacheState(_moduleNameToFileName[moduleName]) + "Taken immediately: "+ cciModuleSource.Guid);
+                _log.Debug("Whitecache#" + PrintCacheState(_moduleNameToFileName[moduleName]) + "Taken immediately: " + cciModuleSource.Guid);
                 return Task.FromResult(cciModuleSource);
             }
             else
@@ -297,13 +285,11 @@ namespace VisualMutator.Model.StoringMutants
                 else
                 {
                     _clients.Enqueue(client);
-                    _log.Debug("Whitecache#"+ PrintCacheState(_moduleNameToFileName[moduleName]) +"Enqueued waiting client.");
+                    _log.Debug("Whitecache#" + PrintCacheState(_moduleNameToFileName[moduleName]) + "Enqueued waiting client.");
                 }
                 return client.Tcs.Task;
             }
         }
-
-       
 
         public void Dispose()
         {
@@ -315,6 +301,7 @@ namespace VisualMutator.Model.StoringMutants
             }
             Pulse();
         }
+
         private void Pulse()
         {
             lock (this)
@@ -323,5 +310,4 @@ namespace VisualMutator.Model.StoringMutants
             }
         }
     }
-
 }

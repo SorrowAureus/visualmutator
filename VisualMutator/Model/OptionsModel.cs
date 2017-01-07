@@ -1,15 +1,11 @@
 ﻿namespace VisualMutator.Model
 {
     using System;
-    using System.Linq;
-    using System.Reflection;
     using CommandLine;
-    using log4net;
     using UsefulTools.Core;
 
     public class OptionsModel : ModelElement
     {
-        
         public OptionsModel()
         {
             WhiteCacheThreadsCount = 2;
@@ -23,6 +19,7 @@
         }
 
         private bool _mutantsCacheEnabled;
+
         public bool MutantsCacheEnabled
         {
             get
@@ -34,8 +31,10 @@
                 SetAndRise(ref _mutantsCacheEnabled, value, () => MutantsCacheEnabled);
             }
         }
+
         //AKB
         private bool _useCodeCoverage;
+
         public bool UseCodeCoverage
         {
             get
@@ -49,6 +48,7 @@
         }
 
         private int _whiteCacheThreadsCount;
+
         public int WhiteCacheThreadsCount
         {
             get
@@ -60,7 +60,9 @@
                 SetAndRise(ref _whiteCacheThreadsCount, value, () => WhiteCacheThreadsCount);
             }
         }
+
         private int _processingThreadsCount;
+
         public int ProcessingThreadsCount
         {
             get
@@ -74,6 +76,7 @@
         }
 
         private int _maxNumerOfMutantPerOperator;
+
         public int MaxNumerOfMutantPerOperator
         {
             get
@@ -85,7 +88,9 @@
                 SetAndRise(ref _maxNumerOfMutantPerOperator, value, () => MaxNumerOfMutantPerOperator);
             }
         }
+
         private int _timeFactorForMutations;
+
         public int TimeFactorForMutations
         {
             get
@@ -112,6 +117,7 @@
                 SetAndRise(ref _mutationOrder, value, () => MutationOrder);
             }
         }
+
         //AKB
         private int _mutationOrder2;
 
@@ -123,9 +129,9 @@
             }
             set
             {
-                 SetAndRise(ref _mutationOrder2, value, () => MutationOrder2);
+                SetAndRise(ref _mutationOrder2, value, () => MutationOrder2);
             }
-        }   
+        }
 
         private string _otherParams;
 
@@ -142,6 +148,7 @@
         }
 
         private OtherParams _parsedParams;
+
         public OtherParams ParsedParams
         {
             set
@@ -150,7 +157,7 @@
             }
             get
             {
-                if(_parsedParams == null)
+                if (_parsedParams == null)
                 {
                     var options = new OtherParams();
                     if (Parser.Default.ParseArguments(OtherParams.Split(' '), options))
@@ -168,40 +175,41 @@
                 {
                     return _parsedParams;
                 }
-                
             }
         }
-       
-
     }
+
     public class OtherParams
     {
-
         [Option("loglevel", DefaultValue = "DEBUG", HelpText = "", Required = false)]
         public string LogLevel
         {
             get; set;
         }
-        [Option( "debugfiles", DefaultValue = false, HelpText = "", Required = false)]
+
+        [Option("debugfiles", DefaultValue = false, HelpText = "", Required = false)]
         public bool DebugFiles
         {
             get; set;
         }
-        [Option( "nunitnetversion", DefaultValue = "", HelpText = "", Required = false)]
+
+        [Option("nunitnetversion", DefaultValue = "", HelpText = "", Required = false)]
         public string NUnitNetVersion
         {
             get; set;
         }
+
         [Option("legacyCreation", DefaultValue = false, HelpText = "", Required = false)]
         public bool LegacyCreation
         {
             get; set;
         }
-//        [ParserState]
-//        public IParserState LastParserState
-//        {
-//            get; set;
-//        }
+
+        //        [ParserState]
+        //        public IParserState LastParserState
+        //        {
+        //            get; set;
+        //        }
 
         public override string ToString()
         {

@@ -37,30 +37,25 @@
         {
             string nsName = type.ContainingUnitNamespace.ResolvedUnitNamespace.ToString();
             _currentClass = new TestNodeClass(type.Name.Value)
-                            {
-                                Namespace = nsName
-
-                            };
+            {
+                Namespace = nsName
+            };
             _classes.Add(_currentClass);
         }
 
         public override void Visit(IMethodDefinition method)
         {
-           
             var methodd = method.Attributes.Any(a =>
             {
                 var attrType = a.Type as INamespaceTypeReference;
                 return attrType != null && attrType.GetTypeFullName().IsIn("Xunit.FactAttribute");
             }) ? method : null;
-            if(methodd != null && _currentClass != null) //TODO: nested types?
+            if (methodd != null && _currentClass != null) //TODO: nested types?
             {
-               
                 var unspecMethod = MemberHelper.UninstantiateAndUnspecialize(methodd);
                 var name = unspecMethod.Name.Value;
                 _currentClass.Children.Add(new TestNodeMethod(_currentClass, name));
             }
-            
         }
-
     }
 }

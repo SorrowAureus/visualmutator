@@ -26,7 +26,6 @@
 
         private readonly ISettingsManager _settingsManager;
 
-
         private readonly IEventService _eventService;
 
         private readonly ILog _log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
@@ -64,7 +63,7 @@
         {
             get
             {
-                return (UserControl) _mainController.ViewModel.View;
+                return (UserControl)_mainController.ViewModel.View;
             }
         }
 
@@ -84,7 +83,7 @@
         private void LocateNUnitConsole()
         {
             const string key = "NUnitConsoleDirPath";
-            if (!_settingsManager.ContainsKey(key) 
+            if (!_settingsManager.ContainsKey(key)
                 || !Directory.Exists(_settingsManager[key])
                  || !File.Exists(Path.Combine(_settingsManager[key], "nunit3-console.exe")))
             {
@@ -94,19 +93,19 @@
                 var nUnitConsoleDirPath = Path.Combine(localDir, "nunitconsole");
                 if (Directory.Exists(nUnitConsoleDirPath))
                 {
-                    Directory.Delete(nUnitConsoleDirPath, recursive:true);
+                    Directory.Delete(nUnitConsoleDirPath, recursive: true);
                 }
                 ZipFile.ExtractToDirectory(nUnitConsoleZipPath, localDir);
                 _settingsManager[key] = nUnitConsoleDirPath;
-                _log.Debug("New nunitconsole path set to: "+ nUnitConsoleDirPath);
+                _log.Debug("New nunitconsole path set to: " + nUnitConsoleDirPath);
             }
         }
 
         private void LocateXUnitConsole()
         {
             const string key = "XUnitConsoleDirPath";
-            if (!_settingsManager.ContainsKey(key) 
-                || !Directory.Exists(_settingsManager[key]) 
+            if (!_settingsManager.ContainsKey(key)
+                || !Directory.Exists(_settingsManager[key])
                 || !File.Exists(Path.Combine(_settingsManager[key], "xunit.console.exe")))
             {
                 var localDir = Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath);
@@ -140,9 +139,9 @@
         private void Current_DispatcherUnhandledException(
             object sender, DispatcherUnhandledExceptionEventArgs e)
         {
-          //  _messageService.ShowError(e.Exception.ToString());
-          //  e.Handled = true;
-            _log.Warn("Current_DispatcherUnhandledException: "+e.Exception.Message);
+            //  _messageService.ShowError(e.Exception.ToString());
+            //  e.Handled = true;
+            _log.Warn("Current_DispatcherUnhandledException: " + e.Exception.Message);
         }
 
         private void CurrentDomain_UnhandledException(
@@ -151,8 +150,6 @@
             var exception = (Exception)e.ExceptionObject;
             _log.Warn("CurrentDomain_UnhandledException: " + exception.Message);
             // _messageService.ShowError(exception.ToString());
-
         }
-
     }
 }

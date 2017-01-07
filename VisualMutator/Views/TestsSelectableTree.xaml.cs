@@ -9,8 +9,8 @@
 
     public interface ITestsSelectableTree : IView
     {
-         
     }
+
     public partial class TestsSelectableTree : UserControl, ITestsSelectableTree
     {
         public TestsSelectableTree()

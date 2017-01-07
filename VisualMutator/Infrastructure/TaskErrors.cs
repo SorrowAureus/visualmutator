@@ -10,13 +10,14 @@
 
         public static bool Check(Task task)
         {
-            if(task.Exception != null)
+            if (task.Exception != null)
             {
                 _log.Error(task.Exception);
                 return true;
             }
             return false;
         }
+
         public static Task LogErrors(this Task task)
         {
             return task.ContinueWith(r =>
@@ -27,6 +28,7 @@
                 }
             });
         }
+
         public static Task<T> LogErrors<T>(this Task<T> task)
         {
             return task.ContinueWith(r =>

@@ -4,34 +4,24 @@
 
     using System;
     using System.Collections.Generic;
-    using System.Linq;
     using System.Reflection;
     using System.Text;
-    using System.Threading.Tasks;
-    using DiffLib;
     using DiffPlex;
     using DiffPlex.DiffBuilder;
     using DiffPlex.DiffBuilder.Model;
     using log4net;
-    using Microsoft.Cci;
-    using Mutations;
-    using Mutations.MutantsTree;
-    using StoringMutants;
     using UsefulTools.Switches;
 
     #endregion
 
     public interface ICodeDifferenceCreator
     {
-
         CodeWithDifference GetDiff(CodeLanguage language, string originalCode, string mutatedCode);
     }
 
     public class CodeDifferenceCreator : ICodeDifferenceCreator
     {
         private readonly ILog _log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-
-
 
         public CodeDifferenceCreator()
         {
@@ -48,9 +38,7 @@
             };
         }
 
-     
-
-        private LineChange NewLineChange(LineChangeType type, 
+        private LineChange NewLineChange(LineChangeType type,
             StringBuilder diff, int startIndex, int endIndex)
         {
             string text = diff.ToString().Substring(startIndex, endIndex - startIndex - 2);
@@ -71,11 +59,10 @@
             //    new StringSimilarityComparer(),
             //    new StringAlignmentFilter());
 
-
-           int line1 = 0, line2 = 0;
+            int line1 = 0, line2 = 0;
 
             var list = new List<LineChange>();
-            foreach (var change in new InlineDiffBuilder(new Differ()).BuildDiffModel(input1,input2).Lines)
+            foreach (var change in new InlineDiffBuilder(new Differ()).BuildDiffModel(input1, input2).Lines)
             {
                 int startIndex = 0;
                 switch (change.Type)
@@ -85,6 +72,7 @@
                         diff.AppendFormat("  ");
                         diff.AppendLine(change.Text);
                         break;
+
                     case ChangeType.Inserted:
                         startIndex = diff.Length;
                         diff.AppendFormat("     {1,4}  +  ", line1, ++line2);
@@ -92,12 +80,14 @@
                         diff.AppendLine(change.Text);
                         list.Add(NewLineChange(LineChangeType.Add, diff, startIndex, diff.Length));
                         break;
+
                     case ChangeType.Deleted:
                         startIndex = diff.Length;
                         diff.AppendFormat("{0,4}       -  ", ++line1, line2);
                         diff.AppendLine(change.Text);
                         list.Add(NewLineChange(LineChangeType.Remove, diff, startIndex, diff.Length));
                         break;
+
                     case ChangeType.Modified:
                         startIndex = diff.Length;
                         diff.AppendFormat("{0,4}      ", ++line1, line2);
@@ -120,6 +110,5 @@
         {
             return input.Split(new[] { "\r\n", "\n\r", "\n", "\r" }, StringSplitOptions.None);
         }
-
     }
 }

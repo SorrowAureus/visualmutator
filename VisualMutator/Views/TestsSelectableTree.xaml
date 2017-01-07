@@ -9,56 +9,52 @@
              xmlns:ViewModels="clr-namespace:VisualMutator.ViewModels"
              xmlns:TestsTree="clr-namespace:VisualMutator.Model.Tests.TestsTree" mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid d:DataContext="{d:DesignInstance ViewModels:TestsSelectableTreeViewModel}">
-        <Grid.Resources>
-            <HierarchicalDataTemplate DataType="{x:Type TestsTree:TestNodeAssembly}"
+  <Grid d:DataContext="{d:DesignInstance ViewModels:TestsSelectableTreeViewModel}">
+    <Grid.Resources>
+      <HierarchicalDataTemplate DataType="{x:Type TestsTree:TestNodeAssembly}"
                                       ItemsSource="{Binding Path=Children}">
-                <DockPanel>
-                    <Image Source="Resources/assembly.png" />
-                    <CheckBox IsChecked="{Binding IsIncluded}" />
-                    <TextBlock Text="{Binding Name}" />
-                </DockPanel>
+        <DockPanel>
+          <Image Source="Resources/assembly.png" />
+          <CheckBox IsChecked="{Binding IsIncluded}" />
+          <TextBlock Text="{Binding Name}" />
+        </DockPanel>
+      </HierarchicalDataTemplate>
 
-            </HierarchicalDataTemplate>
-            
-            <HierarchicalDataTemplate DataType="{x:Type TestsTree:TestNodeNamespace}"
+      <HierarchicalDataTemplate DataType="{x:Type TestsTree:TestNodeNamespace}"
                                       ItemsSource="{Binding Path=Children}">
-                <DockPanel>
-                    <Image Source="Resources/namespace.png" />
-                    <CheckBox IsChecked="{Binding IsIncluded}" />
-                    <TextBlock Text="{Binding Name}" />
-                </DockPanel>
+        <DockPanel>
+          <Image Source="Resources/namespace.png" />
+          <CheckBox IsChecked="{Binding IsIncluded}" />
+          <TextBlock Text="{Binding Name}" />
+        </DockPanel>
+      </HierarchicalDataTemplate>
 
-            </HierarchicalDataTemplate>
+      <HierarchicalDataTemplate DataType="{x:Type TestsTree:TestNodeClass}" ItemsSource="{Binding Path=Children}">
+        <DockPanel>
+          <Image Source="Resources/type.png" />
+          <CheckBox IsChecked="{Binding IsIncluded}" />
+          <TextBlock Text="{Binding Name}" />
+        </DockPanel>
+      </HierarchicalDataTemplate>
 
-            <HierarchicalDataTemplate DataType="{x:Type TestsTree:TestNodeClass}" ItemsSource="{Binding Path=Children}">
-                <DockPanel>
-                    <Image Source="Resources/type.png" />
-                    <CheckBox IsChecked="{Binding IsIncluded}" />
-                    <TextBlock Text="{Binding Name}" />
-                </DockPanel>
+      <DataTemplate DataType="{x:Type TestsTree:TestNodeMethod}">
+        <DockPanel>
+          <Image Source="Resources/type.png" />
+          <CheckBox IsChecked="{Binding IsIncluded}" />
+          <TextBlock Text="{Binding Name}" />
+        </DockPanel>
+      </DataTemplate>
+    </Grid.Resources>
 
-            </HierarchicalDataTemplate>
+    <TreeView ItemsSource="{Binding TestAssemblies}">
+      <TreeView.ItemContainerStyle>
+        <Style TargetType="{x:Type TreeViewItem}">
+          <Setter Property="IsExpanded" Value="{Binding IsExpanded}" />
+        </Style>
+      </TreeView.ItemContainerStyle>
+    </TreeView>
 
-            <DataTemplate DataType="{x:Type TestsTree:TestNodeMethod}">
-                <DockPanel>
-                    <Image Source="Resources/type.png" />
-                    <CheckBox IsChecked="{Binding IsIncluded}" />
-                    <TextBlock Text="{Binding Name}" />
-                </DockPanel>
-            </DataTemplate>
-        </Grid.Resources>
-
-        <TreeView ItemsSource="{Binding TestAssemblies}">
-            <TreeView.ItemContainerStyle>
-                <Style TargetType="{x:Type TreeViewItem}">
-                    <Setter Property="IsExpanded" Value="{Binding IsExpanded}" />
-                </Style>
-            </TreeView.ItemContainerStyle>
-        </TreeView>
-
-        <Views:ProgressControl HorizontalAlignment="Center" VerticalAlignment="Center"
+    <Views:ProgressControl HorizontalAlignment="Center" VerticalAlignment="Center"
                                Visibility="{Binding TestAssemblies, Converter={Converters:NullToVisibilityConverter}}" />
-
-    </Grid>
+  </Grid>
 </UserControl>

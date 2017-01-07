@@ -8,7 +8,6 @@
     using System.Reactive.Linq;
     using System.Reactive.Subjects;
     using System.Reflection;
-    using System.Reflection.Emit;
     using System.Threading.Tasks;
     using Infrastructure;
     using log4net;
@@ -70,7 +69,7 @@
                 () => _viewModel.OperationsState.IsIn(OperationsState.None, OperationsState.Finished, OperationsState.Error))
                 .UpdateOnChanged(_viewModel, () => _viewModel.OperationsState);
 
-            _viewModel.CommandPause = new SmartCommand(PauseOperations, 
+            _viewModel.CommandPause = new SmartCommand(PauseOperations,
                 () => _viewModel.OperationsState.IsIn(OperationsState.Testing))
                 .UpdateOnChanged(_viewModel, () => _viewModel.OperationsState);
 
@@ -91,7 +90,6 @@
                 () => _viewModel.OperationsState.IsIn(OperationsState.None, OperationsState.Finished, OperationsState.Error))
                 .UpdateOnChanged(_viewModel, () => _viewModel.OperationsState);
             _viewModel.CommandTest = new SmartCommand(Test);
-
 
             _disp = new List<IDisposable>
                     {
@@ -125,7 +123,6 @@
                                 continuousConfigurator.CreateConfiguration();
                             }),
                     };
-
         }
 
         private void ShowOptions()
@@ -151,17 +148,17 @@
             }
         }
 
-        public async Task RunMutationSession(MethodIdentifier methodIdentifier = null, List<string> testAssemblies = null,  bool auto = false)
+        public async Task RunMutationSession(MethodIdentifier methodIdentifier = null, List<string> testAssemblies = null, bool auto = false)
         {
             //_host.Build();
             _log.Info("Showing mutation session window.");
 
             var continuousConfiguration = _continuousConfigurator.GetConfiguration();
             var sessionConfiguration = await Task.Run(() => continuousConfiguration.Get.CreateSessionConfiguration());
-            
+
             try
             {
-                IObjectRoot<SessionController> sessionController = 
+                IObjectRoot<SessionController> sessionController =
                     await sessionConfiguration.Get.CreateSession(methodIdentifier, testAssemblies, auto);
 
                 Clean();
@@ -188,13 +185,13 @@
                 _log.Info("Session creation cancelled.");
             }
         }
-       
-   
+
         public void PauseOperations()
         {
             SetState(OperationsState.Pausing);
             _controlSource.OnNext(new ControlEvent(ControlEventType.Pause));
         }
+
         public void ResumeOperations()
         {
             _controlSource.OnNext(new ControlEvent(ControlEventType.Resume));
@@ -203,8 +200,8 @@
         public void StopOperations()
         {
             _controlSource.OnNext(new ControlEvent(ControlEventType.Stop));
-
         }
+
         public void SaveResults()
         {
             _currentSessionController.Get.SaveResults();
@@ -235,7 +232,7 @@
             {
                 _currentSessionController.Get.MutantDetailsController.Clean();
             }
-            if (_subscriptions!=null)
+            if (_subscriptions != null)
             {
                 foreach (var subscription in _subscriptions)
                 {
@@ -245,12 +242,11 @@
             _currentSessionController = null;
             SetState(OperationsState.None);
         }
-        
+
         private void Test()
         {
             _host.Test();
         }
-
 
         private void SetState(OperationsState state)
         {
@@ -278,7 +274,7 @@
             _subscriptions = new List<IDisposable>
             {
                 sessionController.SessionEventsObservable.OfType<MinorSessionUpdateEventArgs>()
-                    .Where(e => e.EventType == OperationsState.Finished 
+                    .Where(e => e.EventType == OperationsState.Finished
                             || e.EventType == OperationsState.Error)
                     .Subscribe(args =>
                     {
@@ -300,9 +296,7 @@
                             })
                             .Case(ProgressUpdateMode.PreserveValue, ()=>
                             {
-                               
                             });
-                        
                     }),
 
                 events.OfType<MutationFinishedEventArgs>()
@@ -319,13 +313,12 @@
                  events.OfType<MutationScoreInfoEventArgs>()
                  .Subscribe(args =>
                  {
-            
                          if (args.NumberOfFirstOrderMutants!=0)
                          {
                             _viewModel.MutantsRatio = string.Format("Mutants killed: {0}/{1}(FOM:{2}) ", args.NumberOfMutantsKilled, args.NumberOfAllNonEquivalent, args.NumberOfFirstOrderMutants);
                          }
                          else
-                         { 
+                         {
                             _viewModel.MutantsRatio = string.Format("Mutants killed: {0}/{1}", args.NumberOfMutantsKilled, args.NumberOfAllNonEquivalent);
                          }
                          _viewModel.MutationScore = string.Format(@"Mutation score: {0}%", args.MutationScore.AsPercentageOf(1.0d));
@@ -337,8 +330,6 @@
                      {
                          _viewModel.MarkedEq = "";
                      }
-                  
-            
                  }),
                _viewModel.WhenPropertyChanged(vm => vm.SelectedMutationTreeItem).OfType<Mutant>()
                    .Subscribe(x =>
@@ -353,10 +344,8 @@
 
                 events.Subscribe((e) => { }, (e) => { }, () =>
                 {
-                    
                 }),
             };
-
         }
 
         public MainViewModel ViewModel
@@ -366,7 +355,6 @@
                 return _viewModel;
             }
         }
-
 
         public async Task SaveResultsAuto(string resultsPath)
         {

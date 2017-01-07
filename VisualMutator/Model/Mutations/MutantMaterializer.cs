@@ -3,7 +3,6 @@
     using System.IO;
     using System.Linq;
     using System.Threading.Tasks;
-    using Model;
     using Model.StoringMutants;
     using MutantsTree;
 
@@ -33,44 +32,42 @@
             var clone = await _clonesManager.CreateCloneAsync("InitTestEnvironment");
             var info = new StoredMutantInfo(clone);
 
-
             if (mutationResult.MutatedModules != null)
             {
                 //AKB
                 /*foreach (ICciModuleSource mutatedModule in mutationResult.MutatedModules)
                 {*/
                 var singleMutated = mutationResult.MutatedModules.Modules.SingleOrDefault();
-                    if (singleMutated != null)
+                if (singleMutated != null)
+                {
+                    //TODO: remove: assemblyDefinition.Name.Name + ".dll", use factual original file name
+                    string file = Path.Combine(info.Directory, singleMutated.Name + ".dll");
+                    //
+                    //                    var memory = mutationResult.MutatedModules.WriteToStream(singleMutated);
+                    //                    // _mutantsCache.Release(mutationResult);
+                    //
+                    //                    using (FileStream peStream = File.Create(file))
+                    //                    {
+                    //                        await memory.CopyToAsync(peStream);
+                    //                    }
+                    using (FileStream peStream = File.Create(file))
                     {
-                        //TODO: remove: assemblyDefinition.Name.Name + ".dll", use factual original file name
-                        string file = Path.Combine(info.Directory, singleMutated.Name + ".dll");
-                        //
-                        //                    var memory = mutationResult.MutatedModules.WriteToStream(singleMutated);
-                        //                    // _mutantsCache.Release(mutationResult);
-                        //
-                        //                    using (FileStream peStream = File.Create(file))
-                        //                    {
-                        //                        await memory.CopyToAsync(peStream);
-                        //                    }
-                        using (FileStream peStream = File.Create(file))
-                        {
+                        mutationResult.MutatedModules.WriteToStream(singleMutated, peStream, file);
 
-                            mutationResult.MutatedModules.WriteToStream(singleMutated, peStream, file);
-
-                            //  await memory.CopyToAsync(peStream);
-                        }
-
-                        info.AssembliesPaths.Add(file);
+                        //  await memory.CopyToAsync(peStream);
                     }
 
-                    var otherModules = _originalCodebase.Modules
-                        .Where(_ => singleMutated == null || _.Module.Name != singleMutated.Name);
+                    info.AssembliesPaths.Add(file);
+                }
 
-                    foreach (var otherModule in otherModules)
-                    {
-                        string file = Path.Combine(info.Directory, otherModule.Module.Name + ".dll");
-                        info.AssembliesPaths.Add(file);
-                    }
+                var otherModules = _originalCodebase.Modules
+                    .Where(_ => singleMutated == null || _.Module.Name != singleMutated.Name);
+
+                foreach (var otherModule in otherModules)
+                {
+                    string file = Path.Combine(info.Directory, otherModule.Module.Name + ".dll");
+                    info.AssembliesPaths.Add(file);
+                }
                 //}
             }
             else
@@ -80,7 +77,6 @@
                     var module = cciModuleSource.Modules.Single();
                     //TODO: remove: assemblyDefinition.Name.Name + ".dll", use factual original file name
                     string file = Path.Combine(info.Directory, module.Name + ".dll");
-
 
                     // _mutantsCache.Release(mutationResult);
 
@@ -93,7 +89,6 @@
                     info.AssembliesPaths.Add(file);
                 }
             }
-            
 
             return info;
         }

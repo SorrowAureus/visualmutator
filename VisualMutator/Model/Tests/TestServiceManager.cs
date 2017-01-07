@@ -8,7 +8,6 @@
 
     public class TestServiceManager
     {
-
         private readonly Dictionary<string, ITestsService> _services;
 
         public TestServiceManager(
@@ -22,19 +21,16 @@
                             nunit,
                             xunit
                         }.ToDictionary(s => s.FrameWorkName);
-
         }
 
-        public async Task<List<TestsLoadContext>>  LoadTests(string assemblyPath)
+        public async Task<List<TestsLoadContext>> LoadTests(string assemblyPath)
         {
             var r = await Task.WhenAll(_services.Values.Select(s => Task.Run(() => s.LoadTests(assemblyPath))));
             return r.Where(m => m.HasValue).Select(m => m.ForceGetValue()).ToList();
-              
         }
 
         public ITestsRunContext CreateRunContext(TestsLoadContext loadContext, string mutatedPath)
         {
-           
             return _services[loadContext.FrameworkName].CreateRunContext(loadContext, mutatedPath);
         }
     }

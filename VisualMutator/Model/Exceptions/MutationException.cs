@@ -10,7 +10,6 @@
     [Serializable]
     public class MutationException : Exception
     {
-      
         public MutationException()
         {
         }

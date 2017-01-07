@@ -4,20 +4,16 @@
 
     using System;
     using System.Linq;
-    using System.Windows.Input;
-    using Infrastructure;
     using UsefulTools.CheckboxedTree;
-    using UsefulTools.Wpf;
 
     #endregion
 
     public abstract class TestTreeNode : CheckedNode, IExpandableNode
     {
-   
         private TestNodeState _state;
 
         protected TestTreeNode(TestTreeNode parent, string name, bool hasChildren)
-            : base( name, hasChildren)
+            : base(name, hasChildren)
         {
             Parent = parent;
         }
@@ -51,7 +47,6 @@
 
                 if (updateChildren && Children != null)
                 {
-
                     if (!(value == TestNodeState.Inactive || value == TestNodeState.Running))
                     {
                         throw new InvalidOperationException("Tried to set invalid state: " + value);
@@ -61,13 +56,11 @@
                     {
                         child.SetStatus(value, updateChildren: true, updateParent: false);
                     }
-       
-                    
                 }
-                
+
                 if (updateParent && Parent != null)
                 {
-                    if (!(value == TestNodeState.Success || value == TestNodeState.Failure 
+                    if (!(value == TestNodeState.Success || value == TestNodeState.Failure
                         || value == TestNodeState.Inconclusive))
                     {
                         throw new InvalidOperationException("Tried to set invalid state: " + value);
@@ -79,12 +72,11 @@
             }
         }
 
-     
         private void UpdateStateBasedOnChildren()
         {
             var children = Children.Cast<TestTreeNode>().ToList();
 
-            if(children.All(_ => _.HasResults))
+            if (children.All(_ => _.HasResults))
             {
                 TestNodeState state;
                 if (children.Any(n => n.State == TestNodeState.Failure))
@@ -95,23 +87,18 @@
                 {
                     state = TestNodeState.Inconclusive;
                 }
-                else 
+                else
                 {
                     state = TestNodeState.Success;
                 }
                 SetStatus(state, updateChildren: false, updateParent: true);
             }
-  
-
-            
-           
         }
 
         public void Comm()
         {
             Name += "!";
         }
-
 
         private bool _isExpanded;
 
@@ -126,6 +113,5 @@
                 SetAndRise(ref _isExpanded, value, () => IsExpanded);
             }
         }
-
     }
 }

@@ -4,21 +4,15 @@ namespace VisualMutator.Model.Tests
 
     using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using Services;
-    using TestsTree;
     using UsefulTools.Core;
 
     #endregion
 
     public class MutantTestSession : ModelElement
     {
-
         public MutantTestSession()
         {
-        
         }
-
 
         public string ErrorMessage
         {
@@ -31,14 +25,12 @@ namespace VisualMutator.Model.Tests
             get;
             set;
         }
-   
 
         public long TestingTimeMiliseconds
         {
             get;
             set;
         }
-
 
         public IList<string> AssembliesWithTests { get; set; }
 
@@ -55,8 +47,6 @@ namespace VisualMutator.Model.Tests
                 SetAndRise(ref _isComplete, value, () => IsComplete);
             }
         }
-    
-
 
         public Exception Exception { get; set; }
         public DateTime TestingEnd { get; set; }

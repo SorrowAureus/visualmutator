@@ -4,7 +4,8 @@
 
     public interface IOperatorsPackage
     {
-        IEnumerable<IMutationOperator> Operators { get;  }
+        IEnumerable<IMutationOperator> Operators { get; }
+
         string Name
         {
             get;

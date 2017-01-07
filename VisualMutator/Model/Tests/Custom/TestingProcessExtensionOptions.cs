@@ -16,7 +16,6 @@
                     TestingProcessExtension = new DefaultTestingProcessExtension()
                 };
             }
-            
         }
     }
 }

@@ -16,17 +16,15 @@
 
     public class Log4NetConfig
     {
-
         public static void Execute()
         {
             ConfigureLog();
-  
         }
 
         private static void ConfigureLog()
         {
             var root = ((Hierarchy)LogManager.GetRepository()).Root;
-        //    root.AddAppender(GetConsoleAppender());
+            //    root.AddAppender(GetConsoleAppender());
             FilePathAbsolute currentAssembly = new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath.ToFilePathAbs();
             File.Create(currentAssembly.GetBrotherFileWithName("visual-mutator-debug.log").Path);
             root.AddAppender(GetFileAppender(currentAssembly.GetBrotherFileWithName("visual-mutator-debug.log").Path, Level.Debug));
@@ -63,6 +61,5 @@
             appender.ActivateOptions();
             return appender;
         }
-
     }
 }

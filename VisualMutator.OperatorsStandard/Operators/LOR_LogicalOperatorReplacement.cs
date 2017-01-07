@@ -11,25 +11,23 @@
 
     public class LOR_LogicalOperatorReplacement : IMutationOperator
     {
-
         protected static readonly ILog _log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-
 
         public class LORVisitor : OperatorCodeVisitor
         {
             private void ProcessOperation<T>(T operation) where T : IBinaryOperation
             {
-             //  _log.Info("Visiting: " + operation);
-                
+                //  _log.Info("Visiting: " + operation);
+
                 var passes = new List<string>
                     {
                         "BitwiseAnd",
-                        "BitwiseOr", 
+                        "BitwiseOr",
                         "ExclusiveOr",
                         "OnesComplementLeft",
                         "OnesComplementRight",
                     }.Where(elem => elem != operation.GetType().Name).ToList();
-                
+
                 MarkMutationTarget(operation, passes);
             }
 
@@ -37,30 +35,31 @@
             {
                 ProcessOperation(operation);
             }
+
             public override void Visit(IBitwiseOr operation)
             {
                 ProcessOperation(operation);
             }
+
             public override void Visit(IExclusiveOr operation)
             {
                 ProcessOperation(operation);
             }
-         
         }
+
         public class LORRewriter : OperatorCodeRewriter
         {
-           
             private IExpression ReplaceOperation<T>(T operation) where T : IBinaryOperation
             {
                 _log.Info("Rewriting: " + operation + " Pass: " + MutationTarget.PassInfo);
-                
+
                 var replacement = Switch.Into<Expression>()
                     .From(MutationTarget.PassInfo)
                     .Case("BitwiseAnd", new BitwiseAnd())
                     .Case("BitwiseOr", new BitwiseOr())
                     .Case("ExclusiveOr", new ExclusiveOr())
-                    .Case("OnesComplementLeft", new OnesComplement{Operand = operation.LeftOperand})
-                    .Case("OnesComplementRight", new OnesComplement{Operand = operation.RightOperand})
+                    .Case("OnesComplementLeft", new OnesComplement { Operand = operation.LeftOperand })
+                    .Case("OnesComplementRight", new OnesComplement { Operand = operation.RightOperand })
                     .GetResult();
 
                 replacement.Type = operation.Type;
@@ -76,20 +75,23 @@
 
                 return replacement;
             }
+
             public override IExpression Rewrite(IBitwiseAnd operation)
             {
                 return ReplaceOperation(operation);
             }
+
             public override IExpression Rewrite(IBitwiseOr operation)
             {
                 return ReplaceOperation(operation);
             }
+
             public override IExpression Rewrite(IExclusiveOr operation)
             {
                 return ReplaceOperation(operation);
             }
-            
         }
+
         public OperatorInfo Info
         {
             get
@@ -97,7 +99,6 @@
                 return new OperatorInfo("LOR", "Logical Operator Replacement", "");
             }
         }
-      
 
         public IOperatorCodeVisitor CreateVisitor()
         {

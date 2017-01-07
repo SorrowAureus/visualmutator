@@ -1,11 +1,9 @@
 ﻿namespace VisualMutator.Model
 {
     using System;
-    using System.Collections.Generic;
     using System.IO;
     using System.Reactive.Subjects;
     using System.Reflection;
-    using System.Runtime.InteropServices;
     using System.Xml.Serialization;
     using log4net;
     using UsefulTools.Paths;
@@ -13,7 +11,9 @@
     public interface IOptionsManager
     {
         OptionsModel ReadOptions();
+
         void WriteOptions(OptionsModel options);
+
         IObservable<OptionsManager.EventType> Events { get; }
     }
 
@@ -32,7 +32,7 @@
             _events = new Subject<EventType>();
         }
 
-        private readonly Subject<EventType> _events; 
+        private readonly Subject<EventType> _events;
         private const string OptionsFileName = "VisualMutator-options.xml";
 
         public OptionsModel ReadOptions()
@@ -40,7 +40,7 @@
             try
             {
                 string path = GetOptionsFilePath();
-                if(File.Exists(path))
+                if (File.Exists(path))
                 {
                     using (StreamReader stream = new StreamReader(GetOptionsFilePath()))
                     {
@@ -74,12 +74,10 @@
 
         public IObservable<EventType> Events { get { return _events; } }
 
-
         private string GetOptionsFilePath()
         {
             return new FilePathAbsolute(Assembly.GetExecutingAssembly().Location)
                 .GetBrotherFileWithName(OptionsFileName).Path;
         }
-
     }
 }

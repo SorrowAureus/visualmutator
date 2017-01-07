@@ -30,15 +30,18 @@
                 return GetWithoutParams(_methodName);
             }
         }
+
         private string GetWithoutParams(string name)
         {
             int index = name.IndexOf('(');
             return index == -1 ? name : name.Substring(0, index);
         }
+
         public string MethodName
         {
             get { return _methodName; }
         }
+
         public string ClassSimpleName
         {
             get
@@ -53,6 +56,7 @@
                 return _className.Substring(index, endIndex - index);
             }
         }
+
         public string ClassName
         {
             get { return _className; }
@@ -60,7 +64,7 @@
 
         public override string ToString()
         {
-            return ClassName +'.'+ MethodName;
+            return ClassName + '.' + MethodName;
         }
 
         protected bool Equals(MethodIdentifier other)
@@ -73,14 +77,14 @@
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((MethodIdentifier) obj);
+            return Equals((MethodIdentifier)obj);
         }
 
         public override int GetHashCode()
         {
             unchecked
             {
-                return (_className.GetHashCode()*397) ^ _methodName.GetHashCode();
+                return (_className.GetHashCode() * 397) ^ _methodName.GetHashCode();
             }
         }
 

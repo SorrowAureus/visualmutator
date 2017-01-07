@@ -16,14 +16,12 @@
     using UsefulTools.ExtensionMethods;
     using UsefulTools.Paths;
 
-
     public class MsTestRunContext : ITestsRunContext
     {
         public MutantTestResults TestResults
         {
             get { return _testResults; }
         }
-
 
         private readonly ILog _log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
@@ -52,14 +50,13 @@
             _testsSelector = testsSelector;
             _nUnitConsolePath = xUnitPath;
             _cancellationTokenSource = new CancellationTokenSource();
-
         }
 
         public async Task<MutantTestResults> RunTests()
         {
             string name = string.Format("muttest-{0}.xml", Path.GetFileName(_assemblyPath));
             string outputFilePath = new FilePathAbsolute(_assemblyPath).GetBrotherFileWithName(name).ToString();
-            if(File.Exists(outputFilePath))
+            if (File.Exists(outputFilePath))
             {
                 File.Delete(outputFilePath);
             }
@@ -81,7 +78,7 @@
             }
             catch (Exception e)
             {
-                _log.Warn("Exception while cancelling: "+e);
+                _log.Warn("Exception while cancelling: " + e);
             }
             _log.Debug("Requested cancellation for testing for " + _cancellationTokenSource.GetHashCode());
         }
@@ -100,9 +97,8 @@
                     string output = results.StandardOutput
                         .Concat(results.StandardError)
                         .Aggregate((a, b) => a + "\n" + b);
-                 
+
                     throw new Exception("Test results in file: " + outputFile + " not found. Output: " + output);
-                    
                 }
                 else
                 {
@@ -125,21 +121,18 @@
                 _log.Error("Test run cancelled.");
                 return new MutantTestResults(cancelled: true);
             }
-
-
         }
-        
+
         public Task<ProcessResults> RunNUnitConsole(string nunitConsolePath,
             string inputFile, string outputFile)
         {
-//            string testToRun = "";
-//            if (!_testsSelector.AllowAll)
-//            {
-//                testToRun = " -names " + string.Join(";", _testsSelector.MinimalSelectionList) + " ";
-//            }
-            string arg = " /testcontainer:" + inputFile.InQuotes()  
+            //            string testToRun = "";
+            //            if (!_testsSelector.AllowAll)
+            //            {
+            //                testToRun = " -names " + string.Join(";", _testsSelector.MinimalSelectionList) + " ";
+            //            }
+            string arg = " /testcontainer:" + inputFile.InQuotes()
                          + " /resultsfile:" + outputFile.InQuotes() + " ";
-
 
             _log.Info("Running: " + nunitConsolePath.InQuotes() + " " + arg);
             var startInfo = new ProcessStartInfo
@@ -153,9 +146,5 @@
             };
             return _processes.RunAsync(startInfo, _cancellationTokenSource);
         }
-
-
-
-
     }
 }

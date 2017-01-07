@@ -7,7 +7,6 @@
     using CoverageFinder;
     using Infrastructure;
     using Microsoft.Cci;
-    using Mutations;
     using Mutations.MutantsTree;
     using Mutations.Types;
     using StoringMutants;
@@ -16,9 +15,8 @@
     using UsefulTools.ExtensionMethods;
     using UsefulTools.Paths;
 
-    interface IMutationSessionStrategy
+    internal interface IMutationSessionStrategy
     {
-         
     }
 
     public class LimitedScopeStrategy : IMutationSessionStrategy
@@ -31,7 +29,6 @@
             _singleMethod = singleMethod;
             _matcher = new CciMethodMatcher(singleMethod);
         }
-
 
         public async Task<List<AssemblyNode>> BuildAssemblyTree(Task<CciModuleSource> assembliesTask,
           bool constrainedMutation, CciMethodMatcher matcher)
@@ -56,8 +53,6 @@
         public IList<AssemblyNode> CreateNodesFromAssemblies(IModuleSource modules,
           CciMethodMatcher constraints)
         {
-            
-
             List<AssemblyNode> assemblyNodes = modules.Modules.Select(m => CreateAssemblyNode(m, constraints)).ToList();
             var root = new RootNode();
             root.Children.AddRange(assemblyNodes);
@@ -106,7 +101,6 @@
             Func<INamedTypeDefinition, string> namespaceExtractor = typeDef =>
                 TypeHelper.GetDefiningNamespace(typeDef).Name.Value;
 
-
             NamespaceGrouper<INamespaceTypeDefinition, CheckedNode>.
                 GroupTypes(assemblyNode,
                     namespaceExtractor,
@@ -114,8 +108,7 @@
                     typeNodeCreator,
                         module.Module.GetAllTypes().ToList());
 
-
-            //remove empty amespaces. 
+            //remove empty amespaces.
             //TODO to refactor...
             List<TypeNamespaceNode> checkedNodes = assemblyNode.Children.OfType<TypeNamespaceNode>().ToList();
             foreach (TypeNamespaceNode node in checkedNodes)
@@ -124,6 +117,7 @@
             }
             return assemblyNode;
         }
+
         public void RemoveFromParentIfEmpty(MutationNode node)
         {
             var children = node.Children.ToList();
@@ -145,6 +139,5 @@
                 node.Parent = null;
             }
         }
-
     }
 }

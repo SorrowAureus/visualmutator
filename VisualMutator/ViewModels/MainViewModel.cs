@@ -4,7 +4,6 @@
 
     using System.Windows;
     using Controllers;
-    using Model.Mutations.MutantsTree;
     using Model.Mutations.Types;
     using UsefulTools.Core;
     using UsefulTools.Wpf;
@@ -17,10 +16,7 @@
         public MainViewModel(IMutationResultsView view)
             : base(view)
         {
-
             MutantAssemblies = new NotifyingCollection<AssemblyNode>();
-
-
         }
 
         public void Clean()
@@ -48,8 +44,6 @@
             }
         }
 
-      
-
         private SmartCommand _commandCreateNewMutants;
 
         public SmartCommand CommandCreateNewMutants
@@ -65,6 +59,7 @@
         }
 
         private SmartCommand _commandOptions;
+
         public SmartCommand CommandOptions
         {
             get
@@ -76,7 +71,6 @@
                 SetAndRise(ref _commandOptions, value, () => CommandOptions);
             }
         }
-
 
         private SmartCommand _commandTest;
 
@@ -91,6 +85,7 @@
                 SetAndRise(ref _commandTest, value, () => CommandTest);
             }
         }
+
         private SmartCommand _commandContinue;
 
         public SmartCommand CommandContinue
@@ -104,6 +99,7 @@
                 SetAndRise(ref _commandContinue, value, () => CommandContinue);
             }
         }
+
         private SmartCommand _commandStop;
 
         public SmartCommand CommandStop
@@ -131,6 +127,7 @@
                 SetAndRise(ref _commandOnlyCreateMutants, value, () => CommandOnlyCreateMutants);
             }
         }
+
         private SmartCommand _commandPause;
 
         public SmartCommand CommandPause
@@ -144,6 +141,7 @@
                 SetAndRise(ref _commandPause, value, () => CommandPause);
             }
         }
+
         private NotifyingCollection<AssemblyNode> _mutantAssemblies;
 
         public NotifyingCollection<AssemblyNode> MutantAssemblies
@@ -157,7 +155,6 @@
                 SetAndRise(ref _mutantAssemblies, value, () => MutantAssemblies);
             }
         }
-
 
         private string _operationsStateDescription;
 
@@ -173,20 +170,16 @@
             }
         }
 
-
-
         public bool IsVisible
         {
-
             set
             {
                 View.Visibility = value ? Visibility.Visible : Visibility.Hidden;
             }
         }
 
-
-
         private double _progress;
+
         public double Progress
         {
             get
@@ -214,6 +207,7 @@
         }
 
         private object _selectedMutationTreeItem;
+
         public object SelectedMutationTreeItem
         {
             get
@@ -226,8 +220,8 @@
             }
         }
 
-
         private string _mutantsRatio;
+
         public string MutantsRatio
         {
             get
@@ -269,7 +263,6 @@
             }
         }
 
-
         private MutantDetailsViewModel _mutantDetailsViewModel;
 
         public MutantDetailsViewModel MutantDetailsViewModel
@@ -283,7 +276,9 @@
                 SetAndRise(ref _mutantDetailsViewModel, value, () => MutantDetailsViewModel);
             }
         }
+
         private SmartCommand _commandSaveResults;
+
         public SmartCommand CommandSaveResults
         {
             get

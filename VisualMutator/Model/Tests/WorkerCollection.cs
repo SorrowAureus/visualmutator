@@ -7,7 +7,7 @@
     using System.Threading.Tasks;
     using log4net;
 
-    public class WorkerCollection<T> where T : class 
+    public class WorkerCollection<T> where T : class
     {
         private readonly ILog _log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
@@ -17,6 +17,7 @@
         private int _currentCount;
         private readonly Func<T, Task> _workAction;
         private readonly Timer _watchdog;
+
         public WorkerCollection(ICollection<T> items, int maxCount, Func<T, Task> workAction)
         {
             _maxCount = maxCount;
@@ -30,8 +31,7 @@
                     _currentCount = 0;
                     Monitor.Pulse(this);
                 }
-            } );
-            
+            });
         }
 
         public void Stop()
@@ -47,7 +47,7 @@
 
             bool emptyStop = false;
 
-            if(_toProcessList.Count == 0)
+            if (_toProcessList.Count == 0)
             {
                 endCallback();
                 return;
@@ -63,7 +63,7 @@
                     }
                     _currentCount++;
                 }
-                
+
                 T item = LockingRemoveFirst();
                 if (item != null)
                 {
@@ -98,7 +98,6 @@
                 }
             }
         }
-
 
         private T LockingRemoveFirst()
         {

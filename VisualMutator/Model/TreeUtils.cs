@@ -7,9 +7,6 @@
 
     public static class TreeUtils
     {
-
-
-
         public static void ExpandLoneNodes(CheckedNode tests)
         {
             var allTests = tests.Children

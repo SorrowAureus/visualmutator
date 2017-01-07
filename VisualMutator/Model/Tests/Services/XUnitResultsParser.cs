@@ -15,12 +15,10 @@
     {
         private ILog _log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
-
-
         public Dictionary<string, TmpTestNodeMethod> ProcessResultFile(string fileName)
         {
             _log.Debug("Processing result file: " + fileName);
-            var s = new XmlReaderSettings {CheckCharacters = false};
+            var s = new XmlReaderSettings { CheckCharacters = false };
             var resultDictionary = new Dictionary<string, TmpTestNodeMethod>();
             XmlReader reader = XmlReader.Create(fileName, s);
 
@@ -35,7 +33,6 @@
 
                         GetValue(resultDictionary, node);
                     }
-
                 }
             }
             catch (Exception e)
@@ -64,21 +61,18 @@
                 {
                     result.Message = test.Descendants(XName.Get("message", ""))
                         .Select(d => d.Value).MaySingle().Else("");
-                    result.StackTrace = 
+                    result.StackTrace =
                         test.Descendants(XName.Get("stack-trace", "")).Select(d => d.Value).MaySingle().Else("");
 
                     result.Message = result.Message + "\n" + result.StackTrace;
                 }
 
                 resultDictionary.Add(result.Name, result);
-
             }
             catch (Exception e)
             {
                 _log.Error("Log file parsing error", e);
             }
         }
-
-    
     }
 }

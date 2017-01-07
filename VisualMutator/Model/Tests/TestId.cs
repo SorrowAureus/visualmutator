@@ -1,6 +1,4 @@
-﻿using NUnit.Framework.Interfaces;
-
-namespace VisualMutator.Model.Tests
+﻿namespace VisualMutator.Model.Tests
 {
     #region
 

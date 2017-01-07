@@ -8,12 +8,10 @@
     {
         private readonly MutationVariant _variant;
 
-
         public MutationTarget(MutationVariant variant)
         {
             _variant = variant;
         }
-
 
         public string Name { get; set; }
 
@@ -24,7 +22,6 @@
             get { return _variant; }
         }
 
-        
         public IMethodDefinition MethodRaw/*?*/ { get; set; }
         public int MethodIndex { get; set; }
         public IMethodDefinition MethodMutated { get; set; }
@@ -37,7 +34,7 @@
 
         public override string ToString()
         {
-            return string.Format("MutationTarget: {0}, {1}", Name, ProcessingContext == null ? "" :  ProcessingContext.Descriptor.ToString());
+            return string.Format("MutationTarget: {0}, {1}", Name, ProcessingContext == null ? "" : ProcessingContext.Descriptor.ToString());
         }
     }
 }

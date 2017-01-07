@@ -18,19 +18,20 @@
             public FormattingVisitor(AstFormatter astFormatter)
             {
                 _astFormatter = astFormatter;
-               
             }
+
             private string Format(object obj)
             {
                 string ret = _astFormatter.Format(obj);
                 return string.IsNullOrWhiteSpace(ret) ? obj.GetType().Name : ret;
-
             }
+
             private string Format<T>(IEnumerable<T> enumerable)
             {
                 string ret = _astFormatter.Format(enumerable);
                 return string.IsNullOrWhiteSpace(ret) ? enumerable.GetType().Name : ret;
             }
+
             public string FormattedValue
             {
                 get
@@ -45,19 +46,23 @@
             {
                 _formattedValue = "this";
             }
+
             public override void Visit(IMethodReference method)
             {
                 _formattedValue = method.Name.Value + Format(method.Parameters);
             }
+
             public override void Visit(IMethodCall methodCall)
             {
                 _formattedValue = string.Format("IMethodCall: {0}.{1} Arguments: {2}", Format(methodCall.ThisArgument),
                                      Format(methodCall.MethodToCall), Format(methodCall.Arguments));
             }
+
             public override void Visit(ICompileTimeConstant compileTimeConstant)
             {
                 _formattedValue = compileTimeConstant.Value == null ? "null" : compileTimeConstant.Value.ToString();
             }
+
             public override void Visit(ITypeReference type)
             {
                 var namedTypeReference = type as INamedTypeReference;
@@ -70,56 +75,66 @@
                     _formattedValue = "{" + type.GetType().Name + "}";
                 }
             }
+
             public override void Visit(IBinaryOperation binary)
             {
                 _formattedValue = Format(binary.LeftOperand) + " ~#~ " + Format(binary.RightOperand);
             }
+
             public override void Visit(IAddition binary)
             {
                 _formattedValue = Format(binary.LeftOperand) + " + " + Format(binary.RightOperand);
             }
+
             public override void Visit(ISubtraction binary)
             {
                 _formattedValue = Format(binary.LeftOperand) + " - " + Format(binary.RightOperand);
             }
+
             public override void Visit(IMultiplication binary)
             {
                 _formattedValue = Format(binary.LeftOperand) + " * " + Format(binary.RightOperand);
             }
+
             public override void Visit(IDivision binary)
             {
                 _formattedValue = Format(binary.LeftOperand) + " / " + Format(binary.RightOperand);
             }
+
             public override void Visit(IGreaterThan binary)
             {
                 _formattedValue = Format(binary.LeftOperand) + " > " + Format(binary.RightOperand);
             }
+
             public override void Visit(ILessThan binary)
             {
                 _formattedValue = Format(binary.LeftOperand) + " < " + Format(binary.RightOperand);
             }
+
             public override void Visit(ILessThanOrEqual binary)
             {
                 _formattedValue = Format(binary.LeftOperand) + " <= " + Format(binary.RightOperand);
             }
+
             public override void Visit(IGreaterThanOrEqual binary)
             {
                 _formattedValue = Format(binary.LeftOperand) + " >= " + Format(binary.RightOperand);
             }
+
             public override void Visit(IEquality binary)
             {
                 _formattedValue = Format(binary.LeftOperand) + " == " + Format(binary.RightOperand);
             }
+
             public override void Visit(INotEquality binary)
             {
                 _formattedValue = Format(binary.LeftOperand) + " != " + Format(binary.RightOperand);
             }
-           
+
             public override void Visit(IBoundExpression expression)
             {
                 _formattedValue = "{" + expression.Definition.GetType().Name + "}";
             }
-
         }
 
         public AstFormatter()
@@ -144,11 +159,10 @@
             {
                 b.Remove(b.Length - 1, 1); //remove ,
             }
-           
+
             b.Append(")");
             string ret = b.ToString();
             return string.IsNullOrWhiteSpace(ret) ? enumerable.GetType().Name : ret;
-            
         }
 
         public string Format(object obj)
@@ -179,7 +193,7 @@
                 ret = _visitor.FormattedValue;
                 return Return(ret, obj);
             }
-            
+
             string value = _visitor.FormattedValue;
             ret = value;
             if (value.NullOrEmpty())

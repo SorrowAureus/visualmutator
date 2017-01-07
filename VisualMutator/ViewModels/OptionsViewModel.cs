@@ -26,6 +26,7 @@
         }
 
         private OptionsModel _options;
+
         public OptionsModel Options
         {
             get
@@ -38,8 +39,8 @@
             }
         }
 
-       
         private SmartCommand _commandSave;
+
         public SmartCommand CommandSave
         {
             get
@@ -53,6 +54,7 @@
         }
 
         private SmartCommand _commandClose;
+
         public SmartCommand CommandClose
         {
             get
@@ -64,7 +66,5 @@
                 SetAndRise(ref _commandClose, value, () => CommandClose);
             }
         }
-
-     
     }
 }

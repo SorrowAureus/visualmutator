@@ -19,8 +19,6 @@
             _methodSignature = method.ToString();
         }
 
-    
-
         public override string ToString()
         {
             return string.Format("Identifier: Module: {0}, Type: {1}, Method: {2}", ModuleName, TypeName, MethodSignature);
@@ -36,20 +34,20 @@
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((MethodIdentifier) obj);
+            return Equals((MethodIdentifier)obj);
         }
+
         public new IMethodDefinition FindIn(IEnumerable<IModule> modules)
         {
-           // MemberHelper.
+            // MemberHelper.
             return base.FindIn(modules).Methods.Single(m => m.ToString() == _methodSignature);
-
         }
 
         public override int GetHashCode()
         {
             unchecked
             {
-                return (base.GetHashCode()*397) ^ _methodSignature.GetHashCode();
+                return (base.GetHashCode() * 397) ^ _methodSignature.GetHashCode();
             }
         }
 

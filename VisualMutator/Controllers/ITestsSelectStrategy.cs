@@ -20,7 +20,7 @@
     {
         private readonly Task<TestsRootNode> _testsTask;
 
-        public AllTestsSelectStrategy( Task<TestsRootNode> testsTask)
+        public AllTestsSelectStrategy(Task<TestsRootNode> testsTask)
         {
             _testsTask = testsTask;
         }
@@ -29,9 +29,9 @@
         {
             var testsRootNode = await _testsTask;
             testsRootNode.IsIncluded = true;
-            if(testAssemblies != null)
+            if (testAssemblies != null)
             {
-                return testsRootNode.TestNodeAssemblies.Where(a => 
+                return testsRootNode.TestNodeAssemblies.Where(a =>
                     testAssemblies.Select(Path.GetFileNameWithoutExtension).Contains(a.Name)).ToList();
             }
             else
@@ -73,8 +73,6 @@
 
             return testsRootNode.TestNodeAssemblies.ToList();
         }
-
-
 
         private void SelectOnlyCoveredTests(TestsRootNode rootNode, List<MethodIdentifier> coveredTests)
         {

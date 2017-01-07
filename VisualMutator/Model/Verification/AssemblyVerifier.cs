@@ -17,21 +17,18 @@
 
     public class AssemblyVerifier : IAssemblyVerifier
     {
-
-
         public AssemblyVerifier()
         {
-         
         }
 
-        public void Verify( string assemblyPath)
+        public void Verify(string assemblyPath)
         {
             var localPath = new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath;
             string path = Path.Combine(Path.GetDirectoryName(localPath), "PEVerify.exe");
 
             if (!File.Exists(path))
             {
-                throw new AssemblyVerificationException("File " + path+" does not exists.");
+                throw new AssemblyVerificationException("File " + path + " does not exists.");
             }
             var p = new Process();
             p.StartInfo = new ProcessStartInfo(path)
@@ -43,7 +40,6 @@
                 RedirectStandardOutput = true
             };
 
-
             p.Start();
 
             StreamReader sr = p.StandardOutput;
@@ -51,11 +47,10 @@
 
             p.WaitForExit();
 
-            if(p.ExitCode != 0)
+            if (p.ExitCode != 0)
             {
                 throw new AssemblyVerificationException(consoleOutput);
             }
         }
-
     }
 }

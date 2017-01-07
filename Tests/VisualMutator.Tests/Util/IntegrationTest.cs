@@ -5,13 +5,10 @@
     using log4net.Appender;
     using log4net.Config;
     using log4net.Layout;
-    using Model.Tests;
-    using Model.Tests.Services;
     using Ninject;
     using NUnit.Framework;
-    using VisualMutator.Infrastructure;
 
-   // [TestFixture]
+    // [TestFixture]
     public class IntegrationTest
     {
         protected static ILog _log;
@@ -22,17 +19,13 @@
         {
             BasicConfigurator.Configure(
                 new ConsoleAppender
-            {
-                Layout = new SimpleLayout()
-            });
+                {
+                    Layout = new SimpleLayout()
+                });
             _log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
             _kernel = new StandardKernel();
             _kernel.Load(new IntegrationTestModule());
-
         }
-
-
-
     }
 }

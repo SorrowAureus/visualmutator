@@ -4,15 +4,9 @@ namespace VisualMutator.Model
 
     using System;
     using System.Collections.Generic;
-    using System.Collections.ObjectModel;
     using Extensibility;
-    using Microsoft.Cci;
     using Mutations;
-    using Mutations.Types;
-    using StoringMutants;
-    using Tests;
     using Tests.TestsTree;
-    using UsefulTools.Paths;
 
     #endregion
 
@@ -21,7 +15,7 @@ namespace VisualMutator.Model
         public MutationSessionChoices()
         {
             SelectedOperators = new List<IMutationOperator>();
-            MutantsTestingOptions= new MutantsTestingOptions();
+            MutantsTestingOptions = new MutantsTestingOptions();
             TestAssemblies = new List<TestNodeAssembly>();
             Filter = MutationFilter.AllowAll();
         }

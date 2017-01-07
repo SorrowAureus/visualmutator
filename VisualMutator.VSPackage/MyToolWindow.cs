@@ -10,10 +10,10 @@
     ///<summary>
     ///  This class implements the tool window exposed by this package and hosts a user control.
     ///
-    ///  In Visual Studio tool windows are composed of a frame (implemented by the shell) and a pane, 
+    ///  In Visual Studio tool windows are composed of a frame (implemented by the shell) and a pane,
     ///  usually implemented by the package implementer.
     ///
-    ///  This class derives from the ToolWindowPane class provided from the MPF in order to use its 
+    ///  This class derives from the ToolWindowPane class provided from the MPF in order to use its
     ///  implementation of the IVsUIElementPane interface.
     ///</summary>
     [Guid("3637fbc7-0af9-49f9-81a4-76cb91ad903a")]
@@ -37,7 +37,7 @@
             BitmapIndex = 1;
 
             // This is the user control hosted by the tool window; Note that, even if this class implements IDisposable,
-            // we are not calling Dispose on this object. This is because ToolWindowPane calls Dispose on 
+            // we are not calling Dispose on this object. This is because ToolWindowPane calls Dispose on
             // the object returned by the Content property.
             base.Content = VisualMutator_VSPackagePackage.MainControl;
 

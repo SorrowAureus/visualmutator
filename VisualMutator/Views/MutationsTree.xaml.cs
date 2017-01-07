@@ -9,8 +9,8 @@
 
     public interface IMutationsTreeView : IView
     {
-         
     }
+
     public partial class MutationsTree : UserControl, IMutationsTreeView
     {
         public MutationsTree()

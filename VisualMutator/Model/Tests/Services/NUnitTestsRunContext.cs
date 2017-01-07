@@ -23,7 +23,6 @@
             get { return _testResults; }
         }
 
-
         private readonly ILog _log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         private readonly OptionsModel _options;
@@ -39,7 +38,7 @@
         public NUnitTestsRunContext(
             OptionsModel options,
             IProcesses processes,
-            CommonServices svc, 
+            CommonServices svc,
             NUnitResultsParser parser,
             //----------
             string nUnitConsolePath,
@@ -55,9 +54,9 @@
             _testsSelector = testsSelector;
             _cancellationTokenSource = new CancellationTokenSource();
 
-           // var testsSelector = new TestsSelector();
-          //  _selectedTests = testsSelector.GetIncludedTests(loadContext.Namespaces);
-          //  _log.Debug("Created tests to run: " + _selectedTests.TestsDescription);
+            // var testsSelector = new TestsSelector();
+            //  _selectedTests = testsSelector.GetIncludedTests(loadContext.Namespaces);
+            //  _log.Debug("Created tests to run: " + _selectedTests.TestsDescription);
         }
 
         public async Task<MutantTestResults> RunTests()
@@ -83,7 +82,7 @@
             }
             catch (Exception e)
             {
-                _log.Warn("Exception while cancelling: "+e);
+                _log.Warn("Exception while cancelling: " + e);
             }
             _log.Debug("Requested cancellation for testing for " + _cancellationTokenSource.GetHashCode());
         }
@@ -98,7 +97,6 @@
                 ProcessResults results = await RunNUnitConsole(_nUnitConsolePath, inputFile, outputFile);
                 if (!_svc.FileSystem.File.Exists(outputFile))
                 {
-
                     throw new Exception("Test results in file: " + outputFile + " not found. Output: " +
                         results.StandardOutput.Aggregate((a, b) => a + "\n" + b));
                 }
@@ -124,8 +122,6 @@
                 _log.Error("Test run cancelled.");
                 return new MutantTestResults(cancelled: true);
             }
-
-
         }
 
         public Task<ProcessResults> RunNUnitConsole(string nunitConsolePath,
@@ -179,8 +175,5 @@
 
             return arg;
         }
-
-
-
     }
 }

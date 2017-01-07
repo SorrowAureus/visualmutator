@@ -3,7 +3,6 @@
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
-    using System.Windows.Documents;
     using UsefulTools.ExtensionMethods;
 
     public class OriginalCodebase
@@ -22,10 +21,12 @@
         {
             get { return _modules; }
         }
+
         private bool IsTestAssembly(CciModuleSource cci)
         {
             return _testAssemblies.Select(Path.GetFileNameWithoutExtension).Contains(cci.Module.Name);
         }
+
         public List<CciModuleSource> ModulesToMutate
         {
             get
@@ -33,6 +34,7 @@
                 return _modules.WhereNot(IsTestAssembly).ToList();
             }
         }
+
         public List<CciModuleSource> ModulesWithTests
         {
             get

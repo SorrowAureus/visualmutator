@@ -15,13 +15,14 @@
     {
         // ReSharper disable StaticFieldInGenericType
         private static TConverter _converter;
+
         // ReSharper restore StaticFieldInGenericType
 
         public override object ProvideValue(IServiceProvider serviceProvider)
         {
 #if DEBUG
-            Debug.Assert(GetType() == typeof(TConverter), "Type should be generic constrained to self. Actual: " + typeof(TConverter) +" should be: "+GetType());
-          
+            Debug.Assert(GetType() == typeof(TConverter), "Type should be generic constrained to self. Actual: " + typeof(TConverter) + " should be: " + GetType());
+
 #endif
 
             return _converter ?? (_converter = new TConverter());
@@ -38,6 +39,7 @@
         }
 
         public abstract TConvertBackValue Convert(TConvertValue value);
+
         public abstract TConvertValue ConvertBack(TConvertBackValue value);
     }
 
@@ -46,6 +48,7 @@
     {
         // ReSharper disable StaticFieldInGenericType
         private static TConverter _converter;
+
         // ReSharper restore StaticFieldInGenericType
 
         public override object ProvideValue(IServiceProvider serviceProvider)
@@ -64,9 +67,7 @@
         }
 
         protected abstract TConvertBackValue Convert(TConvertValue value, TParameter parameter);
+
         protected abstract TConvertValue ConvertBack(TConvertBackValue value, TParameter parameter);
     }
-
-  
-
 }

@@ -16,32 +16,19 @@
     [TestFixture]
     public class SwapActionNamesTests
     {
-
         [Test]
         public void Test1()
         {
-
             var assemblyFile = new TestAssemblyFile();
             var assembly = AssemblyDefinition.ReadAssembly(assemblyFile.FilePath);
 
-     
             var mutator = new SwapActionNames();
 
-         //   mutator.Mutate(assembly.MainModule, assembly.MainModule.Types);
-
-
-
-
-
+            //   mutator.Mutate(assembly.MainModule, assembly.MainModule.Types);
 
             assembly.Write(assemblyFile.FilePath);
 
             var assembly2 = AssemblyDefinition.ReadAssembly(assemblyFile.FilePath);
-
-
-                
-
         }
     }
 }
-

@@ -5,9 +5,6 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Text.RegularExpressions;
-    using Microsoft.Cci;
-    using Model;
     using Model.Mutations;
     using Model.Mutations.MutantsTree;
     using Model.Mutations.Types;
@@ -16,15 +13,12 @@
     using NUnit.Framework;
     using SoftwareApproach.TestingExtensions;
     using UsefulTools.CheckboxedTree;
-    using UsefulTools.ExtensionMethods;
-    using UsefulTools.Paths;
 
     #endregion
 
     [TestFixture]
     public class NamespaceGrouperTests
     {
-      
         [Test]
         public void TestResultTreeCreator()
         {
@@ -36,7 +30,6 @@
                            new TmpTestNodeMethod("C.oeio.ww.T2.M2"),
                            new TmpTestNodeMethod("C.oeio.ww.T3.M1"),
                        };
-            
 
             var cr = new TestResultTreeCreator();
 
@@ -48,13 +41,12 @@
                 .Children.Cast<TestNodeClass>().Single(c => c.Name == "T2")
                 .Children.Cast<TestNodeMethod>().Count().ShouldEqual(2); //Single(c => c.Name == "M1");
         }
-        
+
         [Test]
         public void Test1()
         {
             System.Action<CheckedNode, ICollection<MutationTarget>> typeNodeCreator = (parent, targets) =>
             {
-               
             };
 
             Func<MutationTarget, string> namespaceExtractor = target => target.NamespaceName;
@@ -73,7 +65,7 @@
 
             var ass = new AssemblyNode("");
             NamespaceGrouper<MutationTarget, CheckedNode>.
-                GroupTypes(ass, namespaceExtractor, 
+                GroupTypes(ass, namespaceExtractor,
                 (parent, name) => new TypeNamespaceNode(parent, name), typeNodeCreator,
                     new List<MutationTarget> { mt1, mt2, mt3 });
 

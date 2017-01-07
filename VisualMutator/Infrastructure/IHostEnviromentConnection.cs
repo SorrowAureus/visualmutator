@@ -1,16 +1,11 @@
-﻿
-
-namespace VisualMutator.Infrastructure
+﻿namespace VisualMutator.Infrastructure
 {
     #region
 
     using System;
     using System.Collections.Generic;
-    using System.Windows.Forms;
-    using Model;
     using Model.CoverageFinder;
     using UsefulTools.Paths;
-    using UsefulTools.Wpf;
 
     #endregion
 
@@ -21,6 +16,7 @@ namespace VisualMutator.Infrastructure
         BuildBegin,
         BuildDone
     }
+
     public interface IHostEnviromentConnection
     {
         void Initialize();
@@ -28,10 +24,13 @@ namespace VisualMutator.Infrastructure
         IObservable<EventType> Events { get; }
 
         IEnumerable<FilePathAbsolute> GetProjectAssemblyPaths();
+
         string GetTempPath();
-    
+
         void Test();
+
         bool GetCurrentClassAndMethod(out MethodIdentifier methodIdentifier);
+
         void Build();
     }
 }

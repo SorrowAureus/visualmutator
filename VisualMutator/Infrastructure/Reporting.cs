@@ -2,13 +2,14 @@
 {
     using System.Windows;
     using UsefulTools.Core;
-    using Views;
 
     public interface IReporting
     {
         void LogWarning(string warn);
+
         void LogError(string err);
     }
+
     public class Reporting : IReporting
     {
         private readonly IMessageService _messageService;

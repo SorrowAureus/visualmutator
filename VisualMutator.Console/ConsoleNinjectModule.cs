@@ -19,8 +19,6 @@
             Bind<IOwnerWindowProvider>().To<FakeOwnerWindowProvider>().InSingletonScope();
             Bind<IHostEnviromentConnection>().ToConstant(_connection);
             Bind<ISettingsManager>().To<AppSettingsManager>().InSingletonScope();
-
-
         }
     }
 }

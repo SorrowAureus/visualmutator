@@ -11,7 +11,6 @@
     [ValueConversion(typeof(object), typeof(Visibility))]
     public class NotNullToVisibilityConverter : Converter<NotNullToVisibilityConverter, object, Visibility>
     {
-        
         public override Visibility Convert(object value)
         {
             return value != null ? Visibility.Visible : Visibility.Hidden;

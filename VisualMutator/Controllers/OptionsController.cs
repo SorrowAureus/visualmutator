@@ -3,18 +3,10 @@
     #region
 
     using System;
-    using System.Diagnostics;
-    using System.IO;
-    using System.Xml.Linq;
-    using System.Xml.Serialization;
-    using Microsoft.Win32;
     using Model;
     using UsefulTools.Core;
-    using UsefulTools.FileSystem;
-    using UsefulTools.Paths;
     using UsefulTools.Wpf;
     using ViewModels;
-    using Assembly = System.Reflection.Assembly;
 
     #endregion
 
@@ -24,9 +16,8 @@
         private readonly CommonServices _svc;
         private readonly IOptionsManager _optionsManager;
 
-      
         public OptionsController(
-            OptionsViewModel viewModel, 
+            OptionsViewModel viewModel,
             CommonServices svc,
             IOptionsManager optionsManager)
         {
@@ -37,7 +28,7 @@
             _viewModel.CommandSave = new SmartCommand(SaveResults);
             _viewModel.CommandClose = new SmartCommand(Close);
         }
-        
+
         public void Run()
         {
             OptionsModel optionsModel = _optionsManager.ReadOptions();
@@ -50,16 +41,14 @@
         {
             try
             {
-                
                 bool ok = _viewModel.Options.ParsedParams != null;
                 _optionsManager.WriteOptions(_viewModel.Options);
                 _viewModel.Close();
             }
             catch (Exception e)
             {
-                _svc.Logging.ShowError("Params are incorrect: "+ e);
+                _svc.Logging.ShowError("Params are incorrect: " + e);
             }
-            
         }
 
         public void Close()

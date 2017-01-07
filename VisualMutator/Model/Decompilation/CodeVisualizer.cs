@@ -3,7 +3,6 @@
     #region
 
     using System;
-    using System.IO;
     using System.Linq;
     using System.Reflection;
     using System.Text;
@@ -14,16 +13,15 @@
     using Microsoft.Cci;
     using Mutations;
     using Mutations.MutantsTree;
-    using StoringMutants;
 
     #endregion
 
     public interface ICodeVisualizer
     {
-
-
         string Visualize(CodeLanguage language, IMethodDefinition method, ICciModuleSource moduSource);
+
         string Visualize(CodeLanguage language, ICciModuleSource modules);
+
         Task<CodeWithDifference> CreateDifferenceListing(CodeLanguage language, Mutant mutant, MutationResult mutationResult);
     }
 
@@ -46,7 +44,6 @@
             _log.Debug("CreateDifferenceListing in object: " + ToString() + GetHashCode());
             try
             {
-                
                 var whiteCode = await VisualizeOriginalCode(language, mutant);
                 var mutatedCode = await VisualizeMutatedCode(language, mutationResult);
                 CodePair pair = new CodePair
@@ -67,7 +64,6 @@
             }
         }
 
-
         public async Task<string> VisualizeOriginalCode(CodeLanguage language, Mutant mutant)
         {
             var whiteCode = Visualize(language, mutant.MutationTarget.MethodRaw,
@@ -85,7 +81,7 @@
         {
             var result = Visualize(language, mutationResult.MethodMutated, mutationResult.MutatedModules);//oryginalnie była tylko ta linijka i return
 
-            if (mutationResult.AdditionalMethodsMutated != null && mutationResult.MethodMutated!=mutationResult.AdditionalMethodsMutated[0])
+            if (mutationResult.AdditionalMethodsMutated != null && mutationResult.MethodMutated != mutationResult.AdditionalMethodsMutated[0])
             {
                 result += Visualize(language, mutationResult.AdditionalMethodsMutated[0], mutationResult.MutatedModules);
             }
@@ -95,18 +91,18 @@
 
         public string Visualize(CodeLanguage language, IMethodDefinition method, ICciModuleSource moduSource)
         {
-                if (method == null)
-                {
-                    return "No method to visualize.";
-                }
-                _log.Info("Visualize: " + method);
-                var module = (IModule)TypeHelper.GetDefiningUnit(method.ContainingTypeDefinition);
-                var sourceEmitterOutput = new SourceEmitterOutputString();
-                var sourceEmitter = moduSource.GetSourceEmitter(language, module, sourceEmitterOutput);
-                sourceEmitter.Traverse(method);
+            if (method == null)
+            {
+                return "No method to visualize.";
+            }
+            _log.Info("Visualize: " + method);
+            var module = (IModule)TypeHelper.GetDefiningUnit(method.ContainingTypeDefinition);
+            var sourceEmitterOutput = new SourceEmitterOutputString();
+            var sourceEmitter = moduSource.GetSourceEmitter(language, module, sourceEmitterOutput);
+            sourceEmitter.Traverse(method);
             return sourceEmitterOutput.Data;
         }
-        
+
         public string Visualize(CodeLanguage language, IMethodDefinition mainMethod, System.Collections.Generic.List<IMethodDefinition> addMethods, ICciModuleSource moduSource)
         {
             if (mainMethod == null)
@@ -122,7 +118,6 @@
             return sourceEmitterOutput.Data;
         }
 
-
         public string Visualize(CodeLanguage language, ICciModuleSource modules)
         {
             var sb = new StringBuilder();
@@ -137,10 +132,5 @@
 
             return sb.ToString();
         }
-
-
-      
-
-
     }
 }

@@ -25,29 +25,21 @@
 
         private string cmdPath;
 
-  
-
         public void OnSessionStarting(string parameter, IList<string> projectPaths)
         {
-
             _projectPath = projectPaths.Select(p => new DirectoryPathAbsolute(p))
              .First(ass => ass.ChildrenFilesPath.Where(p => p.FileName == "Web.config").Any());
-
 
             _port = parameter;
             string content =
 @"taskkill /F /IM WebDev.WebServer40.EXE
-START /D ""C:\Program Files (x86)\Common Files\microsoft shared\DevServer\10.0\"" /B WebDev.WebServer40.EXE /port:" 
+START /D ""C:\Program Files (x86)\Common Files\microsoft shared\DevServer\10.0\"" /B WebDev.WebServer40.EXE /port:"
 + _port + @" /path:" + _projectPath.Path.InQuotes() + @" /vpath:""/""";
 
-             cmdPath = Path.GetTempFileName();
-            
+            cmdPath = Path.GetTempFileName();
 
             cmdPath = Path.ChangeExtension(cmdPath, "cmd");
             File.WriteAllText(cmdPath, content, Encoding.ASCII);
-       
-
-
         }
 
         public void OnTestingOfMutantStarting(string mutantDestination, IList<string> mutantFilePaths)
@@ -60,20 +52,18 @@ START /D ""C:\Program Files (x86)\Common Files\microsoft shared\DevServer\10.0\"
                 File.Copy(src, dest, true);
             }
 
-            foreach (var p in mutantFilePaths.Select(path=>new FilePathAbsolute(path)))
+            foreach (var p in mutantFilePaths.Select(path => new FilePathAbsolute(path)))
             {
                 var mutdest = _projectPath.Join("bin");//.Join(p.FileName).Path;
-             /*   if(File.Exists(mutdest.Join(p.FileName).Path))
-                {
-                    File.Move(mutdest.Join(p.FileName).Path, mutdest.Join(p.FileNameWithoutExtension).Join(".dlltmp").Path);
-                }*/
+                                                       /*   if(File.Exists(mutdest.Join(p.FileName).Path))
+                                                          {
+                                                              File.Move(mutdest.Join(p.FileName).Path, mutdest.Join(p.FileNameWithoutExtension).Join(".dlltmp").Path);
+                                                          }*/
 
                 File.Copy(p.Path, mutdest.Join(p.FileName).Path, true);
             }
 
-
             Process.Start(cmdPath);
-
         }
 
         /// <summary>
@@ -87,10 +77,7 @@ START /D ""C:\Program Files (x86)\Common Files\microsoft shared\DevServer\10.0\"
 
         public void OnSessionFinished()
         {
-            
         }
-
-
 
         public string Name
         {
@@ -108,19 +95,19 @@ START /D ""C:\Program Files (x86)\Common Files\microsoft shared\DevServer\10.0\"
                 try
                 {
                     KillProcessAndChildren(p.Id);
-                  //  p.Kill();
+                    //  p.Kill();
                 }
-                catch (Win32Exception )
+                catch (Win32Exception)
                 {
                     // process was terminating or can't be terminated - deal with it
                 }
-                catch (InvalidOperationException )
+                catch (InvalidOperationException)
                 {
                     // process has already exited - might be able to let this one go
                 }
             }
-
         }
+
         private void KillProcessAndChildren(int pid)
         {
             ManagementObjectSearcher searcher = new ManagementObjectSearcher("Select * From Win32_Process Where ParentProcessID=" + pid);
@@ -137,8 +124,6 @@ START /D ""C:\Program Files (x86)\Common Files\microsoft shared\DevServer\10.0\"
             catch (ArgumentException)
             { /* process already exited */
             }
-           
         }
-
-    }   
+    }
 }

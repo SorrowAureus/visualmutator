@@ -10,7 +10,6 @@ namespace VisualMutator.Model.Exceptions
     [Serializable]
     public class NoTypesSelectedException : Exception
     {
-
         public NoTypesSelectedException()
         {
         }

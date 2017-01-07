@@ -24,9 +24,9 @@
         {
             public override void Visit(ITryCatchFinallyStatement operation)
             {
-             //   _log.Info("Visit ITryCatchFinallyStatement: " + operation);
+                //   _log.Info("Visit ITryCatchFinallyStatement: " + operation);
                 var systemException = Parent.CurrentMethod.ContainingTypeDefinition.PlatformType.SystemException;
-                if (operation.CatchClauses.Any() && 
+                if (operation.CatchClauses.Any() &&
                     operation.CatchClauses.All(c => ((INamedTypeReference)c.ExceptionType) != systemException))
                 {
                     MarkMutationTarget(operation);
@@ -34,10 +34,8 @@
             }
         }
 
-
         public class EXSRewriter : OperatorCodeRewriter
         {
-     
             public override IStatement Rewrite(ITryCatchFinallyStatement operation)
             {
                 _log.Info("Rewriting ITryCatchFinallyStatement: " + operation + " Pass: " + MutationTarget.PassInfo);
@@ -49,14 +47,12 @@
                     ExceptionType = systemException,
                     Body = new BlockStatement()
                     {
-                        Statements = new List<IStatement>{ new EmptyStatement()},
+                        Statements = new List<IStatement> { new EmptyStatement() },
                     }
                 });
                 return tryCatch;
             }
-           
         }
-
 
         public IOperatorCodeVisitor CreateVisitor()
         {
@@ -67,6 +63,5 @@
         {
             return new EXSRewriter();
         }
-
     }
 }

@@ -5,7 +5,6 @@
     using System;
     using System.Collections.Generic;
     using System.Reflection;
-    using System.Security.Policy;
     using Extensibility;
     using log4net;
     using Microsoft.Cci;
@@ -16,20 +15,18 @@
     {
         private ILog _log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
-       
-       
-
         private readonly List<MutationTarget> _mutationTargets;
         private readonly List<MutationTarget> _sharedTargets;
+
         //private IMethodDefinition _currentMethod;
         private readonly AstFormatter _formatter;
+
         private int groupCounter;
         private IMethodDefinition _currentMethodObj;
         private readonly AstProcessor _processor;
 
         private int[] id = { 1 };
         private string _operatorId;
-
 
         public AstProcessor Processor
         {
@@ -40,26 +37,28 @@
         {
             get { return _formatter; }
         }
-       
-        public VisualCodeVisitor(string operatorId, IOperatorCodeVisitor visitor, IModule module):base(visitor)
+
+        public VisualCodeVisitor(string operatorId, IOperatorCodeVisitor visitor, IModule module) : base(visitor)
         {
             visitor.Parent = this;
             _processor = new AstProcessor(module);
             _operatorId = operatorId;
             _mutationTargets = new List<MutationTarget>();
             _sharedTargets = new List<MutationTarget>();
-           
+
             _formatter = new AstFormatter();
         }
+
         // Stores information about object in code model tree
         // All objects are processed. Any object can be processed more than once if is in class hierarchy
         protected override bool Process(object obj)
         {
             _processor.Process(obj);
-           
+
             visitor.VisitAny(obj);
             return true;
         }
+
         public void MethodBodyEnter(ISourceMethodBody method)
         {
             _processor.MethodBodyEnter(method);
@@ -67,9 +66,10 @@
 
         public AstDescriptor MethodBodyExit(ISourceMethodBody method)
         {
-           return _processor.MethodBodyExit(method);
-           // _currentMethodObj = null;
+            return _processor.MethodBodyExit(method);
+            // _currentMethodObj = null;
         }
+
         public void MethodEnter(IMethodDefinition method)
         {
             _processor.MethodEnter(method);
@@ -81,10 +81,12 @@
             _processor.MethodExit(method);
             _currentMethodObj = null;
         }
+
         public void TypeEnter(INamespaceTypeDefinition namespaceTypeDefinition)
         {
             _processor.TypeEnter(namespaceTypeDefinition);
         }
+
         public void TypeExit(INamespaceTypeDefinition namespaceTypeDefinition)
         {
             _processor.TypeExit(namespaceTypeDefinition);
@@ -92,7 +94,7 @@
 
         private HashSet<string> _conflicts = new HashSet<string>();
 
-        public void MarkMutationTarget<T>(T obj, IList<MutationVariant> variants )
+        public void MarkMutationTarget<T>(T obj, IList<MutationVariant> variants)
         {
             Func<int> genId = () => id[0]++;
             if (!_processor.IsCurrentlyProcessed(obj))
@@ -100,19 +102,19 @@
                 throw new ArgumentException("MarkMutationTarget must be called on current Visit method argument");
             }
 
-             _log.Debug("MarkMutationTarget: " + _processor.GetDescriptorForCurrent() + " - " + Formatter.Format(obj)+" : " + obj.GetHashCode());
+            _log.Debug("MarkMutationTarget: " + _processor.GetDescriptorForCurrent() + " - " + Formatter.Format(obj) + " : " + obj.GetHashCode());
             string groupname = "#" + (groupCounter++);//+" - "+_formatter.Format(obj);
             foreach (var mutationVariant in variants)
-            {   
+            {
                 var mutationTarget = new MutationTarget(mutationVariant)
                 {
-                    Id = _operatorId+"#" + genId(), 
+                    Id = _operatorId + "#" + genId(),
                     Name = mutationVariant.Signature,
                     ProcessingContext = _processor.CreateProcessingContext<T>(),
                     GroupName = groupname,
                     OperatorId = _operatorId,
                 };
-                if(_conflicts.Contains(mutationTarget.Id))
+                if (_conflicts.Contains(mutationTarget.Id))
                 {
                     mutationTarget.Id = mutationTarget.Id + "-conflict:" + DateTime.Now;
                 }
@@ -122,13 +124,12 @@
                 }
                 if (mutationTarget.ProcessingContext.Method != null)
                 {
-                    mutationTarget.MethodRaw = (IMethodDefinition) mutationTarget.ProcessingContext.Method.Object;
+                    mutationTarget.MethodRaw = (IMethodDefinition)mutationTarget.ProcessingContext.Method.Object;
                 }
-                
+
                 _mutationTargets.Add(mutationTarget);
             }
         }
-
 
         public virtual void PostProcess()
         {
@@ -138,22 +139,17 @@
             }
         }
 
-       
-
         public void MarkSharedTarget<T>(T o)
         {
-            var mutationTarget = new MutationTarget( 
+            var mutationTarget = new MutationTarget(
                 new MutationVariant("", new Dictionary<string, object>()))
-                                 {
-                                     Name = o.GetType().Name, 
-                                     ProcessingContext = _processor.CreateProcessingContext<T>(),
-                                 };
+            {
+                Name = o.GetType().Name,
+                ProcessingContext = _processor.CreateProcessingContext<T>(),
+            };
 
             _sharedTargets.Add(mutationTarget);
         }
-
-     
-
 
         public IMethodDefinition CurrentMethod
         {
@@ -162,6 +158,7 @@
                 return _currentMethodObj;
             }
         }
+
         public List<MutationTarget> MutationTargets
         {
             get
@@ -169,6 +166,7 @@
                 return _mutationTargets;
             }
         }
+
         public List<MutationTarget> SharedTargets
         {
             get
@@ -176,8 +174,5 @@
                 return _sharedTargets;
             }
         }
-
-
-       
     }
 }

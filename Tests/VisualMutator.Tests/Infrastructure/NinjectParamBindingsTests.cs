@@ -6,7 +6,6 @@
     using Ninject.Activation.Strategies;
     using Ninject.Modules;
     using NUnit.Framework;
-    using UsefulTools.DependencyInjection;
     using VisualMutator.Infrastructure;
     using VisualMutator.Infrastructure.NinjectModules;
 
@@ -17,14 +16,12 @@
     {
         private StandardKernel _kernel;
 
-
-
         [Test]
         public void TestBindingParameters()
         {
             var modules = new INinjectModule[]
             {
-                new TestModuleChilds(), 
+                new TestModuleChilds(),
             };
 
             _kernel = new StandardKernel();
@@ -34,10 +31,10 @@
 
             var factory = _kernel.Get<IBindingFactory<SomeTimedModule>>();
             SomeTimedModule someTimedModule1 = factory.CreateWithBindings(new SomeObject(3));
-            Assert.AreEqual(someTimedModule1.SomeObject.Parameter, 
+            Assert.AreEqual(someTimedModule1.SomeObject.Parameter,
                 someTimedModule1.InnerModule.SomeObject.Parameter);
         }
-        
+
         public class TestModuleChilds : NinjectModule
         {
             public override void Load()
@@ -45,12 +42,12 @@
                 Kernel.BindObjectRoot<SomeTimedModule>().ToSelf(childKernel =>
                 {
                     childKernel.Bind<SomeInnerModule>().ToSelf().InSingletonScope();
-
                 });
-                
+
                 Kernel.Bind<SomeObject>().ToSelf().AndFromFactory();
             }
         }
+
         public class SomeInnerModule
         {
             public SomeObject SomeObject { get; set; }
@@ -60,6 +57,7 @@
                 SomeObject = someObject;
             }
         }
+
         public class SomeTimedModule
         {
             public SomeInnerModule InnerModule { get; set; }
@@ -73,21 +71,22 @@
                 SomeObject = someObject;
             }
         }
-      
+
         public class SomeObject
         {
             private readonly int _parameter;
 
-            public SomeObject( int parameter)
+            public SomeObject(int parameter)
             {
                 _parameter = parameter;
             }
+
             public int Parameter
             {
                 get { return _parameter; }
             }
         }
-      
+
         public class SomeTimedObjectInner
         {
             public static int i = 0;
@@ -97,8 +96,8 @@
             {
                 id = i++;
             }
-
         }
+
         public class SomeTimedObjectInnerInner
         {
             public SomeTimedObjectInner Inner { get; set; }

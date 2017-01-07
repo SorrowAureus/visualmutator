@@ -6,7 +6,6 @@
 
     public class OMD_OverloadingMethodDeletion : IMutationOperator
     {
-    
         public OperatorInfo Info
         {
             get
@@ -14,11 +13,11 @@
                 return new OperatorInfo("OMD", "Overloading Method Deletion", "");
             }
         }
+
         public class OMDVisitor : OperatorCodeVisitor
         {
             public override void Visit(IMethodDefinition method)
             {
-
                 if (method.IsVirtual && !method.IsAbstract
                     && method.ContainingTypeDefinition.BaseClasses.Any())
                 {
@@ -34,14 +33,12 @@
                             notFound = false;
                         }
                     }
-
                 }
             }
-
         }
-        
+
         public class OMDRewriter : OperatorCodeRewriter
-        { 
+        {
             public override IMethodDefinition Rewrite(IMethodDefinition method)
             {
                 return Dummy.MethodDefinition;
@@ -57,7 +54,5 @@
         {
             return new OMDRewriter();
         }
-
-     
     }
 }

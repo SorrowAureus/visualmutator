@@ -11,7 +11,6 @@
     using System.Xml.Linq;
     using Controllers;
     using Decompilation;
-    using Decompilation.CodeDifference;
     using log4net;
     using Mutations.MutantsTree;
     using Mutations.Types;
@@ -29,24 +28,24 @@
     {
         private ILog _log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
-
         private readonly MutationSessionChoices _choices;
         private readonly SessionController _sessionController;
         private readonly ITestsContainer _testsContainer;
         private readonly IMutantsCache _mutantsCache;
         private readonly ICodeVisualizer _codeVisualizer;
 
-        Func<CancellationToken, int> cancellationCheck = (token) =>
-            {
-                token.ThrowIfCancellationRequested();
-                return 0;
-            };
-        Func<ProgressCounter, CancellationToken,int> progressAction = (p, token) =>
-            {
-                token.ThrowIfCancellationRequested();
-                p.Progress();
-                return 0;
-            };
+        private Func<CancellationToken, int> cancellationCheck = (token) =>
+             {
+                 token.ThrowIfCancellationRequested();
+                 return 0;
+             };
+
+        private Func<ProgressCounter, CancellationToken, int> progressAction = (p, token) =>
+              {
+                  token.ThrowIfCancellationRequested();
+                  p.Progress();
+                  return 0;
+              };
 
         public XmlResultsGenerator(
             MutationSessionChoices choices,
@@ -62,14 +61,12 @@
             _codeVisualizer = codeVisualizer;
         }
 
-        public async Task<XDocument> GenerateResults(MutationTestingSession session, 
-            bool includeDetailedTestResults, bool includeCodeDifferenceListings, 
+        public async Task<XDocument> GenerateResults(MutationTestingSession session,
+            bool includeDetailedTestResults, bool includeCodeDifferenceListings,
             ProgressCounter progress, CancellationToken token)
         {
             _log.Info("Generating session results to file.");
 
-
-      
             int multiplier = 1;
             if (includeDetailedTestResults)
             {
@@ -80,11 +77,9 @@
                 multiplier++;
             }
 
-            
-
             List<Mutant> mutants = session.MutantsGrouped.Cast<CheckedNode>()
                 .SelectManyRecursive(n => n.Children ?? new NotifyingCollection<CheckedNode>(),
-                leafsOnly:true).OfType<Mutant>().ToList();
+                leafsOnly: true).OfType<Mutant>().ToList();
             List<Mutant> mutantsWithErrors = mutants.Where(m => m.State == MutantResultState.Error).ToList();
             List<Mutant> testedMutants = mutants.Where(m => m.MutantTestSession.IsComplete).ToList();
             List<Mutant> live = testedMutants.Where(m => m.State == MutantResultState.Live).ToList();
@@ -93,8 +88,6 @@
             List<Mutant> unpairedFOMs = mutants.Where(m => m.Id.IndexOf("First Order Mutant") != -1).ToList();
 
             progress.Initialize(mutants.Count * multiplier);
-
-            
 
             var mutantsNode = new XElement("Mutants",
                 new XAttribute("Total", mutants.Count),
@@ -115,7 +108,7 @@
                     new XAttribute("Name", assemblyNode.Name),
 
                     from type in assemblyNode.Children.SelectManyRecursive(
-                        n => n.Children?? new NotifyingCollection<CheckedNode>())
+                        n => n.Children ?? new NotifyingCollection<CheckedNode>())
                         .OfType<TypeNode>()
                     select new XElement("Type",
                         new XAttribute("Name", type.Name),
@@ -124,7 +117,7 @@
                             select new XElement("Method",
                             new XAttribute("Name", method.Name),
                             from mutant in method.Children.SelectManyRecursive(
-                                n=>n.Children ?? new NotifyingCollection<CheckedNode>()).OfType<Mutant>()
+                                n => n.Children ?? new NotifyingCollection<CheckedNode>()).OfType<Mutant>()
                             select new XElement("Mutant",
                                 new XAttribute("Id", mutant.Id),
                                 new XAttribute("Description", mutant.Description),
@@ -138,13 +131,11 @@
                                         new XElement("ExceptionMessage", mutant.MutantTestSession.ErrorMessage)
                                 ).InArrayIf(mutant.State == MutantResultState.Error)
                             )
-                            
+
                         )
                     )
                 )
             );
-
-
 
             var optionalElements = new List<XElement>();
 
@@ -168,11 +159,11 @@
                         new XAttribute("SessionEndTime", _sessionController.SessionEndTime),
                         new XAttribute("SessionRunTimeSeconds", (_sessionController.SessionEndTime
                         - _sessionController.SessionStartTime).TotalSeconds),
-                        new XAttribute("MutationScore", ((int)(session.MutationScore*100)).ToString()),
+                        new XAttribute("MutationScore", ((int)(session.MutationScore * 100)).ToString()),
                         mutantsNode,
                         optionalElements));
-            
         }
+
         public async Task<XElement> CreateCodeDifferenceListings(List<Mutant> mutants, ProgressCounter progress, CancellationToken token)
         {
             var list = new List<XElement>();
@@ -194,7 +185,7 @@
 
         public XElement CreateDetailedTestingResults(List<Mutant> mutants, ProgressCounter progress, CancellationToken token)
         {
-            return new XElement("DetailedTestingResults",  
+            return new XElement("DetailedTestingResults",
                 from mutant in mutants
                 where mutant.MutantTestSession.IsComplete
                 let x = progressAction(progress, token)
@@ -231,8 +222,7 @@
                             )
                         )
                     )
-                ); 
+                );
         }
-           
     }
 }

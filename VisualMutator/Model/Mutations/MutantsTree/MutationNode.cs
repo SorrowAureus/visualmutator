@@ -3,7 +3,6 @@
     #region
 
     using System.Collections.Generic;
-    using Infrastructure;
     using UsefulTools.CheckboxedTree;
 
     #endregion
@@ -13,7 +12,7 @@
         private bool _isExpanded;
 
         protected MutationNode(string name, bool hasChildren)
-            : base( name, hasChildren, 
+            : base(name, hasChildren,
             propagationDown: new List<MutantResultState>()
             {
                 MutantResultState.Untested
@@ -27,8 +26,8 @@
                 MutantResultState.Killed
             })
         {
-     
         }
+
         public bool IsExpanded
         {
             get
@@ -40,7 +39,5 @@
                 SetAndRise(ref _isExpanded, value, () => _isExpanded);
             }
         }
-        
-    
     }
 }

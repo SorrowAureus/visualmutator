@@ -17,7 +17,7 @@
     #endregion
 
     [TestFixture]
-    public class TestRoslyn 
+    public class TestRoslyn
     {
         #region Setup/Teardown
 
@@ -26,69 +26,68 @@
         {
             BasicConfigurator.Configure(
                 new ConsoleAppender
-                    {
-                        Layout = new SimpleLayout()
-                    });
+                {
+                    Layout = new SimpleLayout()
+                });
         }
 
         #endregion
-            string execTemplate =
-@" using System; 
-using System.Collections.Generic; 
-using System.Text; 
-using System.Linq; 
-  
-namespace VisualMutator_generated 
-{ 
+
+        private string execTemplate =
+@" using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Linq;
+
+namespace VisualMutator_generated
+{
     public class Program : VisualMutator.Model.TestGeneration.GenerationInterface
-    { 
-        public override string TestRun(int s) 
-        { 
+    {
+        public override string TestRun(int s)
+        {
             return (s+1).ToString() +  AppDomain.CurrentDomain.FriendlyName;
-        } 
-        public string Process(int s) 
-        { 
+        }
+        public string Process(int s)
+        {
             return (s+1).ToString() +  AppDomain.CurrentDomain.FriendlyName;
-        } 
-        public static void Main(string[] s) 
-        { 
-            
-        } 
+        }
+        public static void Main(string[] s)
+        {
+        }
 
         public override object InitializeLifetimeService()
         {
             // This ensures the object lasts for as long as the client wants it
             return null;
         }
-    } 
+    }
 }";
 
         [Test]
         public void Process()
         {
             var tree = SyntaxTree.ParseText(execTemplate);
-           
+
             CompilationUnitSyntax root = tree.GetRoot();
             var body =
                 (from methodDeclaration in root.DescendantNodes().OfType<MethodDeclarationSyntax>()
-                where methodDeclaration.Identifier.ValueText == "Main"
-                select methodDeclaration).Single();
-                        /*
+                 where methodDeclaration.Identifier.ValueText == "Main"
+                 select methodDeclaration).Single();
+            /*
 
-                                   var block = body.Body.WithStatements(
-                                       Syntax.LocalDeclarationStatement(
-                                           Syntax.VariableDeclaration(
-                                               Syntax.IdentifierName(Syntax.Token(SyntaxKind.IntKeyword)))
-                                                   .AddVariables(Syntax.VariableDeclarator("x"))));
-                                   */
+                       var block = body.Body.WithStatements(
+                           Syntax.LocalDeclarationStatement(
+                               Syntax.VariableDeclaration(
+                                   Syntax.IdentifierName(Syntax.Token(SyntaxKind.IntKeyword)))
+                                       .AddVariables(Syntax.VariableDeclarator("x"))));
+                       */
 
-          //  var block = body.Body.WithStatements(Syntax.ParseStatement("Dsa.Utility.Guard.ArgumentNull(null, null);").WithLeadingTrivia(Syntax.Tab));
-        //    root = root.ReplaceNode(body.Body, block);
+            //  var block = body.Body.WithStatements(Syntax.ParseStatement("Dsa.Utility.Guard.ArgumentNull(null, null);").WithLeadingTrivia(Syntax.Tab));
+            //    root = root.ReplaceNode(body.Body, block);
 
             var newTree = SyntaxTree.Create(root);
-      
+
             Console.WriteLine(newTree.GetText());
-            
 
             var comp = Compilation.Create("MyCompilation",
                 new CompilationOptions(OutputKind.DynamicallyLinkedLibrary))
@@ -99,17 +98,15 @@ namespace VisualMutator_generated
                 .AddReferences(MetadataReference.CreateAssemblyReference("System.Linq"));
 
             var outputFileName = Path.Combine(Path.GetTempPath(), "MyCompilation.dll");
-         //   var ilStream = new FileStream(outputFileName, FileMode.OpenOrCreate);
-
-
+            //   var ilStream = new FileStream(outputFileName, FileMode.OpenOrCreate);
 
             var memStream = new MemoryStream();
 
             var result = comp.Emit(memStream);
-        //    memStream.Close();
+            //    memStream.Close();
             if (!result.Success)
             {
-                var aggregate = result.Diagnostics.Select(a => a.Info.GetMessage() + " at line"+ a.Location.GetLineSpan(false)).Aggregate((a, b) => a + "\n" + b);
+                var aggregate = result.Diagnostics.Select(a => a.Info.GetMessage() + " at line" + a.Location.GetLineSpan(false)).Aggregate((a, b) => a + "\n" + b);
                 throw new InvalidProgramException(aggregate);
             }
 
@@ -121,7 +118,6 @@ namespace VisualMutator_generated
                              @"C:\Users\SysOp\Documents\Visual Studio 2012\Projects\VisualMutator\VisualMutator\obj\x86\Debug\VisualMutator.dll",
                              typeof(AppDomainCreator).FullName);
 
-
             try
             {
                 foo.Execute(memStream.ToArray());
@@ -131,24 +127,22 @@ namespace VisualMutator_generated
                 Console.WriteLine(e);
             }
 
-            
-           
-         //   Console.WriteLine(foo.TestRun(4));
+            //   Console.WriteLine(foo.TestRun(4));
             AppDomain.Unload(newDomain);
-          //  Console.ReadLine();
+            //  Console.ReadLine();
             /*
             AppDomainSetup domainSetup = new AppDomainSetup();
             AppDomain domain = AppDomain.CreateDomain("PluginDomain", null, domainSetup);
             var obj = domain.CreateInstanceAndUnwrap().CreateInstanceFromAndUnwrap(@"C:\Users\SysOp\Documents\Visual Studio 2012\Projects\ConsoleApplication1\ConsoleApplication1\bin\Debug\ConsoleApplication1.exe", "ConsoleApplication1.Klasa1");
 
             var m = obj.GetType().GetMethod("Method1");
-            
+
             */
         }
 
         private Assembly MyResolver(object sender, ResolveEventArgs args)
         {
-            //args.Name == 
+            //args.Name ==
             AppDomain domain = (AppDomain)sender;
             return Assembly.LoadFile(@"C:\Users\SysOp\Documents\Visual Studio 2012\Projects\VisualMutator\VisualMutator\obj\x86\Release\VisualMutator.dll");
         }

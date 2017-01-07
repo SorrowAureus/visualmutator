@@ -16,24 +16,25 @@
                 var passes = new List<string>
                     {
                         "RightShift",
-                        "LeftShift", 
+                        "LeftShift",
                     }.Where(elem => elem != operation.GetType().Name).ToList();
-                
+
                 MarkMutationTarget(operation, passes);
             }
+
             public override void Visit(IRightShift operation)
             {
                 ProcessOperation(operation);
             }
+
             public override void Visit(ILeftShift operation)
             {
                 ProcessOperation(operation);
             }
-         
         }
+
         public class ShiftOperatorReplacementRewriter : OperatorCodeRewriter
         {
-           
             private IExpression ReplaceOperation<T>(T operation) where T : IBinaryOperation
             {
                 var replacement = Switch.Into<Expression>()
@@ -55,16 +56,18 @@
 
                 return replacement;
             }
+
             public override IExpression Rewrite(IRightShift operation)
             {
                 return ReplaceOperation(operation);
             }
+
             public override IExpression Rewrite(ILeftShift operation)
             {
                 return ReplaceOperation(operation);
             }
-            
         }
+
         public OperatorInfo Info
         {
             get
@@ -72,7 +75,6 @@
                 return new OperatorInfo("SOR", "Shift Operator Replacement", "");
             }
         }
-
 
         public IOperatorCodeVisitor CreateVisitor()
         {

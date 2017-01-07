@@ -16,7 +16,6 @@
     {
         public override Brush Convert(MutantResultState state)
         {
-
             return FunctionalExt.ValuedSwitch<MutantResultState, Brush>(state)
                 .Case(MutantResultState.Untested, Brushes.Gainsboro)
                 .Case(MutantResultState.Killed, Brushes.Gray)

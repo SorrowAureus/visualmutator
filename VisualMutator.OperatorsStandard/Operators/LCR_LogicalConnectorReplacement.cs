@@ -8,7 +8,6 @@
 
     public class LCR_LogicalConnectorReplacement : IMutationOperator
     {
-
         public OperatorInfo Info
         {
             get
@@ -17,15 +16,13 @@
             }
         }
 
-
         public class LCRVisitor : OperatorCodeVisitor
         {
-
             public override void Visit(IConditional cond)
             {
                 var passes = new List<string>();
                 var boundCondition = cond.Condition as BoundExpression;
-                
+
                 if (boundCondition != null && boundCondition.Type.TypeCode == PrimitiveTypeCode.Boolean)
                 {
                     var resultTrueBound = cond.ResultIfTrue as BoundExpression;
@@ -38,20 +35,17 @@
                     {
                         MarkMutationTarget(cond, "to||");
                     }
-                    else if (resultTrueConstant != null && resultFalseBound != null 
+                    else if (resultTrueConstant != null && resultFalseBound != null
                         && resultFalseBound.Type.TypeCode == PrimitiveTypeCode.Boolean) // is ||
                     {
                         MarkMutationTarget(cond, "to&&");
                     }
                 }
-
-              
             }
         }
+
         public class LCRRewriter : OperatorCodeRewriter
         {
-
-
             public override IExpression Rewrite(IConditional cond)
             {
                 var newCond = new Conditional(cond);
@@ -63,7 +57,7 @@
                     {
                         Type = cond.ResultIfTrue.Type,
                         Value = false,
-                    };  
+                    };
                 })
                 .Case("to||", () =>
                 {
@@ -72,15 +66,12 @@
                     {
                         Type = cond.ResultIfFalse.Type,
                         Value = true,
-                    };          
+                    };
                 }).ThrowIfNoMatch();
-              
+
                 return newCond;
             }
-          
         }
-      
-      
 
         public IOperatorCodeVisitor CreateVisitor()
         {

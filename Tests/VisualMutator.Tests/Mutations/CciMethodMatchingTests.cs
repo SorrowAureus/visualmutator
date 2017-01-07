@@ -2,28 +2,16 @@
 {
     #region
 
-    using System.Collections.Generic;
     using System.Linq;
-    using System.Text.RegularExpressions;
     using log4net.Appender;
     using log4net.Config;
     using log4net.Layout;
     using Microsoft.Cci;
-    using Model;
     using Model.CoverageFinder;
-    using Model.Mutations.Types;
     using NUnit.Framework;
-    using UsefulTools.CheckboxedTree;
-    using UsefulTools.ExtensionMethods;
-    using UsefulTools.Paths;
-    using TypeHelper = Microsoft.Cci.TypeHelper;
 
     #endregion
 
-
-
-
-    
     [TestFixture("Ns.Class.Method1<T>()")]
     [TestFixture("Ns.Class.InnerClass<K, Y>.Met2<R>(K, System.Int32)")]
     [TestFixture("Ns.Class<S>.Inner.Inner2.Met2<R, L>()")]
@@ -78,7 +66,6 @@
         [SetUp]
         public void Setup()
         {
-
             BasicConfigurator.Configure(
                 new ConsoleAppender
                 {
@@ -86,9 +73,8 @@
                 });
 
             _module = null;//TODO MutationTestsHelper.CreateModuleFromCode(code);
-
         }
-     
+
         [Test]
         public void ShouldFindMethodByIdentifier()
         {

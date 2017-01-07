@@ -2,7 +2,6 @@
 {
     #region
 
-    using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using Model.Tests.TestsTree;
     using UsefulTools.Wpf;
@@ -15,7 +14,6 @@
         public TestsSelectableTreeViewModel(ITestsSelectableTree view)
             : base(view)
         {
-            
         }
 
         private ReadOnlyCollection<TestNodeAssembly> _testAssemblies;
@@ -31,6 +29,5 @@
                 SetAndRise(ref _testAssemblies, value, () => TestAssemblies);
             }
         }
-        
     }
 }

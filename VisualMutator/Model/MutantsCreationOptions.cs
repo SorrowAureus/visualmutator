@@ -7,8 +7,5 @@ namespace VisualMutator.Model
         public MutantsCreationOptions()
         {
         }
-       
-      
-
     }
 }

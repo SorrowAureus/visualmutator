@@ -8,57 +8,51 @@
              xmlns:Converters="clr-namespace:VisualMutator.Views.Converters"
              xmlns:ViewModels1="clr-namespace:VisualMutator.ViewModels" mc:Ignorable="d" d:DesignHeight="300"
              d:DesignWidth="300">
-    <UserControl.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Resources/Global.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </UserControl.Resources>
+  <UserControl.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="Resources/Global.xaml" />
+      </ResourceDictionary.MergedDictionaries>
+    </ResourceDictionary>
+  </UserControl.Resources>
 
+  <Grid d:DataContext="{d:DesignInstance ViewModels1:MutantDetailsViewModel}">
 
-    <Grid d:DataContext="{d:DesignInstance ViewModels1:MutantDetailsViewModel}">
-
-        <TextBlock Grid.Row="0" Text="Tests for selected mutant:" />
-        <TabControl SelectionChanged="tabControl_SelectionChanged" 
+    <TextBlock Grid.Row="0" Text="Tests for selected mutant:" />
+    <TabControl SelectionChanged="tabControl_SelectionChanged"
                     SelectedIndex="{Binding SelectedIndex}">
-            <TabItem Header="Tests">
-                <Views:TestsTree />
+      <TabItem Header="Tests">
+        <Views:TestsTree />
+      </TabItem>
 
-            </TabItem>
+      <TabItem Header="Code">
+        <Grid>
+          <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+          </Grid.RowDefinitions>
 
-            <TabItem Header="Code">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition />
-                    </Grid.RowDefinitions>
-
-                    <DockPanel HorizontalAlignment="Right">
-                        <TextBlock Text="Language:" />
-                        <ComboBox Grid.Row="0" Width="100" ItemsSource="{Binding CodeLanguages}"
+          <DockPanel HorizontalAlignment="Right">
+            <TextBlock Text="Language:" />
+            <ComboBox Grid.Row="0" Width="100" ItemsSource="{Binding CodeLanguages}"
                                   SelectedValue="{Binding SelectedLanguage}" />
-                    </DockPanel>
+          </DockPanel>
 
-                    <Grid Grid.Row="1">
+          <Grid Grid.Row="1">
 
-                        <RichTextBox Name="codeTextBox" FontFamily="Consolas" IsReadOnly="true">
-                            <RichTextBox.Resources>
-                                <Style TargetType="{x:Type Paragraph}">
-                                    <Setter Property="Margin" Value="0" />
-                                </Style>
-                            </RichTextBox.Resources>
-
-                        </RichTextBox>
-                        <Views:ProgressControl
-                            Visibility="{Binding IsCodeLoading, 
+            <RichTextBox Name="codeTextBox" FontFamily="Consolas" IsReadOnly="true">
+              <RichTextBox.Resources>
+                <Style TargetType="{x:Type Paragraph}">
+                  <Setter Property="Margin" Value="0" />
+                </Style>
+              </RichTextBox.Resources>
+            </RichTextBox>
+            <Views:ProgressControl
+                            Visibility="{Binding IsCodeLoading,
                             Converter={Converters:TrueToVisibilityConverter} }" />
-                    </Grid>
-                </Grid>
-
-            </TabItem>
-
-        </TabControl>
-
-    </Grid>
+          </Grid>
+        </Grid>
+      </TabItem>
+    </TabControl>
+  </Grid>
 </UserControl>

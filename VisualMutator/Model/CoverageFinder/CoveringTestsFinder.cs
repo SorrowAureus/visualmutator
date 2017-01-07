@@ -7,7 +7,6 @@
     using Exceptions;
     using log4net;
     using Microsoft.Cci;
-    using Microsoft.Cci.ILToCodeModel;
     using Mutations.Types;
     using UsefulTools.ExtensionMethods;
 
@@ -31,16 +30,16 @@
             {
                 PreorderVisitor = visitor
             };
-            
+
             traverser.Traverse(module.Decompile(module.Module));
-            _log.Debug("Finished scanning module"+ module.Module.Name + ". Found " + visitor.FoundTests.Count+
-                ". Scanned total: " + visitor.ScannedMethods + " methods and "+
-                visitor.ScannedMethodCalls+" method calls.");
+            _log.Debug("Finished scanning module" + module.Module.Name + ". Found " + visitor.FoundTests.Count +
+                ". Scanned total: " + visitor.ScannedMethods + " methods and " +
+                visitor.ScannedMethodCalls + " method calls.");
 
             _log.Debug("Listing found tests: ");
             foreach (var methodIdentifier in visitor.FoundTests)
             {
-                _log.Debug("Test: "+ methodIdentifier);
+                _log.Debug("Test: " + methodIdentifier);
             }
 
             if (visitor.IsChoiceError)
@@ -48,7 +47,7 @@
                 throw new TestWasSelectedToMutateException();
             }
             return visitor.FoundTests.ToList();
-        } 
+        }
     }
 
     public interface ICoveringTestsFinder

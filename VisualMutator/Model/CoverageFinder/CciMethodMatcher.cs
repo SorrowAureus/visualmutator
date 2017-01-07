@@ -15,11 +15,11 @@
             _identifier = identifier;
             _log.Debug("Creatng searcher for: " + _identifier);
         }
-      
+
         public bool Matches(IMethodReference method)
         {
             var sig = CreateIdentifier(method);
-            _log.Debug("matching: "+sig);
+            _log.Debug("matching: " + sig);
             //AKB to rethink
             return sig.MethodNameWithoutParams == _identifier.MethodNameWithoutParams;
         }
@@ -28,8 +28,8 @@
         {
             typeReference = TypeHelper.UninstantiateAndUnspecialize(typeReference);
             string name = TypeHelper.GetTypeName(typeReference,
-                    NameFormattingOptions.TypeParameters );
-            _log.Debug("Matching type : " + name+" by " + _identifier.ClassName);
+                    NameFormattingOptions.TypeParameters);
+            _log.Debug("Matching type : " + name + " by " + _identifier.ClassName);
             return _identifier.ClassName == name;
         }
 

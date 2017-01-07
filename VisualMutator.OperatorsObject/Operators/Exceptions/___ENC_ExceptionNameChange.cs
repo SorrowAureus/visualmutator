@@ -26,20 +26,18 @@
             {
                 _log.Info("Visit ITryCatchFinallyStatement: " + operation);
                 var systemException = Parent.CurrentMethod.ContainingTypeDefinition.PlatformType.SystemException;
-                if (operation.CatchClauses.All(c => ((INamedTypeReference)c.ExceptionType) != systemException) )
+                if (operation.CatchClauses.All(c => ((INamedTypeReference)c.ExceptionType) != systemException))
                 {
                     MarkMutationTarget(operation);
                 }
             }
         }
 
-
         public class ENCRewriter : OperatorCodeRewriter
         {
-
             public override void Initialize()
             {
-               // CoreAssembly = Host.LoadAssembly(Host.CoreAssemblySymbolicIdentity);
+                // CoreAssembly = Host.LoadAssembly(Host.CoreAssemblySymbolicIdentity);
 
                 var host = new PeReader.DefaultHost();
                 IModule module = OperatorUtils.CompileModuleFromCode(
@@ -49,21 +47,20 @@
     {
     }
 
-    public GenException(object o1) 
+    public GenException(object o1)
     {
     }
     public GenException(object o1, object o2)
     {
     }
 }", host);
-             /*   GeneratedType = (NamespaceTypeDefinition)module.GetAllTypes().Single(t => t.Name.Value == "VisualMutatorGeneratedClass");
-                var methodBody = TypeHelper.GetMethod(GeneratedType,
-                    host.NameTable.GetNameFor("FailOnZero"), host.PlatformType.SystemInt32).Body;
-                var generatedBody = (SourceMethodBody)methodBody;
-                GeneratedBlock = generatedBody.Block;*/
+                /*   GeneratedType = (NamespaceTypeDefinition)module.GetAllTypes().Single(t => t.Name.Value == "VisualMutatorGeneratedClass");
+                   var methodBody = TypeHelper.GetMethod(GeneratedType,
+                       host.NameTable.GetNameFor("FailOnZero"), host.PlatformType.SystemInt32).Body;
+                   var generatedBody = (SourceMethodBody)methodBody;
+                   GeneratedBlock = generatedBody.Block;*/
                 host.Dispose();
             }
-
 
             public override IStatement Rewrite(ITryCatchFinallyStatement operation)
             {
@@ -76,14 +73,12 @@
                     ExceptionType = systemException,
                     Body = new BlockStatement()
                     {
-                        Statements = new List<IStatement>{ new EmptyStatement()},
+                        Statements = new List<IStatement> { new EmptyStatement() },
                     }
                 });
                 return tryCatch;
             }
-           
         }
-
 
         public IOperatorCodeVisitor CreateVisitor()
         {
@@ -94,6 +89,5 @@
         {
             return new ENCRewriter();
         }
-
     }
 }

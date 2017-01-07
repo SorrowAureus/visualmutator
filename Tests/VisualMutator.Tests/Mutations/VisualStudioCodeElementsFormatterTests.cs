@@ -4,7 +4,6 @@
 
     using System.Collections.Generic;
     using System.Linq;
-    using Model;
     using Model.CoverageFinder;
     using NUnit.Framework;
     using SoftwareApproach.TestingExtensions;
@@ -28,7 +27,7 @@
         {
             _methodName = methodName;
             _expected = expected;
-            
+
             _params = paramsEncoded.Length != 0 ? paramsEncoded.Split(';').ToList() : new List<string>();
         }
 

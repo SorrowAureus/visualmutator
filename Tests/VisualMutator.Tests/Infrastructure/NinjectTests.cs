@@ -18,14 +18,12 @@
     {
         private StandardKernel _kernel;
 
-
-
         [Test]
         public void TestPartialParameters()
         {
             var modules = new INinjectModule[]
             {
-                new TestModule(), 
+                new TestModule(),
             };
 
             _kernel = new StandardKernel();
@@ -47,12 +45,13 @@
                 Kernel.Bind<SomeObject>().ToSelf().AndFromFactory();
             }
         }
+
         [Test]
         public void TestPartialParametersInChild()
         {
             var modules = new INinjectModule[]
             {
-                new TestModuleChilds(), 
+                new TestModuleChilds(),
             };
 
             _kernel = new StandardKernel();
@@ -72,8 +71,7 @@
             Assert.AreNotSame(someTimedModule1.InnerModule, someTimedModule2.InnerModule);
 
             SomeTimedObject someTimedObject = someTimedModule1.ObjFactory.CreateWithParams(1);
-            
-            
+
             Assert.AreSame(someTimedObject.ModuleTimed, someTimedModule1.InnerModule);
             Assert.AreSame(someTimedObject.Module, main2);
 
@@ -81,12 +79,12 @@
             Assert.AreNotSame(someTimedObject2.TimedObjectInner, someTimedObject.TimedObjectInner);
             Assert.AreSame(someTimedObject2.TimedObjectInner, someTimedObject2.InnerInner.Inner);
         }
-        
+
         public class TestModuleChilds : NinjectModule
         {
             public override void Load()
             {
-              //  Kernel.Load(new ContextPreservationModule());
+                //  Kernel.Load(new ContextPreservationModule());
                 Kernel.Bind<SomeMainModule>().ToSelf().InSingletonScope();
                 Kernel.BindObjectRoot<SomeTimedModule>().ToSelf(childKernel =>
                 {
@@ -98,22 +96,21 @@
                         child.Bind<SomeTimedObject>().ToSelf().InSingletonScope();
                         child.Bind<SomeTimedObjectInner>().ToSelf().InSingletonScope();
                         child.Bind<SomeTimedObjectInnerInner>().ToSelf().InSingletonScope();
-
                     });
-
                 });
-                
+
                 Kernel.Bind<SomeObject>().ToSelf().AndFromFactory();
             }
         }
+
         public class SomeMainModule
         {
-
         }
+
         public class SomeInnerModule
         {
-
         }
+
         public class SomeTimedModule
         {
             public SomeInnerModule InnerModule { get; set; }
@@ -130,6 +127,7 @@
                 get { return _objFactory; }
             }
         }
+
         public class SomeTimedModule2
         {
             public SomeInnerModule InnerModule
@@ -137,6 +135,7 @@
                 get;
                 set;
             }
+
             private readonly IFactory<SomeTimedObject> _objFactory;
 
             public SomeTimedModule2(IFactory<SomeTimedObject> objFactory, SomeInnerModule innerModule)
@@ -153,6 +152,7 @@
                 }
             }
         }
+
         public class SomeObject
         {
             private readonly SomeMainModule _module;
@@ -174,6 +174,7 @@
                 get { return _parameter; }
             }
         }
+
         public class SomeTimedObject
         {
             public SomeInnerModule ModuleTimed { get; set; }
@@ -182,7 +183,7 @@
             private readonly SomeMainModule _module;
             private readonly int _parameter;
 
-            public SomeTimedObject(SomeMainModule module, 
+            public SomeTimedObject(SomeMainModule module,
                 SomeInnerModule moduleTimed,
                 SomeTimedObjectInner timedObjectInner,
                 SomeTimedObjectInnerInner innerInner, int parameter)
@@ -210,6 +211,7 @@
                 }
             }
         }
+
         public class SomeTimedObjectInner
         {
             public static int i = 0;
@@ -219,8 +221,8 @@
             {
                 id = i++;
             }
-
         }
+
         public class SomeTimedObjectInnerInner
         {
             public SomeTimedObjectInner Inner { get; set; }

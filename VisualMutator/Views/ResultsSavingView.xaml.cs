@@ -10,8 +10,6 @@
 
     public interface IResultsSavingView : IWindow
     {
-      
-
     }
 
     public partial class ResultsSavingView : Window, IResultsSavingView

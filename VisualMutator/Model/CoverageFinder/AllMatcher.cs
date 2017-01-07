@@ -8,8 +8,8 @@
     public abstract class CodePartsMatcher : ICodePartsMatcher
     {
         public abstract bool Matches(IMethodReference method);
+
         public abstract bool Matches(ITypeReference typeReference);
-        
     }
 
     public class DelegatingMatcher : CodePartsMatcher
@@ -22,7 +22,7 @@
         }
 
         public DelegatingMatcher(
-            Func<IMethodReference, bool> methodMatching, 
+            Func<IMethodReference, bool> methodMatching,
             Func<ITypeReference, bool> typeMatching)
         {
             _methodMatching = methodMatching;
@@ -43,7 +43,7 @@
     public class AllMatcher : CodePartsMatcher
     {
         private ILog _log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-      
+
         public override bool Matches(IMethodReference method)
         {
             return true;

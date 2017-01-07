@@ -10,9 +10,7 @@
 
     public interface ISessionCreationView : IWindow
     {
- 
     }
-
 
     public partial class SessionCreationView : Window, ISessionCreationView
     {

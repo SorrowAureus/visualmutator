@@ -8,18 +8,20 @@
     using UsefulTools.Core;
     using UsefulTools.FileSystem;
     using UsefulTools.Threading;
+
     public class ImmediateExecute : IDispatcherExecute
     {
         public TaskScheduler GuiScheduler { get { return TaskScheduler.Default; } }
         public SynchronizationContext GuiSyncContext { get { return SynchronizationContext.Current; } }
     }
+
     public class ConsoleInfrastructureModule : NinjectModule
     {
         public override void Load()
         {
             Infrastructure();
-
         }
+
         private void Infrastructure()
         {
             Bind<IMessageService>().To<ConsoleMessageService>().InSingletonScope();

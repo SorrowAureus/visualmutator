@@ -35,7 +35,7 @@
         private CancellationTokenSource _cts;
 
         public ResultsSavingController(
-            ResultsSavingViewModel viewModel, 
+            ResultsSavingViewModel viewModel,
             IFileSystem fs,
             CommonServices svc,
             XmlResultsGenerator generator)
@@ -44,8 +44,6 @@
             _fs = fs;
             _svc = svc;
             _generator = generator;
-
-
 
             _viewModel.CommandSaveResults = new SmartCommand(async () =>
             {
@@ -67,7 +65,7 @@
 
             _viewModel.CommandClose = new SmartCommand(() =>
             {
-                if(_cts != null)
+                if (_cts != null)
                 {
                     _cts.Cancel();
                     _viewModel.IsCancelled = true;
@@ -80,7 +78,7 @@
                 canExecute: () => !_viewModel.IsCancelled)
                 .UpdateOnChanged(_viewModel, _ => _.IsCancelled);
 
-            _viewModel.CommandBrowse = new SmartCommand(BrowsePath, 
+            _viewModel.CommandBrowse = new SmartCommand(BrowsePath,
                 canExecute: () => !_viewModel.SavingInProgress)
                 .UpdateOnChanged(_viewModel, _ => _.SavingInProgress);
 
@@ -88,7 +86,6 @@
             {
                 _viewModel.TargetPath = _svc.Settings["MutationResultsFilePath"];
             }
-           
         }
 
         public bool IsCancelled { get; set; }
@@ -102,11 +99,10 @@
         {
             _currentSession = currentSession;
             _viewModel.Show();
-
         }
+
         public void BrowsePath()
         {
-
             SaveFileDialog dlg = new SaveFileDialog
             {
                 FileName = "MutationResults",
@@ -114,20 +110,17 @@
                 Filter = "XML documents (.xml)|*.xml"
             };
 
-
             bool? result = dlg.ShowDialog();
 
             if (result == true)
             {
                 _viewModel.TargetPath = dlg.FileName;
-
             }
-
-
         }
+
         public async Task SaveResults(string path = null)
         {
-            if(path == null)
+            if (path == null)
             {
                 if (string.IsNullOrEmpty(_viewModel.TargetPath)
                 || !Path.IsPathRooted(_viewModel.TargetPath))
@@ -143,14 +136,13 @@
             var progress = ProgressCounter.Invoking(i => _viewModel.Progress = i);
 
             XDocument document = await _generator.GenerateResults(_currentSession,
-            _viewModel.IncludeDetailedTestResults, 
-            _viewModel.IncludeCodeDifferenceListings, 
+            _viewModel.IncludeDetailedTestResults,
+            _viewModel.IncludeCodeDifferenceListings,
             progress,
             _cts.Token);
 
             try
             {
-
                 using (var writer = _fs.File.CreateText(path))
                 {
                     writer.Write(document.ToString());
@@ -158,7 +150,6 @@
                 _svc.Settings["MutationResultsFilePath"] = path;
 
                 _viewModel.Close();
-
 
                 var p = new Process();
 
@@ -169,22 +160,11 @@
             {
                 _svc.Logging.ShowError("Cannot write file: " + path);
             }
-          
-            
-            
         }
+
         public void Close()
         {
             _viewModel.Close();
         }
-
-       
-
-
-
-
-
-
-
     }
 }

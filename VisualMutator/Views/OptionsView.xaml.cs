@@ -10,8 +10,6 @@
 
     public interface IOptionsView : IWindow
     {
-      
-
     }
 
     public partial class OptionsView : Window, IOptionsView

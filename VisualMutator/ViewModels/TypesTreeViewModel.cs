@@ -12,7 +12,7 @@
 
     public class TypesTreeViewModel : ViewModel<ITypesTreeView>
     {
-        public TypesTreeViewModel(ITypesTreeView view) :base(view)
+        public TypesTreeViewModel(ITypesTreeView view) : base(view)
         {
             IsExpanded = true;
         }
@@ -30,6 +30,7 @@
                 SetAndRise(ref _assemblies, value, () => Assemblies);
             }
         }
+
         private bool _isExpanded;
 
         public bool IsExpanded

@@ -1,13 +1,8 @@
-﻿
-
-namespace VisualMutator.Model.Tests.Services
+﻿namespace VisualMutator.Model.Tests.Services
 {
     #region
 
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
     using Strilanc.Value;
-    using TestsTree;
 
     #endregion
 
@@ -17,10 +12,8 @@ namespace VisualMutator.Model.Tests.Services
 
         May<TestsLoadContext> LoadTests(string assemblyPath);
 
-
         void Cancel();
+
         ITestsRunContext CreateRunContext(TestsLoadContext loadContext, string mutatedPath);
     }
-
-  
 }

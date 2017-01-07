@@ -25,7 +25,7 @@ namespace VisualMutator.Model.Decompilation.CodeDifference
 
         private string NormalizeLine(string line)
         {
-            //IL_00ca: 
+            //IL_00ca:
             line = line.Trim();
             var index = line.IndexOf("//");
             if (index >= 0)
@@ -40,7 +40,6 @@ namespace VisualMutator.Model.Decompilation.CodeDifference
             {
                 return line;
             }
-
         }
     }
 }

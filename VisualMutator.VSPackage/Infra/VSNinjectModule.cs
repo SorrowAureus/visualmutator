@@ -26,9 +26,6 @@
             Bind<IHostEnviromentConnection>().ToConstant(_hostEnviromentConnection);
             Bind<VisualStudioConnection>().ToConstant(_hostEnviromentConnection);
             Bind<ISettingsManager>().ToConstant(new VisualStudioSettingsProvider(_hostEnviromentConnection));
-
-
         }
-
     }
 }

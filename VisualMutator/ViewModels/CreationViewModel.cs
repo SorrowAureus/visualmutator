@@ -2,9 +2,6 @@
 {
     #region
 
-    using System.Collections.Generic;
-    using UsefulTools.Core;
-    using UsefulTools.Paths;
     using UsefulTools.Wpf;
     using Views;
 
@@ -22,8 +19,8 @@
             MutationsTree = mutationsTree;
             TypesTreeMutate = typesTreeToMutate;
             TypesTreeToTest = typesTreeToTest;
-
         }
+
         private MutationsTreeViewModel _mutationsTree;
 
         public MutationsTreeViewModel MutationsTree
@@ -65,11 +62,9 @@
                 SetAndRise(ref _typesTreeToTest, value, () => TypesTreeToTest);
             }
         }
-   
 
         private SmartCommand _commandCreateMutants;
 
-   
         public SmartCommand CommandCreateMutants
         {
             get
@@ -84,7 +79,6 @@
 
         private SmartCommand _commandWriteMutants;
 
-
         public SmartCommand CommandWriteMutants
         {
             get
@@ -96,6 +90,7 @@
                 SetAndRise(ref _commandWriteMutants, value, () => CommandWriteMutants);
             }
         }
+
         public string MutantsGenerationPath
         {
             get;
@@ -106,6 +101,7 @@
         {
             View.SetDefaultOwnerAndShowDialog();
         }
+
         public void Close()
         {
             View.Close();

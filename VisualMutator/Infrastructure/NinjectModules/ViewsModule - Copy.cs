@@ -15,7 +15,6 @@
             Bind<IMutationsTreeView>().To<MutationsTree>();
             Bind<ITypesTreeView>().To<TypesTree>();
             Bind<IOptionsView>().To<OptionsView>();
-
         }
     }
 }

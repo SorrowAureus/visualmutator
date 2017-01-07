@@ -10,7 +10,6 @@
     [Serializable]
     public class TestWasSelectedToMutateException : Exception
     {
-
         public TestWasSelectedToMutateException()
         {
         }
@@ -19,7 +18,7 @@
             : base(message)
         {
         }
-      
+
         public TestWasSelectedToMutateException(string message, Exception inner)
             : base(message, inner)
         {

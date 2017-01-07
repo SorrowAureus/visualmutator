@@ -1,7 +1,6 @@
 ﻿namespace VisualMutator.Tests.Util
 {
     using System;
-    using System.Diagnostics;
     using UsefulTools.Core;
 
     public class LogMessageService : IMessageService

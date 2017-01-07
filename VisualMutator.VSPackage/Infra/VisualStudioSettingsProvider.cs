@@ -13,23 +13,16 @@
     {
         private readonly VisualStudioConnection _hostEnviromentConnection;
 
-  //      private readonly Settings _settings;
+        //      private readonly Settings _settings;
 
         private WritableSettingsStore userSettingsStore;
-
 
         private const string CollectionName = "VisualMutator Settings";
 
         public VisualStudioSettingsProvider(VisualStudioConnection hostEnviromentConnection)
         {
             _hostEnviromentConnection = hostEnviromentConnection;
-           
-
-
-            
-   
         }
-
 
         public void Initialize()
         {
@@ -39,27 +32,18 @@
             if (!userSettingsStore.CollectionExists(CollectionName))
             {
                 userSettingsStore.CreateCollection(CollectionName);
-
             }
 
-
-          //  if (!userSettingsStore.PropertyExists(CollectionName, "MutationResultsFilePath"))
-         //   {
-          //      this["MutationResultsFilePath"] = @"C:\results";
-           // }
-            
-
-
+            //  if (!userSettingsStore.PropertyExists(CollectionName, "MutationResultsFilePath"))
+            //   {
+            //      this["MutationResultsFilePath"] = @"C:\results";
+            // }
         }
-
 
         public bool ContainsKey(string key)
         {
             return userSettingsStore.PropertyExists(CollectionName, key);
         }
-
-
-
 
         public string this[string key]
         {
@@ -72,7 +56,7 @@
             {
                 Throw.IfNull(key);
                 Throw.IfNull(value);
-                userSettingsStore.SetString(CollectionName, key,value);
+                userSettingsStore.SetString(CollectionName, key, value);
             }
         }
     }

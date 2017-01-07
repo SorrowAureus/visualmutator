@@ -15,7 +15,6 @@
     {
         protected static readonly ILog _log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
-
         public OperatorInfo Info
         {
             get
@@ -23,20 +22,16 @@
                 return new OperatorInfo("EAM", "Accessor Method Change", "");
             }
         }
-      
 
         public IOperatorCodeVisitor CreateVisitor()
         {
             return new EAMVisitor();
-
         }
 
         public IOperatorCodeRewriter CreateRewriter()
         {
             return new EAMRewriter();
         }
-
-
 
         public static bool IsPropertyAccessor(IMethodDefinition method)
         {
@@ -47,16 +42,14 @@
             }
             catch (Exception e)
             {
-                _log.Warn("Exception "+e.StackTrace);
+                _log.Warn("Exception " + e.StackTrace);
                 return false;
             }
-           
-
         }
 
         private static bool TryGetCompatibileAccessor(IMethodDefinition resolvedMethod, out IMethodDefinition accessor)
         {
-            if(resolvedMethod == null || resolvedMethod.ContainingTypeDefinition == null || resolvedMethod.ContainingTypeDefinition.Properties == null)
+            if (resolvedMethod == null || resolvedMethod.ContainingTypeDefinition == null || resolvedMethod.ContainingTypeDefinition.Properties == null)
             {
                 accessor = default(IMethodDefinition);
                 return false;
@@ -74,37 +67,26 @@
                 accessor = result.Getter.ResolvedMethod;
                 return true;
             }
-
         }
-      
-    
+
         public class EAMVisitor : OperatorCodeVisitor
         {
             public override void Visit(IMethodCall methodCall)
             {
-                
-
-                if(IsPropertyAccessor(methodCall.MethodToCall.ResolvedMethod))
+                if (IsPropertyAccessor(methodCall.MethodToCall.ResolvedMethod))
                 {
                     IMethodDefinition accessor;
-                    if(TryGetCompatibileAccessor(methodCall.MethodToCall.ResolvedMethod, out accessor))
+                    if (TryGetCompatibileAccessor(methodCall.MethodToCall.ResolvedMethod, out accessor))
                     {
-                       // _log.Info("Marking IMethodCall: " + methodCall.MethodToCall.ResolvedMethod + " - " + methodCall.MethodToCall.ResolvedMethod.GetType());
+                        // _log.Info("Marking IMethodCall: " + methodCall.MethodToCall.ResolvedMethod + " - " + methodCall.MethodToCall.ResolvedMethod.GetType());
                         MarkMutationTarget(methodCall, accessor.Name.Value.InList());
                     }
-
                 }
-
             }
-
-       
-
-       
         }
 
         public class EAMRewriter : OperatorCodeRewriter
         {
-
             public override IExpression Rewrite(IMethodCall methodCall)
             {
                 _log.Info("Rewrite IMethodCall: " + methodCall.MethodToCall.ResolvedMethod + methodCall.MethodToCall.ResolvedMethod.GetType());
@@ -114,16 +96,13 @@
                 {
                     throw new InvalidOperationException("The same accessor was not found.");
                 }
-                
 
-             //   var methodDefinition = TypeHelper.GetMethod(methodCall.MethodToCall.ContainingType.ResolvedType, 
-             //       NameTable.GetNameFor(MutationTarget.PassInfo), methodCall.Arguments.Select(a => a.Type).ToArray());
+                //   var methodDefinition = TypeHelper.GetMethod(methodCall.MethodToCall.ContainingType.ResolvedType,
+                //       NameTable.GetNameFor(MutationTarget.PassInfo), methodCall.Arguments.Select(a => a.Type).ToArray());
                 var newCall = new MethodCall(methodCall);
                 newCall.MethodToCall = accessor;
                 return newCall;
             }
-           
         }
-
     }
 }

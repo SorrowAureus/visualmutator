@@ -11,8 +11,6 @@
     {
         protected static readonly ILog _log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
-
-
         public OperatorInfo Info
         {
             get
@@ -20,7 +18,7 @@
                 return new OperatorInfo("PRV", " Reference assignment with other compatible type", "");
             }
         }
-      
+
         private static bool isCompatibile(ITypeReference target, ITypeDefinition source)
         {
             return TypeHelper.Type1DerivesFromOrIsTheSameAsType2(source, target)
@@ -29,17 +27,14 @@
 
         public class PRVVisitor : OperatorCodeVisitor
         {
-           
             public override void Visit(IAssignment assignment)
             {
-            //    _log.Info("Visiting IAssignment: " + assignment);
-            //    var defaultEqualsDefinition = TypeHelper.GetMethod(Host.PlatformType.SystemObject.ResolvedType.Members,
-              //                                                    Host.NameTable.GetNameFor("Equals"), 
-              //                                                    Host.PlatformType.SystemObject);
+                //    _log.Info("Visiting IAssignment: " + assignment);
+                //    var defaultEqualsDefinition = TypeHelper.GetMethod(Host.PlatformType.SystemObject.ResolvedType.Members,
+                //                                                    Host.NameTable.GetNameFor("Equals"),
+                //                                                    Host.PlatformType.SystemObject);
                 var targetType = assignment.Target.Type;
                 IMethodDefinition currentMethod = this.Parent.CurrentMethod;
-                
-
 
                 var field = currentMethod.ContainingTypeDefinition.Fields
                     .Where(f => f.IsStatic == currentMethod.IsStatic)
@@ -48,12 +43,10 @@
 
                 if (field != null)
                 {
-
                     MarkMutationTarget(assignment);
                 }
-               //.. assignment.Source = new BoundExpression();
+                //.. assignment.Source = new BoundExpression();
                 /*
-                
 
                 var methodDefinition = methodCall.MethodToCall.ResolvedMethod;
                 var containingType = methodCall.ThisArgument.Type.ResolvedType;
@@ -70,18 +63,14 @@
                     {
                         MarkMutationTarget(methodCall);
                     }
-
                 }
                 */
-
-
-
             }
 
             private bool FieldIsNotSource(IFieldDefinition fieldDefinition, IExpression source)
             {
                 var bound = source as BoundExpression;
-                var field = bound == null? null : bound.Definition as IFieldReference;
+                var field = bound == null ? null : bound.Definition as IFieldReference;
                 bool ret = bound == null || field == null || field.ResolvedField != fieldDefinition;
                 return ret;
             }
@@ -89,10 +78,9 @@
 
         public class PRVRewriter : OperatorCodeRewriter
         {
-
             public override IExpression Rewrite(IAssignment assignment)
             {
-              //  _log.Info("Rewriting IAssignment: " + assignment + " Pass: " + MutationTarget.PassInfo);
+                //  _log.Info("Rewriting IAssignment: " + assignment + " Pass: " + MutationTarget.PassInfo);
 
                 var targetType = assignment.Target.Type;
                 IMethodDefinition currentMethod = CurrentMethod;
@@ -104,29 +92,22 @@
 
                 assignmentNew.Source = new BoundExpression
                 {
-                    Instance = new ThisReference(){Type = CurrentMethod.ContainingTypeDefinition},
+                    Instance = new ThisReference() { Type = CurrentMethod.ContainingTypeDefinition },
                     Definition = field,
                     Type = field.Type,
                 };
                 return assignmentNew;
             }
-         
         }
-
-      
 
         public IOperatorCodeVisitor CreateVisitor()
         {
             return new PRVVisitor();
-
         }
 
         public IOperatorCodeRewriter CreateRewriter()
         {
             return new PRVRewriter();
         }
-
-
-
     }
 }

@@ -10,8 +10,6 @@
     [Serializable]
     public class AssemblyVerificationException : Exception
     {
-
-
         public AssemblyVerificationException()
         {
         }

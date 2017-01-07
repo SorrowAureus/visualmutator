@@ -13,6 +13,7 @@ namespace VisualMutator.Model.Decompilation.CodeDifference
             get;
             set;
         }
+
         public List<LineChange> LineChanges
         {
             get;

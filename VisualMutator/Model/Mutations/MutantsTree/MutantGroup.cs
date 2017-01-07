@@ -11,18 +11,17 @@ namespace VisualMutator.Model.Mutations.MutantsTree
 
     public class MutantGroup : MutationNode
     {
-       
-
         public MutantGroup(string name, CheckedNode parent, IEnumerable<Mutant> mutants = null)
-            : base( name, true)
+            : base(name, true)
         {
             Parent = parent;
-            if(mutants != null)
+            if (mutants != null)
             {
                 Children.AddRange(mutants);
             }
             UpdateDisplayedText();
         }
+
         public MutantGroup(string name, IEnumerable<Mutant> mutants)
            : base(name, true)
         {
@@ -43,10 +42,7 @@ namespace VisualMutator.Model.Mutations.MutantsTree
             }
         }
 
-
         private string _displayedText;
-
-     
 
         public string DisplayedText
         {
@@ -71,6 +67,7 @@ namespace VisualMutator.Model.Mutations.MutantsTree
             DisplayedText = "Group: {0}"
                     .Formatted(Name);
         }
+
         public override string ToString()
         {
             return "Group: {0}"

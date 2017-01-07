@@ -19,8 +19,8 @@
             _mutationPackages = new List<PackageNode>().ToReadonly();
         }
 
-
         private ReadOnlyCollection<PackageNode> _mutationPackages;
+
         public ReadOnlyCollection<PackageNode> MutationPackages
         {
             set

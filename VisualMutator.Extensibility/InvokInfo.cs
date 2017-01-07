@@ -1,6 +1,5 @@
 namespace VisualMutator.Extensibility
 {
-    using System;
     using System.Linq;
     using System.Reflection;
     using Microsoft.Cci.MutableCodeModel;
@@ -34,14 +33,14 @@ namespace VisualMutator.Extensibility
         {
             get { return _levelCount; }
         }
+
         public override string ToString()
         {
-            string indent = new string(' ', LevelCount*3);
+            string indent = new string(' ', LevelCount * 3);
             string methodParamName = MethodType;
 
-
             string prefix = "";
-                
+
             if (_parentObject != null)
             {
                 var prop = _parentObject.GetType().GetProperties().FirstOrDefault(p =>
@@ -50,9 +49,9 @@ namespace VisualMutator.Extensibility
                     {
                         return _obj.Equals(p.GetValue(_parentObject, null));
                     }
-                    catch (TargetInvocationException )
+                    catch (TargetInvocationException)
                     {
-                        prefix = "exc on: "+p.Name ;
+                        prefix = "exc on: " + p.Name;
                         return false;
                     }
                 });
@@ -67,16 +66,15 @@ namespace VisualMutator.Extensibility
             }
             string body = ObjToString();
 
-            string ret = indent+prefix + ": ("+methodParamName+") - "+body;
-           // Console.WriteLine(ret);
+            string ret = indent + prefix + ": (" + methodParamName + ") - " + body;
+            // Console.WriteLine(ret);
             return ret;
         }
+
         public string ObjToString()
         {
-                
-
             var boundExpression = _obj as BoundExpression;
-            if(boundExpression != null)
+            if (boundExpression != null)
             {
                 return "BoundExpression {Instance=" + boundExpression.Instance +
                        ", Definition=" + boundExpression.Definition +
@@ -95,10 +93,7 @@ namespace VisualMutator.Extensibility
                 {
                     return _obj.GetType().Name;
                 }
-
             }
-				
-                
         }
 
         public string ToStringBasicVisit()

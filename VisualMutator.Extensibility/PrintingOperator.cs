@@ -2,7 +2,7 @@
 {
     public class PrintingOperator : IMutationOperator
     {
-        public OperatorInfo Info { get {return new OperatorInfo("P", "Printing Operator", "");} }
+        public OperatorInfo Info { get { return new OperatorInfo("P", "Printing Operator", ""); } }
 
         private readonly DebugOperatorCodeVisitor visitor = new DebugOperatorCodeVisitor();
 
@@ -20,6 +20,5 @@
         {
             return visitor.ToString();
         }
-
     }
 }

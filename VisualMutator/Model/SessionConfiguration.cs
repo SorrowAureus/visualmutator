@@ -2,30 +2,23 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.IO;
     using System.Linq;
     using System.Reflection;
     using System.Threading.Tasks;
-    using System.Windows.Documents;
     using Controllers;
     using CoverageFinder;
     using Infrastructure;
     using log4net;
-    using Microsoft.Cci;
     using Mutations;
-    using Mutations.Types;
     using StoringMutants;
     using Tests;
     using Tests.TestsTree;
     using UsefulTools.DependencyInjection;
     using UsefulTools.ExtensionMethods;
-    using UsefulTools.Paths;
 
     public class SessionConfiguration
     {
-
         private readonly ILog _log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-
 
         private readonly TestsLoader _testLoader;
         private readonly IFactory<AutoCreationController> _autoCreationControllerFactory;
@@ -45,8 +38,6 @@
             _autoCreationControllerFactory = autoCreationControllerFactory;
             _sessionFactory = sessionFactory;
             _whiteCache = whiteCache;
-
-            
 
             _originalFilesClone = fileManager.CreateClone("Mutants");
 
@@ -72,12 +63,12 @@
                 throw;
             }
         }
+
         public async Task<TestsRootNode> LoadTests()
         {
             return await _testLoader.LoadTests(
              _testsClone.Assemblies.AsStrings().ToList());
         }
-
 
         public async Task<IObjectRoot<SessionController>> CreateSession(MethodIdentifier methodIdentifier, List<string> testAssemblies, bool auto)
         {
@@ -87,16 +78,13 @@
                 AutoCreationController creationController = _autoCreationControllerFactory.Create();
                 var choices = await creationController.Run(methodIdentifier, testAssemblies, auto);
                 var original = new OriginalCodebase(LoadAssemblies().Result, testAssemblies.ToEmptyIfNull().ToList());
-                _log.Info("Created original codebase with assemblies to mutate: "+ original.ModulesToMutate.Select(m => m.Module.Name).MakeString());
+                _log.Info("Created original codebase with assemblies to mutate: " + original.ModulesToMutate.Select(m => m.Module.Name).MakeString());
                 return _sessionFactory.CreateWithBindings(choices, original);
             }
             finally
             {
                 _whiteCache.Pause(false);
             }
-            
-
-            
         }
     }
 }

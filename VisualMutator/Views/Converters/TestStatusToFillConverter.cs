@@ -15,18 +15,17 @@
     {
         public override Brush Convert(TestNodeState st)
         {
-        
-            Brush result = st == TestNodeState.Inactive  ? Brushes.Gainsboro
-                    : st == TestNodeState.Failure ? Brushes.Red 
+            Brush result = st == TestNodeState.Inactive ? Brushes.Gainsboro
+                    : st == TestNodeState.Failure ? Brushes.Red
                     : st == TestNodeState.Inconclusive ? Brushes.Orange
                     : st == TestNodeState.Success ? Brushes.Green
-                    : st == TestNodeState.Running ? Brushes.Blue 
+                    : st == TestNodeState.Running ? Brushes.Blue
                     : null;
             Debug.Assert(result != null);
             return result;
         }
 
-        public override TestNodeState ConvertBack( Brush br  )
+        public override TestNodeState ConvertBack(Brush br)
         {
             throw new InvalidOperationException();
         }

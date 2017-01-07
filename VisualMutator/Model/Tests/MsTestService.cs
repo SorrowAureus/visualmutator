@@ -57,9 +57,9 @@
             traverser.Traverse(cci.Module.Module);
 
             var classes = visitor.Classes.Where(c => c.Children.Count != 0).ToList();
-            if(classes.Count != 0)
+            if (classes.Count != 0)
             {
-                _log.Info("Tests loaded ("+ classes.Count + " classes).");
+                _log.Info("Tests loaded (" + classes.Count + " classes).");
                 return new May<TestsLoadContext>(new TestsLoadContext(FrameWorkName, classes));
             }
             else
@@ -71,7 +71,6 @@
 
         public void Cancel()
         {
-           
         }
 
         public ITestsRunContext CreateRunContext(TestsLoadContext loadContext, string mutatedPath)

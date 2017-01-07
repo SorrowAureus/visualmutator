@@ -11,19 +11,17 @@
     using NUnit.Framework;
     using UsefulTools.Core;
 
-
     [TestFixture]
     public class XmlResultsGeneratorTests
     {
         [Test]
         public void Test()
         {
-             var gen = new XmlResultsGenerator(null,null,null, null, null);
+            var gen = new XmlResultsGenerator(null, null, null, null, null);
 
             var muSession = new MutationTestingSession();
-            
-            var mutar = new MutationTarget(new MutationVariant());
 
+            var mutar = new MutationTarget(new MutationVariant());
 
             var ass = new AssemblyNode("Assembly");
             muSession.MutantsGrouped.Add(ass);

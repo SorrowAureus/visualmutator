@@ -17,7 +17,6 @@
             _namespaces = GroupTestClasses(_classNodes).ToList();
         }
 
-
         public List<TestNodeClass> ClassNodes
         {
             get { return _classNodes; }
@@ -50,7 +49,5 @@
                     return ns;
                 });
         }
-
-
     }
 }

@@ -36,19 +36,15 @@
 
         private static ILog _log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
-
         static Bootstrapper()
         {
             Log4NetConfig.Execute();
             EnsureApplication();
-
         }
-
 
         public Bootstrapper(Package package)
         {
             _package = package;
-
 
             Assembly assembly = Assembly.GetExecutingAssembly();
             FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
@@ -57,7 +53,6 @@
             _log.Info("Starting bootstrapper.");
             try
             {
-
                 _log.Info("Configuring dependency container.");
                 SetupDependencyInjection();
 
@@ -65,9 +60,6 @@
                 _appController = _kernel.Get<ApplicationController>();
 
                 VisualMutator_VSPackagePackage.MainControl = _appController.MainView;
-
-
-
             }
             catch (Exception e)
             {
@@ -81,10 +73,8 @@
                     MessageBox.Show(e.ToString());
                 }
             }
-
-
-
         }
+
         public static void EnsureApplication()
         {
             if (Application.Current == null)
@@ -96,27 +86,21 @@
         [SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope")]
         public void SetupDependencyInjection()
         {
-
             var modules = new INinjectModule[]
             {
-                new ViewsModule(), 
-                new InfrastructureModule(), 
-                new VisualMutatorModule(), 
-                new VisualMutatorViewsModule(), 
-                new VSNinjectModule(new VisualStudioConnection(_package)), 
+                new ViewsModule(),
+                new InfrastructureModule(),
+                new VisualMutatorModule(),
+                new VisualMutatorViewsModule(),
+                new VSNinjectModule(new VisualStudioConnection(_package)),
             };
-
-
 
             _kernel = new StandardKernel();
             _kernel.Components.Add<IActivationStrategy, MyMonitorActivationStrategy>();
 
-
-
-
             _kernel.Load(modules);
-
         }
+
         internal void RunMutationSessionForCurrentPosition()
         {
             _appController.RunMutationSessionForCurrentPosition();
@@ -132,9 +116,7 @@
 
         public void InitializePackage(VisualMutator_VSPackagePackage visualMutatorVsPackagePackage)
         {
-
             _appController.Initialize();
-
         }
     }
 }

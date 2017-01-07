@@ -6,6 +6,7 @@
     public class MapSettingsManager : ISettingsManager
     {
         private Dictionary<string, string> _settings;
+
         public MapSettingsManager()
         {
             _settings = new Dictionary<string, string>();
@@ -13,7 +14,6 @@
 
         public void Initialize()
         {
-
         }
 
         public bool ContainsKey(string key)

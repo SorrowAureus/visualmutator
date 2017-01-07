@@ -17,6 +17,7 @@
             ng.GroupTypes2(parent, "", types);
         }
     }
+
     public class NamespaceGrouper<T, Node> where Node : CheckedNode
     {
         private readonly Func<T, string> _namespaceExtractor;
@@ -42,7 +43,6 @@
             var ng = new NamespaceGrouper<T1, Node1>(namespaceExtractor, namespaceNodeCreator, typeNodeCreator);
             ng.GroupTypes2(parent, "", types);
         }
-
 
         public void GroupTypes2(Node parent, string currentNamePart, ICollection<T> types)
         {
@@ -77,8 +77,6 @@
                 _typeNodeCreator(parent, leafTypes);
             }
         }
-
-
 
         public string ConcatNamespace(string one, string two)
         {

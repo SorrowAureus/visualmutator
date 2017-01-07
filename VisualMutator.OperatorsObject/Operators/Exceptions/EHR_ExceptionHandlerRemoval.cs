@@ -16,18 +16,17 @@
         {
             get
             {
-                return new OperatorInfo("EHR", "Exception handler removal", 
+                return new OperatorInfo("EHR", "Exception handler removal",
                     "Removes a catch block from a group of two or more catch blocks or removes a finally block.");
             }
         }
 
         public class EHRVisitor : OperatorCodeVisitor
         {
-
             public override void Visit(ITryCatchFinallyStatement operation)
             {
-              //  _log.Info("Visit ITryCatchFinallyStatement: " + operation);
-                if (operation.CatchClauses.Count() >= 2 )
+                //  _log.Info("Visit ITryCatchFinallyStatement: " + operation);
+                if (operation.CatchClauses.Count() >= 2)
                 {
                     var passes = new List<string>();
                     passes.AddRange(Enumerable.Range(0, operation.CatchClauses.Count()).Select(i => i.ToString()));
@@ -35,13 +34,10 @@
                     MarkMutationTarget(operation, passes);
                 }
             }
-
         }
-
 
         public class EHRRewriter : OperatorCodeRewriter
         {
-     
             public override IStatement Rewrite(ITryCatchFinallyStatement operation)
             {
                 _log.Info("Rewriting ITryCatchFinallyStatement: " + operation + " Pass: " + MutationTarget.PassInfo);
@@ -56,9 +52,7 @@
                 }
                 return tryCatch;
             }
-           
         }
-
 
         public IOperatorCodeVisitor CreateVisitor()
         {
@@ -69,6 +63,5 @@
         {
             return new EHRRewriter();
         }
-
     }
 }

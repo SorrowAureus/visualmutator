@@ -17,15 +17,17 @@
     {
         private readonly AstFormatter _formatter;
 
-        public OperatorUtils( 
+        public OperatorUtils(
             AstFormatter formatter)
         {
             _formatter = formatter;
         }
+
         public OperatorUtils()
         {
             _formatter = new AstFormatter();
         }
+
         public AstFormatter Formatter
         {
             get { return _formatter; }
@@ -33,7 +35,7 @@
 
         public IModule CompileModuleFromCode(string code, IMetadataReaderHost host)
         {
-           // CoreAssembly = Host.LoadAssembly(Host.CoreAssemblySymbolicIdentity);
+            // CoreAssembly = Host.LoadAssembly(Host.CoreAssemblySymbolicIdentity);
 
             var tree = SyntaxTree.ParseText(code);
 
@@ -53,18 +55,16 @@
                 throw new InvalidProgramException(aggregate);
             }
             //using (var host = new PeReader.DefaultHost())
-           // {
-                var module = host.LoadUnitFrom(outputFileName) as IModule;
-                if (module == null || module == Dummy.Module || module == Dummy.Assembly)
-                {
-                    throw new InvalidOperationException(outputFileName + " is not a PE file containing a CLR module or assembly.");
-                }
+            // {
+            var module = host.LoadUnitFrom(outputFileName) as IModule;
+            if (module == null || module == Dummy.Module || module == Dummy.Assembly)
+            {
+                throw new InvalidOperationException(outputFileName + " is not a PE file containing a CLR module or assembly.");
+            }
 
+            return Decompiler.GetCodeModelFromMetadataModel(host, module, null);
 
-                return Decompiler.GetCodeModelFromMetadataModel(host, module, null);
-              
-
-          //  }
+            //  }
         }
     }
 }

@@ -8,7 +8,6 @@
     {
         public HighestVisitor(IOperatorCodeVisitor visitor, IModule module, string id) : base(id, visitor, module)
         {
-
         }
     }
 }

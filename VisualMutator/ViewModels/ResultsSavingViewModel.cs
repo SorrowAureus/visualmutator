@@ -13,8 +13,7 @@
             : base(view)
         {
             IncludeDetailedTestResults = false;
-            IncludeCodeDifferenceListings= false;
-            
+            IncludeCodeDifferenceListings = false;
         }
 
         public void Show()
@@ -69,7 +68,6 @@
             }
         }
 
-
         private bool _includeCodeDifferenceListings;
 
         public bool IncludeCodeDifferenceListings
@@ -97,6 +95,7 @@
                 SetAndRise(ref _progress, value, () => Progress);
             }
         }
+
         private SmartCommand _commandSaveResults;
 
         public SmartCommand CommandSaveResults
@@ -138,8 +137,6 @@
                 SetAndRise(ref _commandBrowse, value, () => CommandBrowse);
             }
         }
-
-     
 
         private bool _isCancelled;
 

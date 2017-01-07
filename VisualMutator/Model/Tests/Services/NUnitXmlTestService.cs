@@ -5,25 +5,18 @@
     using System;
     using System.Collections;
     using System.Collections.Generic;
-    using System.Diagnostics;
     using System.IO;
     using System.Linq;
     using System.Reflection;
-    using System.Threading;
-    using System.Threading.Tasks;
     using CoverageFinder;
-    using Exceptions;
-    using Infrastructure;
     using log4net;
     using NUnit.Framework.Interfaces;
     using NUnit.Framework.Internal;
-    using RunProcessAsTask;
     using Strilanc.Value;
     using TestsTree;
     using UsefulTools.Core;
     using UsefulTools.DependencyInjection;
     using UsefulTools.ExtensionMethods;
-    using UsefulTools.Paths;
 
     #endregion
 
@@ -43,13 +36,13 @@
         {
             get { return _nunitConsolePath; }
         }
-        
+
         public NUnitXmlTestService(
             IFactory<NUnitTestsRunContext> testsRunContextFactory,
             ISettingsManager settingsManager,
             INUnitWrapper nUnitWrapper,
             CommonServices svc)
-          
+
         {
             _testsRunContextFactory = testsRunContextFactory;
             _settingsManager = settingsManager;
@@ -62,7 +55,6 @@
 
         public void Cancel()
         {
-            
         }
 
         public ITestsRunContext CreateRunContext(TestsLoadContext loadContext, string mutatedPath)
@@ -71,11 +63,11 @@
             return _testsRunContextFactory.CreateWithParams(_nunitConsolePath, mutatedPath, selector);
         }
 
-        public  string FindConsolePath()
+        public string FindConsolePath()
         {
             var nUnitDirPath = _settingsManager["NUnitConsoleDirPath"];
             var nUnitConsolePath = Path.Combine(nUnitDirPath, "nunit3-console.exe");
-            
+
             if (!_svc.FileSystem.File.Exists(nUnitConsolePath))
             {
                 throw new FileNotFoundException(nUnitConsolePath + " file was found.");
@@ -83,12 +75,10 @@
             return nUnitConsolePath;
         }
 
-
         public string FrameWorkName { get { return FrameworkName; } }
 
         public virtual May<TestsLoadContext> LoadTests(string assemblyPath)
         {
-
             try
             {
                 var testRoot = _nUnitWrapper.LoadTests(assemblyPath.InList());
@@ -115,7 +105,6 @@
             }
         }
 
-
         public static IList<T> ConvertToListOf<T>(IList iList)
         {
             IList<T> result = new List<T>();
@@ -130,7 +119,6 @@
             return result;
         }
 
-
         public void UnloadTests()
         {
             // _nUnitWrapper.UnloadProject();
@@ -138,15 +126,11 @@
 
         private IEnumerable<TestNodeClass> BuildTestTree(IDictionary<string, List<string>> testFixtures)
         {
-
-
             foreach (var testFixture in testFixtures)
             {
-
                 var c = new TestNodeClass(testFixture.Key)
                 {
                     Namespace = testFixture.Key,
-
                 };
 
                 foreach (var testCase in testFixture.Value)
@@ -164,7 +148,6 @@
                 if (c.Children.Any())
                 {
                     yield return c;
-                  
                 }
             }
         }
@@ -198,9 +181,5 @@
                 }
             }
         }
-
-
-
-
     }
 }

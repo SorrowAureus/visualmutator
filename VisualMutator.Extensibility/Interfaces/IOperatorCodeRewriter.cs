@@ -4,7 +4,6 @@ namespace VisualMutator.Extensibility
     using Microsoft.Cci;
     using Microsoft.Cci.MutableCodeModel;
 
-
     public interface IOperatorCodeRewriter
     {
         UserMutationTarget MutationTarget { get; set; }
@@ -14,7 +13,9 @@ namespace VisualMutator.Extensibility
         IOperatorUtils OperatorUtils { get; set; }
 
         void MethodEnter(MethodDefinition method);
+
         void MethodExit(MethodDefinition method);
+
         /// <summary>
         /// Rewrites the given addition.
         /// </summary>

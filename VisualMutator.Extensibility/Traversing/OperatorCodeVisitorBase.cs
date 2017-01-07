@@ -1,21 +1,16 @@
 ﻿namespace VisualMutator.Extensibility
 {
-    using System;
-    using System.Collections.Generic;
     using System.Diagnostics.Contracts;
     using Microsoft.Cci;
 
-    public class OperatorCodeVisitorBase 
+    public class OperatorCodeVisitorBase
     {
-
-      
         /// <summary>
         /// Performs some computation with the given addition.
         /// </summary>
         /// <param name="addition"></param>
         public virtual void Visit(IAddition addition)
         {
-            
         }
 
         /// <summary>
@@ -24,7 +19,6 @@
         /// <param name="addressableExpression"></param>
         public virtual void Visit(IAddressableExpression addressableExpression)
         {
-            
         }
 
         /// <summary>
@@ -33,7 +27,6 @@
         /// <param name="addressDereference"></param>
         public virtual void Visit(IAddressDereference addressDereference)
         {
-            
         }
 
         /// <summary>
@@ -42,7 +35,6 @@
         /// <param name="addressOf"></param>
         public virtual void Visit(IAddressOf addressOf)
         {
-            
         }
 
         /// <summary>
@@ -51,7 +43,6 @@
         /// <param name="anonymousDelegate"></param>
         public virtual void Visit(IAnonymousDelegate anonymousDelegate)
         {
-            
         }
 
         /// <summary>
@@ -60,7 +51,6 @@
         /// <param name="arrayIndexer"></param>
         public virtual void Visit(IArrayIndexer arrayIndexer)
         {
-            
         }
 
         /// <summary>
@@ -69,7 +59,6 @@
         /// <param name="assertStatement"></param>
         public virtual void Visit(IAssertStatement assertStatement)
         {
-            
         }
 
         /// <summary>
@@ -78,7 +67,6 @@
         /// <param name="assignment"></param>
         public virtual void Visit(IAssignment assignment)
         {
-            
         }
 
         /// <summary>
@@ -87,7 +75,6 @@
         /// <param name="assumeStatement"></param>
         public virtual void Visit(IAssumeStatement assumeStatement)
         {
-            
         }
 
         /// <summary>
@@ -96,7 +83,6 @@
         /// <param name="bitwiseAnd"></param>
         public virtual void Visit(IBitwiseAnd bitwiseAnd)
         {
-            
         }
 
         /// <summary>
@@ -105,7 +91,6 @@
         /// <param name="binaryOperation"></param>
         public virtual void Visit(IBinaryOperation binaryOperation)
         {
-            
         }
 
         /// <summary>
@@ -114,7 +99,6 @@
         /// <param name="bitwiseOr"></param>
         public virtual void Visit(IBitwiseOr bitwiseOr)
         {
-            
         }
 
         /// <summary>
@@ -123,7 +107,6 @@
         /// <param name="blockExpression"></param>
         public virtual void Visit(IBlockExpression blockExpression)
         {
-            
         }
 
         /// <summary>
@@ -132,7 +115,6 @@
         /// <param name="block"></param>
         public virtual void Visit(IBlockStatement block)
         {
-            
         }
 
         /// <summary>
@@ -141,7 +123,6 @@
         /// <param name="breakStatement"></param>
         public virtual void Visit(IBreakStatement breakStatement)
         {
-            
         }
 
         /// <summary>
@@ -150,7 +131,6 @@
         /// <param name="castIfPossible"></param>
         public virtual void Visit(ICastIfPossible castIfPossible)
         {
-            
         }
 
         /// <summary>
@@ -167,7 +147,6 @@
         /// <param name="checkIfInstance"></param>
         public virtual void Visit(ICheckIfInstance checkIfInstance)
         {
-            
         }
 
         /// <summary>
@@ -176,7 +155,6 @@
         /// <param name="constant"></param>
         public virtual void Visit(ICompileTimeConstant constant)
         {
-            
         }
 
         /// <summary>
@@ -185,7 +163,6 @@
         /// <param name="conversion"></param>
         public virtual void Visit(IConversion conversion)
         {
-            
         }
 
         /// <summary>
@@ -194,7 +171,6 @@
         /// <param name="conditional"></param>
         public virtual void Visit(IConditional conditional)
         {
-            
         }
 
         /// <summary>
@@ -203,7 +179,6 @@
         /// <param name="conditionalStatement"></param>
         public virtual void Visit(IConditionalStatement conditionalStatement)
         {
-            
         }
 
         /// <summary>
@@ -212,7 +187,6 @@
         /// <param name="continueStatement"></param>
         public virtual void Visit(IContinueStatement continueStatement)
         {
-            
         }
 
         /// <summary>
@@ -221,7 +195,6 @@
         /// <param name="copyMemoryStatement"></param>
         public virtual void Visit(ICopyMemoryStatement copyMemoryStatement)
         {
-            
         }
 
         /// <summary>
@@ -230,7 +203,6 @@
         /// <param name="createArray"></param>
         public virtual void Visit(ICreateArray createArray)
         {
-            
         }
 
         /// <summary>
@@ -239,7 +211,6 @@
         /// <param name="createObjectInstance"></param>
         public virtual void Visit(ICreateObjectInstance createObjectInstance)
         {
-            
         }
 
         /// <summary>
@@ -248,7 +219,6 @@
         /// <param name="createDelegateInstance"></param>
         public virtual void Visit(ICreateDelegateInstance createDelegateInstance)
         {
-            
         }
 
         /// <summary>
@@ -257,7 +227,6 @@
         /// <param name="defaultValue"></param>
         public virtual void Visit(IDefaultValue defaultValue)
         {
-            
         }
 
         /// <summary>
@@ -266,7 +235,6 @@
         /// <param name="division"></param>
         public virtual void Visit(IDivision division)
         {
-            
         }
 
         /// <summary>
@@ -275,7 +243,6 @@
         /// <param name="doUntilStatement"></param>
         public virtual void Visit(IDoUntilStatement doUntilStatement)
         {
-            
         }
 
         /// <summary>
@@ -284,7 +251,6 @@
         /// <param name="dupValue"></param>
         public virtual void Visit(IDupValue dupValue)
         {
-            
         }
 
         /// <summary>
@@ -293,7 +259,6 @@
         /// <param name="emptyStatement"></param>
         public virtual void Visit(IEmptyStatement emptyStatement)
         {
-            
         }
 
         /// <summary>
@@ -302,7 +267,6 @@
         /// <param name="equality"></param>
         public virtual void Visit(IEquality equality)
         {
-            
         }
 
         /// <summary>
@@ -311,7 +275,6 @@
         /// <param name="exclusiveOr"></param>
         public virtual void Visit(IExclusiveOr exclusiveOr)
         {
-            
         }
 
         /// <summary>
@@ -320,7 +283,6 @@
         /// <param name="boundExpression"></param>
         public virtual void Visit(IBoundExpression boundExpression)
         {
-            
         }
 
         /// <summary>
@@ -329,7 +291,6 @@
         /// <param name="debuggerBreakStatement"></param>
         public virtual void Visit(IDebuggerBreakStatement debuggerBreakStatement)
         {
-            
         }
 
         /// <summary>
@@ -346,7 +307,6 @@
         /// <param name="expressionStatement"></param>
         public virtual void Visit(IExpressionStatement expressionStatement)
         {
-            
         }
 
         /// <summary>
@@ -355,7 +315,6 @@
         /// <param name="fillMemoryStatement"></param>
         public virtual void Visit(IFillMemoryStatement fillMemoryStatement)
         {
-            
         }
 
         /// <summary>
@@ -364,7 +323,6 @@
         /// <param name="forEachStatement"></param>
         public virtual void Visit(IForEachStatement forEachStatement)
         {
-            
         }
 
         /// <summary>
@@ -373,7 +331,6 @@
         /// <param name="forStatement"></param>
         public virtual void Visit(IForStatement forStatement)
         {
-            
         }
 
         /// <summary>
@@ -382,7 +339,6 @@
         /// <param name="getTypeOfTypedReference"></param>
         public virtual void Visit(IGetTypeOfTypedReference getTypeOfTypedReference)
         {
-            
         }
 
         /// <summary>
@@ -391,7 +347,6 @@
         /// <param name="getValueOfTypedReference"></param>
         public virtual void Visit(IGetValueOfTypedReference getValueOfTypedReference)
         {
-            
         }
 
         /// <summary>
@@ -400,7 +355,6 @@
         /// <param name="gotoStatement"></param>
         public virtual void Visit(IGotoStatement gotoStatement)
         {
-            
         }
 
         /// <summary>
@@ -409,7 +363,6 @@
         /// <param name="gotoSwitchCaseStatement"></param>
         public virtual void Visit(IGotoSwitchCaseStatement gotoSwitchCaseStatement)
         {
-            
         }
 
         /// <summary>
@@ -418,7 +371,6 @@
         /// <param name="greaterThan"></param>
         public virtual void Visit(IGreaterThan greaterThan)
         {
-            
         }
 
         /// <summary>
@@ -427,7 +379,6 @@
         /// <param name="greaterThanOrEqual"></param>
         public virtual void Visit(IGreaterThanOrEqual greaterThanOrEqual)
         {
-            
         }
 
         /// <summary>
@@ -436,7 +387,6 @@
         /// <param name="labeledStatement"></param>
         public virtual void Visit(ILabeledStatement labeledStatement)
         {
-            
         }
 
         /// <summary>
@@ -445,7 +395,6 @@
         /// <param name="leftShift"></param>
         public virtual void Visit(ILeftShift leftShift)
         {
-            
         }
 
         /// <summary>
@@ -454,7 +403,6 @@
         /// <param name="lessThan"></param>
         public virtual void Visit(ILessThan lessThan)
         {
-            
         }
 
         /// <summary>
@@ -463,7 +411,6 @@
         /// <param name="lessThanOrEqual"></param>
         public virtual void Visit(ILessThanOrEqual lessThanOrEqual)
         {
-            
         }
 
         /// <summary>
@@ -472,7 +419,6 @@
         /// <param name="localDeclarationStatement"></param>
         public virtual void Visit(ILocalDeclarationStatement localDeclarationStatement)
         {
-            
         }
 
         /// <summary>
@@ -481,7 +427,6 @@
         /// <param name="lockStatement"></param>
         public virtual void Visit(ILockStatement lockStatement)
         {
-            
         }
 
         /// <summary>
@@ -490,7 +435,6 @@
         /// <param name="logicalNot"></param>
         public virtual void Visit(ILogicalNot logicalNot)
         {
-            
         }
 
         /// <summary>
@@ -499,7 +443,6 @@
         /// <param name="makeTypedReference"></param>
         public virtual void Visit(IMakeTypedReference makeTypedReference)
         {
-            
         }
 
         /// <summary>
@@ -508,7 +451,6 @@
         /// <param name="methodCall"></param>
         public virtual void Visit(IMethodCall methodCall)
         {
-            
         }
 
         /// <summary>
@@ -517,7 +459,6 @@
         /// <param name="modulus"></param>
         public virtual void Visit(IModulus modulus)
         {
-            
         }
 
         /// <summary>
@@ -526,7 +467,6 @@
         /// <param name="multiplication"></param>
         public virtual void Visit(IMultiplication multiplication)
         {
-            
         }
 
         /// <summary>
@@ -535,7 +475,6 @@
         /// <param name="namedArgument"></param>
         public virtual void Visit(INamedArgument namedArgument)
         {
-            
         }
 
         /// <summary>
@@ -544,7 +483,6 @@
         /// <param name="notEquality"></param>
         public virtual void Visit(INotEquality notEquality)
         {
-            
         }
 
         /// <summary>
@@ -553,7 +491,6 @@
         /// <param name="oldValue"></param>
         public virtual void Visit(IOldValue oldValue)
         {
-            
         }
 
         /// <summary>
@@ -562,7 +499,6 @@
         /// <param name="onesComplement"></param>
         public virtual void Visit(IOnesComplement onesComplement)
         {
-            
         }
 
         /// <summary>
@@ -571,7 +507,6 @@
         /// <param name="outArgument"></param>
         public virtual void Visit(IOutArgument outArgument)
         {
-            
         }
 
         /// <summary>
@@ -580,7 +515,6 @@
         /// <param name="pointerCall"></param>
         public virtual void Visit(IPointerCall pointerCall)
         {
-            
         }
 
         /// <summary>
@@ -589,7 +523,6 @@
         /// <param name="popValue"></param>
         public virtual void Visit(IPopValue popValue)
         {
-            
         }
 
         /// <summary>
@@ -598,7 +531,6 @@
         /// <param name="pushStatement"></param>
         public virtual void Visit(IPushStatement pushStatement)
         {
-            
         }
 
         /// <summary>
@@ -607,7 +539,6 @@
         /// <param name="refArgument"></param>
         public virtual void Visit(IRefArgument refArgument)
         {
-            
         }
 
         /// <summary>
@@ -616,7 +547,6 @@
         /// <param name="resourceUseStatement"></param>
         public virtual void Visit(IResourceUseStatement resourceUseStatement)
         {
-            
         }
 
         /// <summary>
@@ -625,7 +555,6 @@
         /// <param name="rethrowStatement"></param>
         public virtual void Visit(IRethrowStatement rethrowStatement)
         {
-            
         }
 
         /// <summary>
@@ -634,7 +563,6 @@
         /// <param name="returnStatement"></param>
         public virtual void Visit(IReturnStatement returnStatement)
         {
-            
         }
 
         /// <summary>
@@ -643,7 +571,6 @@
         /// <param name="returnValue"></param>
         public virtual void Visit(IReturnValue returnValue)
         {
-            
         }
 
         /// <summary>
@@ -652,7 +579,6 @@
         /// <param name="rightShift"></param>
         public virtual void Visit(IRightShift rightShift)
         {
-            
         }
 
         /// <summary>
@@ -661,7 +587,6 @@
         /// <param name="stackArrayCreate"></param>
         public virtual void Visit(IStackArrayCreate stackArrayCreate)
         {
-            
         }
 
         /// <summary>
@@ -670,7 +595,6 @@
         /// <param name="runtimeArgumentHandleExpression"></param>
         public virtual void Visit(IRuntimeArgumentHandleExpression runtimeArgumentHandleExpression)
         {
-            
         }
 
         /// <summary>
@@ -679,7 +603,6 @@
         /// <param name="sizeOf"></param>
         public virtual void Visit(ISizeOf sizeOf)
         {
-            
         }
 
         /// <summary>
@@ -696,7 +619,6 @@
         /// <param name="subtraction"></param>
         public virtual void Visit(ISubtraction subtraction)
         {
-            
         }
 
         /// <summary>
@@ -713,7 +635,6 @@
         /// <param name="switchStatement"></param>
         public virtual void Visit(ISwitchStatement switchStatement)
         {
-            
         }
 
         /// <summary>
@@ -722,7 +643,6 @@
         /// <param name="targetExpression"></param>
         public virtual void Visit(ITargetExpression targetExpression)
         {
-            
         }
 
         /// <summary>
@@ -731,7 +651,6 @@
         /// <param name="thisReference"></param>
         public virtual void Visit(IThisReference thisReference)
         {
-            
         }
 
         /// <summary>
@@ -740,7 +659,6 @@
         /// <param name="throwStatement"></param>
         public virtual void Visit(IThrowStatement throwStatement)
         {
-            
         }
 
         /// <summary>
@@ -749,7 +667,6 @@
         /// <param name="tryCatchFilterFinallyStatement"></param>
         public virtual void Visit(ITryCatchFinallyStatement tryCatchFilterFinallyStatement)
         {
-            
         }
 
         /// <summary>
@@ -758,7 +675,6 @@
         /// <param name="tokenOf"></param>
         public virtual void Visit(ITokenOf tokenOf)
         {
-            
         }
 
         /// <summary>
@@ -767,7 +683,6 @@
         /// <param name="typeOf"></param>
         public virtual void Visit(ITypeOf typeOf)
         {
-            
         }
 
         /// <summary>
@@ -776,7 +691,6 @@
         /// <param name="unaryNegation"></param>
         public virtual void Visit(IUnaryNegation unaryNegation)
         {
-            
         }
 
         /// <summary>
@@ -785,7 +699,6 @@
         /// <param name="unaryOperation"></param>
         public virtual void Visit(IUnaryOperation unaryOperation)
         {
-            
         }
 
         /// <summary>
@@ -794,7 +707,6 @@
         /// <param name="unaryPlus"></param>
         public virtual void Visit(IUnaryPlus unaryPlus)
         {
-            
         }
 
         /// <summary>
@@ -803,7 +715,6 @@
         /// <param name="vectorLength"></param>
         public virtual void Visit(IVectorLength vectorLength)
         {
-            
         }
 
         /// <summary>
@@ -812,7 +723,6 @@
         /// <param name="whileDoStatement"></param>
         public virtual void Visit(IWhileDoStatement whileDoStatement)
         {
-            
         }
 
         /// <summary>
@@ -821,7 +731,6 @@
         /// <param name="yieldBreakStatement"></param>
         public virtual void Visit(IYieldBreakStatement yieldBreakStatement)
         {
-            
         }
 
         /// <summary>
@@ -830,7 +739,6 @@
         /// <param name="yieldReturnStatement"></param>
         public virtual void Visit(IYieldReturnStatement yieldReturnStatement)
         {
-            
         }
 
         /// <summary>
@@ -845,7 +753,6 @@
         /// </summary>
         public virtual void Visit(IArrayTypeReference arrayTypeReference)
         {
-            
         }
 
         /// <summary>
@@ -853,7 +760,6 @@
         /// </summary>
         public virtual void Visit(IAssembly assembly)
         {
-            
         }
 
         /// <summary>
@@ -861,7 +767,6 @@
         /// </summary>
         public virtual void Visit(IAssemblyReference assemblyReference)
         {
-            
         }
 
         /// <summary>
@@ -883,7 +788,6 @@
         /// </summary>
         public virtual void Visit(IEventDefinition eventDefinition)
         {
-            
         }
 
         /// <summary>
@@ -891,7 +795,6 @@
         /// </summary>
         public virtual void Visit(IFieldDefinition fieldDefinition)
         {
-            
         }
 
         /// <summary>
@@ -899,7 +802,6 @@
         /// </summary>
         public virtual void Visit(IFieldReference fieldReference)
         {
-            
         }
 
         /// <summary>
@@ -914,7 +816,6 @@
         /// </summary>
         public virtual void Visit(IFunctionPointerTypeReference functionPointerTypeReference)
         {
-            
         }
 
         /// <summary>
@@ -922,7 +823,6 @@
         /// </summary>
         public virtual void Visit(IGenericMethodInstanceReference genericMethodInstanceReference)
         {
-            
         }
 
         /// <summary>
@@ -930,7 +830,6 @@
         /// </summary>
         public virtual void Visit(IGenericMethodParameter genericMethodParameter)
         {
-            
         }
 
         /// <summary>
@@ -938,7 +837,6 @@
         /// </summary>
         public virtual void Visit(IGenericMethodParameterReference genericMethodParameterReference)
         {
-            
         }
 
         /// <summary>
@@ -946,7 +844,6 @@
         /// </summary>
         public virtual void Visit(IGenericParameter genericParameter)
         {
-            
         }
 
         /// <summary>
@@ -954,7 +851,6 @@
         /// </summary>
         public virtual void Visit(IGenericParameterReference genericParameterReference)
         {
-            
         }
 
         /// <summary>
@@ -962,7 +858,6 @@
         /// </summary>
         public virtual void Visit(IGenericTypeInstanceReference genericTypeInstanceReference)
         {
-            
         }
 
         /// <summary>
@@ -970,7 +865,6 @@
         /// </summary>
         public virtual void Visit(IGenericTypeParameter genericTypeParameter)
         {
-            
         }
 
         /// <summary>
@@ -978,7 +872,6 @@
         /// </summary>
         public virtual void Visit(IGenericTypeParameterReference genericTypeParameterReference)
         {
-            
         }
 
         /// <summary>
@@ -986,7 +879,6 @@
         /// </summary>
         public virtual void Visit(IGlobalFieldDefinition globalFieldDefinition)
         {
-            
         }
 
         /// <summary>
@@ -994,7 +886,6 @@
         /// </summary>
         public virtual void Visit(IGlobalMethodDefinition globalMethodDefinition)
         {
-            
         }
 
         /// <summary>
@@ -1016,7 +907,6 @@
         /// </summary>
         public virtual void Visit(IManagedPointerTypeReference managedPointerTypeReference)
         {
-            
         }
 
         /// <summary>
@@ -1031,7 +921,6 @@
         /// </summary>
         public virtual void Visit(IMetadataConstant constant)
         {
-            
         }
 
         /// <summary>
@@ -1039,7 +928,6 @@
         /// </summary>
         public virtual void Visit(IMetadataCreateArray createArray)
         {
-            
         }
 
         /// <summary>
@@ -1054,7 +942,6 @@
         /// </summary>
         public virtual void Visit(IMetadataNamedArgument namedArgument)
         {
-            
         }
 
         /// <summary>
@@ -1062,7 +949,6 @@
         /// </summary>
         public virtual void Visit(IMetadataTypeOf typeOf)
         {
-            
         }
 
         /// <summary>
@@ -1077,7 +963,6 @@
         /// </summary>
         public virtual void Visit(IMethodDefinition method)
         {
-            
         }
 
         /// <summary>
@@ -1092,7 +977,6 @@
         /// </summary>
         public virtual void Visit(IMethodReference methodReference)
         {
-            
         }
 
         /// <summary>
@@ -1100,7 +984,6 @@
         /// </summary>
         public virtual void Visit(IModifiedTypeReference modifiedTypeReference)
         {
-            
         }
 
         /// <summary>
@@ -1108,7 +991,6 @@
         /// </summary>
         public virtual void Visit(IModule module)
         {
-            
         }
 
         /// <summary>
@@ -1116,7 +998,6 @@
         /// </summary>
         public virtual void Visit(IModuleReference moduleReference)
         {
-            
         }
 
         /// <summary>
@@ -1124,7 +1005,6 @@
         /// </summary>
         public virtual void Visit(INamedTypeDefinition namedTypeDefinition)
         {
-            
         }
 
         /// <summary>
@@ -1132,7 +1012,6 @@
         /// </summary>
         public virtual void Visit(INamedTypeReference namedTypeReference)
         {
-            
         }
 
         /// <summary>
@@ -1140,7 +1019,6 @@
         /// </summary>
         public virtual void Visit(INamespaceAliasForType namespaceAliasForType)
         {
-            
         }
 
         /// <summary>
@@ -1162,7 +1040,6 @@
         /// </summary>
         public virtual void Visit(INamespaceTypeDefinition namespaceTypeDefinition)
         {
-            
         }
 
         /// <summary>
@@ -1170,7 +1047,6 @@
         /// </summary>
         public virtual void Visit(INamespaceTypeReference namespaceTypeReference)
         {
-            
         }
 
         /// <summary>
@@ -1178,7 +1054,6 @@
         /// </summary>
         public virtual void Visit(INestedAliasForType nestedAliasForType)
         {
-            
         }
 
         /// <summary>
@@ -1186,7 +1061,6 @@
         /// </summary>
         public virtual void Visit(INestedTypeDefinition nestedTypeDefinition)
         {
-            
         }
 
         /// <summary>
@@ -1194,8 +1068,6 @@
         /// </summary>
         public virtual void Visit(INestedTypeReference nestedTypeReference)
         {
-            
-            
         }
 
         /// <summary>
@@ -1203,7 +1075,6 @@
         /// </summary>
         public virtual void Visit(INestedUnitNamespace nestedUnitNamespace)
         {
-            
         }
 
         /// <summary>
@@ -1211,7 +1082,6 @@
         /// </summary>
         public virtual void Visit(INestedUnitNamespaceReference nestedUnitNamespaceReference)
         {
-            
         }
 
         /// <summary>
@@ -1219,7 +1089,6 @@
         /// </summary>
         public virtual void Visit(INestedUnitSetNamespace nestedUnitSetNamespace)
         {
-            
         }
 
         /// <summary>
@@ -1255,7 +1124,6 @@
         /// </summary>
         public virtual void Visit(IPropertyDefinition propertyDefinition)
         {
-            
         }
 
         /// <summary>
@@ -1284,7 +1152,6 @@
         /// </summary>
         public virtual void Visit(IPointerTypeReference pointerTypeReference)
         {
-            
         }
 
         /// <summary>
@@ -1299,7 +1166,6 @@
         /// </summary>
         public virtual void Visit(IRootUnitNamespace rootUnitNamespace)
         {
-            
         }
 
         /// <summary>
@@ -1307,7 +1173,6 @@
         /// </summary>
         public virtual void Visit(IRootUnitNamespaceReference rootUnitNamespaceReference)
         {
-            
         }
 
         /// <summary>
@@ -1315,7 +1180,6 @@
         /// </summary>
         public virtual void Visit(IRootUnitSetNamespace rootUnitSetNamespace)
         {
-            
         }
 
         /// <summary>
@@ -1330,7 +1194,6 @@
         /// </summary>
         public virtual void Visit(ISpecializedEventDefinition specializedEventDefinition)
         {
-            
         }
 
         /// <summary>
@@ -1338,7 +1201,6 @@
         /// </summary>
         public virtual void Visit(ISpecializedFieldDefinition specializedFieldDefinition)
         {
-            
         }
 
         /// <summary>
@@ -1346,7 +1208,6 @@
         /// </summary>
         public virtual void Visit(ISpecializedFieldReference specializedFieldReference)
         {
-            
         }
 
         /// <summary>
@@ -1354,7 +1215,6 @@
         /// </summary>
         public virtual void Visit(ISpecializedMethodDefinition specializedMethodDefinition)
         {
-            
         }
 
         /// <summary>
@@ -1362,7 +1222,6 @@
         /// </summary>
         public virtual void Visit(ISpecializedMethodReference specializedMethodReference)
         {
-            
         }
 
         /// <summary>
@@ -1370,7 +1229,6 @@
         /// </summary>
         public virtual void Visit(ISpecializedPropertyDefinition specializedPropertyDefinition)
         {
-            
         }
 
         /// <summary>
@@ -1378,7 +1236,6 @@
         /// </summary>
         public virtual void Visit(ISpecializedNestedTypeDefinition specializedNestedTypeDefinition)
         {
-            
         }
 
         /// <summary>
@@ -1386,7 +1243,6 @@
         /// </summary>
         public virtual void Visit(ISpecializedNestedTypeReference specializedNestedTypeReference)
         {
-            
         }
 
         /// <summary>
@@ -1443,7 +1299,6 @@
         public virtual void Visit(IUnitNamespace unitNamespace)
         {
             Contract.Requires(unitNamespace != null);
-            
         }
 
         /// <summary>
@@ -1475,6 +1330,5 @@
         public virtual void Visit(IWin32Resource win32Resource)
         {
         }
-
     }
 }

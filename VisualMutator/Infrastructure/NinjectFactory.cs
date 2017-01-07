@@ -3,8 +3,6 @@
     #region
 
     using System;
-    using System.Collections.Generic;
-    using System.Collections.ObjectModel;
     using System.Diagnostics;
     using System.Linq;
     using Ninject;
@@ -12,28 +10,35 @@
     using Ninject.Activation.Strategies;
     using Ninject.Extensions.ChildKernel;
     using Ninject.Parameters;
-    using Ninject.Planning.Bindings;
     using Ninject.Syntax;
     using NinjectModules;
     using UsefulTools.DependencyInjection;
 
     #endregion
+
     public interface IBindingFactory<out TObject> : IFactory<TObject>
     {
         TObject CreateWithBindings<T1>(T1 param1);
+
         TObject CreateWithBindings<T1, T2>(T1 param1, T2 param2);
+
         TObject CreateWithBindings<T1, T2, T3>(T1 param1, T2 param2, T3 param3);
     }
 
     public interface IRootFactory<out TObject>
     {
         IObjectRoot<TObject> Create();
+
         IObjectRoot<TObject> CreateWithParams(params object[] parameters);
+
         IObjectRoot<TObject> CreateWithBindings<T1>(T1 param1);
+
         IObjectRoot<TObject> CreateWithBindings<T1, T2>(T1 param1, T2 param2);
+
         IObjectRoot<TObject> CreateWithBindings<T1, T2, T3>(T1 param1, T2 param2, T3 param3);
     }
-    class Uti
+
+    internal class Uti
     {
         internal static TObject CreateWithParams<TObject>(IKernel kernel, params object[] parameters)
         {
@@ -52,6 +57,7 @@
             }
         }
     }
+
     public class NinjectFactory<TObject> : IBindingFactory<TObject>
     {
         protected readonly IKernel _kernel;
@@ -71,12 +77,14 @@
             _kernel.Bind<T1>().ToConstant(param1);
             return Uti.CreateWithParams<TObject>(_kernel);
         }
+
         public virtual TObject CreateWithBindings<T1, T2>(T1 param1, T2 param2)
         {
             _kernel.Bind<T1>().ToConstant(param1);
             _kernel.Bind<T2>().ToConstant(param2);
             return Uti.CreateWithParams<TObject>(_kernel);
         }
+
         public virtual TObject CreateWithBindings<T1, T2, T3>(T1 param1, T2 param2, T3 param3)
         {
             _kernel.Bind<T1>().ToConstant(param1);
@@ -89,27 +97,28 @@
         {
             return Uti.CreateWithParams<TObject>(_kernel, parameters);
         }
-
-       
     }
+
     public class NinjectChildFactory<TObject> : IRootFactory<TObject>
     {
         private readonly IKernel _kernel;
         private readonly Action<IKernel> _childBindingAction;
         private Action<IKernel> bindAction;
 
-        public NinjectChildFactory(IKernel kernel, Action<IKernel> childBindings) 
+        public NinjectChildFactory(IKernel kernel, Action<IKernel> childBindings)
         {
             _kernel = kernel;
             _childBindingAction = childBindings;
             bindAction = k => k.Bind<TObject>().ToSelf().InSingletonScope();
         }
+
         public IObjectRoot<TObject> CreateWithBindings<T1>(T1 param1)
         {
             IKernel child = CreateChildKernel();
             child.Bind<T1>().ToConstant(param1);
             return CreateInternal(child);
         }
+
         public IObjectRoot<TObject> CreateWithBindings<T1, T2>(T1 param1, T2 param2)
         {
             IKernel child = CreateChildKernel();
@@ -117,7 +126,6 @@
             child.Bind<T2>().ToConstant(param2);
             return CreateInternal(child);
         }
-
 
         public IObjectRoot<TObject> CreateWithBindings<T1, T2, T3>(T1 param1, T2 param2, T3 param3)
         {
@@ -138,7 +146,7 @@
         {
             return CreateInternal(CreateChildKernel());
         }
-     
+
         public IObjectRoot<TObject> CreateWithParams(params object[] parameters)
         {
             IKernel childKernel = CreateChildKernel();
@@ -189,10 +197,10 @@
 
         public TObject Get
         {
-           get
-           {
-               return _obj;
-           }
+            get
+            {
+                return _obj;
+            }
         }
 
         public void Dispose()
@@ -216,9 +224,9 @@
             Dispose(false);
         }
     }
+
     public static class Utility
     {
-
         public static void InjectFuncFactory<T>(this IKernel kernel, Func<T> func)
         {
             kernel.Bind<IFactory<T>>().ToConstant(new FuncFactory<T>(func));
@@ -227,15 +235,16 @@
         public static IBindingWhenInNamedWithOrOnSyntax<T> AndFromFactory<T>(
             this IBindingWhenInNamedWithOrOnSyntax<T> binding)
         {
-
             binding.Kernel.Bind<IBindingFactory<T>>().ToProvider(new FactoryProvider<T>(binding.Kernel));
             binding.Kernel.Bind<IFactory<T>>().ToProvider(new FactoryProvider<T>(binding.Kernel));
             return binding;
         }
+
         public static GoOnBinding<T> BindObjectRoot<T>(this IKernel kernel)
         {
             return new GoOnBinding<T>(kernel);
         }
+
         public class GoOnBinding<T>
         {
             private readonly IKernel _kernel;
@@ -248,8 +257,9 @@
             public void To<C>(Action<IKernel> childBindings) where C : T
             {
                 _kernel.Bind<IRootFactory<T>>().ToConstant(
-                    new NinjectChildFactory<T>(_kernel, childBindings).AndBindToInterface<T,C>());
+                    new NinjectChildFactory<T>(_kernel, childBindings).AndBindToInterface<T, C>());
             }
+
             public void ToSelf(Action<IKernel> childBindings)
             {
                 _kernel.Bind<IRootFactory<T>>().ToConstant(
@@ -277,9 +287,7 @@
             get
             {
                 return typeof(IBindingFactory<T>);
-            } 
+            }
         }
     }
-
-
 }

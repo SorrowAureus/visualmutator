@@ -48,14 +48,14 @@
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((TypeIdentifier) obj);
+            return Equals((TypeIdentifier)obj);
         }
 
         public override int GetHashCode()
         {
             unchecked
             {
-                return (_typeName.GetHashCode()*397) ^ _moduleName.GetHashCode();
+                return (_typeName.GetHashCode() * 397) ^ _moduleName.GetHashCode();
             }
         }
 

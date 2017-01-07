@@ -16,7 +16,7 @@ namespace VisualMutator.Model.Mutations.Operators
                 return new OperatorInfo("I", "Identity operator", "Operator that does not create any changes.");
             }
         }
-      
+
         public IOperatorCodeVisitor CreateVisitor()
         {
             return new OperatorCodeVisitor();
@@ -30,26 +30,28 @@ namespace VisualMutator.Model.Mutations.Operators
 
     public class IdentityOperator2 : IMutationOperator
     {
-        class Visitor :OperatorCodeVisitor
+        private class Visitor : OperatorCodeVisitor
         {
             private bool _found;
+
             public override void Visit(ILessThan addition)
             {
                 if (!_found)
                 {
-                      _found = true;
-                      MarkMutationTarget(addition);
+                    _found = true;
+                    MarkMutationTarget(addition);
                 }
             }
         }
 
-        class Rewriter : OperatorCodeRewriter
+        private class Rewriter : OperatorCodeRewriter
         {
-//            public override IExpression Rewrite(IAddition addition)
-//            {
-//                return base.Rewrite(addition);
-//            }
+            //            public override IExpression Rewrite(IAddition addition)
+            //            {
+            //                return base.Rewrite(addition);
+            //            }
         }
+
         public OperatorInfo Info
         {
             get
@@ -57,7 +59,7 @@ namespace VisualMutator.Model.Mutations.Operators
                 return new OperatorInfo("I", "Identity operator", "Operator that does not create any changes.");
             }
         }
-      
+
         public IOperatorCodeVisitor CreateVisitor()
         {
             return new Visitor();

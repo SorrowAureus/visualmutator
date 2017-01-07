@@ -6,15 +6,14 @@
     using UsefulTools.FileSystem;
     using UsefulTools.Threading;
     using UsefulTools.Wpf;
-    using Views;
 
     public class InfrastructureModule : NinjectModule
     {
         public override void Load()
         {
             Infrastructure();
-
         }
+
         private void Infrastructure()
         {
             Bind<IMessageService>().To<MessageService>().InSingletonScope();

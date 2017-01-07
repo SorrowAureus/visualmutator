@@ -10,7 +10,6 @@
     [Serializable]
     public class TestingCancelledException : Exception
     {
-
         public TestingCancelledException()
         {
         }

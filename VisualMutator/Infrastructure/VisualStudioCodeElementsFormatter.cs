@@ -1,11 +1,9 @@
 ﻿namespace VisualMutator.Infrastructure
 {
-    using System;
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Linq;
     using System.Text.RegularExpressions;
-    using Model;
     using Model.CoverageFinder;
 
     public class VisualStudioCodeElementsFormatter
@@ -22,7 +20,7 @@
         private string ConvertConstructorName(string methodFullName)
         {
             var id = new MethodIdentifier(methodFullName);
-            if(id.ClassSimpleName == id.MethodNameWithoutParams)
+            if (id.ClassSimpleName == id.MethodNameWithoutParams)
             {
                 int dotIndex = methodFullName.LastIndexOf('.');
                 return methodFullName.Substring(0, dotIndex + 1) + ".ctor";
@@ -51,6 +49,5 @@
             }
             return result;
         }
-
     }
 }

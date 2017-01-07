@@ -4,7 +4,6 @@
     using Infrastructure;
     using Mutations.Operators;
     using StoringMutants;
-    using UsefulTools.DependencyInjection;
 
     public class ContinuousConfiguration : IDisposable
     {
@@ -24,7 +23,7 @@
 
         public IObjectRoot<SessionConfiguration> CreateSessionConfiguration()
         {
-                return _sessionConfigurationFactory.Create();
+            return _sessionConfigurationFactory.Create();
         }
 
         public void Dispose()

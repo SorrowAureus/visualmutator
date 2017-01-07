@@ -12,6 +12,7 @@
         }
 
         public string Message { get; set; }
+
         public TestNodeState State
         {
             get;

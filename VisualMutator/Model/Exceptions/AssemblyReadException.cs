@@ -10,7 +10,6 @@
     [Serializable]
     public class AssemblyReadException : Exception
     {
-
         public AssemblyReadException()
         {
         }
@@ -19,7 +18,7 @@
             : base(message)
         {
         }
-      
+
         public AssemblyReadException(string message, Exception inner)
             : base(message, inner)
         {

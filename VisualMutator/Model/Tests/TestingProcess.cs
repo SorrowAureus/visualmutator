@@ -22,13 +22,14 @@
         private readonly int _allMutantsCount;
         private int _testedNonEquivalentMutantsCount;
         private int _mutantsKilledCount;
+
         //AKB
         private int _numberOfMarkedEq;
+
         private int _numberOfFirstOrderMutants;
         private readonly WorkerCollection<Mutant> _mutantsWorkers;
         private int _testedMutantsCount;
         private bool _stopping;
-
 
         public TestingProcess(
             OptionsModel optionsModel,
@@ -58,9 +59,9 @@
         {
             _log.Info("**********************************************************");
 
-            _log.Info("Testing progress: all:"+ _allMutantsCount +
-                ", tested: "+ _testedNonEquivalentMutantsCount
-                +"killed: "+ _mutantsKilledCount);
+            _log.Info("Testing progress: all:" + _allMutantsCount +
+                ", tested: " + _testedNonEquivalentMutantsCount
+                + "killed: " + _mutantsKilledCount);
 
             _log.Info("**********************************************************");
 
@@ -69,7 +70,7 @@
                 NumberOfAllMutants = _allMutantsCount,
                 NumberOfAllMutantsTested = _testedMutantsCount,
                 Description = ("Mutants tested: {0}/{1} " + (_stopping ? "(Stop request)" : ""))
-                             .Formatted(_testedMutantsCount ,
+                             .Formatted(_testedMutantsCount,
                                  _allMutantsCount),
             });
 
@@ -99,7 +100,7 @@
         {
             try
             {
-                _log.Info("Testing process for mutant: "+ mutant.Id);
+                _log.Info("Testing process for mutant: " + mutant.Id);
                 IObjectRoot<TestingMutant> testingMutant = _mutantTestingFactory.CreateWithParams(_sessionEventsSubject, mutant);
                 await testingMutant.Get.RunAsync();
             }
@@ -112,12 +113,11 @@
             }
             lock (this)
             {
-                
                 _testedNonEquivalentMutantsCount++;
                 _testedMutantsCount++;
                 _mutantsKilledCount = _mutantsKilledCount.IncrementedIf(mutant.State == MutantResultState.Killed);
                 //AKB
-                if (mutant.Id.IndexOf("First Order Mutant")!=-1)
+                if (mutant.Id.IndexOf("First Order Mutant") != -1)
                 {
                     _numberOfFirstOrderMutants++;
                 }
@@ -125,10 +125,9 @@
             }
         }
 
-
         public void TestWithHighPriority(Mutant mutant)
         {
-           _mutantsWorkers.LockingMoveToFront(mutant);
+            _mutantsWorkers.LockingMoveToFront(mutant);
         }
 
         public void MarkedAsEqivalent(bool equivalent)
@@ -139,14 +138,13 @@
                 {
                     _testedNonEquivalentMutantsCount--;
                     _numberOfMarkedEq++;
-
                 }
                 else
                 {
                     _testedNonEquivalentMutantsCount++;
                     _numberOfMarkedEq--;
                 }
-           
+
                 _sessionEventsSubject.OnNext(new MutationScoreInfoEventArgs(OperationsState.None)
                 {
                     NumberOfMutantsKilled = _mutantsKilledCount,

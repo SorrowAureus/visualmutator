@@ -23,7 +23,6 @@
             get { return _testResults; }
         }
 
-
         private readonly ILog _log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         private readonly XUnitResultsParser _parser;
@@ -52,8 +51,8 @@
             _nUnitConsolePath = xUnitPath;// @"C:\PLIKI\DOWNLOAD\xunit-2.0-beta-3\src\xunit.console\bin\Debug\xunit.console.exe";
             _cancellationTokenSource = new CancellationTokenSource();
 
-           // var testsSelector = new TestsSelector();
-           // _selectedTests = testsSelector.GetIncludedTests(loadContext.Namespaces);
+            // var testsSelector = new TestsSelector();
+            // _selectedTests = testsSelector.GetIncludedTests(loadContext.Namespaces);
             //_log.Debug("Created tests to run: " + _selectedTests.TestsDescription);
         }
 
@@ -61,7 +60,7 @@
         {
             string name = string.Format("muttest-{0}.xml", Path.GetFileName(_assemblyPath));
             string outputFilePath = new FilePathAbsolute(_assemblyPath).GetBrotherFileWithName(name).ToString();
-            if(File.Exists(outputFilePath))
+            if (File.Exists(outputFilePath))
             {
                 File.Delete(outputFilePath);
             }
@@ -83,7 +82,7 @@
             }
             catch (Exception e)
             {
-                _log.Warn("Exception while cancelling: "+e);
+                _log.Warn("Exception while cancelling: " + e);
             }
             _log.Debug("Requested cancellation for testing for " + _cancellationTokenSource.GetHashCode());
         }
@@ -136,10 +135,8 @@
                 _log.Error("Test run cancelled.");
                 return new MutantTestResults(cancelled: true);
             }
-
-
         }
-        
+
         public Task<ProcessResults> RunNUnitConsole(string nunitConsolePath,
             string inputFile, string outputFile)
         {
@@ -148,9 +145,8 @@
             {
                 testToRun = " -names " + string.Join(";", _testsSelector.MinimalSelectionList) + " ";
             }
-            string arg = inputFile.InQuotes()  + testToRun
+            string arg = inputFile.InQuotes() + testToRun
                          + " -xmlv1 " + outputFile.InQuotes() + " ";
-
 
             _log.Info("Running: " + nunitConsolePath.InQuotes() + " " + arg);
             var startInfo = new ProcessStartInfo
@@ -164,9 +160,5 @@
             };
             return _processes.RunAsync(startInfo, _cancellationTokenSource);
         }
-
-
-
-
     }
 }

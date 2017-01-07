@@ -16,6 +16,7 @@
         {
             ResultMethods = result;
         }
+
         public MutantTestResults(bool cancelled = false)
         {
             _cancelled = cancelled;

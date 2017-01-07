@@ -5,24 +5,24 @@
 
     public class DebugCodeTraverser : CodeTraverser
     {
-        Stack<object> objectsInTree = new Stack<object>();
-  
+        private Stack<object> objectsInTree = new Stack<object>();
+
         public object CurrentObject
         {
             get;
             set;
         }
+
         public int LevelCount { get; set; }
+
         public DebugCodeTraverser(CodeVisitor visitor)
-        { 
-  
+        {
             var dVisitor = visitor as DebugOperatorCodeVisitor;
             if (dVisitor != null)
             {
                 dVisitor.Traverser = this;
             }
 
-            
             PreorderVisitor = visitor;
         }
 
@@ -32,6 +32,7 @@
             objectsInTree.Push(obj);
             LevelCount++;
         }
+
         private void MethodExit()
         {
             if (objectsInTree.Count == 0)
@@ -44,826 +45,1154 @@
             }
             LevelCount--;
         }
-      
+
         public override void TraverseChildren(IWin32Resource win32Resource)
-{ MethodEnter(win32Resource);
+        {
+            MethodEnter(win32Resource);
             base.TraverseChildren(win32Resource);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IUnitReference unitReference)
-{ MethodEnter(unitReference);
+        {
+            MethodEnter(unitReference);
             base.TraverseChildren(unitReference);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IUnitNamespaceReference unitNamespaceReference)
-{ MethodEnter(unitNamespaceReference);
+        {
+            MethodEnter(unitNamespaceReference);
             base.TraverseChildren(unitNamespaceReference);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IUnitSetNamespace unitSetNamespace)
-{ MethodEnter(unitSetNamespace);
+        {
+            MethodEnter(unitSetNamespace);
             base.TraverseChildren(unitSetNamespace);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IUnitNamespace namespaceDefinition)
-{ MethodEnter(namespaceDefinition);
+        {
+            MethodEnter(namespaceDefinition);
             base.TraverseChildren(namespaceDefinition);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(ITypeReference typeReference)
-{ MethodEnter(typeReference);
+        {
+            MethodEnter(typeReference);
             base.TraverseChildren(typeReference);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(ITypeDefinitionMember typeMember)
-{ MethodEnter(typeMember);
+        {
+            MethodEnter(typeMember);
             base.TraverseChildren(typeMember);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(ITypeDefinition typeDefinition)
-{ MethodEnter(typeDefinition);
+        {
+            MethodEnter(typeDefinition);
             base.TraverseChildren(typeDefinition);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(ISpecializedNestedTypeReference specializedNestedTypeReference)
-{ MethodEnter(specializedNestedTypeReference);
+        {
+            MethodEnter(specializedNestedTypeReference);
             base.TraverseChildren(specializedNestedTypeReference);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(ISpecializedMethodReference specializedMethodReference)
-{ MethodEnter(specializedMethodReference);
+        {
+            MethodEnter(specializedMethodReference);
             base.TraverseChildren(specializedMethodReference);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(ISpecializedFieldReference specializedFieldReference)
-{ MethodEnter(specializedFieldReference);
+        {
+            MethodEnter(specializedFieldReference);
             base.TraverseChildren(specializedFieldReference);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(ISecurityAttribute securityAttribute)
-{ MethodEnter(securityAttribute);
+        {
+            MethodEnter(securityAttribute);
             base.TraverseChildren(securityAttribute);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IRootUnitNamespaceReference rootUnitNamespaceReference)
-{ MethodEnter(rootUnitNamespaceReference);
+        {
+            MethodEnter(rootUnitNamespaceReference);
             base.TraverseChildren(rootUnitNamespaceReference);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IRootUnitSetNamespace rootUnitSetNamespace)
-{ MethodEnter(rootUnitSetNamespace);
+        {
+            MethodEnter(rootUnitSetNamespace);
             base.TraverseChildren(rootUnitSetNamespace);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IRootUnitNamespace rootUnitNamespace)
-{ MethodEnter(rootUnitNamespace);
+        {
+            MethodEnter(rootUnitNamespace);
             base.TraverseChildren(rootUnitNamespace);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IResourceReference resourceReference)
-{ MethodEnter(resourceReference);
+        {
+            MethodEnter(resourceReference);
             base.TraverseChildren(resourceReference);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IPropertyDefinition propertyDefinition)
-{ MethodEnter(propertyDefinition);
+        {
+            MethodEnter(propertyDefinition);
             base.TraverseChildren(propertyDefinition);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IPointerTypeReference pointerTypeReference)
-{ MethodEnter(pointerTypeReference);
+        {
+            MethodEnter(pointerTypeReference);
             base.TraverseChildren(pointerTypeReference);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IPlatformInvokeInformation platformInvokeInformation)
-{ MethodEnter(platformInvokeInformation);
+        {
+            MethodEnter(platformInvokeInformation);
             base.TraverseChildren(platformInvokeInformation);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IPESection peSection)
-{ MethodEnter(peSection);
+        {
+            MethodEnter(peSection);
             base.TraverseChildren(peSection);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IParameterTypeInformation parameterTypeInformation)
-{ MethodEnter(parameterTypeInformation);
+        {
+            MethodEnter(parameterTypeInformation);
             base.TraverseChildren(parameterTypeInformation);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IParameterDefinition parameterDefinition)
-{ MethodEnter(parameterDefinition);
+        {
+            MethodEnter(parameterDefinition);
             base.TraverseChildren(parameterDefinition);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IOperationExceptionInformation operationExceptionInformation)
-{ MethodEnter(operationExceptionInformation);
+        {
+            MethodEnter(operationExceptionInformation);
             base.TraverseChildren(operationExceptionInformation);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IOperation operation)
-{ MethodEnter(operation);
+        {
+            MethodEnter(operation);
             base.TraverseChildren(operation);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(INestedUnitSetNamespace nestedUnitSetNamespace)
-{ MethodEnter(nestedUnitSetNamespace);
+        {
+            MethodEnter(nestedUnitSetNamespace);
             base.TraverseChildren(nestedUnitSetNamespace);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(INestedUnitNamespaceReference nestedUnitNamespaceReference)
-{ MethodEnter(nestedUnitNamespaceReference);
+        {
+            MethodEnter(nestedUnitNamespaceReference);
             base.TraverseChildren(nestedUnitNamespaceReference);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(INestedUnitNamespace nestedUnitNamespace)
-{ MethodEnter(nestedUnitNamespace);
+        {
+            MethodEnter(nestedUnitNamespace);
             base.TraverseChildren(nestedUnitNamespace);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(INestedTypeReference nestedTypeReference)
-{ MethodEnter(nestedTypeReference);
+        {
+            MethodEnter(nestedTypeReference);
             base.TraverseChildren(nestedTypeReference);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(INestedTypeDefinition nestedTypeDefinition)
-{ MethodEnter(nestedTypeDefinition);
+        {
+            MethodEnter(nestedTypeDefinition);
             base.TraverseChildren(nestedTypeDefinition);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(INestedAliasForType nestedAliasForType)
-{ MethodEnter(nestedAliasForType);
+        {
+            MethodEnter(nestedAliasForType);
             base.TraverseChildren(nestedAliasForType);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(INamespaceTypeReference namespaceTypeReference)
-{ MethodEnter(namespaceTypeReference);
+        {
+            MethodEnter(namespaceTypeReference);
             base.TraverseChildren(namespaceTypeReference);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(INamespaceTypeDefinition namespaceTypeDefinition)
-{ MethodEnter(namespaceTypeDefinition);
+        {
+            MethodEnter(namespaceTypeDefinition);
             base.TraverseChildren(namespaceTypeDefinition);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(INamespaceDefinition namespaceDefinition)
-{ MethodEnter(namespaceDefinition);
+        {
+            MethodEnter(namespaceDefinition);
             base.TraverseChildren(namespaceDefinition);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(INamespaceAliasForType namespaceAliasForType)
-{ MethodEnter(namespaceAliasForType);
+        {
+            MethodEnter(namespaceAliasForType);
             base.TraverseChildren(namespaceAliasForType);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(INamedTypeDefinition namedTypeDefinition)
-{ MethodEnter(namedTypeDefinition);
+        {
+            MethodEnter(namedTypeDefinition);
             base.TraverseChildren(namedTypeDefinition);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IModuleReference moduleReference)
-{ MethodEnter(moduleReference);
+        {
+            MethodEnter(moduleReference);
             base.TraverseChildren(moduleReference);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IModule module)
-{ MethodEnter(module);
+        {
+            MethodEnter(module);
             base.TraverseChildren(module);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IModifiedTypeReference modifiedTypeReference)
-{ MethodEnter(modifiedTypeReference);
+        {
+            MethodEnter(modifiedTypeReference);
             base.TraverseChildren(modifiedTypeReference);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IMethodReference methodReference)
-{ MethodEnter(methodReference);
+        {
+            MethodEnter(methodReference);
             base.TraverseChildren(methodReference);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IMethodImplementation methodImplementation)
-{ MethodEnter(methodImplementation);
+        {
+            MethodEnter(methodImplementation);
             base.TraverseChildren(methodImplementation);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IMethodDefinition method)
-{ MethodEnter(method);
+        {
+            MethodEnter(method);
             base.TraverseChildren(method);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IMethodBody methodBody)
-{ MethodEnter(methodBody);
+        {
+            MethodEnter(methodBody);
             base.TraverseChildren(methodBody);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IMetadataTypeOf typeOf)
-{ MethodEnter(typeOf);
+        {
+            MethodEnter(typeOf);
             base.TraverseChildren(typeOf);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IMetadataNamedArgument namedArgument)
-{ MethodEnter(namedArgument);
+        {
+            MethodEnter(namedArgument);
             base.TraverseChildren(namedArgument);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IMetadataExpression expression)
-{ MethodEnter(expression);
+        {
+            MethodEnter(expression);
             base.TraverseChildren(expression);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IMetadataCreateArray createArray)
-{ MethodEnter(createArray);
+        {
+            MethodEnter(createArray);
             base.TraverseChildren(createArray);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IMetadataConstant constant)
-{ MethodEnter(constant);
+        {
+            MethodEnter(constant);
             base.TraverseChildren(constant);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IMarshallingInformation marshallingInformation)
-{ MethodEnter(marshallingInformation);
+        {
+            MethodEnter(marshallingInformation);
             base.TraverseChildren(marshallingInformation);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IManagedPointerTypeReference managedPointerTypeReference)
-{ MethodEnter(managedPointerTypeReference);
+        {
+            MethodEnter(managedPointerTypeReference);
             base.TraverseChildren(managedPointerTypeReference);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(ILocalDefinition localDefinition)
-{ MethodEnter(localDefinition);
+        {
+            MethodEnter(localDefinition);
             base.TraverseChildren(localDefinition);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IGlobalMethodDefinition globalMethodDefinition)
-{ MethodEnter(globalMethodDefinition);
+        {
+            MethodEnter(globalMethodDefinition);
             base.TraverseChildren(globalMethodDefinition);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IGlobalFieldDefinition globalFieldDefinition)
-{ MethodEnter(globalFieldDefinition);
+        {
+            MethodEnter(globalFieldDefinition);
             base.TraverseChildren(globalFieldDefinition);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IGenericTypeParameterReference genericTypeParameterReference)
-{ MethodEnter(genericTypeParameterReference);
+        {
+            MethodEnter(genericTypeParameterReference);
             base.TraverseChildren(genericTypeParameterReference);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IGenericTypeParameter genericTypeParameter)
-{ MethodEnter(genericTypeParameter);
+        {
+            MethodEnter(genericTypeParameter);
             base.TraverseChildren(genericTypeParameter);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IGenericTypeInstanceReference genericTypeInstanceReference)
-{ MethodEnter(genericTypeInstanceReference);
+        {
+            MethodEnter(genericTypeInstanceReference);
             base.TraverseChildren(genericTypeInstanceReference);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IGenericParameter genericParameter)
-{ MethodEnter(genericParameter);
+        {
+            MethodEnter(genericParameter);
             base.TraverseChildren(genericParameter);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IGenericParameterReference genericParameterReference)
-{ MethodEnter(genericParameterReference);
+        {
+            MethodEnter(genericParameterReference);
             base.TraverseChildren(genericParameterReference);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IGenericMethodParameterReference genericMethodParameterReference)
-{ MethodEnter(genericMethodParameterReference);
+        {
+            MethodEnter(genericMethodParameterReference);
             base.TraverseChildren(genericMethodParameterReference);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IGenericMethodParameter genericMethodParameter)
-{ MethodEnter(genericMethodParameter);
+        {
+            MethodEnter(genericMethodParameter);
             base.TraverseChildren(genericMethodParameter);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IGenericMethodInstanceReference genericMethodInstanceReference)
-{ MethodEnter(genericMethodInstanceReference);
+        {
+            MethodEnter(genericMethodInstanceReference);
             base.TraverseChildren(genericMethodInstanceReference);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IFunctionPointerTypeReference functionPointerTypeReference)
-{ MethodEnter(functionPointerTypeReference);
+        {
+            MethodEnter(functionPointerTypeReference);
             base.TraverseChildren(functionPointerTypeReference);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IFileReference fileReference)
-{ MethodEnter(fileReference);
+        {
+            MethodEnter(fileReference);
             base.TraverseChildren(fileReference);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IFieldReference fieldReference)
-{ MethodEnter(fieldReference);
+        {
+            MethodEnter(fieldReference);
             base.TraverseChildren(fieldReference);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IFieldDefinition fieldDefinition)
-{ MethodEnter(fieldDefinition);
+        {
+            MethodEnter(fieldDefinition);
             base.TraverseChildren(fieldDefinition);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IEventDefinition eventDefinition)
-{ MethodEnter(eventDefinition);
+        {
+            MethodEnter(eventDefinition);
             base.TraverseChildren(eventDefinition);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(ICustomModifier customModifier)
-{ MethodEnter(customModifier);
+        {
+            MethodEnter(customModifier);
             base.TraverseChildren(customModifier);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(ICustomAttribute customAttribute)
-{ MethodEnter(customAttribute);
+        {
+            MethodEnter(customAttribute);
             base.TraverseChildren(customAttribute);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IAssemblyReference assemblyReference)
-{ MethodEnter(assemblyReference);
+        {
+            MethodEnter(assemblyReference);
             base.TraverseChildren(assemblyReference);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IAssembly assembly)
-{ MethodEnter(assembly);
+        {
+            MethodEnter(assembly);
             base.TraverseChildren(assembly);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IArrayTypeReference arrayTypeReference)
-{ MethodEnter(arrayTypeReference);
+        {
+            MethodEnter(arrayTypeReference);
             base.TraverseChildren(arrayTypeReference);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IAliasForType aliasForType)
-{ MethodEnter(aliasForType);
+        {
+            MethodEnter(aliasForType);
             base.TraverseChildren(aliasForType);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IYieldReturnStatement yieldReturnStatement)
-{ MethodEnter(yieldReturnStatement);
+        {
+            MethodEnter(yieldReturnStatement);
             base.TraverseChildren(yieldReturnStatement);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IYieldBreakStatement yieldBreakStatement)
-{ MethodEnter(yieldBreakStatement);
+        {
+            MethodEnter(yieldBreakStatement);
             base.TraverseChildren(yieldBreakStatement);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IWhileDoStatement whileDoStatement)
-{ MethodEnter(whileDoStatement);
+        {
+            MethodEnter(whileDoStatement);
             base.TraverseChildren(whileDoStatement);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IVectorLength vectorLength)
-{ MethodEnter(vectorLength);
+        {
+            MethodEnter(vectorLength);
             base.TraverseChildren(vectorLength);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IUnaryPlus unaryPlus)
-{ MethodEnter(unaryPlus);
+        {
+            MethodEnter(unaryPlus);
             base.TraverseChildren(unaryPlus);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IUnaryOperation unaryOperation)
-{ MethodEnter(unaryOperation);
+        {
+            MethodEnter(unaryOperation);
             base.TraverseChildren(unaryOperation);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IUnaryNegation unaryNegation)
-{ MethodEnter(unaryNegation);
+        {
+            MethodEnter(unaryNegation);
             base.TraverseChildren(unaryNegation);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(ITypeOf typeOf)
-{ MethodEnter(typeOf);
+        {
+            MethodEnter(typeOf);
             base.TraverseChildren(typeOf);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(ITokenOf tokenOf)
-{ MethodEnter(tokenOf);
+        {
+            MethodEnter(tokenOf);
             base.TraverseChildren(tokenOf);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(ITryCatchFinallyStatement tryCatchFilterFinallyStatement)
-{ MethodEnter(tryCatchFilterFinallyStatement);
+        {
+            MethodEnter(tryCatchFilterFinallyStatement);
             base.TraverseChildren(tryCatchFilterFinallyStatement);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IThrowStatement throwStatement)
-{ MethodEnter(throwStatement);
+        {
+            MethodEnter(throwStatement);
             base.TraverseChildren(throwStatement);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IThisReference thisReference)
-{ MethodEnter(thisReference);
+        {
+            MethodEnter(thisReference);
             base.TraverseChildren(thisReference);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(ITargetExpression targetExpression)
-{ MethodEnter(targetExpression);
+        {
+            MethodEnter(targetExpression);
             base.TraverseChildren(targetExpression);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(ISwitchStatement switchStatement)
-{ MethodEnter(switchStatement);
+        {
+            MethodEnter(switchStatement);
             base.TraverseChildren(switchStatement);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(ISwitchCase switchCase)
-{ MethodEnter(switchCase);
+        {
+            MethodEnter(switchCase);
             base.TraverseChildren(switchCase);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(ISubtraction subtraction)
-{ MethodEnter(subtraction);
+        {
+            MethodEnter(subtraction);
             base.TraverseChildren(subtraction);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IStatement statement)
-{ MethodEnter(statement);
+        {
+            MethodEnter(statement);
             base.TraverseChildren(statement);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IStackArrayCreate stackArrayCreate)
-{ MethodEnter(stackArrayCreate);
+        {
+            MethodEnter(stackArrayCreate);
             base.TraverseChildren(stackArrayCreate);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(ISourceMethodBody sourceMethodBody)
-{ MethodEnter(sourceMethodBody);
+        {
+            MethodEnter(sourceMethodBody);
             base.TraverseChildren(sourceMethodBody);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(ISizeOf sizeOf)
-{ MethodEnter(sizeOf);
+        {
+            MethodEnter(sizeOf);
             base.TraverseChildren(sizeOf);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IRuntimeArgumentHandleExpression runtimeArgumentHandleExpression)
-{ MethodEnter(runtimeArgumentHandleExpression);
+        {
+            MethodEnter(runtimeArgumentHandleExpression);
             base.TraverseChildren(runtimeArgumentHandleExpression);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IRightShift rightShift)
-{ MethodEnter(rightShift);
+        {
+            MethodEnter(rightShift);
             base.TraverseChildren(rightShift);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IReturnValue returnValue)
-{ MethodEnter(returnValue);
+        {
+            MethodEnter(returnValue);
             base.TraverseChildren(returnValue);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IReturnStatement returnStatement)
-{ MethodEnter(returnStatement);
+        {
+            MethodEnter(returnStatement);
             base.TraverseChildren(returnStatement);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IRethrowStatement rethrowStatement)
-{ MethodEnter(rethrowStatement);
+        {
+            MethodEnter(rethrowStatement);
             base.TraverseChildren(rethrowStatement);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IResourceUseStatement resourceUseStatement)
-{ MethodEnter(resourceUseStatement);
+        {
+            MethodEnter(resourceUseStatement);
             base.TraverseChildren(resourceUseStatement);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IRefArgument refArgument)
-{ MethodEnter(refArgument);
+        {
+            MethodEnter(refArgument);
             base.TraverseChildren(refArgument);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IPushStatement pushStatement)
-{ MethodEnter(pushStatement);
+        {
+            MethodEnter(pushStatement);
             base.TraverseChildren(pushStatement);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IPopValue popValue)
-{ MethodEnter(popValue);
+        {
+            MethodEnter(popValue);
             base.TraverseChildren(popValue);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IPointerCall pointerCall)
-{ MethodEnter(pointerCall);
+        {
+            MethodEnter(pointerCall);
             base.TraverseChildren(pointerCall);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IOutArgument outArgument)
-{ MethodEnter(outArgument);
+        {
+            MethodEnter(outArgument);
             base.TraverseChildren(outArgument);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IOnesComplement onesComplement)
-{ MethodEnter(onesComplement);
+        {
+            MethodEnter(onesComplement);
             base.TraverseChildren(onesComplement);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IOldValue oldValue)
-{ MethodEnter(oldValue);
+        {
+            MethodEnter(oldValue);
             base.TraverseChildren(oldValue);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(INotEquality notEquality)
-{ MethodEnter(notEquality);
+        {
+            MethodEnter(notEquality);
             base.TraverseChildren(notEquality);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(INamedArgument namedArgument)
-{ MethodEnter(namedArgument);
+        {
+            MethodEnter(namedArgument);
             base.TraverseChildren(namedArgument);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IMultiplication multiplication)
-{ MethodEnter(multiplication);
+        {
+            MethodEnter(multiplication);
             base.TraverseChildren(multiplication);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IModulus modulus)
-{ MethodEnter(modulus);
+        {
+            MethodEnter(modulus);
             base.TraverseChildren(modulus);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IMethodCall methodCall)
-{ MethodEnter(methodCall);
+        {
+            MethodEnter(methodCall);
             base.TraverseChildren(methodCall);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IMakeTypedReference makeTypedReference)
-{ MethodEnter(makeTypedReference);
+        {
+            MethodEnter(makeTypedReference);
             base.TraverseChildren(makeTypedReference);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(ILogicalNot logicalNot)
-{ MethodEnter(logicalNot);
+        {
+            MethodEnter(logicalNot);
             base.TraverseChildren(logicalNot);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(ILockStatement lockStatement)
-{ MethodEnter(lockStatement);
+        {
+            MethodEnter(lockStatement);
             base.TraverseChildren(lockStatement);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(ILocalDeclarationStatement localDeclarationStatement)
-{ MethodEnter(localDeclarationStatement);
+        {
+            MethodEnter(localDeclarationStatement);
             base.TraverseChildren(localDeclarationStatement);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(ILessThanOrEqual lessThanOrEqual)
-{ MethodEnter(lessThanOrEqual);
+        {
+            MethodEnter(lessThanOrEqual);
             base.TraverseChildren(lessThanOrEqual);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(ILessThan lessThan)
-{ MethodEnter(lessThan);
+        {
+            MethodEnter(lessThan);
             base.TraverseChildren(lessThan);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(ILeftShift leftShift)
-{ MethodEnter(leftShift);
+        {
+            MethodEnter(leftShift);
             base.TraverseChildren(leftShift);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(ILabeledStatement labeledStatement)
-{ MethodEnter(labeledStatement);
+        {
+            MethodEnter(labeledStatement);
             base.TraverseChildren(labeledStatement);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IGreaterThanOrEqual greaterThanOrEqual)
-{ MethodEnter(greaterThanOrEqual);
+        {
+            MethodEnter(greaterThanOrEqual);
             base.TraverseChildren(greaterThanOrEqual);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IGreaterThan greaterThan)
-{ MethodEnter(greaterThan);
+        {
+            MethodEnter(greaterThan);
             base.TraverseChildren(greaterThan);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IGotoSwitchCaseStatement gotoSwitchCaseStatement)
-{ MethodEnter(gotoSwitchCaseStatement);
+        {
+            MethodEnter(gotoSwitchCaseStatement);
             base.TraverseChildren(gotoSwitchCaseStatement);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IGotoStatement gotoStatement)
-{ MethodEnter(gotoStatement);
+        {
+            MethodEnter(gotoStatement);
             base.TraverseChildren(gotoStatement);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IGetValueOfTypedReference getValueOfTypedReference)
-{ MethodEnter(getValueOfTypedReference);
+        {
+            MethodEnter(getValueOfTypedReference);
             base.TraverseChildren(getValueOfTypedReference);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IGetTypeOfTypedReference getTypeOfTypedReference)
-{ MethodEnter(getTypeOfTypedReference);
+        {
+            MethodEnter(getTypeOfTypedReference);
             base.TraverseChildren(getTypeOfTypedReference);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IForStatement forStatement)
-{ MethodEnter(forStatement);
+        {
+            MethodEnter(forStatement);
             base.TraverseChildren(forStatement);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IForEachStatement forEachStatement)
-{ MethodEnter(forEachStatement);
+        {
+            MethodEnter(forEachStatement);
             base.TraverseChildren(forEachStatement);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IFillMemoryStatement fillMemoryStatement)
-{ MethodEnter(fillMemoryStatement);
+        {
+            MethodEnter(fillMemoryStatement);
             base.TraverseChildren(fillMemoryStatement);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IExpressionStatement expressionStatement)
-{ MethodEnter(expressionStatement);
+        {
+            MethodEnter(expressionStatement);
             base.TraverseChildren(expressionStatement);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IExpression expression)
-{ MethodEnter(expression);
+        {
+            MethodEnter(expression);
             base.TraverseChildren(expression);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IExclusiveOr exclusiveOr)
-{ MethodEnter(exclusiveOr);
+        {
+            MethodEnter(exclusiveOr);
             base.TraverseChildren(exclusiveOr);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IEquality equality)
-{ MethodEnter(equality);
+        {
+            MethodEnter(equality);
             base.TraverseChildren(equality);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IEmptyStatement emptyStatement)
-{ MethodEnter(emptyStatement);
+        {
+            MethodEnter(emptyStatement);
             base.TraverseChildren(emptyStatement);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IDupValue dupValue)
-{ MethodEnter(dupValue);
+        {
+            MethodEnter(dupValue);
             base.TraverseChildren(dupValue);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IDoUntilStatement doUntilStatement)
-{ MethodEnter(doUntilStatement);
+        {
+            MethodEnter(doUntilStatement);
             base.TraverseChildren(doUntilStatement);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IDivision division)
-{ MethodEnter(division);
+        {
+            MethodEnter(division);
             base.TraverseChildren(division);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IDefaultValue defaultValue)
-{ MethodEnter(defaultValue);
+        {
+            MethodEnter(defaultValue);
             base.TraverseChildren(defaultValue);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IDebuggerBreakStatement debuggerBreakStatement)
-{ MethodEnter(debuggerBreakStatement);
+        {
+            MethodEnter(debuggerBreakStatement);
             base.TraverseChildren(debuggerBreakStatement);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(ICreateObjectInstance createObjectInstance)
-{ MethodEnter(createObjectInstance);
+        {
+            MethodEnter(createObjectInstance);
             base.TraverseChildren(createObjectInstance);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(ICreateDelegateInstance createDelegateInstance)
-{ MethodEnter(createDelegateInstance);
+        {
+            MethodEnter(createDelegateInstance);
             base.TraverseChildren(createDelegateInstance);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(ICreateArray createArray)
-{ MethodEnter(createArray);
+        {
+            MethodEnter(createArray);
             base.TraverseChildren(createArray);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IConversion conversion)
-{ MethodEnter(conversion);
+        {
+            MethodEnter(conversion);
             base.TraverseChildren(conversion);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(ICopyMemoryStatement copyMemoryStatement)
-{ MethodEnter(copyMemoryStatement);
+        {
+            MethodEnter(copyMemoryStatement);
             base.TraverseChildren(copyMemoryStatement);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IContinueStatement continueStatement)
-{ MethodEnter(continueStatement);
+        {
+            MethodEnter(continueStatement);
             base.TraverseChildren(continueStatement);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IConditionalStatement conditionalStatement)
-{ MethodEnter(conditionalStatement);
+        {
+            MethodEnter(conditionalStatement);
             base.TraverseChildren(conditionalStatement);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IConditional conditional)
-{ MethodEnter(conditional);
+        {
+            MethodEnter(conditional);
             base.TraverseChildren(conditional);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(ICompileTimeConstant constant)
-{ MethodEnter(constant);
+        {
+            MethodEnter(constant);
             base.TraverseChildren(constant);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(ICheckIfInstance checkIfInstance)
-{ MethodEnter(checkIfInstance);
+        {
+            MethodEnter(checkIfInstance);
             base.TraverseChildren(checkIfInstance);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(ICatchClause catchClause)
-{ MethodEnter(catchClause);
+        {
+            MethodEnter(catchClause);
             base.TraverseChildren(catchClause);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(ICastIfPossible castIfPossible)
-{ MethodEnter(castIfPossible);
+        {
+            MethodEnter(castIfPossible);
             base.TraverseChildren(castIfPossible);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IBreakStatement breakStatement)
-{ MethodEnter(breakStatement);
+        {
+            MethodEnter(breakStatement);
             base.TraverseChildren(breakStatement);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IBoundExpression boundExpression)
-{ MethodEnter(boundExpression);
+        {
+            MethodEnter(boundExpression);
             base.TraverseChildren(boundExpression);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IBlockStatement block)
-{ MethodEnter(block);
+        {
+            MethodEnter(block);
             base.TraverseChildren(block);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IBlockExpression blockExpression)
-{ MethodEnter(blockExpression);
+        {
+            MethodEnter(blockExpression);
             base.TraverseChildren(blockExpression);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IBitwiseOr bitwiseOr)
-{ MethodEnter(bitwiseOr);
+        {
+            MethodEnter(bitwiseOr);
             base.TraverseChildren(bitwiseOr);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IBitwiseAnd bitwiseAnd)
-{ MethodEnter(bitwiseAnd);
+        {
+            MethodEnter(bitwiseAnd);
             base.TraverseChildren(bitwiseAnd);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IBinaryOperation binaryOperation)
-{ MethodEnter(binaryOperation);
+        {
+            MethodEnter(binaryOperation);
             base.TraverseChildren(binaryOperation);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IAssumeStatement assumeStatement)
-{ MethodEnter(assumeStatement);
+        {
+            MethodEnter(assumeStatement);
             base.TraverseChildren(assumeStatement);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IAssignment assignment)
-{ MethodEnter(assignment);
+        {
+            MethodEnter(assignment);
             base.TraverseChildren(assignment);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IAssertStatement assertStatement)
-{ MethodEnter(assertStatement);
+        {
+            MethodEnter(assertStatement);
             base.TraverseChildren(assertStatement);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IArrayIndexer arrayIndexer)
-{ MethodEnter(arrayIndexer);
+        {
+            MethodEnter(arrayIndexer);
             base.TraverseChildren(arrayIndexer);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IAnonymousDelegate anonymousDelegate)
-{ MethodEnter(anonymousDelegate);
+        {
+            MethodEnter(anonymousDelegate);
             base.TraverseChildren(anonymousDelegate);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IAddressOf addressOf)
-{ MethodEnter(addressOf);
+        {
+            MethodEnter(addressOf);
             base.TraverseChildren(addressOf);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IAddressDereference addressDereference)
-{ MethodEnter(addressDereference);
+        {
+            MethodEnter(addressDereference);
             base.TraverseChildren(addressDereference);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IAddressableExpression addressableExpression)
-{ MethodEnter(addressableExpression);
+        {
+            MethodEnter(addressableExpression);
             base.TraverseChildren(addressableExpression);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void TraverseChildren(IAddition addition)
-{ MethodEnter(addition);
+        {
+            MethodEnter(addition);
             base.TraverseChildren(addition);
-     MethodExit();   }
+            MethodExit();
+        }
 
         public override void Traverse(IMethodBody methodBody)
         {
@@ -879,6 +1208,4 @@
             MethodExit();
         }
     }
-
-     
 }

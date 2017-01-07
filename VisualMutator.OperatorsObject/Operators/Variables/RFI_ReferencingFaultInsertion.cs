@@ -10,7 +10,6 @@
     {
         protected static readonly ILog _log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
-
         public OperatorInfo Info
         {
             get
@@ -18,7 +17,6 @@
                 return new OperatorInfo("RFI", "Referencing fault insertion", "");
             }
         }
-      
 
         public class RFIVisitor : OperatorCodeVisitor
         {
@@ -40,6 +38,7 @@
                 }
                 return false;
             }
+
             public override void Visit(IAssignment assignment)
             {
                 if (!CheckForExistingNull(assignment.Source))
@@ -47,6 +46,7 @@
                     MarkMutationTarget(assignment);
                 }
             }
+
             public override void Visit(ILocalDeclarationStatement declaration)
             {
                 if (!CheckForExistingNull(declaration.InitialValue))
@@ -58,10 +58,8 @@
 
         public class RFIRewriter : OperatorCodeRewriter
         {
-
             public override IExpression Rewrite(IAssignment assignment)
             {
-
                 return new Assignment(assignment)
                 {
                     Source = new Conversion()
@@ -76,9 +74,9 @@
                     }
                 };
             }
+
             public override IStatement Rewrite(ILocalDeclarationStatement declaration)
             {
-
                 return new LocalDeclarationStatement(declaration)
                 {
                     InitialValue = new Conversion()
@@ -92,23 +90,17 @@
                         }
                     }
                 };
-            } 
+            }
         }
-
 
         public IOperatorCodeVisitor CreateVisitor()
         {
             return new RFIVisitor();
-
         }
 
         public IOperatorCodeRewriter CreateRewriter()
         {
             return new RFIRewriter();
         }
-
-
-
-    
     }
 }

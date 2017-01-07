@@ -24,7 +24,6 @@
         public Task<List<CciModuleSource>> GetWhiteModulesAsync()
         {
             return Task.FromResult(_paths.Select(p => new CciModuleSource(p)).ToList());
-
         }
 
         public void Dispose()

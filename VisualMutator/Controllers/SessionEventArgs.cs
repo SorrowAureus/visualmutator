@@ -105,21 +105,23 @@
             get { return _storedMutantInfo; }
         }
     }
+
     public enum ProgressUpdateMode
     {
         SetValue,
         Indeterminate,
         PreserveValue
     }
+
     public class MinorSessionUpdateEventArgs : SessionEventArgs
     {
-
         public MinorSessionUpdateEventArgs(OperationsState eventType, int progress = 0)
             : base(eventType)
         {
             _progressUpdateMode = ProgressUpdateMode.SetValue;
             _percentCompleted = progress;
         }
+
         public MinorSessionUpdateEventArgs(OperationsState eventType, ProgressUpdateMode progressUpdateMode)
             : base(eventType)
         {
@@ -145,7 +147,6 @@
             {
                 return _percentCompleted;
             }
-
         }
     }
 
@@ -156,25 +157,28 @@
         }
 
         public int NumberOfAllNonEquivalent { get; set; }
+
         public double MutationScore
         {
             get
             {
                 return ((double)NumberOfMutantsKilled) / NumberOfAllNonEquivalent;
             }
-            
         }
+
         public int NumberOfMutantsKilled
         {
             get;
             set;
         }
+
         //AKB
         public int NumberOfFirstOrderMutants
         {
             get;
             set;
         }
+
         //AKB
         public int NumberOfMarkedEq
         {
@@ -182,13 +186,13 @@
             set;
         }
     }
+
     public class TestingProgressEventArgs : SessionEventArgs
     {
         public TestingProgressEventArgs(OperationsState eventType)
             : base(eventType)
         {
         }
-
 
         public string Description
         {
@@ -201,13 +205,10 @@
             set;
         }
 
-       
-
         public int NumberOfAllMutants
         {
             get;
             set;
         }
-
     }
 }

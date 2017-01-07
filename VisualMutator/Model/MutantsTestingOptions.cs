@@ -2,7 +2,6 @@ namespace VisualMutator.Model
 {
     #region
 
-    using Tests.Custom;
     using UsefulTools.Core;
 
     #endregion
@@ -13,6 +12,7 @@ namespace VisualMutator.Model
         {
             TestingTimeoutSeconds = 40000;
         }
+
         private int _testingTimeoutSeconds;
 
         public int TestingTimeoutSeconds
@@ -26,9 +26,5 @@ namespace VisualMutator.Model
                 SetAndRise(ref _testingTimeoutSeconds, value, () => TestingTimeoutSeconds);
             }
         }
-
-
-      
-
     }
 }

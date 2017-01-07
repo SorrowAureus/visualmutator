@@ -1,48 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-
-
-
-using log4net.Appender;
-using log4net.Config;
-using log4net.Core;
-using log4net.Layout;
-
-namespace VisualMutator.Console
+﻿namespace VisualMutator.Console
 {
-    using System.Reflection;
-    using System.Text;
     using System.Threading.Tasks;
-    using Extensibility;
-    using Infrastructure;
-    using Model;
-    using Model.Decompilation;
-    using Model.Mutations;
-    using Model.Mutations.MutantsTree;
-    using Model.Mutations.Operators;
-    using Model.StoringMutants;
-    using Model.Tests;
-    using Model.Tests.Services;
-    using Model.Tests.TestsTree;
-    using Model.Verification;
-    using Moq;
-    using UsefulTools.FileSystem;
-    using UsefulTools.Paths;
     using Console = System.Console;
 
-   
-
-    class Program
+    internal class Program
     {
         public Program()
         {
             T2();
             T1();
         }
-
-
-
 
         private async Task<object> L1()
         {
@@ -55,19 +22,20 @@ namespace VisualMutator.Console
                 return new object();
             });
         }
+
         private async void T2()
         {
             await L1();
         }
 
-
         private async void T1()
         {
             await L1();
         }
+
         private static void Main(string[] args)
         {
-            Console.WriteLine("Started VisualMutator.Console with params: "+ args.MakeString());
+            Console.WriteLine("Started VisualMutator.Console with params: " + args.MakeString());
 
             if (args.Length >= 5)
             {
@@ -82,7 +50,5 @@ namespace VisualMutator.Console
                 Console.WriteLine("Too few parameters.");
             }
         }
-
-       
     }
 }

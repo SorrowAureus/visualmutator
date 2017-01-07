@@ -3,12 +3,9 @@
     using System;
     using System.Collections.Generic;
 
-    using Microsoft.Cci;
-
     [Serializable]
     public class UserMutationTarget
     {
- 
         private readonly string _passInfo;
         private readonly IDictionary<string, object> _storedObjects;
 
@@ -36,8 +33,5 @@
         {
             get { return _storedObjects; }
         }
-
-
-       
     }
 }

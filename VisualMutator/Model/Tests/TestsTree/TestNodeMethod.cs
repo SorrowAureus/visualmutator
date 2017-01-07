@@ -17,6 +17,7 @@
         {
             CommandShowMessage = new SmartCommand(ShowMessage);
         }
+
         public TestNodeClass ContainingClass
         {
             get
@@ -24,14 +25,16 @@
                 return (TestNodeClass)Parent;
             }
         }
+
         public string ContainingClassFullName
         {
             get
             {
-                var p  =(TestNodeClass)Parent;
+                var p = (TestNodeClass)Parent;
                 return p.Parent.CastTo<TestNodeNamespace>().Name + "." + p.Name;
             }
         }
+
         private string _message;
 
         public string Message
@@ -65,6 +68,7 @@
         }
 
         public TestId TestId { get; set; }
+
         public MethodIdentifier Identifier
         {
             get;

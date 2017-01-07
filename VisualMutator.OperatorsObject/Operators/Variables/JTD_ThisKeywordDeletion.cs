@@ -13,7 +13,7 @@
                 return new OperatorInfo("JTD", "This keyword deletion", "");
             }
         }
-      
+
         public class JTDVisitor : OperatorCodeVisitor
         {
             public override void Visit(IExpressionStatement statement)
@@ -32,7 +32,6 @@
 
         public class JTDRewriter : OperatorCodeRewriter
         {
-
             public override IStatement Rewrite(IExpressionStatement statement)
             {
                 return new EmptyStatement();
@@ -48,6 +47,5 @@
         {
             return new JTDRewriter();
         }
-
     }
 }

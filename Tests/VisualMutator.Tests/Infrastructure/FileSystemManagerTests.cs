@@ -11,8 +11,8 @@
     public class FileSystemManagerTests
     {
         [Test]
-         public async void TestCopying()
-         {
+        public async void TestCopying()
+        {
             File.Delete(@"C:\PLIKI\p.txt");
             Directory.Delete(@"C:\PLIKI\Test", true);
             var m = new FilesManager(null);
@@ -25,16 +25,12 @@
                 int i1 = i;
                 var task = m.CopyOverwriteAsync(@"C:\PLIKI\t.txt".ToFilePathAbs(),
                     (@"C:\PLIKI\Test\p.txt" + i1).ToFilePathAbs());
-              //  var task = Task.Run(
-              //      () =>
-              //         .Wait());
+                //  var task = Task.Run(
+                //      () =>
+                //         .Wait());
                 l.Add(task);
             }
             Task.WaitAll(l.ToArray());
-
-
-
-           
         }
     }
 }

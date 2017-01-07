@@ -5,7 +5,6 @@
     using System.IO;
     using System.Linq;
     using System.Reflection;
-    using System.Security.Cryptography;
     using System.Threading.Tasks;
     using Infrastructure;
     using log4net;
@@ -16,6 +15,7 @@
     public interface IProjectClonesManager : IDisposable
     {
         ProjectFilesClone CreateClone(string name);
+
         Task<ProjectFilesClone> CreateCloneAsync(string name);
     }
 
@@ -69,7 +69,7 @@
 
         private FilePathAbsolute CreateTmpDir(string s)
         {
-            string tmpDirectoryPath = Path.Combine(_hostEnviroment.GetTempPath(), s+Path.GetRandomFileName());
+            string tmpDirectoryPath = Path.Combine(_hostEnviroment.GetTempPath(), s + Path.GetRandomFileName());
             _fs.Directory.CreateDirectory(tmpDirectoryPath);
             return new FilePathAbsolute(tmpDirectoryPath);
         }
