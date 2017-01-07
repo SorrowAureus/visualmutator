@@ -63,52 +63,52 @@
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Microsoft.Cci.Analysis.ControlAndDataFlowGraph">
-      <HintPath>..\packages\CCI_fixed\Microsoft.Cci.Analysis.ControlAndDataFlowGraph.dll</HintPath>
+      <HintPath>..\externalLibFixed\CCI_fixed\Microsoft.Cci.Analysis.ControlAndDataFlowGraph.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Cci.CodeModel">
-      <HintPath>..\packages\CCI_fixed\Microsoft.Cci.CodeModel.dll</HintPath>
+      <HintPath>..\externalLibFixed\CCI_fixed\Microsoft.Cci.CodeModel.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Cci.CodeModelToIL">
-      <HintPath>..\packages\CCI_fixed\Microsoft.Cci.CodeModelToIL.dll</HintPath>
+      <HintPath>..\externalLibFixed\CCI_fixed\Microsoft.Cci.CodeModelToIL.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Cci.ContractExtractor">
-      <HintPath>..\packages\CCI_fixed\Microsoft.Cci.ContractExtractor.dll</HintPath>
+      <HintPath>..\externalLibFixed\CCI_fixed\Microsoft.Cci.ContractExtractor.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Cci.CSharpSourceEmitter">
-      <HintPath>..\packages\CCI_fixed\Microsoft.Cci.CSharpSourceEmitter.dll</HintPath>
+      <HintPath>..\externalLibFixed\CCI_fixed\Microsoft.Cci.CSharpSourceEmitter.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Cci.ILGenerator">
-      <HintPath>..\packages\CCI_fixed\Microsoft.Cci.ILGenerator.dll</HintPath>
+      <HintPath>..\externalLibFixed\CCI_fixed\Microsoft.Cci.ILGenerator.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Cci.MetadataHelper">
-      <HintPath>..\packages\CCI_fixed\Microsoft.Cci.MetadataHelper.dll</HintPath>
+      <HintPath>..\externalLibFixed\CCI_fixed\Microsoft.Cci.MetadataHelper.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Cci.MetadataModel">
-      <HintPath>..\packages\CCI_fixed\Microsoft.Cci.MetadataModel.dll</HintPath>
+      <HintPath>..\externalLibFixed\CCI_fixed\Microsoft.Cci.MetadataModel.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Cci.MutableCodeModel">
-      <HintPath>..\packages\CCI_fixed\Microsoft.Cci.MutableCodeModel.dll</HintPath>
+      <HintPath>..\externalLibFixed\CCI_fixed\Microsoft.Cci.MutableCodeModel.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Cci.MutableMetadataModel">
-      <HintPath>..\packages\CCI_fixed\Microsoft.Cci.MutableMetadataModel.dll</HintPath>
+      <HintPath>..\externalLibFixed\CCI_fixed\Microsoft.Cci.MutableMetadataModel.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Cci.NewILToCodeModel">
-      <HintPath>..\packages\CCI_fixed\Microsoft.Cci.NewILToCodeModel.dll</HintPath>
+      <HintPath>..\externalLibFixed\CCI_fixed\Microsoft.Cci.NewILToCodeModel.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Cci.PdbReader">
-      <HintPath>..\packages\CCI_fixed\Microsoft.Cci.PdbReader.dll</HintPath>
+      <HintPath>..\externalLibFixed\CCI_fixed\Microsoft.Cci.PdbReader.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Cci.PdbWriter">
-      <HintPath>..\packages\CCI_fixed\Microsoft.Cci.PdbWriter.dll</HintPath>
+      <HintPath>..\externalLibFixed\CCI_fixed\Microsoft.Cci.PdbWriter.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Cci.PeReader">
-      <HintPath>..\packages\CCI_fixed\Microsoft.Cci.PeReader.dll</HintPath>
+      <HintPath>..\externalLibFixed\CCI_fixed\Microsoft.Cci.PeReader.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Cci.PeWriter">
-      <HintPath>..\packages\CCI_fixed\Microsoft.Cci.PeWriter.dll</HintPath>
+      <HintPath>..\externalLibFixed\CCI_fixed\Microsoft.Cci.PeWriter.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Cci.SourceModel">
-      <HintPath>..\packages\CCI_fixed\Microsoft.Cci.SourceModel.dll</HintPath>
+      <HintPath>..\externalLibFixed\CCI_fixed\Microsoft.Cci.SourceModel.dll</HintPath>
     </Reference>
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="UsefulTools">
