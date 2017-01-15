@@ -1,8 +1,6 @@
 ﻿namespace VisualMutator.Model.CoverageFinder
 {
     using System;
-    using System.Reflection;
-    using log4net;
     using Microsoft.Cci;
 
     public abstract class CodePartsMatcher : ICodePartsMatcher
@@ -42,8 +40,6 @@
 
     public class AllMatcher : CodePartsMatcher
     {
-        private ILog _log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-
         public override bool Matches(IMethodReference method)
         {
             return true;

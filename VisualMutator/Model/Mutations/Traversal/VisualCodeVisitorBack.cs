@@ -13,7 +13,6 @@
 
     public class VisualCodeVisitorBack : VisualCodeVisitor
     {
-        private ILog _log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         private readonly ICollection<MutationTarget> _sharedTargets;
 
         //List of objects found in this model tree corresponding to mutation targets

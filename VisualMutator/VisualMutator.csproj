@@ -312,7 +312,6 @@
     <Compile Include="Controllers\ControlEvent.cs" />
     <Compile Include="Controllers\AutoCreationController.cs" />
     <Compile Include="Controllers\ITestsSelectStrategy.cs" />
-    <Compile Include="Controllers\OnlyMutantsCreationController.cs" />
     <Compile Include="Controllers\OptionsController.cs" />
     <Compile Include="Controllers\SessionCreator.cs" />
     <Compile Include="Controllers\SessionEventArgs.cs" />

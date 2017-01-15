@@ -41,7 +41,6 @@
         {
             try
             {
-                bool ok = _viewModel.Options.ParsedParams != null;
                 _optionsManager.WriteOptions(_viewModel.Options);
                 _viewModel.Close();
             }

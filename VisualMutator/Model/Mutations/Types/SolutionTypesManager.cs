@@ -40,7 +40,7 @@
 
     public class SolutionTypesManager : ITypesManager
     {
-        private readonly ILog _log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        
 
         public bool IsAssemblyLoadError { get; set; }
 

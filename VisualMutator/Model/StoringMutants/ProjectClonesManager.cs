@@ -21,7 +21,7 @@
 
     public class ProjectClonesManager : IProjectClonesManager
     {
-        private readonly ILog _log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        
 
         private readonly IHostEnviromentConnection _hostEnviroment;
         private readonly IFileSystem _fs;

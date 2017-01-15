@@ -8,3 +8,4 @@ packages
 nunitconsole
 /TestResult.xml
 /Tests/VisualMutator.Tests/VisualMutator.Tests.csproj.user
+.sonarqube

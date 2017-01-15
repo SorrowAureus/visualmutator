@@ -37,8 +37,7 @@
 
         private readonly IOperatorCodeRewriter _rewriter;
         private readonly AstFormatter _formatter;
-        private bool foundAtLeastOneMatchingObject;
-        private VisualCodeTraverser _traverser;
+        private readonly VisualCodeTraverser _traverser;
 
         public AstFormatter Formatter
         {
@@ -104,7 +103,6 @@
             {
                 _log.Info("Found object: " + firstOrDefault + " with callTypeName: " +
                     firstOrDefault.Context.CallTypeName + "while current type name is: " + typeName);
-                foundAtLeastOneMatchingObject = true;
             }
             newList = _capturedASTObjects.WhereNot(t => t.Object == obj && t.Context.CallTypeName ==
                     typeName).ToList();

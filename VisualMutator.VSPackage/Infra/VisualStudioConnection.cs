@@ -122,7 +122,6 @@
         {
             IEnumerable<ProjectItem> projectItems = _dte.Solution.Cast<Project>()
                 .SelectMany(p => p.ProjectItems.Cast<ProjectItem>()).ToList();
-            ProjectItem projectItem = projectItems.First(i => i.Name == className);
         }
 
         public string GetTempPath()

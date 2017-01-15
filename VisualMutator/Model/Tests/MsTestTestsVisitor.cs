@@ -11,7 +11,7 @@
 
     public class MsTestTestsVisitor : CodeVisitor
     {
-        private readonly ILog _log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        
 
         private readonly HashSet<string> _foundTests;
         private TestNodeClass _currentClass;

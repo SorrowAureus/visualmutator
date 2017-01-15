@@ -2,14 +2,11 @@
 {
     #region
 
-    using System;
     using System.Collections.Generic;
-    using System.Reflection;
     using System.Text;
     using DiffPlex;
     using DiffPlex.DiffBuilder;
     using DiffPlex.DiffBuilder.Model;
-    using log4net;
     using UsefulTools.Switches;
 
     #endregion
@@ -21,8 +18,6 @@
 
     public class CodeDifferenceCreator : ICodeDifferenceCreator
     {
-        private readonly ILog _log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-
         public CodeDifferenceCreator()
         {
         }
@@ -64,7 +59,7 @@
             var list = new List<LineChange>();
             foreach (var change in new InlineDiffBuilder(new Differ()).BuildDiffModel(input1, input2).Lines)
             {
-                int startIndex = 0;
+                int startIndex;
                 switch (change.Type)
                 {
                     case ChangeType.Unchanged:
@@ -104,11 +99,6 @@
             }
 
             return list;
-        }
-
-        private IEnumerable<string> NormalizeAndSplitCode(string input)
-        {
-            return input.Split(new[] { "\r\n", "\n\r", "\n", "\r" }, StringSplitOptions.None);
         }
     }
 }

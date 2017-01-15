@@ -22,7 +22,6 @@
             var resultDictionary = new Dictionary<string, TmpTestNodeMethod>();
             XmlReader reader = XmlReader.Create(fileName, s);
 
-            bool isParametrizedTest = false;
             try
             {
                 while (reader.Read())
