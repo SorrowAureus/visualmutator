@@ -98,7 +98,7 @@
             }
         }
 
-        private async void LoadTests(Mutant mutant)
+        private async Task LoadTests(Mutant mutant)
         {
             _viewModel.TestNamespaces.Clear();
 

@@ -4,3 +4,7 @@ bin/
 **/obj
 **/bin
 packages
+/opencoverTestCoverageReport.xml
+nunitconsole
+/TestResult.xml
+/Tests/VisualMutator.Tests/VisualMutator.Tests.csproj.user

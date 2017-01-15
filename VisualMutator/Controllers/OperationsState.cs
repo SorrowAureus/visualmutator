@@ -9,18 +9,15 @@
     [Flags]
     public enum OperationsState
     {
-        None,
-        Mutating,
-        Testing,
-        TestingPaused,
-        Pausing,
-        Stopping,
-        Finished,
-
-        PreCheck,
-
-        Error,
-
-        MutationFinished,
+        None = 0,
+        Mutating = 1,
+        Testing = 2,
+        TestingPaused = 3,
+        Pausing = 4,
+        Stopping = 5,
+        Finished = 6,
+        PreCheck = 7,
+        Error = 8,
+        MutationFinished = 9,
     }
 }

@@ -69,7 +69,6 @@
                     {
                         _kernel.Get<IMessageService>().ShowFatalError(e);
                     }
-                    // MessageBox.Show(e.ToString());
                 }
             }
         }

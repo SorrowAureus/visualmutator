@@ -23,12 +23,12 @@
             });
         }
 
-        private async void T2()
+        private async Task T2()
         {
             await L1();
         }
 
-        private async void T1()
+        private async Task T1()
         {
             await L1();
         }

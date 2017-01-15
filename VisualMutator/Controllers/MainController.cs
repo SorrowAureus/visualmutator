@@ -130,7 +130,7 @@
             _optionsController.Create().Run();
         }
 
-        public async void RunMutationSessionForCurrentPosition()
+        public async Task RunMutationSessionForCurrentPosition()
         {
             MethodIdentifier methodIdentifier;
             if (_host.GetCurrentClassAndMethod(out methodIdentifier) && methodIdentifier.MethodName != null)

@@ -39,7 +39,6 @@
         static Bootstrapper()
         {
             Log4NetConfig.Execute();
-            EnsureApplication();
         }
 
         public Bootstrapper(Package package)
@@ -72,14 +71,6 @@
                 {
                     MessageBox.Show(e.ToString());
                 }
-            }
-        }
-
-        public static void EnsureApplication()
-        {
-            if (Application.Current == null)
-            {
-                new Application();
             }
         }
 

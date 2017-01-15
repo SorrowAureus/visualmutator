@@ -51,7 +51,7 @@
                 {
                     await SaveResults();
                 }
-                catch (OperationCanceledException e)
+                catch (OperationCanceledException)
                 {
                     Close();
                 }

@@ -56,6 +56,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VisualMutator.Tests", "Test
 		{17973AB3-718D-4D9C-A0B9-19C5D96C8508} = {17973AB3-718D-4D9C-A0B9-19C5D96C8508}
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SonarQube", "SonarQube", "{24D5BB4F-C6FA-4E85-855D-C80F1D753231}"
+	ProjectSection(SolutionItems) = preProject
+		SonarQube\SolutionBinding.sqconfig = SonarQube\SolutionBinding.sqconfig
+		SonarQube\Visualmutator-pavzajCSharp.ruleset = SonarQube\Visualmutator-pavzajCSharp.ruleset
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
