@@ -7,7 +7,7 @@
     using NUnit.Framework;
     using UsefulTools.Paths;
 
-    [TestFixture]
+    [TestFixture, Explicit]
     public class FileSystemManagerTests
     {
         [Test]

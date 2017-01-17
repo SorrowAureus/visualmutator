@@ -46,7 +46,7 @@
             }
         }
 
-        [Test]
+        [Test, Explicit]
         public void TestPartialParametersInChild()
         {
             var modules = new INinjectModule[]

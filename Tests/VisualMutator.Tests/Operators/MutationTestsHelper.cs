@@ -32,7 +32,7 @@
 
     #endregion
 
-    [TestFixture]
+    [TestFixture,Explicit]
     public class MutationTestsHelper
     {
         protected static readonly ILog _log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);

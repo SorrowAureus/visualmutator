@@ -10,7 +10,7 @@ using VisualMutator.Tests.Util;
 
 namespace VisualMutator.Model.Tests.Services.Tests
 {
-    [TestFixture()]
+    [TestFixture(),Explicit]
     public class NUnitXmlTestServiceTests : IntegrationTest
     {
         [Test()]

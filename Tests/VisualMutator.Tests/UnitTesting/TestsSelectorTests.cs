@@ -6,10 +6,10 @@
     using SoftwareApproach.TestingExtensions;
     using UsefulTools.CheckboxedTree;
 
-    [TestFixture]
+    [TestFixture, Explicit]
     public class TestsSelectorTests
     {
-        [Test]
+        [Test, Explicit]
         public void Tet()
         {
             var a = new CheckedNode("A");
@@ -43,7 +43,7 @@
             minimalTreeId.ShouldEqual(new List<string> { "ABA ABBA" });
         }
 
-        [Test]
+        [Test, Explicit]
         public void Should_get_included_tests()
         {
             var a = new CheckedNode("A");

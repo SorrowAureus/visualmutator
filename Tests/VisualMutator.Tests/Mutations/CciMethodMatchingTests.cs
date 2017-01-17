@@ -20,6 +20,7 @@
     [TestFixture("Ns.Class.Method1(System.String)")]
     [TestFixture("Ns.Class.Method1()")]
     [TestFixture("Ns.Class.Method2<U>(System.Collections.Generic.IEnumerable<U>)")]
+    [Explicit]
     public class CciMethodMatchingTests
     {
         private const string code = @"

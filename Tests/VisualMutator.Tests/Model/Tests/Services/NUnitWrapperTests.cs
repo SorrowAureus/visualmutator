@@ -9,7 +9,7 @@ using VisualMutator.Tests.Util;
 
 namespace VisualMutator.Model.Tests.Services.Tests
 {
-    [TestFixture()]
+    [TestFixture(), Explicit]
     public class NUnitWrapperTests
     {
         protected StandardKernel _kernel;

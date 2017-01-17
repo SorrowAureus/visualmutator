@@ -19,7 +19,7 @@
 
     #endregion
 
-    [TestFixture]
+    [TestFixture, Explicit]
     public class XUnitServiceTests : IntegrationTest
     {
         //        [SetUp]

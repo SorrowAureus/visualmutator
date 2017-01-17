@@ -10,7 +10,7 @@
     using Util;
     using VisualMutator.Infrastructure;
 
-    [TestFixture]
+    [TestFixture, Explicit]
     public class WhiteCacheIntTests
     {
         private StandardKernel _kernel;
@@ -22,7 +22,7 @@
             _kernel.Load(new IntegrationTestModule());
         }
 
-        [Test]
+        [Test, Explicit]
         public void Test()
         {
             var paths = new[] {

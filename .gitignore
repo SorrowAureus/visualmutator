@@ -9,3 +9,5 @@ nunitconsole
 /TestResult.xml
 /Tests/VisualMutator.Tests/VisualMutator.Tests.csproj.user
 .sonarqube
+/nunit3TestResult.xml
+/nunit2TestResult.xml

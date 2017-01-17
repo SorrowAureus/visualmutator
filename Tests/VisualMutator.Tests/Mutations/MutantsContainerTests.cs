@@ -25,7 +25,7 @@
 
     #endregion
 
-    [TestFixture]
+    [TestFixture, Explicit]
     public class MutantsContainerTests
     {
         [Test]

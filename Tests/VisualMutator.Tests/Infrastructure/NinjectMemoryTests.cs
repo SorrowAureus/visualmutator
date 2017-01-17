@@ -17,7 +17,7 @@
     {
         private StandardKernel _kernel;
 
-        [Test]
+        [Test, Explicit]
         public void TestPartialParameters()
         {
             var modules = new INinjectModule[]

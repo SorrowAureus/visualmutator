@@ -16,7 +16,7 @@
 
     #endregion
 
-    [TestFixture]
+    [TestFixture, Explicit]
     public class TestRoslyn
     {
         #region Setup/Teardown

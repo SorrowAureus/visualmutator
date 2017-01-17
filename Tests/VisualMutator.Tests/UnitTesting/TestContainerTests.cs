@@ -8,7 +8,7 @@
 
     #endregion
 
-    [TestFixture]
+    [TestFixture, Explicit]
     public class TestContainerTests
     {
         public TestContainerTests(SelectedTests selectedTests)
@@ -22,11 +22,6 @@
         public void TestSetUp()
         {
             SynchronizationContext.SetSynchronizationContext(new SynchronizationContext());
-        }
-
-        [Test]
-        public void TestTreeBuilding()
-        {
         }
 
         /*

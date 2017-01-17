@@ -11,7 +11,7 @@
     using NUnit.Framework;
     using UsefulTools.Core;
 
-    [TestFixture]
+    [TestFixture, Explicit]
     public class XmlResultsGeneratorTests
     {
         [Test]

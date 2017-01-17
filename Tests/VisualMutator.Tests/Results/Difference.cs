@@ -8,7 +8,7 @@
 
     #endregion
 
-    [TestFixture]
+    [TestFixture, Explicit]
     public class Difference
     {
         private struct Ss

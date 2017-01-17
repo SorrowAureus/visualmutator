@@ -16,7 +16,7 @@
     {
         private StandardKernel _kernel;
 
-        [Test]
+        [Test, Explicit]
         public void TestBindingParameters()
         {
             var modules = new INinjectModule[]
