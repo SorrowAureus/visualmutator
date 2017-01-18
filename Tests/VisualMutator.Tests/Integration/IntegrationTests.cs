@@ -32,7 +32,7 @@
     using Util;
     using VisualMutator.Infrastructure;
 
-    [TestFixture,Explicit]
+    [TestFixture, Explicit]
     public class IntegrationTests : IntegrationTest
     {
         [Test]

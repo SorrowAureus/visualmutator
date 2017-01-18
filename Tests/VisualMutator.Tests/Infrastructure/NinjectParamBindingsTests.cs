@@ -11,12 +11,12 @@
 
     #endregion
 
-    [TestFixture]
+    [TestFixture, Explicit]
     public class NinjectParamBindingsTests
     {
         private StandardKernel _kernel;
 
-        [Test, Explicit]
+        [Test]
         public void TestBindingParameters()
         {
             var modules = new INinjectModule[]

@@ -9,7 +9,7 @@ using VisualMutator.Tests.Util;
 
 namespace VisualMutator.Model.Tests.Services.Tests
 {
-    [TestFixture(), Explicit]
+    [TestFixture]
     public class NUnitWrapperTests
     {
         protected StandardKernel _kernel;
@@ -41,7 +41,7 @@ namespace VisualMutator.Model.Tests.Services.Tests
         {
             var subject = _kernel.Get<INUnitWrapper>();
 
-            var testDllPath = @"..\..\..\..\SampleTestProjectsForTestDiscoveryAndExecution\SampleLogicNunit3Tests\bin\SampleLogicNunit3Tests.dll";
+            var testDllPath = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath), @"..\..\..\..\Tests\SampleTestProjectsForTestDiscoveryAndExecution\SampleLogicNunit3Tests\bin\SampleLogicNunit3Tests.dll"));
 
             var result = subject.LoadTests(new string[] { testDllPath });
 
@@ -54,18 +54,12 @@ namespace VisualMutator.Model.Tests.Services.Tests
         {
             var subject = _kernel.Get<INUnitWrapper>();
 
-            var testDllPath = @"..\..\..\..\SampleTestProjectsForTestDiscoveryAndExecution\SampleLogicNunit2Tests\bin\SampleLogicNunit2Tests.dll";
+            var testDllPath = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath), @"..\..\..\..\Tests\SampleTestProjectsForTestDiscoveryAndExecution\SampleLogicNunit2Tests\bin\SampleLogicNunit2Tests.dll"));
 
             var result = subject.LoadTests(new string[] { testDllPath });
 
             Assert.Contains("SampleLogic.Tests.SampleClass1Tests", (ICollection)result.Keys);
             Assert.Contains("SampleLogic.Tests.SampleClass1Tests.MethodReturningTrueTest", (ICollection)result["SampleLogic.Tests.SampleClass1Tests"]);
-        }
-
-        [Test()]
-        public void UnloadProjectTest()
-        {
-            throw new NotImplementedException();
         }
     }
 }

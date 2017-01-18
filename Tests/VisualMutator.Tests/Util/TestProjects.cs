@@ -1,4 +1,8 @@
-﻿namespace VisualMutator.Tests.Util
+﻿using System;
+using System.IO;
+using System.Reflection;
+
+namespace VisualMutator.Tests.Util
 {
     public class TestProjects
     {
@@ -7,15 +11,15 @@
         public const string DsaTestsPath2 = @"C:\PLIKI\Dropbox\++Inzynierka\VisualMutator\Testy\Dsa\x86\Dsa.Test2.dll";
         public const string MiscUtil = @"C:\PLIKI\VisualMutator\testprojects\NUnit\MiscUtil\MiscUtil.UnitTests\bin\Debug\MiscUtil.dll";
         public const string MiscUtilTests = @"C:\PLIKI\VisualMutator\testprojects\NUnit\MiscUtil\MiscUtil.UnitTests\bin\Debug\MiscUtil.UnitTests.dll";
-        public const string AutoMapper = @"C:\PLIKI\VisualMutator\testprojects\XUnit\AutoMapper-develop\src\UnitTests\bin\NET4\Debug\AutoMapper.dll";
-        public const string AutoMapperNet4 = @"C:\PLIKI\VisualMutator\testprojects\XUnit\AutoMapper-develop\src\UnitTests\bin\NET4\Debug\AutoMapper.Net4.dll";
-        public const string AutoMapperTests = @"C:\PLIKI\VisualMutator\testprojects\XUnit\AutoMapper-develop\src\UnitTests\bin\NET4\Debug\AutoMapper.UnitTests.Net4.dll";
+        public static readonly string AutoMapper = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath), @"..\..\..\..\packages\AutoMapper.5.2.0\lib\net45\AutoMapper.dll"));
+        public static readonly string AutoMapperNet4 = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath), @"..\..\..\..\packages\AutoMapper.5.2.0\lib\net45\AutoMapper.dll"));
+        public static readonly string AutoMapperTests = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath), @"..\..\..\..\packages\AutoMapper.5.2.0\lib\net45\AutoMapper.dll"));
 
-        public const string NUnitConsoleDirPath =
-            @"..\..\..\..\..\packages\NUnit.ConsoleRunner.3.5.0\tools";
+        public static readonly string NUnitConsoleDirPath =
+            Path.GetFullPath(Path.Combine(Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath), @"..\..\..\..\packages\NUnit.ConsoleRunner.3.5.0\tools"));
 
-        public const string NUnitConsolePath =
-            @"..\..\..\..\..\packages\NUnit.ConsoleRunner.3.5.0\tools\nunit3-console.exe";
+        public static readonly string NUnitConsolePath =
+            Path.GetFullPath(Path.Combine(Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath), @"..\..\..\..\packages\NUnit.ConsoleRunner.3.5.0\tools\nunit3-console.exe"));
 
         public const string XUnitConsoleDirPath =
                    @"C:\PLIKI\VisualMutator\xunitconsole";
