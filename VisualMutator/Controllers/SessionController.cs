@@ -172,8 +172,6 @@
             IObjectRoot<TestingMutant> testingMutant = _testingMutantFactory
                 .CreateWithParams(_sessionEventsSubject, changelessMutant);
 
-            var result = await testingMutant.Get.RunAsync();
-
             verifiEvents.Dispose();
 
             _choices.MutantsTestingOptions.TestingTimeoutSeconds

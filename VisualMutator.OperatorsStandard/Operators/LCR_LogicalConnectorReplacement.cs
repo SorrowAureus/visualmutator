@@ -20,7 +20,6 @@
         {
             public override void Visit(IConditional cond)
             {
-                var passes = new List<string>();
                 var boundCondition = cond.Condition as BoundExpression;
 
                 if (boundCondition != null && boundCondition.Type.TypeCode == PrimitiveTypeCode.Boolean)

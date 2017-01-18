@@ -36,18 +36,5 @@
             }
             return methodName + ('(' + parameters.Aggregate((a, b) => a + ", " + b) + ')');
         }
-
-        private string ConvertGenericNotation(string fullName)
-        {
-            string result = fullName;
-            var reg = new Regex(@"<(\w+,? *)+>");
-            var matches = reg.Matches(fullName);
-            foreach (Match match in matches.Cast<Match>())
-            {
-                var capturesCount = match.Groups[1].Captures.Cast<Capture>().Count();
-                result = result.Replace(match.Value, "`" + capturesCount);
-            }
-            return result;
-        }
     }
 }
