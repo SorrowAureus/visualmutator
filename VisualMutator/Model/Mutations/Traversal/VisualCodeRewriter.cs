@@ -152,6 +152,11 @@
             }
         }
 
+        public override void RewriteChildren(MethodBody methodBody)
+        {
+            base.RewriteChildren(methodBody);
+        }
+
         public override IMethodBody Rewrite(IMethodBody methodBody)
         {
             SourceMethodBody smb;

@@ -37,6 +37,8 @@
 
         private readonly MemoryCache _cache;
 
+        private const int MaxLoadedModules = 5;
+
         private bool _disableCache;
         private ConcurrentDictionary<string, ConcurrentBag<TaskCompletionSource<MutationResult>>> _map;
 

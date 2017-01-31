@@ -33,6 +33,8 @@
     {
         private readonly ILog _log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
+        private HashSet<CancellationTokenRegistration> registrations = new HashSet<CancellationTokenRegistration>();
+
         public Task<ProcessResults> RunAsync(ProcessStartInfo processStartInfo)
         {
             return ProcessEx.RunAsync(processStartInfo);

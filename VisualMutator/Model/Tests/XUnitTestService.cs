@@ -29,6 +29,18 @@
         public string FrameWorkName { get { return "XUnit"; } }
         public string XUnitConsolePath { get; private set; }
 
+        private string FindConsolePath()
+        {
+            var xUnitDirPath = _settingsManager["XUnitConsoleDirPath"];
+            var xUnitConsolePath = Path.Combine(xUnitDirPath, "xunit.console.exe");
+
+            if (!File.Exists(xUnitConsolePath))
+            {
+                throw new FileNotFoundException(xUnitConsolePath + " file was not found.");
+            }
+            return xUnitConsolePath;
+        }
+
         public May<TestsLoadContext> LoadTests(string assemblyPath)
         {
             _log.Info("XUnit loading tests...");

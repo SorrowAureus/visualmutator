@@ -83,7 +83,7 @@
             {
                 var testRoot = _nUnitWrapper.LoadTests(assemblyPath.InList());
 
-                int testCount = testRoot.Values.Count;
+                int testCount = testRoot.Values.Count();
 
                 if (testCount == 0)
                 {
@@ -155,6 +155,15 @@
         private MethodIdentifier CreateIdentifier(string testMethodName)
         {
             return new MethodIdentifier(testMethodName + "()");
+        }
+
+        private IEnumerable<ITest> GetTestClasses(ITest test)
+        {
+            //TODO: return new[] { test }.SelectManyRecursive(t => t.Tests != null ? t.Tests.Cast<ITest>() : new ITest[0])
+            //     .Where(t => t.TestType == "TestFixture");
+            var list = new List<ITest>();
+            GetTestClassesInternal(list, test);
+            return list;
         }
 
         private void GetTestClassesInternal(List<ITest> list, ITest test)

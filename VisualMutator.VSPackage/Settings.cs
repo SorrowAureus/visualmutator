@@ -24,5 +24,15 @@
             // this.SettingsSaving += this.SettingsSavingEventHandler;
             //
         }
+
+        private void SettingChangingEventHandler(object sender, SettingChangingEventArgs e)
+        {
+            // Add code to handle the SettingChangingEvent event here.
+        }
+
+        private void SettingsSavingEventHandler(object sender, CancelEventArgs e)
+        {
+            // Add code to handle the SettingsSaving event here.
+        }
     }
 }

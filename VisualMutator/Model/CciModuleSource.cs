@@ -99,6 +99,11 @@
             _moduleInfoList.Add(m);
         }
 
+        private CciModuleSource(MetadataReaderHost host, IAssembly module) : this(host)
+        {
+            _moduleInfoList.Add(new ModuleInfo(module));
+        }
+
         public MetadataReaderHost Host
         {
             get

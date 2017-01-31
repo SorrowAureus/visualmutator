@@ -21,6 +21,8 @@
 
     public class TestsContainer : ITestsContainer
     {
+        private ILog _log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+
         private readonly TestResultTreeCreator _testResultTreeCreator;
 
         public TestsContainer()

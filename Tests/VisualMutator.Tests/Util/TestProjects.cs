@@ -16,10 +16,10 @@ namespace VisualMutator.Tests.Util
         public static readonly string AutoMapperTests = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath), @"..\..\..\..\packages\AutoMapper.5.2.0\lib\net45\AutoMapper.dll"));
 
         public static readonly string NUnitConsoleDirPath =
-            Path.GetFullPath(Path.Combine(Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath), @"..\..\..\..\packages\NUnit.ConsoleRunner.3.6.0\tools"));
+            Path.GetFullPath(Path.Combine(Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath), @"..\..\..\..\packages\NUnit.ConsoleRunner.3.5.0\tools"));
 
         public static readonly string NUnitConsolePath =
-            Path.GetFullPath(Path.Combine(Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath), @"..\..\..\..\packages\NUnit.ConsoleRunner.3.6.0\tools\nunit3-console.exe"));
+            Path.GetFullPath(Path.Combine(Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath), @"..\..\..\..\packages\NUnit.ConsoleRunner.3.5.0\tools\nunit3-console.exe"));
 
         public const string XUnitConsoleDirPath =
                    @"C:\PLIKI\VisualMutator\xunitconsole";
