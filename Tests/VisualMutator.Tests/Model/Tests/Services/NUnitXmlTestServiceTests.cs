@@ -10,7 +10,7 @@ using VisualMutator.Tests.Util;
 
 namespace VisualMutator.Model.Tests.Services.Tests
 {
-    [TestFixture(),Explicit]
+    [TestFixture(), Explicit]
     public class NUnitXmlTestServiceTests : IntegrationTest
     {
         [Test()]
@@ -26,7 +26,7 @@ namespace VisualMutator.Model.Tests.Services.Tests
 
             //_kernel.Get<ApplicationController>().Initialize();
 
-            _kernel.Get<ISettingsManager>()["NUnitConsoleDirPath"] = Assembly.GetExecutingAssembly().Location + @"\..\..\..\..\packages\NUnit.ConsoleRunner.3.5.0\tools";
+            _kernel.Get<ISettingsManager>()["NUnitConsoleDirPath"] = Assembly.GetExecutingAssembly().Location + @"\..\..\..\..\packages\NUnit.ConsoleRunner.3.6.0\tools";
 
             var service = _kernel.Get<NUnitXmlTestService>();
 
