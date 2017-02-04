@@ -13,7 +13,7 @@
     [TestFixture]
     public class ProcessTests
     {
-        [Test, Ignore("What it does?")]
+        [Test, Ignore("What does it do?")]
         public void Test1()
         {
             var processes = new Processes();

@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using VisualMutator.Model.Tests.Services;
+using System.Reflection;
 using Ninject;
 using NUnit.Framework;
 using SoftwareApproach.TestingExtensions;
@@ -7,6 +8,9 @@ using UsefulTools.Core;
 using VisualMutator.Controllers;
 using VisualMutator.Infrastructure;
 using VisualMutator.Tests.Util;
+using System.IO;
+using System;
+using System.Linq;
 
 namespace VisualMutator.Model.Tests.Services.Tests
 {
@@ -24,24 +28,26 @@ namespace VisualMutator.Model.Tests.Services.Tests
             _kernel.Bind<OptionsController>().ToSelf().AndFromFactory();
             _kernel.Bind<ApplicationController>().ToSelf().InSingletonScope();
 
-            //_kernel.Get<ApplicationController>().Initialize();
-
-            _kernel.Get<ISettingsManager>()["NUnitConsoleDirPath"] = Assembly.GetExecutingAssembly().Location + @"\..\..\..\..\packages\NUnit.ConsoleRunner.3.6.0\tools";
-
+            _kernel.Get<ISettingsManager>()["NUnitConsoleDirPath"] = TestProjects.NUnitConsoleDirPath;
             var service = _kernel.Get<NUnitXmlTestService>();
 
-            var loadCtx = service.LoadTests(@"D:\ovs\Codility\PassingCarsTests3\bin\Debug\PassingCarsTests3.dll").ForceGetValue();
+            var testDllPath = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath), @"..\..\..\..\Tests\SampleTestProjectsForTestDiscoveryAndExecution\SampleLogicNunit3Tests\bin\SampleLogicNunit3Tests.dll"));
+
+            var loadCtx = service.LoadTests(testDllPath).ForceGetValue();
 
             foreach (var ns in loadCtx.Namespaces)
             {
                 ns.IsIncluded = true;
             }
 
+            loadCtx.Namespaces.Count.ShouldBeGreaterThan(0);
             loadCtx.ClassNodes.Count.ShouldBeGreaterThan(0);
 
-            var runCtx = service.CreateRunContext(loadCtx, TestProjects.AutoMapper);
-            var results = runCtx.RunTests().Result;
-            results.ResultMethods.Count.ShouldBeGreaterThan(0);
+            Assert.AreEqual("SampleClass1Tests", loadCtx.ClassNodes.First(p => p.FullName.Contains("SampleClass1Tests")).Name);
+            Assert.AreEqual("SampleLogic.Tests", loadCtx.ClassNodes.First(p => p.FullName.Contains("SampleClass1Tests")).Namespace);
+
+            CollectionAssert.IsOrdered(loadCtx.ClassNodes.Select(p => p.FullName));
+            CollectionAssert.IsOrdered(loadCtx.ClassNodes.First(p => p.FullName.Contains("SampleClass1Tests")).Children.Select(p => p.Name));
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace SampleLogic
 {
-    public class SampleClass1
+    public class SampleClass2B
     {
         public bool MethodReturningTrue()
         {

@@ -4,7 +4,7 @@ using System.Reflection;
 
 namespace VisualMutator.Tests.Util
 {
-    public class TestProjects
+    public static class TestProjects
     {
         public const string DsaPath = @"C:\PLIKI\Dropbox\++Inzynierka\VisualMutator\Testy\Dsa\x86\Dsa.dll";
         public const string DsaTestsPath = @"C:\PLIKI\Dropbox\++Inzynierka\VisualMutator\Testy\Dsa\x86\Dsa.Test.dll";
