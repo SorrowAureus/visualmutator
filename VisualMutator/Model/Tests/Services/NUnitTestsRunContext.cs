@@ -6,6 +6,7 @@
     using System.IO;
     using System.Linq;
     using System.Reflection;
+    using System.Text;
     using System.Threading;
     using System.Threading.Tasks;
     using Infrastructure;
@@ -102,6 +103,15 @@
                 }
                 else
                 {
+                    if (results.StandardError.Length > 0 || results.StandardOutput.Any(p => p.Contains("NUnitEngineException:")))
+                    {
+                        var stb = new StringBuilder();
+
+                        stb.Append(results.StandardOutput);
+                        stb.Append(results.StandardError);
+                        throw new Exception(stb.ToString());
+                    }
+                    it fails
                     Dictionary<string, MyTestResult> tresults = _parser.ProcessResultFile(outputFile);
 
                     IList<MyTestResult> testResults = tresults.Values.ToList();
@@ -166,7 +176,7 @@
 
             string arg = inputFile.InQuotes()
                          + testToRun
-                         + " --result=\"" + outputFile + "\";format=nunit2 --noheader --nocolor --dispose-runners --inprocess";
+                         + " --result=\"" + outputFile + "\";format=nunit2 --noheader --nocolor --inprocess --dispose-runners";
 
             if (_options?.ParsedParams.NUnitNetVersion.Length != 0)
             {

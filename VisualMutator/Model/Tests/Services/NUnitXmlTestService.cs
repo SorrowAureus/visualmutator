@@ -101,7 +101,7 @@
             catch (Exception e)
             {
                 _log.Error("Excception While loading tests: ", e);
-                return May<TestsLoadContext>.NoValue;
+                throw;
             }
         }
 

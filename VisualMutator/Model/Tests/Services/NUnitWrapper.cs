@@ -75,7 +75,7 @@
 
             var startInfo = new ProcessStartInfo
             {
-                Arguments = $"--explore:{testExplorationResultFileDir};format=nunit3 --noresult --inprocess --dispose-runners {testAssembliesNunitArgs}",
+                Arguments = $"--explore:{testExplorationResultFileDir};format=nunit3 --noresult --dispose-runners {testAssembliesNunitArgs}",
                 CreateNoWindow = true,
                 WindowStyle = ProcessWindowStyle.Hidden,
                 ErrorDialog = false,
@@ -86,12 +86,16 @@
 
             using (var processHandle = Process.Start(startInfo))
             {
+                var stdOut = processHandle.StandardOutput.ReadToEnd();
                 var timedOut = !processHandle.WaitForExit(20 * 60 * 1000);
                 if (timedOut)
                 {
                     processHandle.Kill();
                     throw new TimeoutException("Nunit Console timed out!");
                 }
+
+                if (stdOut.Contains("NUnitEngineException:"))
+                    throw new Exception(stdOut);
             }
 
             XElement xml = XElement.Parse(File.ReadAllText(testExplorationResultFileDir));
