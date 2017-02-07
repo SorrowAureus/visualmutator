@@ -111,7 +111,7 @@
                         stb.Append(results.StandardError);
                         throw new Exception(stb.ToString());
                     }
-                    it fails
+                    it fails when we mutate exe file instead of dll
                     Dictionary<string, MyTestResult> tresults = _parser.ProcessResultFile(outputFile);
 
                     IList<MyTestResult> testResults = tresults.Values.ToList();
