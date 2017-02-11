@@ -41,29 +41,9 @@ namespace VisualMutator.Model.Mutations.MutantsTree
 
         public int _nrTimesWasAdded = 0;
 
-        public MutationTarget MutationTarget
-        {
-            get
-            {
-                return _mutationTarget;
-            }
-            set
-            {
-                _mutationTarget = value;
-            }
-        }
+        public MutationTarget MutationTarget { get; set; }
 
-        public string Id
-        {
-            get
-            {
-                return _id;
-            }
-            set
-            {
-                _id = value;
-            }
-        }
+        public string Id { get; set; }
 
         private int _numberOfFailedTests;
 

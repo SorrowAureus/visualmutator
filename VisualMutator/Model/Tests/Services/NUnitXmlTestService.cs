@@ -83,7 +83,7 @@
             {
                 var testRoot = _nUnitWrapper.LoadTests(assemblyPath.InList());
 
-                int testCount = testRoot.Values.Count();
+                int testCount = testRoot.Values.Count;
 
                 if (testCount == 0)
                 {
