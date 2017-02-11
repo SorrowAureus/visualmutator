@@ -75,7 +75,7 @@
 
             var startInfo = new ProcessStartInfo
             {
-                Arguments = $"--explore:{testExplorationResultFileDir};format=nunit3 --noresult --dispose-runners {testAssembliesNunitArgs}",
+                Arguments = $"--explore:{testExplorationResultFileDir};format=nunit3 --noresult --dispose-runners --skipnontestassemblies {testAssembliesNunitArgs}",
                 CreateNoWindow = true,
                 WindowStyle = ProcessWindowStyle.Hidden,
                 ErrorDialog = false,

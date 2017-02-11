@@ -111,7 +111,7 @@
                         stb.Append(results.StandardError);
                         throw new Exception(stb.ToString());
                     }
-                    it fails when we mutate exe file instead of dll
+                    //it fails when we mutate exe file instead of dll
                     Dictionary<string, MyTestResult> tresults = _parser.ProcessResultFile(outputFile);
 
                     IList<MyTestResult> testResults = tresults.Values.ToList();
@@ -176,7 +176,7 @@
 
             string arg = inputFile.InQuotes()
                          + testToRun
-                         + " --result=\"" + outputFile + "\";format=nunit2 --noheader --nocolor --inprocess --dispose-runners";
+                         + " --result=\"" + outputFile + "\";format=nunit2 --noheader --nocolor --dispose-runners --skipnontestassemblies";
 
             if (_options?.ParsedParams.NUnitNetVersion.Length != 0)
             {
