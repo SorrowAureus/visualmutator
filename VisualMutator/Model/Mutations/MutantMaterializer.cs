@@ -40,8 +40,7 @@
                 var singleMutated = mutationResult.MutatedModules.Modules.SingleOrDefault();
                 if (singleMutated != null)
                 {
-                    //TODO: remove: assemblyDefinition.Name.Name + ".dll", use factual original file name
-                    string file = Path.Combine(info.Directory, singleMutated.Name + ".dll");
+                    string file = Path.Combine(info.Directory, Path.GetFileName(singleMutated.Module.Location));
                     //
                     //                    var memory = mutationResult.MutatedModules.WriteToStream(singleMutated);
                     //                    // _mutantsCache.Release(mutationResult);
@@ -65,7 +64,7 @@
 
                 foreach (var otherModule in otherModules)
                 {
-                    string file = Path.Combine(info.Directory, otherModule.Module.Name + ".dll");
+                    string file = Path.Combine(info.Directory, Path.GetFileName(otherModule.Module.Module.Location));
                     info.AssembliesPaths.Add(file);
                 }
                 //}
@@ -75,8 +74,7 @@
                 foreach (var cciModuleSource in mutationResult.Old)
                 {
                     var module = cciModuleSource.Modules.Single();
-                    //TODO: remove: assemblyDefinition.Name.Name + ".dll", use factual original file name
-                    string file = Path.Combine(info.Directory, module.Name + ".dll");
+                    string file = Path.Combine(info.Directory, Path.GetFileName(module.Module.Location));
 
                     // _mutantsCache.Release(mutationResult);
 

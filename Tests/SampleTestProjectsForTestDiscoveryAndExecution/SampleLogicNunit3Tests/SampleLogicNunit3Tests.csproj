@@ -51,6 +51,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="ClassWithConditionalLogicTests.cs" />
     <Compile Include="SampleClass2BTests.cs" />
     <Compile Include="SampleClass1Tests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

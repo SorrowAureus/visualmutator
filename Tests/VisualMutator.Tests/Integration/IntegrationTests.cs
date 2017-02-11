@@ -38,7 +38,10 @@
         [Test]
         public void IntegrationTestingMiscUtilLight()
         {
-            var cci = new CciModuleSource(TestProjects.MiscUtil);
+            string filePath = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(new Uri(System.Reflection.Assembly.GetExecutingAssembly().CodeBase).LocalPath), @"..\..\..\..\Tests\SampleTestProjectsForTestDiscoveryAndExecution\SampleLogicNunit3Tests\bin\SampleLogic.dll"));
+            string filePathTests = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(new Uri(System.Reflection.Assembly.GetExecutingAssembly().CodeBase).LocalPath), @"..\..\..\..\Tests\SampleTestProjectsForTestDiscoveryAndExecution\SampleLogicNunit3Tests\bin\SampleLogicNunit3Tests.dll"));
+
+            var cci = new CciModuleSource(filePath);
             var choices = new MutationSessionChoices();
             var tt = cci.Module.Module.GetAllTypes();
             //  var type = (NamedTypeDefinition)cci.Module.Module.GetAllTypes().Single(t => t.Name.Value == "Range");
@@ -54,13 +57,14 @@
             var muexe = new MutationExecutor(options, choices, null);
             var mucon = new MutantsContainer(muexe, new OriginalCodebase(cci.InList()), new OptionsModel());
             var nodes = mucon.InitMutantsForOperators(ProgressCounter.Inactive());
+
             Mutant mutant = nodes.Cast<CheckedNode>()
               .SelectManyRecursive(n => n.Children ?? new NotifyingCollection<CheckedNode>())
               .OfType<Mutant>().First();//.Take(4);
-            var cciWhite = new CciModuleSource(TestProjects.MiscUtil);
+
+            var cciWhite = new CciModuleSource(filePath);
             var resu = muexe.ExecuteMutation(mutant, cciWhite).Result;
-            string filePath = @"C:\PLIKI\VisualMutator\testprojects\MiscUtil-Integration-Tests\TestGround\MiscUtil.dll";
-            string filePathTests = @"C:\PLIKI\VisualMutator\testprojects\MiscUtil-Integration-Tests\TestGround\MiscUtil.UnitTests.dll";
+
             using (var file = File.OpenWrite(filePath))
             {
                 resu.MutatedModules.WriteToStream(resu.MutatedModules.Modules.Single(), file, filePath);
