@@ -126,14 +126,14 @@
 
         private IEnumerable<TestNodeClass> BuildTestTree(IDictionary<string, List<string>> testFixtures)
         {
-            foreach (var testFixture in testFixtures.OrderBy(p => p.Key))
+            foreach (var testFixture in testFixtures)
             {
                 var c = new TestNodeClass(testFixture.Key.Split('.').Last())
                 {
                     Namespace = testFixture.Key.Substring(0, testFixture.Key.LastIndexOf('.')),
                 };
 
-                foreach (var testCase in testFixture.Value.OrderBy(p => p))
+                foreach (var testCase in testFixture.Value)
                 {
                     string testName = testCase;
 

@@ -40,8 +40,6 @@
 
     public class SolutionTypesManager : ITypesManager
     {
-        
-
         public bool IsAssemblyLoadError { get; set; }
 
         public SolutionTypesManager()
@@ -60,7 +58,7 @@
         {
             var matcher = constraints.Join(new ProperlyNamedMatcher());
 
-            List<AssemblyNode> assemblyNodes = modules.Select(m => CreateAssemblyNode(m.Module, matcher)).ToList();
+            List<AssemblyNode> assemblyNodes = modules.OrderBy(p => p.Module.Name).Select(m => CreateAssemblyNode(m.Module, matcher)).ToList();
             var root = new RootNode();
             root.Children.AddRange(assemblyNodes);
             root.IsIncluded = true;
@@ -76,79 +74,84 @@
             assemblyNode.AssemblyPath = module.Module.Location.ToFilePathAbs();
             System.Action<CheckedNode, ICollection<INamedTypeDefinition>> typeNodeCreator = (parent, leafTypes) =>
             {
-                foreach (INamedTypeDefinition typeDefinition in leafTypes)
+            foreach (INamedTypeDefinition typeDefinition in (To sie rozwala) leafTypes.OrderBy(p => p.Name))
                 {
-                    // _log.Debug("For types: matching: ");
-                    if (matcher.Matches(typeDefinition))
+                // _log.Debug("For types: matching: ");
+                if (matcher.Matches(typeDefinition))
+                {
+                    var type = new TypeNode(parent, typeDefinition.Name.Value);
+                    foreach (var method in typeDefinition.Methods.OrderBy(p => p.Name))
                     {
-                        var type = new TypeNode(parent, typeDefinition.Name.Value);
-                        foreach (var method in typeDefinition.Methods)
-                        {
-                            if (matcher.Matches(method))
-                            {
-                                type.Children.Add(new MethodNode(type, method.Name.Value, method, false));
-                            }
-                        }
-                        parent.Children.Add(type);
+                        if (matcher.Matches(method))
+                            type.Children.Add(new MethodNode(type, method.Name.Value, method, false));
                     }
-                }
-            };
-            Func<INamedTypeDefinition, string> namespaceExtractor = typeDef =>
-                TypeHelper.GetDefiningNamespace(typeDef).Name.Value;
 
-            NamespaceGrouper<INamespaceTypeDefinition, CheckedNode>.
-                GroupTypes(assemblyNode,
+                    parent.Children.Add(type);
+                }
+            }
+        };
+
+        private Func<INamedTypeDefinition, string> namespaceExtractor = typeDef =>
+             TypeHelper.GetDefiningNamespace(typeDef).Name.Value;
+
+        NamespaceGrouper<INamespaceTypeDefinition, CheckedNode>.
+            GroupTypes(assemblyNode,
                     namespaceExtractor,
-                    (parent, name) => new TypeNamespaceNode(parent, name),
+
+                    (parent, name) => private newTypeNamespaceNode(parent, name),
+
                     typeNodeCreator,
-                        module.Module.GetAllTypes().ToList());
+
+                        module.Module.GetAllTypes().privateToList());
 
             //remove empty amespaces.
             //TODO to refactor...
-            List<TypeNamespaceNode> checkedNodes = assemblyNode.Children.OfType<TypeNamespaceNode>().ToList();
-            foreach (TypeNamespaceNode node in checkedNodes)
+            private List<TypeNamespaceNode> checkedNodes = assemblyNode.Children.OfType<TypeNamespaceNode>().ToList();
+
+            foreach (private TypeNamespaceNode node in checkedNodes)
             {
-                RemoveFromParentIfEmpty(node);
-            }
+private                RemoveFromParentIfEmpty(node);
+    }
+
             return assemblyNode;
         }
 
-        public void RemoveFromParentIfEmpty(MutationNode node)
-        {
-            var children = node.Children.ToList();
-            while (children.OfType<TypeNamespaceNode>().Any())
-            {
-                TypeNamespaceNode typeNamespaceNode = node.Children.OfType<TypeNamespaceNode>().First();
-                RemoveFromParentIfEmpty(typeNamespaceNode);
-                children.Remove(typeNamespaceNode);
-            }
-            while (children.OfType<TypeNode>().Any())
-            {
-                TypeNode typeNamespaceNode = children.OfType<TypeNode>().First();
-                RemoveFromParentIfEmpty(typeNamespaceNode);
-                children.Remove(typeNamespaceNode);
-            }
-            if (!node.Children.Any())
-            {
-                node.Parent.Children.Remove(node);
-                node.Parent = null;
-            }
-        }
+public void RemoveFromParentIfEmpty(MutationNode node)
+{
+    var children = node.Children.ToList();
+    while (children.OfType<TypeNamespaceNode>().Any())
+    {
+        TypeNamespaceNode typeNamespaceNode = node.Children.OfType<TypeNamespaceNode>().First();
+        RemoveFromParentIfEmpty(typeNamespaceNode);
+        children.Remove(typeNamespaceNode);
+    }
+    while (children.OfType<TypeNode>().Any())
+    {
+        TypeNode typeNamespaceNode = children.OfType<TypeNode>().First();
+        RemoveFromParentIfEmpty(typeNamespaceNode);
+        children.Remove(typeNamespaceNode);
+    }
+    if (!node.Children.Any())
+    {
+        node.Parent.Children.Remove(node);
+        node.Parent = null;
+    }
+}
 
-        public class ProperlyNamedMatcher : CodePartsMatcher
-        {
-            public override bool Matches(IMethodReference method)
-            {
-                return true;
-            }
+public class ProperlyNamedMatcher : CodePartsMatcher
+{
+    public override bool Matches(IMethodReference method)
+    {
+        return true;
+    }
 
-            public override bool Matches(ITypeReference typeReference)
-            {
-                INamedTypeReference named = typeReference as INamedTypeReference;
-                return named != null
-                       && !named.Name.Value.StartsWith("<")
-                       && !named.Name.Value.Contains("=");
-            }
-        }
+    public override bool Matches(ITypeReference typeReference)
+    {
+        INamedTypeReference named = typeReference as INamedTypeReference;
+        return named != null
+               && !named.Name.Value.StartsWith("<")
+               && !named.Name.Value.Contains("=");
+    }
+}
     }
 }

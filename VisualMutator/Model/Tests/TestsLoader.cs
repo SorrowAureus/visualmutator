@@ -36,9 +36,13 @@
                 var task = LoadFor(path1, testNodeAssembly);
                 tasks.Add(path, task);
             }
-            var assemblies = await Task.WhenAll(tasks.Values);
 
-            testsRootNode.Children.AddRange(assemblies.WhereHasValue());
+            var assemblies = await Task.WhenAll(tasks.Values);
+            var assembliesNodes = assemblies.WhereHasValue();
+
+            assembliesNodes = assembliesNodes.OrderBy(p => p.Name);
+
+            testsRootNode.Children.AddRange(assembliesNodes);
             testsRootNode.State = TestNodeState.Inactive;
             testsRootNode.IsIncluded = true;
             return testsRootNode;
@@ -57,6 +61,7 @@
                 testNodeAssembly.TestsLoadContexts = contexts;
 
                 var allClassNodes = contexts.SelectMany(context => context.ClassNodes);
+
                 IEnumerable<TestNodeNamespace> testNamespaces =
                     TestsLoadContext.GroupTestClasses(allClassNodes.ToList(), testNodeAssembly);
 

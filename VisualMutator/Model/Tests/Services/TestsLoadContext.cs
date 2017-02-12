@@ -37,15 +37,16 @@
         {
             return classNodes
                 .GroupBy(classNode => classNode.Namespace)
+                .OrderBy(p => p.Key)
                 .Select(group =>
                 {
                     var ns = new TestNodeNamespace(testNodeAssembly, @group.Key);
-                    foreach (TestNodeClass nodeClass in @group)
-                    {
-                        nodeClass.Parent = ns;
-                    }
 
-                    ns.Children.AddRange(@group);
+                    foreach (TestNodeClass nodeClass in @group)
+                        nodeClass.Parent = ns;
+
+                    ns.Children.AddRange(@group.OrderBy(p => p.Name));
+
                     return ns;
                 });
         }

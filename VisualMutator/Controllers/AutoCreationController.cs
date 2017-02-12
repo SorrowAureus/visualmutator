@@ -92,6 +92,7 @@
             ITestsSelectStrategy testsSelector;
             bool constrainedMutation = false;
             ICodePartsMatcher matcher;
+
             if (singleMethodToMutate != null)
             {
                 matcher = new CciMethodMatcher(singleMethodToMutate);
@@ -103,6 +104,7 @@
                 testsSelector = new AllTestsSelectStrategy(testsTask);
                 matcher = new AllMatcher();
             }
+
             _log.Info("Selecting tests in assemblies: " + testAssemblies.MakeString());
             var testsSelecting = testsSelector.SelectTests(testAssemblies);
 
@@ -112,8 +114,7 @@
 
             var t11 = t1.ContinueWith(task =>
             {
-                _viewModel.MutationsTree.MutationPackages
-                    = new ReadOnlyCollection<PackageNode>(task.Result.Packages);
+                _viewModel.MutationsTree.MutationPackages = new ReadOnlyCollection<PackageNode>(task.Result.Packages);
             }, CancellationToken.None, TaskContinuationOptions.NotOnFaulted, _execute.GuiScheduler);
 
             var t22 = t2.ContinueWith(task =>
@@ -123,8 +124,13 @@
                     _svc.Logging.ShowWarning(UserMessages.WarningAssemblyNotLoaded());
                 }
                 var assembliesToMutate = task.Result.Where(a => !testAssemblies.ToEmptyIfNull().Contains(a.AssemblyPath.Path)).ToList();
+
+                assembliesToMutate = assembliesToMutate.OrderBy(p => p.Name).ToList();
+
                 //assembliesToMutate = ClassCoverage.UnmarkNotCovered(assembliesToMutate,testAssemblies);
+
                 _viewModel.TypesTreeMutate.Assemblies = new ReadOnlyCollection<AssemblyNode>(assembliesToMutate);
+
                 _whiteSource = assembliesTask.Result;
             }, CancellationToken.None, TaskContinuationOptions.NotOnFaulted, _execute.GuiScheduler);
 
