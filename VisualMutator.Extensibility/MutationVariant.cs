@@ -20,7 +20,12 @@
             get { return _signature; }
         }
 
-        public IDictionary<string, object> AstObjects { get; set; }
+        public IDictionary<string, object> AstObjects
+        {
+            get { return _astObjects; }
+
+            set { _astObjects = value; }
+        }
 
         public string AdditionalInfo
         {

@@ -28,7 +28,7 @@
         public void OnSessionStarting(string parameter, IList<string> projectPaths)
         {
             _projectPath = projectPaths.Select(p => new DirectoryPathAbsolute(p))
-             .First(ass => ass.ChildrenFilesPath.Any(p => p.FileName == "Web.config"));
+             .First(ass => ass.ChildrenFilesPath.Where(p => p.FileName == "Web.config").Any());
 
             _port = parameter;
             string content =
