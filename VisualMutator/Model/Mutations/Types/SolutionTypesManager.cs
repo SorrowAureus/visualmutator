@@ -40,8 +40,6 @@
 
     public class SolutionTypesManager : ITypesManager
     {
-        
-
         public bool IsAssemblyLoadError { get; set; }
 
         public SolutionTypesManager()
@@ -60,7 +58,7 @@
         {
             var matcher = constraints.Join(new ProperlyNamedMatcher());
 
-            List<AssemblyNode> assemblyNodes = modules.Select(m => CreateAssemblyNode(m.Module, matcher)).ToList();
+            List<AssemblyNode> assemblyNodes = modules.OrderBy(p => p.Module.Name).Select(m => CreateAssemblyNode(m.Module, matcher)).ToList();
             var root = new RootNode();
             root.Children.AddRange(assemblyNodes);
             root.IsIncluded = true;
@@ -76,7 +74,7 @@
             assemblyNode.AssemblyPath = module.Module.Location.ToFilePathAbs();
             System.Action<CheckedNode, ICollection<INamedTypeDefinition>> typeNodeCreator = (parent, leafTypes) =>
             {
-                foreach (INamedTypeDefinition typeDefinition in leafTypes)
+                foreach (INamedTypeDefinition typeDefinition in leafTypes.OrderBy(p => p.Name.Value))
                 {
                     // _log.Debug("For types: matching: ");
                     if (matcher.Matches(typeDefinition))
