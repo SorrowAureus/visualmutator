@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 
-namespace SampleLogic.Tests3
+namespace SampleLogic.Tests2
 {
     [TestFixture()]
     public class SampleClass2BTests

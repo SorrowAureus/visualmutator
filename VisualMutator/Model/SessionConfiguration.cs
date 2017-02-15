@@ -66,8 +66,7 @@
 
         public async Task<TestsRootNode> LoadTests()
         {
-            return await _testLoader.LoadTests(
-             _testsClone.Assemblies.AsStrings().ToList());
+            return await _testLoader.LoadTests(_testsClone.Assemblies.AsStrings().ToList());
         }
 
         public async Task<IObjectRoot<SessionController>> CreateSession(MethodIdentifier methodIdentifier, List<string> testAssemblies, bool auto)

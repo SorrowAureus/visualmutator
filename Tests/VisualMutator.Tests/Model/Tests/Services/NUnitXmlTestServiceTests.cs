@@ -14,7 +14,7 @@ using System.Linq;
 
 namespace VisualMutator.Model.Tests.Services.Tests
 {
-    [TestFixture(), Explicit]
+    [TestFixture]
     public class NUnitXmlTestServiceTests : IntegrationTest
     {
         [Test()]

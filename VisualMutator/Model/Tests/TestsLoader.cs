@@ -26,7 +26,7 @@
             var tasks = new Dictionary<string, Task<May<TestNodeAssembly>>>();
             var testsRootNode = new TestsRootNode();
 
-            foreach (var path in assembliesPaths)
+            foreach (var path in assembliesPaths) // TODO nunit can handle test discovery in multiple assemblies in the same time
             {
                 string path1 = path;
                 string assemblyName = Path.GetFileNameWithoutExtension(path);

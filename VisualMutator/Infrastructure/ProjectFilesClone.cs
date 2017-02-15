@@ -65,6 +65,7 @@
                     try
                     {
                         _log.Debug("Deleting clone directory: " + ParentPath.Path);
+                        // TODO: it sometimes cant delete this path as some nunit dlls are still in use
                         _fs.Directory.Delete(ParentPath.Path, recursive: true);
                     }
                     catch (UnauthorizedAccessException e)

@@ -54,6 +54,7 @@
     <Compile Include="ClassWithConditionalLogicTests.cs" />
     <Compile Include="SampleClass1Tests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SampleClass2BTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

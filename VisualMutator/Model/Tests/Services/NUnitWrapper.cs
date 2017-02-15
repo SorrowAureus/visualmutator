@@ -43,9 +43,9 @@
 
         public IDictionary<string, List<string>> LoadTests(IEnumerable<string> assemblies)
         {
-            var enumerable = assemblies as IList<string> ?? assemblies.ToList();
+            var enumerableAssemblies = assemblies as IList<string> ?? assemblies.ToList();
 
-            XElement xml = GetNunitTestsFromAssemblies(assemblies);
+            XElement xml = GetNunitTestsFromAssemblies(enumerableAssemblies);
 
             var testFixtures = xml.Descendants("test-suite").Where(p => p.Attributes("type").Single().Value == "TestFixture");
 
