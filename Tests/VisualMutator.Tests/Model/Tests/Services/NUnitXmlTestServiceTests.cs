@@ -33,7 +33,7 @@ namespace VisualMutator.Model.Tests.Services.Tests
 
             var testDllPath = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath), @"..\..\..\..\Tests\SampleTestProjectsForTestDiscoveryAndExecution\SampleLogicNunit3Tests\bin\SampleLogicNunit3Tests.dll"));
 
-            var loadCtx = service.LoadTests(testDllPath).ForceGetValue();
+            var loadCtx = service.LoadTests(TestProjects.SampleNunit3AssemblyPath).ForceGetValue();
 
             foreach (var ns in loadCtx.Namespaces)
             {
@@ -44,7 +44,7 @@ namespace VisualMutator.Model.Tests.Services.Tests
             loadCtx.ClassNodes.Count.ShouldBeGreaterThan(0);
 
             Assert.AreEqual("SampleClass1Tests", loadCtx.ClassNodes.First(p => p.FullName.Contains("SampleClass1Tests")).Name);
-            Assert.AreEqual("SampleLogic.Tests", loadCtx.ClassNodes.First(p => p.FullName.Contains("SampleClass1Tests")).Namespace);
+            Assert.AreEqual("SampleLogic.Tests3", loadCtx.ClassNodes.First(p => p.FullName.Contains("SampleClass1Tests")).Namespace);
 
             CollectionAssert.IsOrdered(loadCtx.ClassNodes.Select(p => p.FullName));
             CollectionAssert.IsOrdered(loadCtx.ClassNodes.First(p => p.FullName.Contains("SampleClass1Tests")).Children.Select(p => p.Name));

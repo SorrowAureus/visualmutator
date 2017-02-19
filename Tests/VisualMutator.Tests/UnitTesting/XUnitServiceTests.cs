@@ -6,9 +6,9 @@
     using System.Linq;
     using Microsoft.Cci;
     using Microsoft.Cci.MutableCodeModel;
-    using Model;
-    using Model.Tests;
-    using Model.Tests.Services;
+    using VisualMutator.Model;
+    using VisualMutator.Model.Tests;
+    using VisualMutator.Model.Tests.Services;
     using Ninject;
     using NUnit.Framework;
     using SoftwareApproach.TestingExtensions;

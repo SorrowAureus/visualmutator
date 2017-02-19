@@ -4,10 +4,10 @@
     using System.Threading;
     using System.Xml.Linq;
     using Extensibility;
-    using Model;
-    using Model.Mutations;
-    using Model.Mutations.MutantsTree;
-    using Model.Mutations.Types;
+    using VisualMutator.Model;
+    using VisualMutator.Model.Mutations;
+    using VisualMutator.Model.Mutations.MutantsTree;
+    using VisualMutator.Model.Mutations.Types;
     using NUnit.Framework;
     using UsefulTools.Core;
 

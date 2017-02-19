@@ -8,12 +8,12 @@
     using System.Text;
     using Extensibility;
     using Microsoft.Cci.MutableCodeModel;
-    using Model;
-    using Model.Decompilation;
-    using Model.Mutations;
-    using Model.Mutations.MutantsTree;
-    using Model.Mutations.Types;
-    using Model.StoringMutants;
+    using VisualMutator.Model;
+    using VisualMutator.Model.Decompilation;
+    using VisualMutator.Model.Mutations;
+    using VisualMutator.Model.Mutations.MutantsTree;
+    using VisualMutator.Model.Mutations.Types;
+    using VisualMutator.Model.StoringMutants;
     using NUnit.Framework;
     using Operators;
     using OperatorsStandard.Operators;
