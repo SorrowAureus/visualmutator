@@ -43,12 +43,11 @@
 
             foreach (var path in assembliesPaths)
             {
-                string path1 = path;
                 string assemblyName = Path.GetFileNameWithoutExtension(path);
                 var testNodeAssembly = new TestNodeAssembly(testsRootNode, assemblyName);
                 testNodeAssembly.AssemblyPath = path;
 
-                var task = LoadFor(path1, testNodeAssembly);
+                var task = LoadFor(path, testNodeAssembly);
                 tasks.Add(path, task);
             }
 

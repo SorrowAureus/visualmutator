@@ -10,6 +10,8 @@
     {
         string FrameWorkName { get; }
 
+        //May<TestsLoadContext> LoadTests(IEnumerable<string> assemblyPath);
+
         May<TestsLoadContext> LoadTests(string assemblyPath);
 
         void Cancel();
