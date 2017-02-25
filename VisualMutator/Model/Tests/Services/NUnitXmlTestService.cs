@@ -77,11 +77,11 @@
 
         public string FrameWorkName { get { return FrameworkName; } }
 
-        public virtual May<TestsLoadContext> LoadTests(string assemblyPath)
+        public virtual May<TestsLoadContext> LoadTests(IEnumerable<string> assemblyPath)
         {
             try
             {
-                var testRoot = _nUnitWrapper.LoadTests(assemblyPath.InList());
+                var testRoot = _nUnitWrapper.LoadTests(assemblyPath);
 
                 int testCount = testRoot.Values.Count();
 

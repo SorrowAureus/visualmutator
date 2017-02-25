@@ -37,7 +37,7 @@
             _kernel.Bind<XUnitTestsRunContext>().ToSelf().AndFromFactory();
             _kernel.Bind<XUnitTestService>().ToSelf();
             var service = _kernel.Get<XUnitTestService>();
-            var loadCtx = service.LoadTests(TestProjects.AutoMapper).ForceGetValue();
+            var loadCtx = service.LoadTests(new string[] { TestProjects.AutoMapper }).ForceGetValue();
             foreach (var ns in loadCtx.Namespaces)
             {
                 ns.IsIncluded = true;

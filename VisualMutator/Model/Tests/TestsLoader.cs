@@ -47,7 +47,7 @@
                 var testNodeAssembly = new TestNodeAssembly(testsRootNode, assemblyName);
                 testNodeAssembly.AssemblyPath = path;
 
-                var task = LoadFor(path, testNodeAssembly);
+                var task = LoadFor(assembliesPaths, testNodeAssembly);
                 tasks.Add(path, task);
             }
 
@@ -55,7 +55,7 @@
             return assemblies;
         }
 
-        private async Task<May<TestNodeAssembly>> LoadFor(string path1, TestNodeAssembly testNodeAssembly)
+        private async Task<May<TestNodeAssembly>> LoadFor(IEnumerable<string> path1, TestNodeAssembly testNodeAssembly)
         {
             var contexts = await _testServiceManager.LoadTests(path1);
 
