@@ -20,7 +20,7 @@
     {
         ITestFilter NameFilter { get; }
 
-        IDictionary<string, List<string>> LoadTests(IEnumerable<string> assemblies);
+        IDictionary<string, IEnumerable<string>> LoadTests(IEnumerable<string> assemblies);
 
         void UnloadProject();
     }
@@ -41,7 +41,7 @@
             this.SettingsManager = settingsManager;
         }
 
-        public IDictionary<string, List<string>> LoadTests(IEnumerable<string> assemblies)
+        public IDictionary<string, IEnumerable<string>> LoadTests(IEnumerable<string> assemblies)
         {
             var enumerableAssemblies = assemblies as IList<string> ?? assemblies.ToList();
 
@@ -49,13 +49,13 @@
 
             var testFixtures = xml.Descendants("test-suite").Where(p => p.Attributes("type").Single().Value == "TestFixture");
 
-            var result = new Dictionary<string, List<string>>();
+            var result = new Dictionary<string, IEnumerable<string>>();
 
             foreach (var item in testFixtures)
             {
                 var testFixtureFullName = item.Attributes("fullname").Single().Value;
 
-                var testCases = item.Descendants("test-case").SelectMany(p => p.Attributes("fullname").Select(q => q.Value)).ToList();
+                var testCases = new HashSet<string>(item.Descendants("test-case").SelectMany(p => p.Attributes("fullname").Select(q => q.Value)));
 
                 result.Add(testFixtureFullName, testCases);
             }

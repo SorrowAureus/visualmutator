@@ -6,6 +6,7 @@ using Ninject;
 using NUnit.Framework;
 using UsefulTools.Core;
 using VisualMutator.Tests.Util;
+using System.Linq;
 
 namespace VisualMutator.Model.Tests.Services.Tests
 {
@@ -44,7 +45,7 @@ namespace VisualMutator.Model.Tests.Services.Tests
             var result = subject.LoadTests(new string[] { TestProjects.SampleNunit3AssemblyPath });
 
             Assert.Contains("SampleLogic.Tests3.SampleClass1Tests", (ICollection)result.Keys);
-            Assert.Contains("SampleLogic.Tests3.SampleClass1Tests.MethodReturningTrueTest", (ICollection)result["SampleLogic.Tests3.SampleClass1Tests"]);
+            Assert.Contains("SampleLogic.Tests3.SampleClass1Tests.MethodReturningTrueTest", result["SampleLogic.Tests3.SampleClass1Tests"].ToArray());
         }
 
         [Test()]
@@ -55,7 +56,7 @@ namespace VisualMutator.Model.Tests.Services.Tests
             var result = subject.LoadTests(new string[] { TestProjects.SampleNunit2AssemblyPath });
 
             Assert.Contains("SampleLogic.Tests2.SampleClass1Tests", (ICollection)result.Keys);
-            Assert.Contains("SampleLogic.Tests2.SampleClass1Tests.MethodReturningTrueTest", (ICollection)result["SampleLogic.Tests2.SampleClass1Tests"]);
+            Assert.Contains("SampleLogic.Tests2.SampleClass1Tests.MethodReturningTrueTest", result["SampleLogic.Tests2.SampleClass1Tests"].ToArray());
         }
 
         [Test()]
@@ -66,10 +67,10 @@ namespace VisualMutator.Model.Tests.Services.Tests
             var result = subject.LoadTests(new string[] { TestProjects.SampleNunit2AssemblyPath, TestProjects.SampleNunit3AssemblyPath });
 
             Assert.Contains("SampleLogic.Tests2.SampleClass1Tests", (ICollection)result.Keys);
-            Assert.Contains("SampleLogic.Tests2.SampleClass1Tests.MethodReturningTrueTest", (ICollection)result["SampleLogic.Tests2.SampleClass1Tests"]);
+            Assert.Contains("SampleLogic.Tests2.SampleClass1Tests.MethodReturningTrueTest", result["SampleLogic.Tests2.SampleClass1Tests"].ToArray());
 
             Assert.Contains("SampleLogic.Tests3.SampleClass1Tests", (ICollection)result.Keys);
-            Assert.Contains("SampleLogic.Tests3.SampleClass1Tests.MethodReturningTrueTest", (ICollection)result["SampleLogic.Tests3.SampleClass1Tests"]);
+            Assert.Contains("SampleLogic.Tests3.SampleClass1Tests.MethodReturningTrueTest", result["SampleLogic.Tests3.SampleClass1Tests"].ToArray());
         }
     }
 }

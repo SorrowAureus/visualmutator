@@ -83,7 +83,7 @@
             {
                 var testRoot = _nUnitWrapper.LoadTests(assemblyPath);
 
-                int testCount = testRoot.Values.Count();
+                int testCount = testRoot.Values.Count;
 
                 if (testCount == 0)
                 {
@@ -93,8 +93,6 @@
                 var classNodes = BuildTestTree(testRoot);
 
                 var context = new TestsLoadContext(FrameworkName, classNodes.ToList());
-
-                UnloadTests();
 
                 return context;
             }
@@ -124,7 +122,7 @@
             // _nUnitWrapper.UnloadProject();
         }
 
-        private IEnumerable<TestNodeClass> BuildTestTree(IDictionary<string, List<string>> testFixtures)
+        private IEnumerable<TestNodeClass> BuildTestTree(IDictionary<string, IEnumerable<string>> testFixtures)
         {
             foreach (var testFixture in testFixtures)
             {

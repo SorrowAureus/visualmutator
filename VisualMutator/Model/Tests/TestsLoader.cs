@@ -40,18 +40,19 @@
         private async Task<May<TestNodeAssembly>[]> GetTestAssemblyNodes(IList<string> assembliesPaths, TestsRootNode testsRootNode)
         {
             var tasks = new Dictionary<string, Task<May<TestNodeAssembly>>>();
+            var testNodeAssembly = new TestNodeAssembly(testsRootNode, "SomeNode");
 
-            foreach (var path in assembliesPaths)
-            {
-                string assemblyName = Path.GetFileNameWithoutExtension(path);
-                var testNodeAssembly = new TestNodeAssembly(testsRootNode, assemblyName);
-                testNodeAssembly.AssemblyPath = path;
+            //foreach (var path in assembliesPaths)
+            //{
+            //    string assemblyName = Path.GetFileNameWithoutExtension(path);
 
-                var task = LoadFor(assembliesPaths, testNodeAssembly);
-                tasks.Add(path, task);
-            }
+            //    testNodeAssembly.AssemblyPath = path;
 
-            var assemblies = await Task.WhenAll(tasks.Values);
+            //    var task =
+            //    tasks.Add(path, task);
+            //}
+
+            var assemblies = new May<TestNodeAssembly>[] { LoadFor(assembliesPaths, testNodeAssembly).Result };
             return assemblies;
         }
 

@@ -23,6 +23,7 @@ namespace VisualMutator.Tests.Util
 
         public static readonly string SampleNunit3AssemblyPath = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath), @"..\..\..\..\Tests\SampleTestProjectsForTestDiscoveryAndExecution\SampleLogicNunit3Tests\bin\SampleLogicNunit3Tests.dll"));
         public static readonly string SampleNunit2AssemblyPath = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath), @"..\..\..\..\Tests\SampleTestProjectsForTestDiscoveryAndExecution\SampleLogicNunit2Tests\bin\SampleLogicNunit2Tests.dll"));
+        public static readonly string SomeAnotherTestProjectPath = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath), @"..\..\..\..\Tests\SampleTestProjectsForTestDiscoveryAndExecution\SomeAnotherTestProject\bin\SomeAnotherTestProject.dll"));
 
         public const string XUnitConsoleDirPath =
                    @"C:\PLIKI\VisualMutator\xunitconsole";

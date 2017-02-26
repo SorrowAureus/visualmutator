@@ -50,7 +50,7 @@ namespace VisualMutator.Model.Tests.Tests
 
             _kernel.BindMock<IHostEnviromentConnection>(mock =>
             {
-                mock.Setup(_ => _.GetProjectAssemblyPaths()).Returns(new string[] { TestProjects.SampleNunit2AssemblyPath, TestProjects.SampleNunit3AssemblyPath }.Select(p => new FilePathAbsolute(p)));
+                mock.Setup(_ => _.GetProjectAssemblyPaths()).Returns(new string[] { TestProjects.SomeAnotherTestProjectPath, TestProjects.SampleNunit3AssemblyPath }.Select(p => new FilePathAbsolute(p)));
                 mock.Setup(_ => _.GetTempPath()).Returns(Path.GetTempPath());
             });
 
@@ -64,6 +64,7 @@ namespace VisualMutator.Model.Tests.Tests
 
             Assert.Contains("SampleClass1Tests", actual.Children.Single().Children.Single().Children.Select(p => p.Name).ToArray());
             Assert.Contains("ClassWithConditionalLogicTests", actual.Children.Single().Children.Single().Children.Select(p => p.Name).ToArray());
+            Assert.Contains("SampleClass2BTests", actual.Children.Single().Children.Single().Children.Select(p => p.Name).ToArray());
             Assert.Contains("SampleClass2BTests", actual.Children.Single().Children.Single().Children.Select(p => p.Name).ToArray());
         }
     }
