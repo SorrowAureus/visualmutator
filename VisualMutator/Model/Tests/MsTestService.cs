@@ -44,7 +44,7 @@
         public string FrameWorkName { get { return "MsTest"; } }
         public string MsTestConsolePath { get; private set; }
 
-        public May<TestsLoadContext> LoadTests(IEnumerable<string> assemblyPath)
+        public May<IEnumerable<TestsLoadContext>> LoadTests(IEnumerable<string> assemblyPath)
         {
             _log.Info("MsTest loading tests...");
             return May.NoValue;

@@ -42,7 +42,7 @@
             return xUnitConsolePath;
         }
 
-        public May<TestsLoadContext> LoadTests(IEnumerable<string> assemblyPath)
+        public May<IEnumerable<TestsLoadContext>> LoadTests(IEnumerable<string> assemblyPath)
         {
             return May.NoValue;
 

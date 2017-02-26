@@ -8,7 +8,7 @@
     {
         string FrameWorkName { get; }
 
-        May<TestsLoadContext> LoadTests(IEnumerable<string> assemblyPath);
+        May<IEnumerable<TestsLoadContext>> LoadTests(IEnumerable<string> assemblyPath);
 
         void Cancel();
 

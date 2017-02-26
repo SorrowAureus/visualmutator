@@ -33,7 +33,7 @@ namespace VisualMutator.Model.Tests.Services.Tests
 
             var testDllPath = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath), @"..\..\..\..\Tests\SampleTestProjectsForTestDiscoveryAndExecution\SampleLogicNunit3Tests\bin\SampleLogicNunit3Tests.dll"));
 
-            var loadCtx = service.LoadTests(new string[] { TestProjects.SampleNunit3AssemblyPath }).ForceGetValue();
+            var loadCtx = service.LoadTests(new string[] { TestProjects.SampleNunit3AssemblyPath }).ForceGetValue().Single();
 
             foreach (var ns in loadCtx.Namespaces)
             {

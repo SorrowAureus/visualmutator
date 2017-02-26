@@ -7,12 +7,14 @@
     public class TestsLoadContext
     {
         private readonly string _frameworkName;
+        private readonly string _AssemblyName;
         private readonly List<TestNodeClass> _classNodes;
         private readonly List<TestNodeNamespace> _namespaces;
 
-        public TestsLoadContext(string frameworkName, List<TestNodeClass> classNodes)
+        public TestsLoadContext(string frameworkName, string assemblyName, List<TestNodeClass> classNodes)
         {
             this._frameworkName = frameworkName;
+            this._AssemblyName = assemblyName;
             _classNodes = classNodes;
             _namespaces = GroupTestClasses(_classNodes).ToList();
         }
@@ -27,13 +29,17 @@
             get { return _frameworkName; }
         }
 
+        public string AssemblyName
+        {
+            get { return _AssemblyName; }
+        }
+
         public List<TestNodeNamespace> Namespaces
         {
             get { return _namespaces; }
         }
 
-        public static IEnumerable<TestNodeNamespace> GroupTestClasses(
-            List<TestNodeClass> classNodes, TestNodeAssembly testNodeAssembly = null)
+        public static IEnumerable<TestNodeNamespace> GroupTestClasses(List<TestNodeClass> classNodes, TestNodeAssembly testNodeAssembly = null)
         {
             return classNodes
                 .GroupBy(classNode => classNode.Namespace)

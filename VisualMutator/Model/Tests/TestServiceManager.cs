@@ -26,7 +26,7 @@
         public async Task<List<TestsLoadContext>> LoadTests(IEnumerable<string> assemblyPath)
         {
             var r = await Task.WhenAll(_services.Values.Select(s => Task.Run(() => s.LoadTests(assemblyPath))));
-            return r.Where(m => m.HasValue).Select(m => m.ForceGetValue()).ToList();
+            return r.Where(m => m.HasValue).Select(m => m.ForceGetValue()).SelectMany(p => p).ToList();
         }
 
         public ITestsRunContext CreateRunContext(TestsLoadContext loadContext, string mutatedPath)
