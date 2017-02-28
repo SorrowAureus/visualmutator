@@ -45,7 +45,7 @@
 
                 testNodeAssembly.TestsLoadContexts = new List<TestsLoadContext> { testContext };
 
-                var allClassNodes = contexts.SelectMany(context => context.ClassNodes);
+                var allClassNodes = testContext.ClassNodes;
 
                 IEnumerable<TestNodeNamespace> testNamespaces = TestsLoadContext.GroupTestClasses(allClassNodes.ToList(), testNodeAssembly);
 

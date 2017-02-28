@@ -60,17 +60,32 @@ namespace VisualMutator.Model.Tests.Tests
 
             var testsClone = _kernel.Get<IProjectClonesManager>().CreateClone("Tests");
             var testSubject = _kernel.Get<TestsLoader>();
+
             var actual = testSubject.LoadTests(testsClone.Assemblies.AsStrings().ToList()).Result;
 
-            var fff = actual.Children.Where(p => p.Name == TestProjects.SampleNunit3AssemblyPath);
+            var Nunit3AssemblyReport = actual.Children.Single(p => p.Name.EndsWith(TestProjects.SampleNunit3AssemblyPath.Split('\\').Last()));
 
-            Assert.AreEqual(TestProjects.SampleNunit3AssemblyPath, actual.Children.Single(p => p.Name == TestProjects.SampleNunit3AssemblyPath).Name);
+            Assert.AreEqual("SampleLogic.Tests3", Nunit3AssemblyReport.Children.Single().Name);
 
-            //Assert.Contains("SampleClass1Tests", actual.Children.Single().Children.Single().Children.Select(p => p.Name).ToArray());
-            //Assert.Contains("ClassWithConditionalLogicTests", actual.Children.Single().Children.Single().Children.Select(p => p.Name).ToArray());
-            //Assert.Contains("SampleClass2BTests", actual.Children.Single().Children.Single().Children.Select(p => p.Name).ToArray());
-            //Assert.Contains("SampleClass2BTests", actual.Children.Single().Children.Single().Children.Select(p => p.Name).ToArray());
-            Assert.Inconclusive();
+            StringAssert.EndsWith("MultiplyInSillyWayTest", Nunit3AssemblyReport.Children.Single().Children.Single(p => p.Name.Contains("ClassWithConditionalLogicTests")).Children.Single().Name);
+
+            var SomeOtherTestAssemblyReport = actual.Children.Single(p => p.Name.EndsWith(TestProjects.SomeAnotherTestProjectPath.Split('\\').Last()));
+
+            Assert.AreEqual(2, SomeOtherTestAssemblyReport.Children.Count);
+
+            StringAssert.EndsWith("TestMethod1", SomeOtherTestAssemblyReport.Children.Single(p => p.Name == "SomeAnotherTestProjectNamespace2").Children.Single(p => p.Name.Contains("UnitTest2")).Children.Single().Name);
+
+            StringAssert.EndsWith("TestMethod1", SomeOtherTestAssemblyReport.Children.Single(p => p.Name == "SomeAnotherTestProjectNamespace2").Children.Single(p => p.Name.Contains("UnitTest2")).Children.Single().Name);
+
+            var someTestCasesFromUnitTest1Class = SomeOtherTestAssemblyReport.Children.Single(p => p.Name == "SomeAnotherTestProjectNamespace").Children.Single(p => p.Name.Contains("UnitTest1")).Children.Select(p => p.Name).ToList();
+
+            Assert.Contains("SomeAnotherTestProjectNamespace.UnitTest1.TestMethod1(1)", someTestCasesFromUnitTest1Class);
+            Assert.Contains("SomeAnotherTestProjectNamespace.UnitTest1.TestMethod1(2)", someTestCasesFromUnitTest1Class);
+
+            var someTestCasesFromUnitTest2Class = SomeOtherTestAssemblyReport.Children.Single(p => p.Name == "SomeAnotherTestProjectNamespace").Children.Single(p => p.Name.Contains("UnitTest2")).Children.Select(p => p.Name).ToList();
+
+            Assert.Contains("SomeAnotherTestProjectNamespace.UnitTest2.TestMethod2(3)", someTestCasesFromUnitTest2Class);
+            Assert.Contains("SomeAnotherTestProjectNamespace.UnitTest2.TestMethod2(4)", someTestCasesFromUnitTest2Class);
         }
     }
 }
