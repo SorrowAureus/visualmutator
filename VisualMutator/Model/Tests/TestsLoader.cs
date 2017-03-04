@@ -23,62 +23,36 @@
         public async Task<TestsRootNode> LoadTests(IList<string> assembliesPaths)
         {
             _log.Info("Loading tests from: " + string.Join(",", assembliesPaths));
-            var tasks = new Dictionary<string, Task<May<TestNodeAssembly>>>();
             var testsRootNode = new TestsRootNode();
 
-            foreach (var path in assembliesPaths) // TODO nunit can handle test discovery in multiple assemblies in the same time
-            {
-                string path1 = path;
-                string assemblyName = Path.GetFileNameWithoutExtension(path);
-                var testNodeAssembly = new TestNodeAssembly(testsRootNode, assemblyName);
-                testNodeAssembly.AssemblyPath = path;
+            await GetTestAssemblyNodes(assembliesPaths, testsRootNode);
 
-                var task = LoadFor(path1, testNodeAssembly);
-                tasks.Add(path, task);
-            }
-
-            var assemblies = await Task.WhenAll(tasks.Values);
-            var assembliesNodes = assemblies.WhereHasValue();
-
-            assembliesNodes = assembliesNodes.OrderBy(p => p.Name);
-
-            testsRootNode.Children.AddRange(assembliesNodes);
-            testsRootNode.State = TestNodeState.Inactive;
-            testsRootNode.IsIncluded = true;
             return testsRootNode;
         }
 
-        private async Task<May<TestNodeAssembly>> LoadFor(string path1, TestNodeAssembly testNodeAssembly)
+        private async Task GetTestAssemblyNodes(IList<string> assembliesPaths, TestsRootNode testsRootNode)
+        {
+            await LoadFor(assembliesPaths, testsRootNode);
+        }
+
+        private async Task LoadFor(IEnumerable<string> path1, TestsRootNode testsRootNode)
         {
             var contexts = await _testServiceManager.LoadTests(path1);
 
-            if (contexts.Count == 0)
+            foreach (var testContext in contexts.OrderBy(p => p.AssemblyName))
             {
-                return May.NoValue;
-            }
-            else
-            {
-                testNodeAssembly.TestsLoadContexts = contexts;
+                var testNodeAssembly = new TestNodeAssembly(testsRootNode, testContext.AssemblyName);
 
-                var allClassNodes = contexts.SelectMany(context => context.ClassNodes);
+                testNodeAssembly.TestsLoadContexts = new List<TestsLoadContext> { testContext };
 
-                IEnumerable<TestNodeNamespace> testNamespaces =
-                    TestsLoadContext.GroupTestClasses(allClassNodes.ToList(), testNodeAssembly);
+                var allClassNodes = testContext.ClassNodes;
+
+                IEnumerable<TestNodeNamespace> testNamespaces = TestsLoadContext.GroupTestClasses(allClassNodes.ToList(), testNodeAssembly);
 
                 testNodeAssembly.Children.AddRange(testNamespaces);
-                return new May<TestNodeAssembly>(testNodeAssembly);
-            }
 
-            //                        else return result.Result.Bind(context =>
-            //                        {
-            //                          //
-            //
-            //                            IEnumerable<TestNodeNamespace> testNamespaces =
-            //                                GroupTestClasses(context.ClassNodes, testNodeAssembly);
-            //
-            //                            testNodeAssembly.Children.AddRange(testNamespaces);
-            //                            return new May<TestNodeAssembly>(testNodeAssembly);
-            //                        });
+                testsRootNode.Children.Add(testNodeAssembly);
+            }
         }
     }
 }

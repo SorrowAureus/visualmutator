@@ -1,7 +1,7 @@
 ﻿namespace VisualMutator.Tests.UnitTesting
 {
     using System.Collections.Generic;
-    using Model.Tests;
+    using VisualMutator.Model.Tests;
     using NUnit.Framework;
     using SoftwareApproach.TestingExtensions;
     using UsefulTools.CheckboxedTree;

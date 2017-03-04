@@ -7,7 +7,7 @@
     using log4net.Config;
     using log4net.Layout;
     using Microsoft.Cci;
-    using Model.CoverageFinder;
+    using VisualMutator.Model.CoverageFinder;
     using NUnit.Framework;
 
     #endregion

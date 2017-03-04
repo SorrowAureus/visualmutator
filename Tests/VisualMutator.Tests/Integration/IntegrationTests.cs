@@ -7,17 +7,17 @@
     using Controllers;
     using Extensibility;
     using Microsoft.Cci.MutableCodeModel;
-    using Model;
-    using Model.Decompilation;
-    using Model.Decompilation.CodeDifference;
-    using Model.Mutations;
-    using Model.Mutations.MutantsTree;
-    using Model.Mutations.Operators;
-    using Model.Mutations.Types;
-    using Model.StoringMutants;
-    using Model.Tests;
-    using Model.Tests.Services;
-    using Model.Tests.TestsTree;
+    using VisualMutator.Model;
+    using VisualMutator.Model.Decompilation;
+    using VisualMutator.Model.Decompilation.CodeDifference;
+    using VisualMutator.Model.Mutations;
+    using VisualMutator.Model.Mutations.MutantsTree;
+    using VisualMutator.Model.Mutations.Operators;
+    using VisualMutator.Model.Mutations.Types;
+    using VisualMutator.Model.StoringMutants;
+    using VisualMutator.Model.Tests;
+    using VisualMutator.Model.Tests.Services;
+    using VisualMutator.Model.Tests.TestsTree;
     using Ninject;
     using NUnit.Framework;
     using Operators;
@@ -39,7 +39,7 @@
         public void IntegrationTestingMiscUtilLight()
         {
             string filePath = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(new Uri(System.Reflection.Assembly.GetExecutingAssembly().CodeBase).LocalPath), @"..\..\..\..\Tests\SampleTestProjectsForTestDiscoveryAndExecution\SampleLogicNunit3Tests\bin\SampleLogic.dll"));
-            string filePathTests = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(new Uri(System.Reflection.Assembly.GetExecutingAssembly().CodeBase).LocalPath), @"..\..\..\..\Tests\SampleTestProjectsForTestDiscoveryAndExecution\SampleLogicNunit3Tests\bin\SampleLogicNunit3Tests.dll"));
+            string filePathTests = TestProjects.SampleNunit3AssemblyPath;
 
             var cci = new CciModuleSource(filePath);
             var choices = new MutationSessionChoices();
@@ -225,7 +225,7 @@
             _kernel.Bind<OptionsModel>().ToConstant(options);
             _kernel.Bind<IMutationExecutor>().To<MutationExecutor>().InSingletonScope();
             _kernel.Bind<TestingMutant>().ToSelf().AndFromFactory();
-            //_kernel.Bind<TestLoader>().ToSelf().AndFromFactory();
+            _kernel.Bind<TestsLoader>().ToSelf().AndFromFactory();
 
             _kernel.BindMock<IHostEnviromentConnection>(mock =>
             {

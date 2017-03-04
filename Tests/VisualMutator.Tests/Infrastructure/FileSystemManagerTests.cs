@@ -3,7 +3,7 @@
     using System.Collections.Generic;
     using System.IO;
     using System.Threading.Tasks;
-    using Model.StoringMutants;
+    using VisualMutator.Model.StoringMutants;
     using NUnit.Framework;
     using UsefulTools.Paths;
 

@@ -77,26 +77,21 @@
 
         public string FrameWorkName { get { return FrameworkName; } }
 
-        public virtual May<TestsLoadContext> LoadTests(string assemblyPath)
+        public virtual May<IEnumerable<TestsLoadContext>> LoadTests(IEnumerable<string> assemblyPath)
         {
             try
             {
-                var testRoot = _nUnitWrapper.LoadTests(assemblyPath.InList());
+                var testRoot = _nUnitWrapper.LoadTests(assemblyPath);
 
-                int testCount = testRoot.Values.Count();
-
-                if (testCount == 0)
-                {
+                if (testRoot.Values.Count == 0)
                     return May.NoValue;
-                }
 
-                var classNodes = BuildTestTree(testRoot);
+                var result = new List<TestsLoadContext>();
 
-                var context = new TestsLoadContext(FrameworkName, classNodes.ToList());
+                foreach (var assemblyTestFixturesPair in testRoot)
+                    result.Add(new TestsLoadContext(FrameworkName, assemblyTestFixturesPair.Key, BuildTestTree(assemblyTestFixturesPair.Value).ToList()));
 
-                UnloadTests();
-
-                return context;
+                return result;
             }
             catch (Exception e)
             {
@@ -105,26 +100,7 @@
             }
         }
 
-        public static IList<T> ConvertToListOf<T>(IList iList)
-        {
-            IList<T> result = new List<T>();
-            if (iList != null)
-            {
-                foreach (T value in iList)
-                {
-                    result.Add(value);
-                }
-            }
-
-            return result;
-        }
-
-        public void UnloadTests()
-        {
-            // _nUnitWrapper.UnloadProject();
-        }
-
-        private IEnumerable<TestNodeClass> BuildTestTree(IDictionary<string, List<string>> testFixtures)
+        private IEnumerable<TestNodeClass> BuildTestTree(IDictionary<string, IEnumerable<string>> testFixtures)
         {
             foreach (var testFixture in testFixtures)
             {

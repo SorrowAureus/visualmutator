@@ -1,16 +1,14 @@
 ﻿namespace VisualMutator.Model.Tests.Services
 {
-    #region
+    using System.Collections.Generic;
 
     using Strilanc.Value;
-
-    #endregion
 
     public interface ITestsService
     {
         string FrameWorkName { get; }
 
-        May<TestsLoadContext> LoadTests(string assemblyPath);
+        May<IEnumerable<TestsLoadContext>> LoadTests(IEnumerable<string> assemblyPath);
 
         void Cancel();
 
