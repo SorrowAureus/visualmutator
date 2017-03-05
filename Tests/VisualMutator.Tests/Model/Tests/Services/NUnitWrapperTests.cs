@@ -6,7 +6,6 @@ using Ninject;
 using NUnit.Framework;
 using UsefulTools.Core;
 using VisualMutator.Tests.Util;
-using System.Linq;
 
 namespace VisualMutator.Model.Tests.Services.Tests
 {
@@ -42,10 +41,12 @@ namespace VisualMutator.Model.Tests.Services.Tests
         {
             var subject = _kernel.Get<INUnitWrapper>();
 
-            var result = subject.LoadTests(new string[] { TestProjects.SampleNunit3AssemblyPath }).Single().Value;
+            var testDllPath = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath), @"..\..\..\..\Tests\SampleTestProjectsForTestDiscoveryAndExecution\SampleLogicNunit3Tests\bin\SampleLogicNunit3Tests.dll"));
+
+            var result = subject.LoadTests(new string[] { testDllPath });
 
             Assert.Contains("SampleLogic.Tests3.SampleClass1Tests", (ICollection)result.Keys);
-            Assert.Contains("SampleLogic.Tests3.SampleClass1Tests.MethodReturningTrueTest", result["SampleLogic.Tests3.SampleClass1Tests"].ToArray());
+            Assert.Contains("SampleLogic.Tests3.SampleClass1Tests.MethodReturningTrueTest", (ICollection)result["SampleLogic.Tests3.SampleClass1Tests"]);
         }
 
         [Test()]
@@ -53,10 +54,12 @@ namespace VisualMutator.Model.Tests.Services.Tests
         {
             var subject = _kernel.Get<INUnitWrapper>();
 
-            var result = subject.LoadTests(new string[] { TestProjects.SampleNunit2AssemblyPath }).Single().Value;
+            var testDllPath = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath), @"..\..\..\..\Tests\SampleTestProjectsForTestDiscoveryAndExecution\SampleLogicNunit2Tests\bin\SampleLogicNunit2Tests.dll"));
+
+            var result = subject.LoadTests(new string[] { testDllPath });
 
             Assert.Contains("SampleLogic.Tests2.SampleClass1Tests", (ICollection)result.Keys);
-            Assert.Contains("SampleLogic.Tests2.SampleClass1Tests.MethodReturningTrueTest", result["SampleLogic.Tests2.SampleClass1Tests"].ToArray());
+            Assert.Contains("SampleLogic.Tests2.SampleClass1Tests.MethodReturningTrueTest", (ICollection)result["SampleLogic.Tests2.SampleClass1Tests"]);
         }
 
         [Test()]
@@ -64,15 +67,16 @@ namespace VisualMutator.Model.Tests.Services.Tests
         {
             var subject = _kernel.Get<INUnitWrapper>();
 
-            var result = subject.LoadTests(new string[] { TestProjects.SampleNunit2AssemblyPath, TestProjects.SampleNunit3AssemblyPath });
+            var testDllPath2 = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath), @"..\..\..\..\Tests\SampleTestProjectsForTestDiscoveryAndExecution\SampleLogicNunit2Tests\bin\SampleLogicNunit2Tests.dll"));
+            var testDllPath3 = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath), @"..\..\..\..\Tests\SampleTestProjectsForTestDiscoveryAndExecution\SampleLogicNunit3Tests\bin\SampleLogicNunit3Tests.dll"));
 
-            Assert.Contains(TestProjects.SampleNunit2AssemblyPath, (ICollection)result.Keys);
-            Assert.Contains("SampleLogic.Tests2.SampleClass1Tests", (ICollection)result[TestProjects.SampleNunit2AssemblyPath].Keys);
-            Assert.Contains("SampleLogic.Tests2.SampleClass1Tests.MethodReturningTrueTest", result[TestProjects.SampleNunit2AssemblyPath]["SampleLogic.Tests2.SampleClass1Tests"].ToArray());
+            var result = subject.LoadTests(new string[] { testDllPath2, testDllPath3 });
 
-            Assert.Contains(TestProjects.SampleNunit3AssemblyPath, (ICollection)result.Keys);
-            Assert.Contains("SampleLogic.Tests3.SampleClass1Tests", (ICollection)result[TestProjects.SampleNunit3AssemblyPath].Keys);
-            Assert.Contains("SampleLogic.Tests3.SampleClass1Tests.MethodReturningTrueTest", result[TestProjects.SampleNunit3AssemblyPath]["SampleLogic.Tests3.SampleClass1Tests"].ToArray());
+            Assert.Contains("SampleLogic.Tests2.SampleClass1Tests", (ICollection)result.Keys);
+            Assert.Contains("SampleLogic.Tests2.SampleClass1Tests.MethodReturningTrueTest", (ICollection)result["SampleLogic.Tests2.SampleClass1Tests"]);
+
+            Assert.Contains("SampleLogic.Tests3.SampleClass1Tests", (ICollection)result.Keys);
+            Assert.Contains("SampleLogic.Tests3.SampleClass1Tests.MethodReturningTrueTest", (ICollection)result["SampleLogic.Tests3.SampleClass1Tests"]);
         }
     }
 }

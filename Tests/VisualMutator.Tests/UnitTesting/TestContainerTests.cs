@@ -3,7 +3,7 @@
     #region
 
     using System.Threading;
-    using VisualMutator.Model.Tests;
+    using Model.Tests;
     using NUnit.Framework;
 
     #endregion

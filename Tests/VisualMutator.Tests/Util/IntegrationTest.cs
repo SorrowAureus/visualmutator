@@ -22,7 +22,6 @@
                 {
                     Layout = new SimpleLayout()
                 });
-
             _log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
             _kernel = new StandardKernel();

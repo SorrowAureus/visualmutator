@@ -1,6 +1,5 @@
 ﻿namespace VisualMutator.Model.Tests
 {
-    using System.Collections.Generic;
     using System.IO;
     using System.Linq;
     using System.Reflection;
@@ -42,32 +41,30 @@
             return xUnitConsolePath;
         }
 
-        public May<IEnumerable<TestsLoadContext>> LoadTests(IEnumerable<string> assemblyPath)
+        public May<TestsLoadContext> LoadTests(string assemblyPath)
         {
-            return May.NoValue;
+            _log.Info("XUnit loading tests...");
+            var cci = new CciModuleSource(assemblyPath);
 
-            //_log.Info("XUnit loading tests...");
-            //var cci = new CciModuleSource(assemblyPath);
+            var visitor = new XUnitTestsVisitor();
+            var traverser = new CodeTraverser
+            {
+                PreorderVisitor = visitor
+            };
 
-            //var visitor = new XUnitTestsVisitor();
-            //var traverser = new CodeTraverser
-            //{
-            //    PreorderVisitor = visitor
-            //};
+            traverser.Traverse(cci.Module.Module);
 
-            //traverser.Traverse(cci.Module.Module);
-
-            //var classes = visitor.Classes.Where(c => c.Children.Count != 0).ToList();
-            //if (classes.Count != 0)
-            //{
-            //    _log.Info("Tests loaded (" + classes.Count + " classes).");
-            //    return new May<TestsLoadContext>(new TestsLoadContext(FrameWorkName, classes));
-            //}
-            //else
-            //{
-            //    _log.Info("No tests found.");
-            //    return May.NoValue;
-            //}
+            var classes = visitor.Classes.Where(c => c.Children.Count != 0).ToList();
+            if (classes.Count != 0)
+            {
+                _log.Info("Tests loaded (" + classes.Count + " classes).");
+                return new May<TestsLoadContext>(new TestsLoadContext(FrameWorkName, classes));
+            }
+            else
+            {
+                _log.Info("No tests found.");
+                return May.NoValue;
+            }
         }
 
         public void Cancel()

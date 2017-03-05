@@ -2,7 +2,7 @@
 {
     using System.IO;
     using System.Linq;
-    using VisualMutator.Model.StoringMutants;
+    using Model.StoringMutants;
     using Ninject;
     using NUnit.Framework;
     using SoftwareApproach.TestingExtensions;

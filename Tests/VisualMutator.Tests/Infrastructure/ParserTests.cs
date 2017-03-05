@@ -1,6 +1,6 @@
 ﻿namespace VisualMutator.Tests.Infrastructure
 {
-    using VisualMutator.Model;
+    using Model;
     using NUnit.Framework;
     using SoftwareApproach.TestingExtensions;
 

@@ -13,7 +13,13 @@
     using log4net.Config;
     using log4net.Layout;
     using Microsoft.Cci.MutableCodeModel;
-
+    using Model;
+    using Model.Decompilation;
+    using Model.Decompilation.CodeDifference;
+    using Model.Mutations;
+    using Model.Mutations.MutantsTree;
+    using Model.Mutations.Types;
+    using Model.StoringMutants;
     using NUnit.Framework;
     using OperatorsStandard.Operators;
     using Roslyn.Compilers;
@@ -23,17 +29,10 @@
     using UsefulTools.Core;
     using UsefulTools.ExtensionMethods;
     using Util;
-    using VisualMutator.Model;
-    using VisualMutator.Model.Decompilation;
-    using VisualMutator.Model.Decompilation.CodeDifference;
-    using VisualMutator.Model.Mutations;
-    using VisualMutator.Model.Mutations.MutantsTree;
-    using VisualMutator.Model.Mutations.Types;
-    using VisualMutator.Model.StoringMutants;
 
     #endregion
 
-    [TestFixture, Explicit]
+    [TestFixture,Explicit]
     public class MutationTestsHelper
     {
         protected static readonly ILog _log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);

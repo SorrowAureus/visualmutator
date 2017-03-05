@@ -4,7 +4,7 @@
 
     using System.Collections.Generic;
     using System.Linq;
-    using VisualMutator.Model.CoverageFinder;
+    using Model.CoverageFinder;
     using NUnit.Framework;
     using SoftwareApproach.TestingExtensions;
     using VisualMutator.Infrastructure;

@@ -256,7 +256,6 @@
     <Compile Include="Model\Tests\Services\NUnitTestsRunContextTests.cs" />
     <Compile Include="Model\Tests\Services\NUnitWrapperTests.cs" />
     <Compile Include="Model\Tests\Services\NUnitXmlTestServiceTests.cs" />
-    <Compile Include="Model\Tests\TestsLoaderTests.cs" />
     <Compile Include="Mutations\CciMethodMatchingTests.cs" />
     <Compile Include="Mutations\MutantsContainerTests.cs" />
     <Compile Include="Mutations\NamespaceGrouperTests.cs" />

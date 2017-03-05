@@ -20,7 +20,7 @@
     {
         ITestFilter NameFilter { get; }
 
-        IDictionary<string, IDictionary<string, IEnumerable<string>>> LoadTests(IEnumerable<string> assemblies);
+        IDictionary<string, List<string>> LoadTests(IEnumerable<string> assemblies);
 
         void UnloadProject();
     }
@@ -41,32 +41,23 @@
             this.SettingsManager = settingsManager;
         }
 
-        public IDictionary<string, IDictionary<string, IEnumerable<string>>> LoadTests(IEnumerable<string> assemblies)
+        public IDictionary<string, List<string>> LoadTests(IEnumerable<string> assemblies)
         {
             var enumerableAssemblies = assemblies as IList<string> ?? assemblies.ToList();
 
-            var result = new Dictionary<string, IDictionary<string, IEnumerable<string>>>();
-
             XElement xml = GetNunitTestsFromAssemblies(enumerableAssemblies);
 
-            var testAssemblies = xml.Descendants("test-suite").Where(p => p.Attributes("type").Single().Value == "Assembly");
+            var testFixtures = xml.Descendants("test-suite").Where(p => p.Attributes("type").Single().Value == "TestFixture");
 
-            foreach (var testAssembly in testAssemblies)
+            var result = new Dictionary<string, List<string>>();
+
+            foreach (var item in testFixtures)
             {
-                var testAssemblyFullName = testAssembly.Attributes("fullname").Single().Value;
+                var testFixtureFullName = item.Attributes("fullname").Single().Value;
 
-                result.Add(testAssemblyFullName, new Dictionary<string, IEnumerable<string>>());
+                var testCases = item.Descendants("test-case").SelectMany(p => p.Attributes("fullname").Select(q => q.Value)).ToList();
 
-                var testFixtures = testAssembly.Descendants("test-suite").Where(p => p.Attributes("type").Single().Value == "TestFixture");
-
-                foreach (var testFixture in testFixtures)
-                {
-                    var testFixtureFullName = testFixture.Attributes("fullname").Single().Value;
-
-                    var testCases = new HashSet<string>(testFixture.Descendants("test-case").SelectMany(p => p.Attributes("fullname").Select(q => q.Value)));
-
-                    result[testAssemblyFullName].Add(testFixtureFullName, testCases);
-                }
+                result.Add(testFixtureFullName, testCases);
             }
 
             return result;

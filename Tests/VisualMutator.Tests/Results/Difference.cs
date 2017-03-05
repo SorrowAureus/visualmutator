@@ -3,7 +3,7 @@
     #region
 
     using System;
-    using VisualMutator.Model.Decompilation.CodeDifference;
+    using Model.Decompilation.CodeDifference;
     using NUnit.Framework;
 
     #endregion

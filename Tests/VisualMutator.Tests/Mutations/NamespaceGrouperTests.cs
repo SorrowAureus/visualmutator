@@ -5,11 +5,11 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using VisualMutator.Model.Mutations;
-    using VisualMutator.Model.Mutations.MutantsTree;
-    using VisualMutator.Model.Mutations.Types;
-    using VisualMutator.Model.Tests;
-    using VisualMutator.Model.Tests.TestsTree;
+    using Model.Mutations;
+    using Model.Mutations.MutantsTree;
+    using Model.Mutations.Types;
+    using Model.Tests;
+    using Model.Tests.TestsTree;
     using NUnit.Framework;
     using SoftwareApproach.TestingExtensions;
     using UsefulTools.CheckboxedTree;

@@ -23,10 +23,10 @@
                         }.ToDictionary(s => s.FrameWorkName);
         }
 
-        public async Task<List<TestsLoadContext>> LoadTests(IEnumerable<string> assemblyPath)
+        public async Task<List<TestsLoadContext>> LoadTests(string assemblyPath)
         {
             var r = await Task.WhenAll(_services.Values.Select(s => Task.Run(() => s.LoadTests(assemblyPath))));
-            return r.Where(m => m.HasValue).Select(m => m.ForceGetValue()).SelectMany(p => p).ToList();
+            return r.Where(m => m.HasValue).Select(m => m.ForceGetValue()).ToList();
         }
 
         public ITestsRunContext CreateRunContext(TestsLoadContext loadContext, string mutatedPath)

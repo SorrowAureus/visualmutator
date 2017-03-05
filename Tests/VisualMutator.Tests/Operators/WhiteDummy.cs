@@ -4,8 +4,8 @@
     using System.IO;
     using System.Linq;
     using System.Threading.Tasks;
-    using VisualMutator.Model;
-    using VisualMutator.Model.StoringMutants;
+    using Model;
+    using Model.StoringMutants;
 
     public class WhiteDummy : IWhiteSource
     {
