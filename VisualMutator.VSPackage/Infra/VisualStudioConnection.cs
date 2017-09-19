@@ -131,14 +131,14 @@
 
         public IEnumerable<DirectoryPathAbsolute> GetProjectPaths()
         {
-            return from project in _dte.Solution.Cast<Project>()
+            return (from project in _dte.Solution.Cast<Project>()
                    let confManager = project.ConfigurationManager
                    where confManager != null
                          && confManager.ActiveConfiguration != null
                          && confManager.ActiveConfiguration.IsBuildable
                    let values = project.Properties.Cast<Property>().ToDictionary(prop => prop.Name)
                    where values.ContainsKey("LocalPath")
-                   select values["LocalPath"].Value.CastTo<string>().ToDirPathAbs();
+                   select values["LocalPath"].Value.CastTo<string>().ToDirPathAbs()).Select(p => new DirectoryPathAbsolute(p)); ;
         }
 
         public void Test()
@@ -224,7 +224,7 @@
                 Collect(project, listt);
             }
 
-            return from project in listt
+            return (from project in listt
                    where project.ConfigurationManager != null
                    let config = project.ConfigurationManager.ActiveConfiguration
                    where config != null && config.IsBuildable
@@ -235,7 +235,7 @@
                    let outputFileName = values["OutputFileName"].Value.CastTo<string>()
                    let outputDir = (string)config.Properties.Cast<Property>()
                         .Single(p => p.Name == "OutputPath").Value
-                   select Path.Combine(localPath, outputDir, outputFileName).ToFilePathAbs();
+                   select Path.Combine(localPath, outputDir, outputFileName).ToFilePathAbs()).Select(p=> new FilePathAbsolute(p));
         }
 
         public string GetMutantsRootFolderPath()
