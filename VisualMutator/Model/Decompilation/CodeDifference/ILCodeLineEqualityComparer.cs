@@ -1,3 +1,5 @@
+using System;
+
 namespace VisualMutator.Model.Decompilation.CodeDifference
 {
     #region
@@ -9,7 +11,7 @@ namespace VisualMutator.Model.Decompilation.CodeDifference
 
     public class ILCodeLineEqualityComparer : IEqualityComparer<string>
     {
-        private IEqualityComparer<string> baseComparer = EqualityComparer<string>.Default;
+        private readonly IEqualityComparer<string> baseComparer = EqualityComparer<string>.Default;
 
         public bool Equals(string x, string y)
         {
@@ -31,7 +33,7 @@ namespace VisualMutator.Model.Decompilation.CodeDifference
 
             line = regex.Replace(line, "");
 
-            var index = line.IndexOf("//");
+            var index = line.IndexOf("//", StringComparison.Ordinal);
             if (index >= 0)
             {
                 return line.Substring(0, index);

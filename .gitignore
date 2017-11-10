@@ -11,3 +11,7 @@ nunitconsole
 .sonarqube
 /nunit3TestResult.xml
 /nunit2TestResult.xml
+/.vs/VisualMutator/v15
+/Backup
+/UpgradeLog2.htm
+/UpgradeLog.htm

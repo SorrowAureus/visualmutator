@@ -36,19 +36,19 @@
             }
         }
 
-        [CanBeNull]
+
         public PdbReader PdbReader
         {
             get; set;
         }
 
-        [CanBeNull]
+
         public ILocalScopeProvider LocalScopeProvider
         {
             get; set;
         }
 
-        [CanBeNull]
+
         public CciModuleSource SubCci
         {
             get; set;

@@ -37,11 +37,11 @@ namespace VisualMutator.Model.Tests
 
         private async Task LoadFor(IEnumerable<string> path1, TestsRootNode testsRootNode)
         {
-            var contexts = await _testServiceManager.LoadTests(path1);
+            List<TestsLoadContext> contexts = await _testServiceManager.LoadTests(path1);
 
-            foreach (var testContext in contexts.OrderBy(p => p.AssemblyName))
+            foreach (var testContext in contexts.OrderBy(p => p.FrameworkName))
             {
-                var testNodeAssembly = new TestNodeAssembly(testsRootNode, testContext.AssemblyName);
+                var testNodeAssembly = new TestNodeAssembly(testsRootNode, testContext.FrameworkName);
 
                 testNodeAssembly.TestsLoadContexts = new List<TestsLoadContext> { testContext };
 

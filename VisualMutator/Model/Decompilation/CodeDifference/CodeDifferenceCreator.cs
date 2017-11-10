@@ -47,14 +47,7 @@
                 .Case(CodeLanguage.IL, () => new ILCodeLineEqualityComparer())
                 .GetResult();
 
-            //var differ = new Differ(
-            //    NormalizeAndSplitCode(input1),
-            //    NormalizeAndSplitCode(input2),
-            //    eq,
-            //    new StringSimilarityComparer(),
-            //    new StringAlignmentFilter());
-
-            int line1 = 0, line2 = 0;
+          int line1 = 0, line2 = 0;
 
             var list = new List<LineChange>();
             foreach (var change in new InlineDiffBuilder(new Differ()).BuildDiffModel(input1, input2).Lines)

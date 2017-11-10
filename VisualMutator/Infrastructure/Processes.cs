@@ -24,9 +24,9 @@
 
         Task<ProcessResults> RunAsync(string fileName, string arguments);
 
-        Task<ProcessResults> RunAsync(string fileName, string userName, SecureString password, string domain);
+        //Task<ProcessResults> RunAsync(string fileName, string userName, SecureString password, string domain);
 
-        Task<ProcessResults> RunAsync(string fileName, string arguments, string userName, SecureString password, string domain);
+        //Task<ProcessResults> RunAsync(string fileName, string arguments, string userName, SecureString password, string domain);
     }
 
     public class Processes : IProcesses
@@ -62,16 +62,6 @@
         public Task<ProcessResults> RunAsync(string fileName, string arguments)
         {
             return ProcessEx.RunAsync(fileName, arguments);
-        }
-
-        public Task<ProcessResults> RunAsync(string fileName, string userName, SecureString password, string domain)
-        {
-            return ProcessEx.RunAsync(fileName, userName, password, domain);
-        }
-
-        public Task<ProcessResults> RunAsync(string fileName, string arguments, string userName, SecureString password, string domain)
-        {
-            return ProcessEx.RunAsync(fileName, arguments, userName, password, domain);
         }
 
         public Task<ProcessResults> RunAsync(ProcessStartInfo processStartInfo, CancellationTokenSource cancellationToken)

@@ -1,4 +1,6 @@
-﻿namespace VisualMutator.OperatorsStandard.Operators
+﻿using UsefulTools.ExtensionMethods;
+
+namespace VisualMutator.OperatorsStandard.Operators
 {
     using System.Collections.Generic;
     using System.Linq;

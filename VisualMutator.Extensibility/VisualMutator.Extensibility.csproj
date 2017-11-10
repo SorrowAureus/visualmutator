@@ -130,6 +130,7 @@
   <ItemGroup>
     <Compile Include="AstDescriptor.cs" />
     <Compile Include="AstFormatter.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="InvokInfo.cs" />
     <Compile Include="MutationVariant.cs" />
     <Compile Include="Traversing\IVisualCodeRewriter.cs" />
@@ -156,11 +157,6 @@
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="VisualMutator.Extensibility.ruleset" />
-  </ItemGroup>
-  <ItemGroup>
-    <Analyzer Include="..\packages\SonarAnalyzer.CSharp.1.22.0.1631\analyzers\Google.Protobuf.dll" />
-    <Analyzer Include="..\packages\SonarAnalyzer.CSharp.1.22.0.1631\analyzers\SonarAnalyzer.CSharp.dll" />
-    <Analyzer Include="..\packages\SonarAnalyzer.CSharp.1.22.0.1631\analyzers\SonarAnalyzer.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

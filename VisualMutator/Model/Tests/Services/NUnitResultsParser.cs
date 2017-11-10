@@ -31,42 +31,43 @@
             {
                 while (reader.Read())
                 {
-                    if (reader.Name == "test-suite")
-                    {
-                        if (reader.GetAttribute("type") == "Namespace" && reader.NodeType == XmlNodeType.Element)
-                        {
-                            nsStack.Push(reader.GetAttribute("name"));
-                        }
-                        if (reader.GetAttribute("type") == "Namespace" && reader.NodeType == XmlNodeType.EndElement)
-                        {
-                            nsStack.Pop();
-                        }
+                  switch (reader.Name)
+                  {
+                    case "test-suite":
+                      if (reader.GetAttribute("type") == "Namespace" && reader.NodeType == XmlNodeType.Element)
+                      {
+                        nsStack.Push(reader.GetAttribute("name"));
+                      }
+                      if (reader.GetAttribute("type") == "Namespace" && reader.NodeType == XmlNodeType.EndElement)
+                      {
+                        nsStack.Pop();
+                      }
 
-                        if (reader.NodeType == XmlNodeType.EndElement)
+                      if (reader.NodeType == XmlNodeType.EndElement)
+                      {
+                        isParametrizedTest = false;
+                        //currentClass = null;
+                      }
+                      else if (reader.NodeType == XmlNodeType.Element)
+                      {
+                        if (reader.GetAttribute("type") == "ParameterizedTest")
                         {
-                            isParametrizedTest = false;
-                            //currentClass = null;
+                          isParametrizedTest = true;
                         }
-                        else if (reader.NodeType == XmlNodeType.Element)
+                        if (reader.GetAttribute("type") == "TestFixture")
                         {
-                            if (reader.GetAttribute("type") == "ParameterizedTest")
-                            {
-                                isParametrizedTest = true;
-                            }
-                            if (reader.GetAttribute("type") == "TestFixture")
-                            {
-                                isParametrizedTest = false;
-                                //currentClass = new TestNodeClass(reader.GetAttribute("name"));
-                                //currentClass.Namespace = nsStack.Aggregate((a, b) => a + "." + b);
-                            }
+                          isParametrizedTest = false;
+                          //currentClass = new TestNodeClass(reader.GetAttribute("name"));
+                          //currentClass.Namespace = nsStack.Aggregate((a, b) => a + "." + b);
                         }
-                    }
-                    else if (reader.Name == "test-case" && reader.NodeType == XmlNodeType.Element)
-                    {
-                        var node = (XElement)XNode.ReadFrom(reader);
+                      }
+                      break;
+                    case "test-case" when reader.NodeType == XmlNodeType.Element:
+                      var node = (XElement)XNode.ReadFrom(reader);
 
-                        GetValue(resultDictionary, node, isParametrizedTest);
-                    }
+                      GetValue(resultDictionary, node, isParametrizedTest);
+                      break;
+                  }
                 }
             }
             catch (Exception e)
