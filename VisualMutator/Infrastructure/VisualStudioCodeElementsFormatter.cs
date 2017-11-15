@@ -34,7 +34,7 @@
             {
                 return methodName + "()";
             }
-            return methodName + ('(' + parameters.Aggregate((a, b) => a + ", " + b) + ')');
+            return methodName + ('(' + parameters.Aggregate((a, b) => a + "," + b) + ')');
         }
 
         private string ConvertGenericNotation(string fullName)

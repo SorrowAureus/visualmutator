@@ -11,10 +11,10 @@
     [TestFixture, Explicit]
     public class TestContainerTests
     {
-        public TestContainerTests(SelectedTests selectedTests)
-        {
-            _selectedTests = selectedTests;
-        }
+        //public TestContainerTests(SelectedTests selectedTests)
+        //{
+        //    _selectedTests = selectedTests;
+        //}
 
         private SelectedTests _selectedTests;
 

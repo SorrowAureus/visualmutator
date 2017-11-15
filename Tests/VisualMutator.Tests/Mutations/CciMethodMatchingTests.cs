@@ -1,4 +1,6 @@
-﻿namespace VisualMutator.Tests.Mutations
+﻿using VisualMutator.Tests.Operators;
+
+namespace VisualMutator.Tests.Mutations
 {
     #region
 
@@ -20,7 +22,7 @@
     [TestFixture("Ns.Class.Method1(System.String)")]
     [TestFixture("Ns.Class.Method1()")]
     [TestFixture("Ns.Class.Method2<U>(System.Collections.Generic.IEnumerable<U>)")]
-    [Explicit]
+   // [Explicit]
     public class CciMethodMatchingTests
     {
         private const string code = @"
@@ -73,7 +75,7 @@
                     Layout = new SimpleLayout()
                 });
 
-            _module = null;//TODO MutationTestsHelper.CreateModuleFromCode(code);
+            _module = MutationTestsHelper.CreateModuleFromCode(code).Module.Module;
         }
 
         [Test]
@@ -81,9 +83,9 @@
         {
             var searcher = new CciMethodMatcher(_context);
             var methods = _module.GetAllTypes().SelectMany(t => t.Methods).ToList();
-            IMethodDefinition method = methods.SingleOrDefault(searcher.Matches);
+            var methodsMatch = methods.Where(searcher.Matches).ToList();
 
-            Assert.IsNotNull(method);
+            Assert.IsNotNull(methodsMatch.Single());
         }
 
         [Test]

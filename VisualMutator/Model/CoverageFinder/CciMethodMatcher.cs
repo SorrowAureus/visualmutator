@@ -21,14 +21,13 @@
             var sig = CreateIdentifier(method);
             _log.Debug("matching: " + sig);
             //AKB to rethink
-            return sig.MethodNameWithoutParams == _identifier.MethodNameWithoutParams;
+            return sig.ClassName == _identifier.ClassName && sig.MethodName == _identifier.MethodName;
         }
 
         public bool Matches(ITypeReference typeReference)
         {
             typeReference = TypeHelper.UninstantiateAndUnspecialize(typeReference);
-            string name = TypeHelper.GetTypeName(typeReference,
-                    NameFormattingOptions.TypeParameters);
+            var name = TypeHelper.GetTypeName(typeReference, NameFormattingOptions.TypeParameters);
             _log.Debug("Matching type : " + name + " by " + _identifier.ClassName);
             return _identifier.ClassName == name;
         }

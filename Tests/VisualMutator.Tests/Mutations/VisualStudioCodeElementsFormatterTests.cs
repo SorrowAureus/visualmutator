@@ -31,7 +31,7 @@
             _params = paramsEncoded.Length != 0 ? paramsEncoded.Split(';').ToList() : new List<string>();
         }
 
-        [Test, Explicit]
+        [Test]
         public void Test1()
         {
             var formatter = new VisualStudioCodeElementsFormatter();

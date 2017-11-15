@@ -90,9 +90,9 @@
                     return May.NoValue;
                 }
 
-                var classNodes = BuildTestTree(testRoot);
+                var classNodes = BuildTestTree(testRoot).ToList();
 
-                var context = new TestsLoadContext(FrameworkName, classNodes.ToList());
+                var context = new TestsLoadContext(FrameworkName, classNodes);
 
                 UnloadTests();
 

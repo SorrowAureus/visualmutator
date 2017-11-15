@@ -1,54 +1,33 @@
-﻿namespace VisualMutator.Console
-{
-    using System.Threading.Tasks;
-    using Console = System.Console;
+﻿using System;
+using CommandLine;
 
-    internal class Program
-    {
-        public Program()
+namespace VisualMutator.Console {
+  using System.Threading.Tasks;
+  using Console = System.Console;
+    //--sourceAssemblies D:\ovs\Codility\MaxCountersTests\bin\Debug\MaxCounters.dll --testAssemblies D:\ovs\Codility\MaxCountersTests\bin\Debug\MaxCountersTests.dll --resultsXml d:\pavzaj.xml
+  internal class Program {
+    private static void Main(string[] args) {
+      Console.WriteLine("Started VisualMutator.Console with params: " + args.MakeString());
+
+      if (args.Length >= 5)
+      {
+        var parser = new CommandLineParser();
+        if (Parser.Default.ParseArguments(args, parser))
         {
-            T2();
-            T1();
+          var connection = new EnvironmentConnection(parser);
+          var boot = new ConsoleBootstrapper(connection, parser);
+          boot.Initialize().GetAwaiter().GetResult();
         }
-
-        private async Task<object> L1()
+        else
         {
-            int i = 0;
-            return await Task.Run(() =>
-            {
-                while (i >= 0)
-                {
-                }
-                return new object();
-            });
+          //
+          // var str = options.LastParserState.Errors.Select(a=>a.ToString()).Aggregate((a, b) => a.ToString() + "n" + b.ToString());
+          Console.WriteLine("Invalid params string in options.: " + args);
         }
-
-        private async Task T2()
-        {
-            await L1();
-        }
-
-        private async Task T1()
-        {
-            await L1();
-        }
-
-        private static void Main(string[] args)
-        {
-            Console.WriteLine("Started VisualMutator.Console with params: " + args.MakeString());
-
-            if (args.Length >= 5)
-            {
-                var parser = new CommandLineParser();
-                parser.ParseFrom(args);
-                var connection = new EnvironmentConnection(parser);
-                var boot = new ConsoleBootstrapper(connection, parser);
-                boot.Initialize().Wait();
-            }
-            else
-            {
-                Console.WriteLine("Too few parameters.");
-            }
-        }
+      }
+      else {
+        Console.WriteLine("Too few parameters.");
+      }
     }
+  }
 }
